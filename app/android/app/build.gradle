@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.get_pong"
+        applicationId "com.getitnordic.get_pong"
         minSdkVersion localProperties.getProperty('flutter.minSdkVersion').toInteger()
         targetSdkVersion localProperties.getProperty('flutter.targetSdkVersion').toInteger()
         versionCode flutterVersionCode.toInteger()
@@ -55,6 +55,19 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+        }
+    }
+    flavorDimensions "app"
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationIdSuffix '.dev'
+            versionNameSuffix "-dev"
+            resValue "string", "app_name", "GetPong Dev"
+        }
+        prod {
+            applicationId 'com.su93rheroes.bankofmnd'
+            resValue "string", "app_name", "GetPong"
         }
     }
 }
