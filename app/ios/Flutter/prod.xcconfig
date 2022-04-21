@@ -1,0 +1,4 @@
+#include "Generated.xcconfig"
+PRODUCT_BUNDLE_IDENTIFIER=com.getitnordic.getPong
+FLUTTER_TARGET=lib/main_prod.dart
+APP_NAME=GetPong

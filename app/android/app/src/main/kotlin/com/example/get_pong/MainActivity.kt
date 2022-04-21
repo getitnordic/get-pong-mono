@@ -1,4 +1,4 @@
-package com.example.get_pong
+package com.getitnordic.get_pong
 
 import io.flutter.embedding.android.FlutterActivity
 
