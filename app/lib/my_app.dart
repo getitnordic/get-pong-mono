@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/pages/pages.dart';
+import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
+
+import 'config/themes/my_theme.dart';
 
 class MyApp extends StatelessWidget {
-  final ThemeData themeDataLight;
-  final ThemeData themeDataDark;
-  const MyApp({
-    Key? key,
-    required this.themeDataLight,
-    required this.themeDataDark,
-  }) : super(key: key);
+  const MyApp({Key? key, ThemeData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: themeDataLight,
-      darkTheme: themeDataDark,
+      theme: Customtheme.mainTheme,
       home: const HomePage(),
     );
   }
 }
+
+//FÖR KÖRA PROD BEHÖVS DESSA TEMAN:IN EFTER CLASS MYAPP EXTEMDS STATELESSWIDGET
+  // final ThemeData themeDataLight;
+  // final ThemeData themeDataDark;
+  // const MyApp({
+  //   Key? key,
+  //   required this.themeDataLight,
+  //   required this.themeDataDark,
+  // }) : super(key: key);
