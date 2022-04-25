@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/pages/pages.dart';
+import 'package:get_pong/src/presentation/pages/pages.dart';
 
 class MyApp extends StatelessWidget {
   final ThemeData themeDataLight;
