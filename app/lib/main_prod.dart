@@ -5,6 +5,6 @@ import 'my_app.dart';
 
 void main() {
   runApp(MyApp(
-    ThemeData: Customtheme.prodTheme,
+    themeData: Customtheme.prodTheme,
   ));
 }

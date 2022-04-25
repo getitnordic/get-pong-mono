@@ -11,13 +11,13 @@ import 'config/themes/my_theme.dart';
 // >>>>>>> 6a03785e813181f5efb878518fe8fc0869fd91c2
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, ThemeData}) : super(key: key);
-
+  const MyApp({Key? key, required this.themeData}) : super(key: key);
+  final ThemeData themeData;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: Customtheme.mainTheme,
+      theme: themeData,
       home: const HomePage(),
     );
   }
