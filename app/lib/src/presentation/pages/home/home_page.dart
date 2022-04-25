@@ -12,9 +12,20 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(title: const Text('HOME')),
       body: Column(
         children: [
-          Text('olof', style: GoogleFonts.goldman()),
-          const Center(child: Text('HOMEPAGE')),
-          MyBigButton(buttonText: 'pressMe')
+          const Center(
+            child: Text(
+              'Create Match',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 40,
+              ),
+            ),
+          ),
+          MyPlayerAvatar(),
+          MyPlayerAvatar(),
+          MyPlayerAvatar(),
+          MyPlayerAvatar(),
+          MyBigButton(buttonText: 'pressMe'),
         ],
       ),
       bottomNavigationBar: const MyBottomNavBar(),
