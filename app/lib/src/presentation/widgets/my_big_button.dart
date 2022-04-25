@@ -21,7 +21,7 @@ class MyBigButton extends StatelessWidget {
           child: Center(
             child: Text(
               buttonText,
-              style: GoogleFonts.goldman(fontSize: 40),
+              style: GoogleFonts.goldman(fontSize: 40, color: Colors.white),
             ),
           ),
         ),
