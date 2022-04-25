@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
 
 import 'config/themes/my_theme.dart';
+// <<<<<<< HEAD
+// import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
+
+// import 'config/themes/my_theme.dart';
+// =======
+// import 'package:get_pong/src/presentation/pages/pages.dart';
+// >>>>>>> 6a03785e813181f5efb878518fe8fc0869fd91c2
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, ThemeData}) : super(key: key);
