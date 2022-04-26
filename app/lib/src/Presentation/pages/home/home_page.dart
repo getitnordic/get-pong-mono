@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/my_theme.dart';
 import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,7 +9,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(26, 52, 74, 1),
       appBar: AppBar(title: const Text('HOME')),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

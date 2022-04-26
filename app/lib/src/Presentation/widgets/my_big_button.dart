@@ -13,7 +13,7 @@ class MyBigButton extends StatelessWidget {
         onTap: () => print('bigButtonTap'),
         child: Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.deepOrange),
+            border: Border.all(color: Theme.of(context).primaryColor),
             borderRadius: BorderRadius.circular(10),
           ),
           width: double.infinity,
@@ -21,7 +21,7 @@ class MyBigButton extends StatelessWidget {
           child: Center(
             child: Text(
               buttonText,
-              style: GoogleFonts.goldman(fontSize: 40, color: Colors.white),
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
         ),
