@@ -5,10 +5,14 @@ class MyBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(items: [
-      BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
-      BottomNavigationBarItem(icon: Icon(Icons.group), label: 'players'),
-      BottomNavigationBarItem(icon: Icon(Icons.sports_tennis), label: 'play')
-    ]);
+    return BottomNavigationBar(
+      backgroundColor:
+          Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+      items: [
+        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
+        BottomNavigationBarItem(icon: Icon(Icons.group), label: 'players'),
+        BottomNavigationBarItem(icon: Icon(Icons.sports_tennis), label: 'play')
+      ],
+    );
   }
 }
