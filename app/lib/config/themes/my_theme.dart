@@ -12,6 +12,7 @@ class Customtheme {
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedLabelStyle: GoogleFonts.goldman(),
         unselectedLabelStyle: GoogleFonts.goldman(),
+        backgroundColor: Color.fromARGB(255, 23, 44, 63),
       ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
@@ -27,16 +28,20 @@ class Customtheme {
 
   static ThemeData get prodTheme {
     return ThemeData(
+      dividerColor: Color.fromARGB(255, 48, 95, 129),
       primaryColor: Colors.black,
       backgroundColor: Colors.grey,
-      scaffoldBackgroundColor: Colors.grey,
+      scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: Color.fromARGB(255, 248, 114, 39),
+        unselectedItemColor: Color.fromARGB(255, 130, 164, 193),
         selectedLabelStyle: GoogleFonts.goldman(),
         unselectedLabelStyle: GoogleFonts.goldman(),
+        backgroundColor: Color.fromARGB(255, 23, 44, 63),
       ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
-            bodyText2: GoogleFonts.goldman(),
+            bodyText2: GoogleFonts.goldman(fontSize: 40, color: Colors.white),
           ),
     );
   }
