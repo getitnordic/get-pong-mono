@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyVsDevider extends StatelessWidget {
-  const MyVsDevider({Key? key}) : super(key: key);
+  const MyVsDevider({Key? key, this.dividerColor}) : super(key: key);
+  final Color? dividerColor;
 
   @override
   Widget build(BuildContext context) {
@@ -12,12 +13,12 @@ class MyVsDevider extends StatelessWidget {
           thickness: 1,
           indent: 0,
           endIndent: 10,
-          color: Colors.black,
         ),
       ),
       Text(
         'VS',
         textAlign: TextAlign.center,
+        style: TextStyle(color: Theme.of(context).dividerColor),
       ),
       Expanded(
         child: const Divider(
@@ -25,7 +26,6 @@ class MyVsDevider extends StatelessWidget {
           thickness: 1,
           indent: 10,
           endIndent: 0,
-          color: Colors.black,
         ),
       ),
     ]);

@@ -27,6 +27,7 @@ class Customtheme {
 
   static ThemeData get prodTheme {
     return ThemeData(
+      dividerColor: Color.fromARGB(255, 48, 95, 129),
       primaryColor: Colors.black,
       backgroundColor: Colors.grey,
       scaffoldBackgroundColor: Colors.grey,
@@ -36,7 +37,7 @@ class Customtheme {
       ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
-            bodyText2: GoogleFonts.goldman(),
+            bodyText2: GoogleFonts.goldman(fontSize: 40, color: Colors.white),
           ),
     );
   }
