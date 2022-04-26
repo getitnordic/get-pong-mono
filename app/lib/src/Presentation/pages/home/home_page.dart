@@ -10,12 +10,23 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('HOME')),
-      body: Column(
-        children: [
-          Text('olof', style: GoogleFonts.goldman()),
-          const Center(child: Text('HOMEPAGE')),
-          MyBigButton(buttonText: 'pressMe')
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            const Center(
+              child: Text(
+                'Create Match',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 40,
+                ),
+              ),
+            ),
+            MyPlayerAvatar(title: 'test namn', onTap: () => print('hejehje')),
+            MyBigButton(buttonText: 'pressMe'),
+          ],
+        ),
       ),
       bottomNavigationBar: const MyBottomNavBar(),
       floatingActionButton: FloatingActionButton(
