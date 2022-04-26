@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 
 class MyPlayerAvatar extends StatelessWidget {
-  const MyPlayerAvatar({Key? key}) : super(key: key);
-
+  const MyPlayerAvatar({Key? key, required this.title, required this.onTap})
+      : super(key: key);
+  final VoidCallback onTap;
+  final String title;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        CircleAvatar(
-          radius: 20.0,
-          backgroundImage: AssetImage('assets/images/monkey.jpg'),
+    return ListTile(
+      onTap: onTap,
+      leading: CircleAvatar(
+        radius: 20.0,
+        backgroundImage: AssetImage('assets/images/monkey.jpg'),
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 20,
+          color: Colors.white,
         ),
-        Text(
-          'Player name',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-          ),
+      ),
+      trailing: IconButton(
+        onPressed: () {},
+        icon: Icon(
+          Icons.list,
+          color: Colors.deepOrange,
         ),
-      ],
+      ),
     );
   }
 }
