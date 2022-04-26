@@ -23,8 +23,16 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            MyPlayerAvatar(title: 'test namn', onTap: () => print('hejehje')),
-            MyBigButton(buttonText: 'pressMe'),
+            MyPlayerAvatar(
+              title: 'test namn',
+              onTap: () => print('hejehje'),
+            ),
+            MyVsDevider(),
+            MyPlayerAvatar(
+              title: 'test namn',
+              onTap: () => print('hejehje'),
+            ),
+            MyBigButton(buttonText: 'create match'),
           ],
         ),
       ),
