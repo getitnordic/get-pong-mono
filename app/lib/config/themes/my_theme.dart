@@ -39,6 +39,11 @@ class Customtheme {
         unselectedLabelStyle: GoogleFonts.goldman(),
         backgroundColor: Color.fromARGB(255, 23, 44, 63),
       ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Color.fromARGB(255, 23, 44, 63),
+        titleTextStyle: GoogleFonts.gochiHand(
+            color: Color.fromARGB(255, 130, 164, 193), fontSize: 20),
+      ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
             bodyText2: GoogleFonts.goldman(fontSize: 40, color: Colors.white),
