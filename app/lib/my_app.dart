@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
 
-import 'config/themes/my_theme.dart';
+// import 'config/themes/my_theme.dart';
 // <<<<<<< HEAD
 // import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
 
