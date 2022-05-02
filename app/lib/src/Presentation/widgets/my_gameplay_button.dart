@@ -24,6 +24,7 @@ final changeTheme = ChangeNotifierProvider.autoDispose((ref) {
 class GameTypeButton extends ConsumerWidget {
   const GameTypeButton({
     Key? key,
+    theme,
   }) : super(key: key);
 
   @override
@@ -51,6 +52,7 @@ class GameTypeButton extends ConsumerWidget {
               // ref.read(colorProvider.notifier).state;
             },
             child: const Text('Single'),
+            // isSelectedMode ? Texts.pressedButtonTheme : Texts.notPressed,
           ),
           TextButton(
             style: TextButton.styleFrom(

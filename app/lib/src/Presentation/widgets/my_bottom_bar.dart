@@ -9,9 +9,10 @@ class MyBottomNavBar extends StatelessWidget {
       backgroundColor:
           Theme.of(context).bottomNavigationBarTheme.backgroundColor,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'search'),
-        BottomNavigationBarItem(icon: Icon(Icons.group), label: 'players'),
-        BottomNavigationBarItem(icon: Icon(Icons.sports_tennis), label: 'play')
+        BottomNavigationBarItem(
+            icon: Icon(Icons.sports_tennis), label: 'Spela'),
+        BottomNavigationBarItem(icon: Icon(Icons.menu), label: 'Matcher'),
+        BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Spelare'),
       ],
     );
   }
