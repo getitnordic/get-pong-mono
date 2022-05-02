@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/config/themes/my_theme.dart';
 import 'package:get_pong/src/presentation/widgets/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../../../config/themes/theme.dart';
+import '../../widgets/my_gameplay_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
+            const GameTypeButton(),
             const Center(
               child: Text(
                 'Create Match',
@@ -27,12 +28,12 @@ class HomePage extends StatelessWidget {
               title: 'test namn',
               onTap: () => print('hejehje'),
             ),
-            MyVsDevider(),
+            const MyVsDevider(),
             MyPlayerAvatar(
               title: 'test namn',
               onTap: () => print('hejehje'),
             ),
-            MyBigButton(buttonText: 'create match'),
+            const MyBigButton(buttonText: 'create match'),
           ],
         ),
       ),

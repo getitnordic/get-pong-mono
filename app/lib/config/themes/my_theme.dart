@@ -26,6 +26,19 @@ class Customtheme {
     );
   }
 
+  static final pressedButtonTheme = ThemeData(
+    textTheme: Typography.material2018().white.copyWith(
+          headline6: GoogleFonts.goldman(
+              fontSize: 40, color: Color.fromARGB(255, 130, 164, 193)),
+        ),
+  );
+  static final notPressed = ThemeData(
+    textTheme: Typography.material2018().white.copyWith(
+          headline6: GoogleFonts.goldman(
+              fontSize: 40, color: Color.fromARGB(255, 248, 114, 39)),
+        ),
+  );
+
   static ThemeData get prodTheme {
     return ThemeData(
       dividerColor: Color.fromARGB(255, 48, 95, 129),
