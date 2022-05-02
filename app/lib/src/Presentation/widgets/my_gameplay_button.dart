@@ -1,37 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final colorProvider = StateProvider((ref) => Colors.white);
+import '../pages/home/home_page.dart';
 
-class ChangeThemeState extends ChangeNotifier {
-  bool selectMode = false;
+// final colorProvider = StateProvider((ref) => Colors.white);
 
-  void enableSelectedMode() {
-    selectMode = true;
-    notifyListeners();
-  }
+// class ChangeThemeState extends ChangeNotifier {
+//   bool selectMode = false;
 
-  void enableUnselectedMode() {
-    selectMode = false;
-    notifyListeners();
-  }
-}
+//   void enableSelectedMode() {
+//     selectMode = true;
+//     notifyListeners();
+//   }
 
-final changeTheme = ChangeNotifierProvider.autoDispose((ref) {
-  return ChangeThemeState();
-});
+//   void enableUnselectedMode() {
+//     selectMode = false;
+//     notifyListeners();
+//   }
+// }
 
-class GameTypeButton extends ConsumerWidget {
+// final changeTheme = ChangeNotifierProvider.autoDispose((ref) {
+//   return ChangeThemeState();
+// });
+
+class GameTypeButton extends StatelessWidget {
+  final int currentIndex;
+  final Function(int index) onChange;
   const GameTypeButton({
     Key? key,
-    theme,
+    required this.currentIndex,
+    required this.onChange,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     // final statecolor = ref.watch(colorProvider);
 
-    final isSelectedMode = ref.read(changeTheme).selectMode;
+    print(currentIndex);
     // final theme = Theme.of(context);
     // final currentTheme = ref.watch(changeTheme);
 
@@ -44,11 +49,12 @@ class GameTypeButton extends ConsumerWidget {
               textStyle: Theme.of(context).textTheme.bodyText1,
             ),
             onPressed: () {
-              if (isSelectedMode) {
-                ref.read(changeTheme.notifier).enableSelectedMode();
-              } else {
-                ref.read(changeTheme.notifier).enableUnselectedMode();
-              }
+              return onChange(0);
+              // if (isSelectedMode) {
+              //   ref.read(changeTheme.notifier).enableSelectedMode();
+              // } else {
+              //   ref.read(changeTheme.notifier).enableUnselectedMode();
+              // }
               // ref.read(colorProvider.notifier).state;
             },
             child: const Text('Single'),
@@ -60,6 +66,7 @@ class GameTypeButton extends ConsumerWidget {
             ),
             onPressed: () {
               print("Doubletrouble");
+              return onChange(1);
             },
             child: const Text('Double'),
           ),
@@ -69,6 +76,7 @@ class GameTypeButton extends ConsumerWidget {
             ),
             onPressed: () {
               print("round in the house");
+              return onChange(2);
             },
             child: const Text('RoundHous'),
           ),

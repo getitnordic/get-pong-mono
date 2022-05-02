@@ -11,8 +11,7 @@ import 'my_app.dart';
 // }
 
 void main() {
-  runApp(ProviderScope(
-      child: MyApp(
+  runApp(MyApp(
     themeData: Customtheme.mainTheme,
-  )));
+  ));
 }

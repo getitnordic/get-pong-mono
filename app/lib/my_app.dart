@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
 import 'package:get_pong/src/presentation/pages/playerList/player_list_page.dart';
 
@@ -16,10 +17,12 @@ class MyApp extends StatelessWidget {
   final ThemeData themeData;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: themeData,
-      home: const HomePage(),
+    return ProviderScope(
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: themeData,
+        home: const HomePage(),
+      ),
     );
   }
 }
