@@ -7,7 +7,7 @@ class Customtheme {
       primaryColor: Color.fromARGB(255, 48, 95, 129),
       backgroundColor: Color.fromARGB(255, 55, 0, 255),
       bottomAppBarColor: Color.fromARGB(255, 26, 74, 38),
-      scaffoldBackgroundColor: Colors.white70,
+      scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
       appBarTheme: AppBarTheme(backgroundColor: Colors.black),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedLabelStyle: GoogleFonts.goldman(),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
-import 'package:get_pong/src/presentation/pages/pages.dart';
 import 'package:get_pong/src/presentation/pages/playerList/player_list_page.dart';
 
 // import 'config/themes/my_theme.dart';
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: themeData,
-      home: const ResultPage(),
+      home: const HomePage(),
     );
   }
 }

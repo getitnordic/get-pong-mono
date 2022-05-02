@@ -38,6 +38,7 @@ dependencies:
   riverpod: ^2.0.0-dev.5
   flutter_riverpod: ^2.0.0-dev.5
   auto_route: ^3.2.4         
+  salomon_bottom_bar: ^3.3.0
       
 
 dev_dependencies:      
