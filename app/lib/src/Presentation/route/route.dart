@@ -5,6 +5,7 @@ const String homePage = 'homePage';
 const String startGamePage = 'startgamepage';
 const String playerListPage = 'player List Page';
 const String resultPage = 'result page';
+const String addPlayer = 'add player';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -16,6 +17,8 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => PlayerListPage());
     case resultPage:
       return MaterialPageRoute(builder: (context) => ResultPage());
+    case addPlayer:
+      return MaterialPageRoute(builder: (context) => AddPlayer());
     default:
       throw ("This route name don't exist");
   }

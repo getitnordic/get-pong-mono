@@ -11,10 +11,16 @@ class PlayerListPage extends StatelessWidget {
         title: const Text('Player List page'),
       ),
       body: Center(
-        child: ElevatedButton(
-          child: const Text('Click to add Result'),
-          onPressed: () => Navigator.pushNamed(context, route.resultPage),
-        ),
+        child: ListView(children: [
+          ElevatedButton(
+            child: const Text('Click to add Result'),
+            onPressed: () => Navigator.pushNamed(context, route.resultPage),
+          ),
+          ElevatedButton(
+            child: const Text('Click to add player'),
+            onPressed: () => Navigator.pushNamed(context, route.addPlayer),
+          ),
+        ]),
       ),
     );
   }
