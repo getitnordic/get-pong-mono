@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../route/route.dart' as route;
 
 class ResultPage extends StatelessWidget {
   const ResultPage({Key? key}) : super(key: key);
@@ -7,14 +8,12 @@ class ResultPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('GetPong'),
+        title: const Text('ResultPage'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Text('ResultPage'),
-          ],
+      body: Center(
+        child: ElevatedButton(
+          child: const Text('Go back to startGamePage'),
+          onPressed: () => Navigator.pushNamed(context, route.startGamePage),
         ),
       ),
     );

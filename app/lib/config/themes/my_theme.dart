@@ -4,19 +4,23 @@ import 'package:google_fonts/google_fonts.dart';
 class Customtheme {
   static ThemeData get mainTheme {
     return ThemeData(
-      primaryColor: Color.fromARGB(255, 48, 95, 129),
+      primaryColor: Color.fromARGB(255, 248, 114, 39),
       backgroundColor: Color.fromARGB(255, 55, 0, 255),
-      bottomAppBarColor: Color.fromARGB(255, 26, 74, 38),
+      bottomAppBarColor: Color.fromARGB(255, 23, 44, 63),
       scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
-      appBarTheme: AppBarTheme(backgroundColor: Colors.black),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Color.fromARGB(255, 23, 44, 63),
+      ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedLabelStyle: GoogleFonts.goldman(),
         unselectedLabelStyle: GoogleFonts.goldman(),
+        unselectedItemColor: Colors.white70,
+        selectedItemColor: Color.fromARGB(255, 248, 114, 39),
         backgroundColor: Color.fromARGB(255, 23, 44, 63),
       ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
-            bodyText2: GoogleFonts.goldman(),
+            bodyText2: GoogleFonts.goldman(fontSize: 40, color: Colors.white),
           ),
       //   textTheme: TextTheme(
       //       headline1: TextStyle(color: Colors.orange),

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/presentation/widgets/widgets.dart';
-import '../../../../config/themes/theme.dart';
-import '../../widgets/my_gameplay_button.dart';
+import '../route/route.dart' as route;
+import '../widgets/widgets.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class StartGamePage extends StatelessWidget {
+  const StartGamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('HOME')),
+      appBar: AppBar(
+        // title: const Text('Rank 1'),
+        backgroundColor: Theme.of(context).bottomAppBarColor,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const GameTypeButton(),
             const Center(
               child: Text(
                 'Create Match',
@@ -24,23 +25,19 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            const GameTypeButton(),
             MyPlayerAvatar(
               title: 'test namn',
-              onTap: () => print('hejehje'),
+              onTap: () => Navigator.pushNamed(context, route.playerListPage),
             ),
             const MyVsDevider(),
             MyPlayerAvatar(
               title: 'test namn',
-              onTap: () => print('hejehje'),
+              onTap: () => Navigator.pushNamed(context, route.playerListPage),
             ),
-            const MyBigButton(buttonText: 'create match'),
+            const MyBigButton(buttonText: 'Start Game'),
           ],
         ),
-      ),
-      bottomNavigationBar: const MyBottomNavBar(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
       ),
     );
   }
