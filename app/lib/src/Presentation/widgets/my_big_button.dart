@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../route/route.dart' as route;
 
 class MyBigButton extends StatelessWidget {
   final String buttonText;
@@ -9,7 +10,7 @@ class MyBigButton extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
-        onTap: () => print('bigButtonTap'),
+        onTap: () => Navigator.pushNamed(context, route.resultPage),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Theme.of(context).primaryColor),

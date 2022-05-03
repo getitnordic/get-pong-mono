@@ -20,7 +20,7 @@ class Customtheme {
       ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
-            bodyText2: GoogleFonts.goldman(fontSize: 40, color: Colors.white),
+            bodyText2: GoogleFonts.goldman(),
           ),
       //   textTheme: TextTheme(
       //       headline1: TextStyle(color: Colors.orange),
