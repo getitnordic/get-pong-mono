@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
-import 'package:get_pong/src/presentation/pages/playerList/player_list_page.dart';
+import 'src/Presentation/route/route.dart' as route;
 
 // import 'config/themes/my_theme.dart';
 // <<<<<<< HEAD
@@ -15,14 +13,14 @@ import 'package:get_pong/src/presentation/pages/playerList/player_list_page.dart
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.themeData}) : super(key: key);
   final ThemeData themeData;
+
   @override
   Widget build(BuildContext context) {
-    return ProviderScope(
-      child: MaterialApp(
-        title: 'Flutter Demo',
-        theme: themeData,
-        home: const HomePage(),
-      ),
+    return MaterialApp(
+      title: 'GetPong',
+      theme: themeData,
+      onGenerateRoute: route.controller,
+      initialRoute: route.homePage,
     );
   }
 }

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../pages/home/home_page.dart';
-
 // final colorProvider = StateProvider((ref) => Colors.white);
 
 // class ChangeThemeState extends ChangeNotifier {
@@ -78,7 +76,7 @@ class GameTypeButton extends StatelessWidget {
               print("round in the house");
               return onChange(2);
             },
-            child: const Text('RoundHous'),
+            child: const Text('RoundHouse'),
           ),
           const SizedBox(height: 30),
         ],

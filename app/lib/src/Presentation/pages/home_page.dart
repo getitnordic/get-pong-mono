@@ -1,30 +1,33 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'pages.dart';
 
-import '../pages/pages.dart';
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
-class MyBottomBar extends StatefulWidget {
   @override
-  _MyBottomBarState createState() => _MyBottomBarState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyBottomBarState extends State<MyBottomBar> {
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final pages = [
-    PlayerListPage(),
+    StartGamePage(),
     ResultPage(),
+    PlayerListPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text('GetPong'),
+      //   backgroundColor: Theme.of(context).bottomAppBarColor,
+      // ),
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           showUnselectedLabels: false,
-          backgroundColor: Theme.of(context).bottomAppBarColor,
           // ignore: prefer_const_literals_to_create_immutables
           items: [
             BottomNavigationBarItem(
@@ -51,3 +54,23 @@ class _MyBottomBarState extends State<MyBottomBar> {
     );
   }
 }
+
+    
+// ignore_for_file: prefer_const_constructors
+
+// class MyBottomBar extends StatefulWidget {
+//   const MyBottomBar({Key? key}) : super(key: key);
+
+//   @override
+//   _MyBottomBarState createState() => _MyBottomBarState();
+// }
+
+// class _MyBottomBarState extends State<HomePage> {
+//   int _currentIndex = 0;
+
+//   final pages = [
+//     PlayerListPage(),
+//     ResultPage(),
+//   ];
+
+ 
