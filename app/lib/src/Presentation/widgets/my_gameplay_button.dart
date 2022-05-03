@@ -70,7 +70,7 @@ class GameTypeButton extends ConsumerWidget {
             onPressed: () {
               print("round in the house");
             },
-            child: const Text('RoundHous'),
+            child: const Text('RoundHouse'),
           ),
           const SizedBox(height: 30),
         ],
