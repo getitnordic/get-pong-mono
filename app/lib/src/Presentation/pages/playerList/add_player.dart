@@ -10,14 +10,14 @@ class AddPlayer extends StatefulWidget {
 
 class _AddPlayerState extends State<AddPlayer> {
   final _formKey = GlobalKey<FormState>();
-  final emailController = TextEditingController();
+  // final emailController = TextEditingController();
 
   /// som useeffect ////
   @override
   void initState() {
     super.initState();
     print('init olof');
-    emailController.addListener(() => setState(() {}));
+    // emailController.addListener(() => setState(() {}));
   }
 //// lägg till dispose
 
@@ -26,7 +26,7 @@ class _AddPlayerState extends State<AddPlayer> {
     // TODO: implement dispose
     super.dispose();
     print('dispose olof');
-    emailController.dispose();
+    // emailController.dispose();
   }
 
   @override
@@ -37,39 +37,13 @@ class _AddPlayerState extends State<AddPlayer> {
         appBar: AppBar(title: Text('GetPong')),
         body: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: <Widget>[
-                  Text('Add player'),
-                  buildEmail(),
-                  MyBigButton(
-                    buttonText: 'submit',
-                  )
-                ],
-              ),
+            child: ListView(
+              children: <Widget>[
+                Text('Add player'),
+                AddPlayerFields(),
+              ],
             )),
       ),
     );
   }
-
-  Widget buildEmail() => TextField(
-        controller: emailController,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          prefixIcon: Icon(Icons.mail),
-          suffixIcon: emailController.text.isEmpty
-              ? Container(
-                  width: 0,
-                )
-              : IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () => emailController.clear(),
-                ),
-          labelText: 'Email',
-          hintText: 'name@example.com',
-        ),
-        keyboardType: TextInputType.emailAddress,
-        textInputAction: TextInputAction.done,
-      );
 }
