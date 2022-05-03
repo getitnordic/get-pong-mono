@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/presentation/pages/pages.dart';
-import 'config/themes/my_theme.dart';
+import 'src/Presentation/route/route.dart' as route;
+
+// import 'config/themes/my_theme.dart';
 // <<<<<<< HEAD
 // import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
 
@@ -12,12 +13,14 @@ import 'config/themes/my_theme.dart';
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.themeData}) : super(key: key);
   final ThemeData themeData;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'GetPong',
       theme: themeData,
-      home: const AddPlayer(),
+      onGenerateRoute: route.controller,
+      initialRoute: route.homePage,
     );
   }
 }

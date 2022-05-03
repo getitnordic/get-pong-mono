@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'config/themes/my_theme.dart';
 import 'my_app.dart';
+
+// void main() {
+//   runApp((MyApp(
+//     themeData: Customtheme.mainTheme,
+//   )));
+// }
 
 void main() {
   runApp(MyApp(
     themeData: Customtheme.mainTheme,
   ));
 }
+
 // =======
 //     themeDataLight: ThemeData(
 //       primarySwatch: Colors.blue,
