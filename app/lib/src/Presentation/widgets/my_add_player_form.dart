@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/main_dev.dart';
 
 class AddPlayerFields extends StatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);
@@ -20,9 +21,15 @@ class _AddPlayerFieldsState extends State<AddPlayerFields> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          SizedBox(
+            height: 10,
+          ),
           buildEmail(),
+          SizedBox(
+            height: 10,
+          ),
           buildUserName(),
-          buildSubmitButton(),
+          buildSubmitButton(context),
         ],
       ),
     );
@@ -30,8 +37,15 @@ class _AddPlayerFieldsState extends State<AddPlayerFields> {
 
   Widget buildEmail() => TextFormField(
         decoration: InputDecoration(
-          labelText: 'email',
-          prefixIcon: Icon(Icons.mail),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 130, 164, 193),
+            ),
+          ),
+          labelText: 'Email',
+          labelStyle: TextStyle(color: Color.fromARGB(255, 130, 164, 193)),
+          prefixIcon:
+              Icon(Icons.mail, color: Color.fromARGB(255, 130, 164, 193)),
           border: OutlineInputBorder(),
         ),
         keyboardType: TextInputType.emailAddress,
@@ -51,9 +65,16 @@ class _AddPlayerFieldsState extends State<AddPlayerFields> {
 
   Widget buildUserName() => TextFormField(
         decoration: InputDecoration(
-          labelText: 'userName',
-          prefixIcon: Icon(Icons.person),
+          labelText: 'User name',
+          labelStyle: TextStyle(color: Color.fromARGB(255, 130, 164, 193)),
+          prefixIcon:
+              Icon(Icons.person, color: Color.fromARGB(255, 130, 164, 193)),
           border: OutlineInputBorder(),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color.fromARGB(255, 130, 164, 193),
+            ),
+          ),
         ),
         keyboardType: TextInputType.text,
         validator: (value) {
@@ -66,18 +87,19 @@ class _AddPlayerFieldsState extends State<AddPlayerFields> {
         onSaved: (value) => setState(() => userName = value!),
       );
 
-  Widget buildSubmitButton() => ElevatedButton(
+  Widget buildSubmitButton(BuildContext context) => ElevatedButton(
         onPressed: () {
           final isValid = formKey.currentState!.validate();
           if (isValid) {
             formKey.currentState!.save();
             final message = 'UserName: $userName\nEmail:$email';
+
             final snackBar = SnackBar(
               content: Text(
                 message,
                 style: TextStyle(fontSize: 20),
               ),
-              backgroundColor: Colors.green,
+              backgroundColor: Color.fromARGB(255, 23, 44, 63),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
