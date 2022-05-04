@@ -9,6 +9,7 @@ import 'my_app.dart';
 //     themeData: Customtheme.mainTheme,
 //   )));
 // }
+
 class Player {
   const Player({
     required this.name,
