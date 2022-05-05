@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'src/Presentation/route/route.dart' as route;
+import './config/route/route.dart' as route;
 
 // import 'config/themes/my_theme.dart';
 // <<<<<<< HEAD

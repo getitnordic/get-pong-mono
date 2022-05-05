@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../route/route.dart' as route;
+import '../../../config/route/route.dart' as route;
 
 class MyBigButton extends StatelessWidget {
   final String buttonText;

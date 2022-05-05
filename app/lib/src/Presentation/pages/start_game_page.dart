@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../route/route.dart' as route;
+import '../../../config/route/route.dart' as route;
 import '../widgets/widgets.dart';
 
 class StartGamePage extends StatelessWidget {
@@ -25,10 +25,10 @@ class StartGamePage extends StatelessWidget {
                 ),
               ),
             ),
-            // const GameTypeButton(
-            //   onChange: (1){},
-            //   currentIndex: 1,
-            // ),
+            const GameTypeButton(
+                // onChange: (1){},
+                // currentIndex: 1,
+                ),
             MyPlayerAvatar(
               title: 'test namn',
               onTap: () => Navigator.pushNamed(context, route.playerListPage),

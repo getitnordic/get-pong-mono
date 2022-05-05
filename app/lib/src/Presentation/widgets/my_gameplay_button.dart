@@ -21,19 +21,20 @@ import 'package:flutter/material.dart';
 // });
 
 class GameTypeButton extends StatelessWidget {
-  final int currentIndex;
-  final Function(int index) onChange;
+  // final int currentIndex;
+  // final Function(int index) onChange;
+
   const GameTypeButton({
     Key? key,
-    required this.currentIndex,
-    required this.onChange,
+    // required this.currentIndex,
+    // required this.onChange,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     // final statecolor = ref.watch(colorProvider);
 
-    print(currentIndex);
+    // print(currentIndex);
     // final theme = Theme.of(context);
     // final currentTheme = ref.watch(changeTheme);
 
@@ -46,7 +47,7 @@ class GameTypeButton extends StatelessWidget {
               textStyle: Theme.of(context).textTheme.bodyText1,
             ),
             onPressed: () {
-              return onChange(0);
+              // return onChange(0);
               // if (isSelectedMode) {
               //   ref.read(changeTheme.notifier).enableSelectedMode();
               // } else {
@@ -63,7 +64,7 @@ class GameTypeButton extends StatelessWidget {
             ),
             onPressed: () {
               print("Doubletrouble");
-              return onChange(1);
+              // return onChange(1);
             },
             child: const Text('Double'),
           ),
@@ -73,7 +74,7 @@ class GameTypeButton extends StatelessWidget {
             ),
             onPressed: () {
               print("round in the house");
-              return onChange(2);
+              // return onChange(2);
             },
             child: const Text('RoundHouse'),
           ),

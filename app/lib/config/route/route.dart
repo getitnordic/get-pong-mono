@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import '../pages/pages.dart';
+import '../../src/presentation/pages/pages.dart';
 
 const String homePage = 'homePage';
 const String startGamePage = 'startgamepage';
 const String playerListPage = 'player List Page';
 const String resultPage = 'result page';
 const String addPlayer = 'add player';
+const String profilePage = 'profile page';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -19,6 +20,8 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => ResultPage());
     case addPlayer:
       return MaterialPageRoute(builder: (context) => AddPlayer());
+    case profilePage:
+      return MaterialPageRoute(builder: (context) => ProfilePage());
     default:
       throw ("This route name don't exist");
   }
