@@ -12,7 +12,10 @@ Route<dynamic> controller(RouteSettings settings) {
     case homePage:
       return MaterialPageRoute(builder: (context) => HomePage());
     case startGamePage:
-      return MaterialPageRoute(builder: (context) => StartGamePage());
+      return MaterialPageRoute(
+          builder: (context) => StartGamePage(
+                arguments: settings.arguments!,
+              ));
     case playerListPage:
       return MaterialPageRoute(builder: (context) => PlayerListPage());
     case resultPage:

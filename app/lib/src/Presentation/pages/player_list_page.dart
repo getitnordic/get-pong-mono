@@ -12,33 +12,26 @@ class PlayerListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final String test = ref.watch(testProvider);
     List<Player> players = ref.watch(playerProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Player list',
-        ),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Container(
-              height: 250,
-              child: ListView(shrinkWrap: true, children: [
-                for (final player in players)
-                  MyPlayerAvatar(
-                      title: player.name, onTap: () => print(player.email)),
-              ]),
-            ),
-            ElevatedButton(
-              child: const Text('Click to add Result'),
-              onPressed: () => Navigator.pushNamed(context, route.resultPage),
-            ),
-            ElevatedButton(
-              child: const Text('Click to add player'),
-              onPressed: () => Navigator.pushNamed(context, route.addPlayer),
-            ),
-          ],
-        ),
+    return Center(
+      child: Column(
+        children: [
+          Container(
+            height: 250,
+            child: ListView(shrinkWrap: true, children: [
+              for (final player in players)
+                MyPlayerAvatar(
+                    title: player.name, onTap: () => print(player.email)),
+            ]),
+          ),
+          ElevatedButton(
+            child: const Text('Click to add Result'),
+            onPressed: () => Navigator.pushNamed(context, route.resultPage),
+          ),
+          ElevatedButton(
+            child: const Text('Click to add player'),
+            onPressed: () => Navigator.pushNamed(context, route.addPlayer),
+          ),
+        ],
       ),
     );
   }

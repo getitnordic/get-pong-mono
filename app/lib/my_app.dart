@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/src/Presentation/pages/pages.dart';
+import 'package:get_pong/src/Presentation/route/route.dart';
 import 'src/Presentation/route/route.dart' as route;
 
 // import 'config/themes/my_theme.dart';
@@ -17,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'GetPong',
       theme: themeData,
       onGenerateRoute: route.controller,

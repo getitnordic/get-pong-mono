@@ -20,10 +20,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('GetPong'),
-      //   backgroundColor: Theme.of(context).bottomAppBarColor,
-      // ),
+      appBar: AppBar(
+        title: const Text('GetPong'),
+        backgroundColor: Colors.red,
+      ),
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
