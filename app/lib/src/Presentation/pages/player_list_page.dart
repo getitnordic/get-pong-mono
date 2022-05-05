@@ -6,11 +6,11 @@ import '../providers/my_providers.dart';
 import '../route/route.dart' as route;
 
 class PlayerListPage extends ConsumerWidget {
-  const PlayerListPage({Key? key}) : super(key: key);
+  final Object? arguments;
+  const PlayerListPage({Key? key, this.arguments}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final String test = ref.watch(testProvider);
     List<Player> players = ref.watch(playerProvider);
     return Center(
       child: Column(
@@ -22,14 +22,6 @@ class PlayerListPage extends ConsumerWidget {
                 MyPlayerAvatar(
                     title: player.name, onTap: () => print(player.email)),
             ]),
-          ),
-          ElevatedButton(
-            child: const Text('Click to add Result'),
-            onPressed: () => Navigator.pushNamed(context, route.resultPage),
-          ),
-          ElevatedButton(
-            child: const Text('Click to add player'),
-            onPressed: () => Navigator.pushNamed(context, route.addPlayer),
           ),
         ],
       ),

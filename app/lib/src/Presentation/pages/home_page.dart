@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'pages.dart';
+
+import 'package:get_pong/src/presentation/pages/pages.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _HomePageState extends State<HomePage> {
 
   final pages = [
     StartGamePage(),
-    ResultPage(),
+    ScoreBoardPage(),
     PlayerListPage(),
   ];
 

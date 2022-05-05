@@ -11,9 +11,8 @@ class DummyObj {
 }
 
 class ResultPage extends ConsumerWidget {
-  const ResultPage({
-    Key? key,
-  }) : super(key: key);
+  final Object? arguments;
+  const ResultPage({Key? key, this.arguments}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
