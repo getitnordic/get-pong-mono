@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/main_dev.dart';
 import 'package:uuid/uuid.dart';
 
+import '../providers/my_providers.dart';
+
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);
 
@@ -14,7 +16,6 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
   final formKey = GlobalKey<FormState>();
   String email = '';
   String userName = '';
-
   @override
   Widget build(
     BuildContext context,
