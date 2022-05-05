@@ -11,7 +11,7 @@ class Player {
   final String email;
   final String id;
 
-  Player copyWith({String? name, String? email}) {
+  Player copyWith({String? name, String? email, String? id}) {
     return Player(
       name: name ?? this.name,
       email: email ?? this.email,

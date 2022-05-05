@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/main_dev.dart';
 import 'package:uuid/uuid.dart';
-
 import '../providers/my_providers.dart';
 
 class AddPlayerFields extends ConsumerStatefulWidget {

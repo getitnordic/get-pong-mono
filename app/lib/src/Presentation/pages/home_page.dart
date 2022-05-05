@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'pages.dart';
+
+import 'package:get_pong/src/presentation/pages/pages.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,17 +14,17 @@ class _HomePageState extends State<HomePage> {
 
   final pages = [
     StartGamePage(),
-    ResultPage(),
+    ScoreBoardPage(),
     PlayerListPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('GetPong'),
-      //   backgroundColor: Theme.of(context).bottomAppBarColor,
-      // ),
+      appBar: AppBar(
+        title: const Text('GetPong'),
+        backgroundColor: Colors.red,
+      ),
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
