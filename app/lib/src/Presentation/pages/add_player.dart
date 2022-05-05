@@ -34,15 +34,13 @@ class _AddPlayerState extends State<AddPlayer> {
     print('rebuild');
     return MyKeyboardUnfocus(
       child: Scaffold(
-        appBar: AppBar(title: Text('GetPong')),
-        body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: <Widget>[
-                Text('Add player'),
-                AddPlayerFields(),
-              ],
-            )),
+        appBar: AppBar(title: Text('Add player')),
+        body: Center(
+            child: Container(
+                child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AddPlayerFields(),
+        ))),
       ),
     );
   }

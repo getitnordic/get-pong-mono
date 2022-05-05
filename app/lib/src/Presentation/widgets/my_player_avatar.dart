@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class MyPlayerAvatar extends StatelessWidget {
-  const MyPlayerAvatar({Key? key, required this.title, required this.onTap})
+  const MyPlayerAvatar(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      required this.ranking})
       : super(key: key);
+
   final VoidCallback onTap;
   final String title;
+  final String ranking;
   @override
   Widget build(BuildContext context) {
     return ListTile(

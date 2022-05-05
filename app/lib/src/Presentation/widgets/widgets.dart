@@ -12,3 +12,6 @@ export 'small_button.dart';
 export 'column_title.dart';
 export 'big_avatar.dart';
 export 'small_checkbox.dart';
+export 'player_list_avatar.dart';
+export 'player_list_column.dart';
+export 'small_checkbox.dart';
