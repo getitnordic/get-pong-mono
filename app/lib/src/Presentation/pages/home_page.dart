@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
-  final pages = [
+  final content = [
     StartGamePage(),
     ScoreBoardPage(),
     PlayerListPage(),
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('GetPong'),
         backgroundColor: Colors.red,
       ),
-      body: pages[_currentIndex],
+      body: content[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           showUnselectedLabels: false,

@@ -34,7 +34,9 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
   }
 
   Widget buildEmail() => Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(
+          top: 20,
+        ),
         child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
