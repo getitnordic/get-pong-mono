@@ -6,27 +6,32 @@ class Player {
     required this.name,
     required this.email,
     required this.id,
-    required this.ranking,
+    // required this.ranking,
   });
   final String name;
   final String email;
   final String id;
-  final String ranking;
+  // final String ranking;
 
-  Player copyWith({String? name, String? email}) {
+  Player copyWith({String? name, String? email, String? id}) {
     return Player(
       name: name ?? this.name,
       email: email ?? this.email,
       id: id ?? this.id,
-      ranking: ranking ?? this.ranking,
+      // ranking: ranking ?? this.ranking,
     );
   }
 }
+// ranking: "1"
 
 class PlayerNotifier extends StateNotifier<List<Player>> {
   PlayerNotifier()
       : super([
-          Player(name: 'olof', email: 'email@test.com', id: '1', ranking: "1")
+          Player(
+            name: 'olof',
+            email: 'email@test.com',
+            id: '1',
+          )
         ]);
 
   void addPlayer(Player player) {

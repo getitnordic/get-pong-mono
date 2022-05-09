@@ -11,16 +11,6 @@ class SmallButton extends StatelessWidget {
     return Row(
       children: <Widget>[
         SizedBox(width: 15),
-        OutlineButton(
-          shape: StadiumBorder(),
-          textColor: Color.fromARGB(255, 248, 114, 39),
-          child: Text('Search'),
-          borderSide: BorderSide(
-              color: Color.fromARGB(255, 248, 114, 39),
-              style: BorderStyle.solid,
-              width: 1),
-          onPressed: () => Navigator.pushNamed(context, route.addPlayer),
-        ),
         SizedBox(width: 10),
         OutlineButton(
           shape: StadiumBorder(),

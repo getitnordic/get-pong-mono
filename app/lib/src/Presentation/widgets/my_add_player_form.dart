@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/main_dev.dart';
 import 'package:uuid/uuid.dart';
-
 import '../providers/my_providers.dart';
 
 class AddPlayerFields extends ConsumerStatefulWidget {
@@ -98,8 +97,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           if (isValid) {
             formKey.currentState!.save();
 
-            ref.read(playerProvider.notifier).addPlayer(Player(
-                name: userName, email: email, ranking: "1", id: Uuid().v4()));
+            ref.read(playerProvider.notifier).addPlayer(
+                Player(name: userName, email: email, id: Uuid().v4()));
             final message = 'UserName: $userName\nEmail:$email';
 
             final snackBar = SnackBar(
@@ -115,3 +114,4 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
         child: Text('submit'),
       );
 }
+// ranking: "1"
