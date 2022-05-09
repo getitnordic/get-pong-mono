@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/main_dev.dart';
-import 'package:get_pong/src/presentation/widgets/my_player_avatar.dart';
+import 'package:get_pong/src/presentation/widgets/my_add_player_form.dart';
+import 'package:get_pong/src/presentation/widgets/my_player_list.dart';
 import '../providers/my_providers.dart';
-import '../route/route.dart' as route;
 
 class PlayerListPage extends ConsumerWidget {
   final Object? arguments;
+
   const PlayerListPage({Key? key, this.arguments}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Player> players = ref.watch(playerProvider);
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            height: 250,
-            child: ListView(shrinkWrap: true, children: [
-              for (final player in players)
-                MyPlayerAvatar(
-                    title: player.name, onTap: () => print(player.email)),
-            ]),
-          ),
-        ],
+    List<Player> playerList = ref.watch(playerProvider);
+
+    // print(playerList);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Expanded(
+        child: Column(
+          children: [
+            PlayerList(players: playerList),
+            AddPlayerFields(),
+          ],
+        ),
       ),
     );
   }
