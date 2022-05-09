@@ -41,3 +41,7 @@ final playerProvider =
     StateNotifierProvider<PlayerNotifier, List<Player>>((ref) {
   return PlayerNotifier();
 });
+
+final bottomBarIndexProvider = StateProvider<int>((ref) {
+  return 0;
+});

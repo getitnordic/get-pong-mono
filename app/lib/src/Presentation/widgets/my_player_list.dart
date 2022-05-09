@@ -8,15 +8,18 @@ class PlayerList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          final player = players[index];
-          return MyPlayerAvatar(
-              title: player.name, onTap: () => print(player.email));
-        },
-        itemCount: players.length,
-      ),
-    );
+    return players.isEmpty
+        ? const SizedBox.shrink()
+        : Container(
+            height: 300,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                final player = players[index];
+                return MyPlayerAvatar(
+                    title: player.name, onTap: () => print(player.email));
+              },
+              itemCount: players.length,
+            ),
+          );
   }
 }

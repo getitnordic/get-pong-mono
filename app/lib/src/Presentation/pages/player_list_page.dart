@@ -16,7 +16,7 @@ class PlayerListPage extends ConsumerWidget {
     // print(playerList);
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Center(
+      child: Expanded(
         child: Column(
           children: [
             PlayerList(players: playerList),
