@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/presentation/widgets/my_add_player_form.dart';
@@ -14,15 +16,24 @@ class PlayerListPage extends ConsumerWidget {
     List<Player> playerList = ref.watch(playerProvider);
 
     // print(playerList);
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Expanded(
-        child: Column(
-          children: [
-            PlayerList(players: playerList),
-            AddPlayerFields(),
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('GetPong'),
+        backgroundColor: Colors.red,
+      ),
+      body: Column(
+        children: [
+          Text(
+            'playerListPage',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          Expanded(child: PlayerList(players: playerList)),
+          Text(
+            'Add player',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          AddPlayerFields(),
+        ],
       ),
     );
   }

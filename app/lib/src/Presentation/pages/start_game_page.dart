@@ -30,12 +30,12 @@ class StartGamePage extends StatelessWidget {
           // ),
           MyPlayerAvatar(
             title: 'test namn',
-            onTap: () => Navigator.pushNamed(context, route.playerListPage),
+            onTap: () => print('taptap'),
           ),
           const MyVsDevider(),
           MyPlayerAvatar(
             title: 'test namn',
-            onTap: () => Navigator.pushNamed(context, route.playerListPage),
+            onTap: () => print('taptap'),
           ),
           const MyBigButton(buttonText: 'Start Game'),
         ],

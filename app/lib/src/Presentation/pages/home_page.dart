@@ -41,7 +41,7 @@ class HomePage extends ConsumerWidget {
         backgroundColor: Colors.red,
       ),
       body: Container(
-          height: 500,
+          // height: 500,
           child: renderContent(
               players: playerList, currentIndex: currentIndex.state)),
       bottomNavigationBar: BottomNavigationBar(
