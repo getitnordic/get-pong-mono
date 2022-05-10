@@ -8,7 +8,9 @@ class MyPlayerAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.only(
+        bottom: 8.0,
+      ),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -17,9 +19,12 @@ class MyPlayerAvatar extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.zero,
           onTap: onTap,
-          leading: CircleAvatar(
-            radius: 20.0,
-            backgroundImage: AssetImage('assets/images/monkey.jpg'),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: CircleAvatar(
+              radius: 20.0,
+              backgroundImage: AssetImage('assets/images/monkey.jpg'),
+            ),
           ),
           title: Text(
             title,

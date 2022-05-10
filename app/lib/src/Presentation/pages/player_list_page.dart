@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/presentation/widgets/my_add_player_form.dart';
 import 'package:get_pong/src/presentation/widgets/my_player_list.dart';
-import '../providers/my_providers.dart';
+import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 class PlayerListPage extends ConsumerWidget {
   final Object? arguments;
@@ -15,7 +15,7 @@ class PlayerListPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     List<Player> playerList = ref.watch(playerProvider);
 
-    // print(playerList);
+    print(playerList);
     return Scaffold(
       appBar: AppBar(
         title: const Text('GetPong'),

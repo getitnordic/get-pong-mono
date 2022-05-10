@@ -1,45 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
+import 'package:get_pong/src/presentation/widgets/my_player_list.dart';
 import '../route/route.dart' as route;
 import '../widgets/widgets.dart';
 
-class StartGamePage extends StatelessWidget {
+class StartGamePage extends ConsumerWidget {
   final Object? arguments;
   const StartGamePage({Key? key, this.arguments}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    print(arguments);
+  Widget build(BuildContext context, WidgetRef ref) {
+    List<Player> playerList = ref.watch(playerProvider);
+    print(playerList);
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          const Center(
-            child: Text(
-              'Create Match',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 40,
-              ),
+    return Column(
+      children: [
+        const Center(
+          child: Text(
+            'Create Match',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 40,
             ),
           ),
-          // const GameTypeButton(
-          //   onChange: (1){},
-          //   currentIndex: 1,
-          // ),
-          MyPlayerAvatar(
-            title: 'test namn',
-            onTap: () => print('taptap'),
+        ),
+        Expanded(
+          child: PlayerList(
+            players: playerList,
           ),
-          const MyVsDevider(),
-          MyPlayerAvatar(
-            title: 'test namn',
-            onTap: () => print('taptap'),
-          ),
-          const MyBigButton(buttonText: 'Start Game'),
-        ],
-      ),
+        ),
+        ElevatedButton(onPressed: () => {}, child: Text('Start Game'))
+      ],
     );
   }
 }
