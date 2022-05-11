@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../src/Presentation/pages/pages.dart';
 
 const String homePage = 'homePage';
 const String startGamePage = 'startgamepage';
-const String playerListPage = 'player List Page';
+const String playerListPage = 'playerListPage';
 const String resultPage = 'result page';
 const String profilePage = 'profile page';
 
@@ -18,8 +19,7 @@ Route<dynamic> controller(RouteSettings settings) {
                 arguments: settings.arguments!,
               ));
     case playerListPage:
-      return MaterialPageRoute(
-          builder: (context) => PlayerListPage(arguments: settings.arguments!));
+      return MaterialPageRoute(builder: (context) => PlayerListPage());
     case resultPage:
       return MaterialPageRoute(
           builder: (context) => ResultPage(arguments: settings.arguments!));

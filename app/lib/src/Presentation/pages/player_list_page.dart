@@ -1,8 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../presentation/widgets/widgets.dart';
-import '../../../config/route/route.dart' as route;
-import '../providers/my_providers.dart';
+import 'package:get_pong/src/presentation/widgets/my_add_player_form.dart';
+import 'package:get_pong/src/presentation/widgets/my_player_list.dart';
+import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 class PlayerListPage extends ConsumerWidget {
   final Object? arguments;
@@ -12,38 +14,33 @@ class PlayerListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Player> playerList = ref.watch(playerProvider);
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Player List'),
-        ),
-        body: Container(
-          padding: EdgeInsets.all(10),
-          // ignore: prefer_const_literals_to_create_immutables
-          child: Column(children: [
-            SizedBox(height: 20),
-            BigButton(title: 'Player Listttttttt'),
-            SizedBox(height: 50),
-            SmallButton(),
-            SizedBox(height: 20),
-            ColumnTitle(),
-            MaterialButton(
-              child: Text(
-                'To profilepage',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () => Navigator.pushNamed(context, route.profilePage,
-                  arguments: 1337),
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              shape: StadiumBorder(),
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            ),
-          ]),
-        )
+    int pageIndex = 0;
 
-        // ignore: prefer_const_literals_to_create_immutables
-        //       children: [PlayerListColumn()]),
-        // ])),
-        );
+    print(playerList);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('GetPong'),
+        backgroundColor: Colors.red,
+      ),
+      body: Column(
+        children: [
+          Text(
+            'playerListPage',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          Expanded(
+              child: PlayerList(
+            players: playerList,
+            pageIndex: pageIndex,
+            listTitle: 'All players',
+          )),
+          Text(
+            'Add player',
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          AddPlayerFields(),
+        ],
+      ),
+    );
   }
 }

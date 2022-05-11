@@ -22,13 +22,16 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
     return Form(
       key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          buildEmail(),
-          buildUserName(),
-          buildSubmitButton(),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            buildEmail(),
+            buildUserName(),
+            buildSubmitButton(),
+          ],
+        ),
       ),
     );
   }

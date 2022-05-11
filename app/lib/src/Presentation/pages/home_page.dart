@@ -23,10 +23,11 @@ class HomePage extends ConsumerWidget {
       case 1:
         return ScoreBoardPage();
       case 2:
-        return PlayerListPage();
-      // return PlayerList(
-      //   players: players,
-      // );
+        return PlayerList(
+          players: players,
+          pageIndex: currentIndex,
+          listTitle: 'All Players',
+        );
       case 0:
       default:
         return StartGamePage();
@@ -43,7 +44,7 @@ class HomePage extends ConsumerWidget {
         backgroundColor: Colors.red,
       ),
       body: Container(
-          height: 500,
+          // height: 500,
           child: renderContent(
               players: playerList, currentIndex: currentIndex.state)),
       bottomNavigationBar: BottomNavigationBar(

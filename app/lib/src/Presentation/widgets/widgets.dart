@@ -17,3 +17,4 @@ export 'player_list_column.dart';
 export 'small_checkbox.dart';
 export 'namecard.dart';
 export 'game_stats.dart';
+export 'my_playerList_header.dart';
