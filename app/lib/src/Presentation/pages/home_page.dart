@@ -24,6 +24,7 @@ class HomePage extends ConsumerWidget {
       case 2:
         return PlayerList(
           players: players,
+          pageIndex: currentIndex,
         );
       case 0:
       default:

@@ -6,7 +6,9 @@ import 'package:get_pong/src/presentation/widgets/my_vs_devider.dart';
 
 class PlayerList extends StatelessWidget {
   final List players;
-  const PlayerList({Key? key, this.players = const []}) : super(key: key);
+  final int? pageIndex;
+  const PlayerList({Key? key, this.players = const [], this.pageIndex})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class PlayerList extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  PlayerListHeader(),
+                  pageIndex == 0 ? Text('All players') : PlayerListHeader(),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -30,6 +32,7 @@ class PlayerList extends StatelessWidget {
                           final player = players[index];
                           return MyPlayerAvatar(
                               title: player.name,
+                              withCheckbox: pageIndex == 2 ? false : true,
                               onTap: () => print(player.email));
                         },
                         itemCount: players.length,

@@ -14,6 +14,7 @@ class PlayerListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Player> playerList = ref.watch(playerProvider);
+    int pageIndex = 0;
 
     print(playerList);
     return Scaffold(
@@ -27,7 +28,8 @@ class PlayerListPage extends ConsumerWidget {
             'playerListPage',
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
-          Expanded(child: PlayerList(players: playerList)),
+          Expanded(
+              child: PlayerList(players: playerList, pageIndex: pageIndex)),
           Text(
             'Add player',
             style: TextStyle(color: Colors.white, fontSize: 20),

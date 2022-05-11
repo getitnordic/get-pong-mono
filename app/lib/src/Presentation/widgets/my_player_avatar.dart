@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class MyPlayerAvatar extends StatelessWidget {
-  const MyPlayerAvatar({Key? key, required this.title, required this.onTap})
+  const MyPlayerAvatar(
+      {Key? key,
+      required this.title,
+      required this.onTap,
+      required this.withCheckbox})
       : super(key: key);
   final VoidCallback onTap;
   final String title;
+  final bool withCheckbox;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,10 +38,12 @@ class MyPlayerAvatar extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          trailing: Checkbox(
-              checkColor: Colors.white,
-              value: false,
-              onChanged: (bool? value) {}),
+          trailing: withCheckbox
+              ? Checkbox(
+                  checkColor: Colors.white,
+                  value: false,
+                  onChanged: (bool? value) {})
+              : null,
         ),
       ),
     );
