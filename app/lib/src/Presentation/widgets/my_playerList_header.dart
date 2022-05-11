@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import '../route/route.dart' as route;
 
 class PlayerListHeader extends StatelessWidget {
-  const PlayerListHeader({Key? key}) : super(key: key);
+  const PlayerListHeader({Key? key, required this.title, this.addButton})
+      : super(key: key);
+  final String title;
+  final bool? addButton;
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +16,13 @@ class PlayerListHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Select players'),
-            IconButton(
-                onPressed: () =>
-                    Navigator.pushNamed(context, route.playerListPage),
-                icon: Icon(Icons.person_add))
+            Text(title),
+            addButton == true
+                ? IconButton(
+                    onPressed: () =>
+                        Navigator.pushNamed(context, route.playerListPage),
+                    icon: Icon(Icons.person_add))
+                : Text('')
           ],
         ),
       ),

@@ -25,6 +25,7 @@ class HomePage extends ConsumerWidget {
         return PlayerList(
           players: players,
           pageIndex: currentIndex,
+          listTitle: 'All Players',
         );
       case 0:
       default:

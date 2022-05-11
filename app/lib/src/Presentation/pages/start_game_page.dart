@@ -28,6 +28,7 @@ class StartGamePage extends ConsumerWidget {
         Expanded(
           child: PlayerList(
             players: playerList,
+            listTitle: 'Select player',
           ),
         ),
         ElevatedButton(onPressed: () => {}, child: Text('Start Game'))

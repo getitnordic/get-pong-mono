@@ -7,7 +7,12 @@ import 'package:get_pong/src/presentation/widgets/my_vs_devider.dart';
 class PlayerList extends StatelessWidget {
   final List players;
   final int? pageIndex;
-  const PlayerList({Key? key, this.players = const [], this.pageIndex})
+  final String listTitle;
+  const PlayerList(
+      {Key? key,
+      this.players = const [],
+      this.pageIndex,
+      required this.listTitle})
       : super(key: key);
 
   @override
@@ -23,7 +28,9 @@ class PlayerList extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  pageIndex == 0 ? Text('All players') : PlayerListHeader(),
+                  PlayerListHeader(
+                      title: listTitle,
+                      addButton: pageIndex == 0 ? false : true),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -44,22 +51,25 @@ class PlayerList extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 16.0),
                       child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, right: 16.0),
-                              child: Text('player1'),
-                            ),
-                            Expanded(child: MyVsDevider()),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 16.0, right: 8.0),
-                              child: Text('player2'),
-                            ),
-                          ],
-                        ),
+                        child: pageIndex == 2
+                            ? null
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, right: 16.0),
+                                    child: Text('player1'),
+                                  ),
+                                  Expanded(child: MyVsDevider()),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 16.0, right: 8.0),
+                                    child: Text('player2'),
+                                  ),
+                                ],
+                              ),
                       ),
                     ),
                   ),

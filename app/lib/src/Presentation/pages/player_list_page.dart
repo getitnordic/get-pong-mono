@@ -29,7 +29,11 @@ class PlayerListPage extends ConsumerWidget {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           Expanded(
-              child: PlayerList(players: playerList, pageIndex: pageIndex)),
+              child: PlayerList(
+            players: playerList,
+            pageIndex: pageIndex,
+            listTitle: 'All players',
+          )),
           Text(
             'Add player',
             style: TextStyle(color: Colors.white, fontSize: 20),
