@@ -24,6 +24,8 @@ class HomePage extends ConsumerWidget {
       case 2:
         return PlayerList(
           players: players,
+          pageIndex: currentIndex,
+          listTitle: 'All Players',
         );
       case 0:
       default:
@@ -41,7 +43,7 @@ class HomePage extends ConsumerWidget {
         backgroundColor: Colors.red,
       ),
       body: Container(
-          height: 500,
+          // height: 500,
           child: renderContent(
               players: playerList, currentIndex: currentIndex.state)),
       bottomNavigationBar: BottomNavigationBar(
