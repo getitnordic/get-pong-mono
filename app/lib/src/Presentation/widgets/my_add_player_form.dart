@@ -34,7 +34,9 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
   }
 
   Widget buildEmail() => Padding(
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(
+          top: 20,
+        ),
         child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -97,8 +99,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           if (isValid) {
             formKey.currentState!.save();
 
-            ref.read(playerProvider.notifier).addPlayer(
-                Player(name: userName, email: email, id: Uuid().v4()));
+            ref.read(playerProvider.notifier).addPlayer(Player(
+                name: userName, email: email, id: Uuid().v4(), score: "1"));
             final message = 'UserName: $userName\nEmail:$email';
 
             final snackBar = SnackBar(

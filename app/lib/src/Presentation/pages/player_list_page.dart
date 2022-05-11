@@ -1,19 +1,17 @@
-// ignore_for_file: deprecated_member_use, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../presentation/providers/my_providers.dart';
 import '../../presentation/widgets/widgets.dart';
 import '../../../config/route/route.dart' as route;
+import '../providers/my_providers.dart';
 
 class PlayerListPage extends ConsumerWidget {
   final Object? arguments;
+
   const PlayerListPage({Key? key, this.arguments}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final String test = ref.watch(testProvider);
-    List<Player> players = ref.watch(playerProvider);
+    List<Player> playerList = ref.watch(playerProvider);
     return Scaffold(
         appBar: AppBar(
           title: const Text('Player List'),

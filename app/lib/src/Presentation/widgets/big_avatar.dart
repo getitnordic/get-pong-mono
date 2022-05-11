@@ -7,16 +7,14 @@ class BigAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            SizedBox(height: 30),
-            CircleAvatar(
-              backgroundImage: AssetImage('assets/images/monkey.jpg'),
-              radius: 100,
-            ),
-          ]),
+    return Container(
+      child: Center(
+        child: CircleAvatar(
+          backgroundImage: AssetImage('assets/images/monkey.jpg'),
+          radius: 80,
+        ),
+      ),
+      // ignore: prefer_const_literals_to_create_immutable
     );
   }
 }

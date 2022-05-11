@@ -39,6 +39,7 @@ dependencies:
   auto_route: ^3.2.4         
   salomon_bottom_bar: ^3.3.0
   uuid: ^3.0.6
+  glassmorphism: ^3.0.0
       
 
 dev_dependencies:      
