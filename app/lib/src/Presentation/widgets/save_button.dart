@@ -22,7 +22,7 @@ class _SaveButtonState extends State<SaveButton> {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: InkWell(
+      child: GestureDetector(
         onTap: () {},
         // ref.read(playerProvider.notifier).addPlayer(Player(
         //       name: "jesper", email: "", id: Uuid().v4(), score: widget.value1,));}

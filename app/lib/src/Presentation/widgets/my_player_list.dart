@@ -5,6 +5,7 @@ import 'package:get_pong/src/Presentation/widgets/my_player_avatar.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
 import 'package:get_pong/src/presentation/widgets/my_playerList_header.dart';
 import 'package:get_pong/src/presentation/widgets/my_vs_devider.dart';
+import '../../../config/route/route.dart' as route;
 
 class PlayerList extends StatelessWidget {
   final List players;
@@ -42,7 +43,8 @@ class PlayerList extends StatelessWidget {
                           return MyPlayerAvatar(
                               title: player.name,
                               withCheckbox: pageIndex == 2 ? false : true,
-                              onTap: () => print(player.email));
+                              onTap: () => Navigator.pushNamed(
+                                  context, route.profilePage));
                         },
                         itemCount: players.length,
                       ),

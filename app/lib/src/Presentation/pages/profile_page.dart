@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import '../widgets/widgets.dart';
 
 class ProfilePage extends StatelessWidget {
-  final Object? arguments;
-  const ProfilePage({Key? key, this.arguments}) : super(key: key);
+  const ProfilePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,53 +17,56 @@ class ProfilePage extends StatelessWidget {
       ),
       // ignore: avoid_unnecessary_containers
       body: Container(
-          // ignore: prefer_const_literals_to_create_immutables
-          child: Column(
         // ignore: prefer_const_literals_to_create_immutables
-        children: [
-          SizedBox(height: 30),
-          BigAvatar(),
-          SizedBox(height: 20),
-          NameCard(
-            playerName: 'jeppenator',
-          ),
-          SizedBox(height: 12),
-          Text(
-            'Rank: 1',
-            style: TextStyle(
-              color: Colors.white,
+
+        // ignore: prefer_const_literals_to_create_immutables
+
+        child: Column(
+          children: [
+            SizedBox(height: 30),
+            BigAvatar(),
+            SizedBox(height: 20),
+            NameCard(
+              playerName: 'jeppenator',
             ),
-          ),
-          SizedBox(height: 30),
-          GameStats(),
-          SizedBox(height: 50),
-          Center(
-            child: Text(
-              'Latest games',
-              style: Theme.of(context).textTheme.bodyText2,
+            SizedBox(height: 12),
+            Text(
+              'Rank: 1',
+              style: TextStyle(
+                color: Colors.white,
+              ),
             ),
-          ),
-          Row(
-            // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              SizedBox(width: 40),
-              Text(
-                'Match Result',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 58, 116, 166),
-                ),
+            SizedBox(height: 30),
+            GameStats(),
+            SizedBox(height: 50),
+            Center(
+              child: Text(
+                'Latest games',
+                style: Theme.of(context).textTheme.bodyText2,
               ),
-              SizedBox(width: 70),
-              Text(
-                'Points',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 58, 116, 166),
+            ),
+            Row(
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                SizedBox(width: 40),
+                Text(
+                  'Match Result',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 58, 116, 166),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
-      )),
+                SizedBox(width: 70),
+                Text(
+                  'Points',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 58, 116, 166),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
 
       // ignore: tprefer_const_literals_to_create_immutables
 

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
 import 'package:get_pong/src/presentation/widgets/my_player_list.dart';
 import '../widgets/widgets.dart';
+import '../../../config/route/route.dart' as route;
 
 class StartGamePage extends ConsumerWidget {
   final Object? arguments;
@@ -30,7 +31,9 @@ class StartGamePage extends ConsumerWidget {
             listTitle: 'Select player',
           ),
         ),
-        ElevatedButton(onPressed: () => {}, child: Text('Start Game'))
+        ElevatedButton(
+            onPressed: () => Navigator.pushNamed(context, route.scorePage),
+            child: Text('Start Game'))
       ],
     );
   }

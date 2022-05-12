@@ -10,7 +10,7 @@ class MyBigButton extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, route.resultPage),
+        onTap: () => Navigator.pushNamed(context, route.scorePage),
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(color: Theme.of(context).primaryColor),

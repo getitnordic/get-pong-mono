@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import '../../../config/route/route.dart' as route;
 
 class MyPlayerAvatar extends StatelessWidget {
   const MyPlayerAvatar(
@@ -17,34 +18,37 @@ class MyPlayerAvatar extends StatelessWidget {
       padding: const EdgeInsets.only(
         bottom: 8.0,
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.black12,
-        ),
-        child: ListTile(
-          contentPadding: EdgeInsets.zero,
-          onTap: () => Navigator.pushNamed(context, route.profilePage),
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: CircleAvatar(
-              radius: 20.0,
-              backgroundImage: AssetImage('assets/images/monkey.jpg'),
-            ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.black12,
           ),
-          title: Text(
-            title,
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.white,
+          child: ListTile(
+            contentPadding: EdgeInsets.zero,
+            onTap: onTap,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: CircleAvatar(
+                radius: 20.0,
+                backgroundImage: AssetImage('assets/images/monkey.jpg'),
+              ),
             ),
+            title: Text(
+              title,
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+              ),
+            ),
+            trailing: withCheckbox
+                ? Checkbox(
+                    checkColor: Colors.white,
+                    value: false,
+                    onChanged: (bool? value) {})
+                : null,
           ),
-          trailing: withCheckbox
-              ? Checkbox(
-                  checkColor: Colors.white,
-                  value: false,
-                  onChanged: (bool? value) {})
-              : null,
         ),
       ),
     );
