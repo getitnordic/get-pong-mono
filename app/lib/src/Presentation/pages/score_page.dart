@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/widgets/save_button.dart';
 import 'package:get_pong/src/presentation/widgets/widgets.dart';
+import 'package:glassmorphism/glassmorphism.dart';
 import '../providers/my_providers.dart';
 
 // class DummyObj {
@@ -37,11 +38,9 @@ class ScorePage extends ConsumerWidget {
             // Expanded(
             //   child: Column(),
             // ),
-            SizedBox(height: 10),
 
-            SizedBox(height: 30),
+            SizedBox(height: 20),
 
-            SizedBox(width: 10),
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -51,7 +50,9 @@ class ScorePage extends ConsumerWidget {
                 ),
               ),
             ),
+            SizedBox(height: 15),
             buildPlayerResultCard("anders svensson"),
+            SizedBox(height: 15),
             // SizedBox(height: 15),
             Align(
               alignment: Alignment.centerLeft,
@@ -62,7 +63,9 @@ class ScorePage extends ConsumerWidget {
                 ),
               ),
             ),
+            SizedBox(height: 20),
             buildPlayerResultCard("olof"),
+
             SizedBox(height: 15),
             Center(
               // ignore: prefer_const_literals_to_create_immutables
@@ -89,14 +92,38 @@ class ScorePage extends ConsumerWidget {
     );
   }
 
-  Widget buildPlayerResultCard(String playerName) => Container(
-        padding: EdgeInsets.all(10),
+  Widget buildPlayerResultCard(String playerName) => GlassmorphicContainer(
+        width: 350,
+        height: 150,
+        borderRadius: 20,
+        blur: 20,
+        alignment: Alignment.center,
+        border: 1,
+        linearGradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFFffffff).withOpacity(0.07),
+              Color(0xFFFFFFFF).withOpacity(0.07),
+            ],
+            stops: [
+              0.1,
+              1,
+            ]),
+        borderGradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Color(0xFFffffff).withOpacity(0.51),
+            Color((0xFFFFFFFF)).withOpacity(0.51),
+          ],
+        ),
         child: Card(
-          elevation: 0.1,
+          elevation: 0,
           color: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
+          // shape: RoundedRectangleBorder(
+          //   borderRadius: BorderRadius.circular(20.0),
+          // ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
