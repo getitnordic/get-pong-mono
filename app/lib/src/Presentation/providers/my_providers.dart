@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Player {
-  const Player({
+  Player({
     required this.name,
     required this.email,
     required this.id,
@@ -13,16 +13,19 @@ class Player {
 
   Player copyWith({String? name, String? email, String? id}) {
     return Player(
-      name: name ?? this.name,
-      email: email ?? this.email,
-      id: id ?? this.id,
-    );
+        name: name ?? this.name, email: email ?? this.email, id: id ?? this.id);
   }
 }
 
 class PlayerNotifier extends StateNotifier<List<Player>> {
   PlayerNotifier()
-      : super([Player(name: 'olof', email: 'email@test.com', id: '1')]);
+      : super([
+          Player(
+            name: 'olof',
+            email: 'email@test.com',
+            id: '1',
+          )
+        ]);
 
   void addPlayer(Player player) {
     state = [...state, player];
@@ -44,4 +47,24 @@ final playerProvider =
 
 final bottomBarIndexProvider = StateProvider<int>((ref) {
   return 0;
+});
+
+class SelectedPlayersNotifier extends StateNotifier<List<String>> {
+  SelectedPlayersNotifier() : super([]);
+
+  void addPlayerId(String id) {
+    state = [...state, id];
+  }
+
+  void removePlayerId(String id) {
+    state = [
+      for (final Id in state)
+        if (Id != id) Id,
+    ];
+  }
+}
+
+final selectedPlayersProvider =
+    StateNotifierProvider<SelectedPlayersNotifier, List<String>>((ref) {
+  return SelectedPlayersNotifier();
 });

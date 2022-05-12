@@ -12,6 +12,8 @@ class StartGamePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Player> playerList = ref.watch(playerProvider);
+    List<String> selectedPlayers = ref.watch(selectedPlayersProvider);
+
     print(playerList);
 
     return Column(
@@ -21,14 +23,25 @@ class StartGamePage extends ConsumerWidget {
             'Create Match',
             style: TextStyle(
               color: Colors.white,
-              fontSize: 40,
+              fontSize: 30,
             ),
           ),
         ),
         Expanded(
           child: PlayerList(
             players: playerList,
+            selectedPlayers: selectedPlayers,
             listTitle: 'Select player',
+            playerAction: (String id) {
+              print('id $id');
+              if (selectedPlayers.contains(id)) {
+                // REMOVE
+                ref.read(selectedPlayersProvider.notifier).removePlayerId(id);
+                return;
+              }
+              // ADD
+              ref.read(selectedPlayersProvider.notifier).addPlayerId(id);
+            },
           ),
         ),
         ElevatedButton(onPressed: () => {}, child: Text('Start Game'))
