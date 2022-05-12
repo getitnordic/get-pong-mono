@@ -18,17 +18,9 @@ class StartGamePage extends ConsumerWidget {
 
     return Column(
       children: [
-        const Center(
-          child: Text(
-            'Create Match',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-            ),
-          ),
-        ),
         Expanded(
           child: PlayerList(
+            pageTitle: 'Create Match',
             players: playerList,
             selectedPlayers: selectedPlayers,
             listTitle: 'Select player',

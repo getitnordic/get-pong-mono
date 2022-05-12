@@ -75,7 +75,10 @@ class MyPlayerAvatar extends StatelessWidget {
                 ],
               ),
             ),
-            Text('Rank:'),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Text('Rank:'),
+            ),
             if (withCheckbox)
               Checkbox(
                 checkColor: Colors.white,

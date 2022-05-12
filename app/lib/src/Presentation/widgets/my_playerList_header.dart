@@ -11,9 +11,9 @@ class PlayerListHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassmorphicContainer(
-      height: 50,
+      height: 70,
       width: double.infinity,
-      borderRadius: 20,
+      borderRadius: 15,
       blur: 20,
       alignment: Alignment.bottomCenter,
       border: 0.5,
@@ -45,14 +45,13 @@ class PlayerListHeader extends StatelessWidget {
               title,
               style: TextStyle(color: Theme.of(context).bottomAppBarColor),
             ),
-            addButton == true
-                ? IconButton(
-                    onPressed: () =>
-                        Navigator.pushNamed(context, route.playerListPage),
-                    icon: Icon(Icons.person_add),
-                    color: Theme.of(context).bottomAppBarColor,
-                  )
-                : Text('')
+            if (addButton == true)
+              IconButton(
+                onPressed: () =>
+                    Navigator.pushNamed(context, route.playerListPage),
+                icon: Icon(Icons.person_add),
+                color: Theme.of(context).bottomAppBarColor,
+              )
           ],
         ),
       ),

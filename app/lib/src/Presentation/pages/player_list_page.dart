@@ -24,15 +24,12 @@ class PlayerListPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          Text(
-            'playerListPage',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
           Expanded(
               child: PlayerList(
             players: playerList,
             pageIndex: pageIndex,
             listTitle: 'All players',
+            pageTitle: 'Player List',
           )),
           Text(
             'Add player',

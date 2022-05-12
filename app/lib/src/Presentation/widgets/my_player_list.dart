@@ -10,6 +10,7 @@ class PlayerList extends StatelessWidget {
   final List<Player> players;
   final int? pageIndex;
   final String listTitle;
+  String? pageTitle;
   List<String> selectedPlayers;
   final Function(String id)? playerAction;
   PlayerList(
@@ -18,6 +19,7 @@ class PlayerList extends StatelessWidget {
       this.selectedPlayers = const [],
       this.pageIndex,
       this.playerAction,
+      this.pageTitle,
       required this.listTitle})
       : super(key: key);
 
@@ -58,9 +60,13 @@ class PlayerList extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  PlayerListHeader(
-                      title: listTitle,
-                      addButton: pageIndex == 0 ? false : true),
+                  Text(pageTitle!),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: PlayerListHeader(
+                        title: listTitle,
+                        addButton: pageIndex == 0 ? false : true),
+                  ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
