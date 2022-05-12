@@ -84,47 +84,42 @@ class PlayerList extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Container(
-                        child: pageIndex == 2
-                            ? null
-                            : Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 20, right: 30.0),
-                                    child: Text(
-                                        selectedPlayers.length == 0
-                                            ? ''
-                                            : getPlayerName(selectedPlayers[0]),
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
-                                  Expanded(child: MyVsDevider()),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 30.0, right: 20),
-                                    child: Text(
-                                      selectedPlayers.length < 2
-                                          ? ''
-                                          : getPlayerName(selectedPlayers[1]),
-                                      style: TextStyle(color: Colors.white),
+                  if (selectedPlayers.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Container(
+                          child: pageIndex == 2
+                              ? null
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 20, right: 30.0),
+                                      child: Text(
+                                          getPlayerName(selectedPlayers[0]),
+                                          style:
+                                              TextStyle(color: Colors.white)),
                                     ),
-                                  ),
-                                  // Expanded(
-                                  //   child: Column(
-                                  //     children: [...mapPlayers()],
-                                  //   ),
-                                  // )
-                                ],
-                              ),
+                                    Expanded(child: MyVsDevider()),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 30.0, right: 20),
+                                      child: Text(
+                                        selectedPlayers.length < 2
+                                            ? ''
+                                            : getPlayerName(selectedPlayers[1]),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ),
