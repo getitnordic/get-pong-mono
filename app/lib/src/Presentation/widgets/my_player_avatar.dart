@@ -69,7 +69,7 @@ class MyPlayerAvatar extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontSize: 17,
-                      color: Colors.white,
+                      color: Colors.white70,
                     ),
                   ),
                 ],
@@ -77,7 +77,10 @@ class MyPlayerAvatar extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
-              child: Text('Rank:'),
+              child: Text(
+                'Rank:',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
             if (withCheckbox)
               Checkbox(

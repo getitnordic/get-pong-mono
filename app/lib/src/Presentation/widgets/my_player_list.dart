@@ -60,7 +60,10 @@ class PlayerList extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text(pageTitle!),
+                  Text(
+                    pageTitle!,
+                    style: TextStyle(color: Colors.white70, fontSize: 20),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: PlayerListHeader(
@@ -108,7 +111,7 @@ class PlayerList extends StatelessWidget {
                                       child: Text(
                                           getPlayerName(selectedPlayers[0]),
                                           style:
-                                              TextStyle(color: Colors.white)),
+                                              TextStyle(color: Colors.white70)),
                                     ),
                                     Expanded(child: MyVsDevider()),
                                     Padding(
@@ -118,7 +121,7 @@ class PlayerList extends StatelessWidget {
                                         selectedPlayers.length < 2
                                             ? ''
                                             : getPlayerName(selectedPlayers[1]),
-                                        style: TextStyle(color: Colors.white),
+                                        style: TextStyle(color: Colors.white70),
                                       ),
                                     ),
                                   ],

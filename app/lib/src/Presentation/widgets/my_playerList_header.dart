@@ -43,14 +43,16 @@ class PlayerListHeader extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(color: Theme.of(context).bottomAppBarColor),
+              style: TextStyle(color: Colors.white70),
             ),
             if (addButton == true)
               IconButton(
                 onPressed: () =>
                     Navigator.pushNamed(context, route.playerListPage),
                 icon: Icon(Icons.person_add),
-                color: Theme.of(context).bottomAppBarColor,
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .selectedItemColor,
               )
           ],
         ),

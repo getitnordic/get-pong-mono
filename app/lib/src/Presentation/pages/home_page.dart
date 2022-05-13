@@ -41,7 +41,8 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('GetPong'),
-        backgroundColor: Colors.red,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
       ),
       body: Container(
           // height: 500,

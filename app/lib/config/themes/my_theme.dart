@@ -7,9 +7,12 @@ class Customtheme {
       primaryColor: Color.fromARGB(255, 248, 114, 39),
       backgroundColor: Color.fromARGB(255, 55, 0, 255),
       bottomAppBarColor: Color.fromARGB(255, 23, 44, 63),
-      scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
+      scaffoldBackgroundColor: Color.fromARGB(255, 12, 32, 50),
+      // scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
       appBarTheme: AppBarTheme(
         backgroundColor: Color.fromARGB(255, 23, 44, 63),
+        titleTextStyle: GoogleFonts.gochiHand(
+            color: Color.fromARGB(255, 130, 164, 193), fontSize: 20),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedLabelStyle: GoogleFonts.goldman(),
@@ -48,6 +51,7 @@ class Customtheme {
       dividerColor: Color.fromARGB(255, 48, 95, 129),
       primaryColor: Colors.black,
       backgroundColor: Colors.grey,
+      // scaffoldBackgroundColor: Color.fromARGB(255, 0, 0, 0),
       scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedItemColor: Color.fromARGB(255, 248, 114, 39),
