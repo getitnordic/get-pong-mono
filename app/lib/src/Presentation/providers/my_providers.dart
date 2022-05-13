@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Player {
-  const Player({
+  Player({
     required this.name,
     required this.email,
     required this.id,
@@ -54,6 +53,26 @@ final playerProvider =
 
 final bottomBarIndexProvider = StateProvider<int>((ref) {
   return 0;
+});
+
+class SelectedPlayersNotifier extends StateNotifier<List<String>> {
+  SelectedPlayersNotifier() : super([]);
+
+  void addPlayerId(String id) {
+    state = [...state, id];
+  }
+
+  void removePlayerId(String id) {
+    state = [
+      for (final Id in state)
+        if (Id != id) Id,
+    ];
+  }
+}
+
+final selectedPlayersProvider =
+    StateNotifierProvider<SelectedPlayersNotifier, List<String>>((ref) {
+  return SelectedPlayersNotifier();
 });
 
 class Score {

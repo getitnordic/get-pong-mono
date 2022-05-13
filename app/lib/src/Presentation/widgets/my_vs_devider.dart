@@ -18,7 +18,8 @@ class MyVsDevider extends StatelessWidget {
       Text(
         'VS',
         textAlign: TextAlign.center,
-        style: TextStyle(color: Theme.of(context).dividerColor),
+        style:
+            TextStyle(color: Theme.of(context).bottomAppBarColor, fontSize: 20),
       ),
       Expanded(
         child: const Divider(

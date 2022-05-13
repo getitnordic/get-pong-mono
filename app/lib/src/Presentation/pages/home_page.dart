@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/pages/score_page.dart';
-import '../providers/my_providers.dart';
+import 'package:get_pong/src/presentation/providers/my_providers.dart';
+
 import '../widgets/my_player_list.dart';
 
 class HomePage extends ConsumerWidget {
@@ -26,6 +27,7 @@ class HomePage extends ConsumerWidget {
           players: players,
           pageIndex: currentIndex,
           listTitle: 'All Players',
+          pageTitle: 'All players',
         );
       case 0:
       default:
@@ -40,7 +42,8 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('GetPong'),
-        backgroundColor: Colors.red,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
       ),
       body: Container(
           // height: 500,

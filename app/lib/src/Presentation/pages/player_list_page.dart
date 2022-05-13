@@ -19,24 +19,23 @@ class PlayerListPage extends ConsumerWidget {
     print(playerList);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('GetPong'),
-        backgroundColor: Colors.red,
+        title: const Text(
+          'GetPong',
+        ),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: Column(
         children: [
-          Text(
-            'playerListPage',
-            style: TextStyle(color: Colors.white, fontSize: 20),
-          ),
           Expanded(
               child: PlayerList(
             players: playerList,
             pageIndex: pageIndex,
             listTitle: 'All players',
+            pageTitle: 'Player List',
           )),
           Text(
             'Add player',
-            style: TextStyle(color: Colors.white, fontSize: 20),
+            style: TextStyle(color: Colors.white70, fontSize: 20),
           ),
           AddPlayerFields(),
         ],
