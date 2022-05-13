@@ -1,8 +1,9 @@
+// ignore_for_file: prefer_const_constructors, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import '../providers/my_providers.dart';
-import '../route/route.dart' as route;
+import '../../../config/route/route.dart' as route;
 
 class DummyObj {
   final String id;
@@ -41,9 +42,10 @@ class ResultPage extends ConsumerWidget {
             Text(playername),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
+              // ignore: prefer_const_literals_to_create_immutables
               children: <Widget>[
                 Text('Add result'),
-                AddResultForm(),
+                // AddResultForm(),
                 const SizedBox(width: 8),
               ],
             ),

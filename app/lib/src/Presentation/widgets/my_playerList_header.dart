@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import '../route/route.dart' as route;
+import '../../../config/route/route.dart' as route;
 
 class PlayerListHeader extends StatelessWidget {
   const PlayerListHeader({Key? key, required this.title, this.addButton})

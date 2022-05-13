@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get_pong/src/Presentation/widgets/my_player_avatar.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
@@ -205,6 +207,7 @@ class PlayerList extends StatelessWidget {
         orElse: () => Player(
             name: 'player',
             email: 'user@example.com',
+            score: '0',
             id: Uuid().v4().toString()));
     return player1.name;
   }

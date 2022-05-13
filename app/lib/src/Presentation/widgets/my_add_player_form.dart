@@ -102,8 +102,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           if (isValid) {
             formKey.currentState!.save();
 
-            ref.read(playerProvider.notifier).addPlayer(
-                Player(name: userName, email: email, id: Uuid().v4()));
+            ref.read(playerProvider.notifier).addPlayer(Player(
+                name: userName, email: email, id: Uuid().v4(), score: "1"));
             final message = 'UserName: $userName\nEmail:$email';
 
             final snackBar = SnackBar(
@@ -119,3 +119,4 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
         child: Text('submit'),
       );
 }
+// ranking: "1"

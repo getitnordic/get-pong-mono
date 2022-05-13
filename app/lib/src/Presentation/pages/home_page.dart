@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/pages/pages.dart';
-import 'package:get_pong/src/presentation/providers/my_providers.dart';
-
+import 'package:get_pong/src/Presentation/pages/pages.dart';
+import 'package:get_pong/src/Presentation/pages/score_page.dart';
+import '../providers/my_providers.dart';
 import '../widgets/my_player_list.dart';
 
 class HomePage extends ConsumerWidget {
@@ -20,7 +20,7 @@ class HomePage extends ConsumerWidget {
   }) {
     switch (currentIndex) {
       case 1:
-        return ScoreBoardPage();
+        return ScorePage();
       case 2:
         return PlayerList(
           players: players,

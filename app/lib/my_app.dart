@@ -1,16 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/Presentation/pages/pages.dart';
-import 'package:get_pong/src/Presentation/route/route.dart';
-import 'src/Presentation/route/route.dart' as route;
-
-// import 'config/themes/my_theme.dart';
-// <<<<<<< HEAD
-// import 'package:get_pong/src/Presentation/pages/home/home_page.dart';
-
-// import 'config/themes/my_theme.dart';
-// =======
-// import 'package:get_pong/src/presentation/pages/pages.dart';
-// >>>>>>> 6a03785e813181f5efb878518fe8fc0869fd91c2
+import '../../../config/route/route.dart' as route;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key, required this.themeData}) : super(key: key);
@@ -27,12 +16,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-//FÖR KÖRA PROD BEHÖVS DESSA TEMAN:IN EFTER CLASS MYAPP EXTEMDS STATELESSWIDGET
-  // final ThemeData themeDataLight;
-  // final ThemeData themeDataDark;
-  // const MyApp({
-  //   Key? key,
-  //   required this.themeDataLight,
-  //   required this.themeDataDark,
-  // }) : super(key: key);
