@@ -7,6 +7,7 @@ import 'package:get_pong/src/presentation/widgets/my_playerList_header.dart';
 import 'package:get_pong/src/presentation/widgets/my_vs_devider.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 import 'package:uuid/uuid.dart';
+import '../../../config/route/route.dart' as route;
 
 class PlayerList extends StatelessWidget {
   final List<Player> players;
@@ -78,17 +79,21 @@ class PlayerList extends StatelessWidget {
                       child: ListView.builder(
                         itemBuilder: (context, index) {
                           final player = players[index];
-                          return MyPlayerAvatar(
-                            title: player.name,
-                            withCheckbox: pageIndex == 2 ? false : true,
-                            onTap: () {},
-                            onChanged: (bool? value) {
-                              if (value == null) {
-                                return;
-                              }
-                              playerAction!(player.id);
-                            },
-                            isSelected: selectedPlayers.contains(player.id),
+                          return GestureDetector(
+                            onTap: () =>
+                                Navigator.pushNamed(context, route.profilePage),
+                            child: MyPlayerAvatar(
+                              title: player.name,
+                              withCheckbox: pageIndex == 2 ? false : true,
+                              onTap: () {},
+                              onChanged: (bool? value) {
+                                if (value == null) {
+                                  return;
+                                }
+                                playerAction!(player.id);
+                              },
+                              isSelected: selectedPlayers.contains(player.id),
+                            ),
                           );
                         },
                         itemCount: players.length,

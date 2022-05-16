@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
-import 'package:get_pong/src/Presentation/pages/score_page.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 import '../widgets/my_player_list.dart';
+import '../widgets/widgets.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class HomePage extends ConsumerWidget {
   }) {
     switch (currentIndex) {
       case 1:
-        return ScorePage();
+        return ScoreBoard();
       case 2:
         return PlayerList(
           players: players,
@@ -61,8 +61,8 @@ class HomePage extends ConsumerWidget {
             // ignore: prefer_const_constructors
             BottomNavigationBarItem(
                 // ignore: prefer_const_constructors
-                icon: Icon(Icons.menu),
-                label: 'Matcher',
+                icon: Icon(Icons.scoreboard),
+                label: 'ScoreBoard',
                 backgroundColor: Colors.blue),
             // ignore: prefer_const_constructors
             BottomNavigationBarItem(
