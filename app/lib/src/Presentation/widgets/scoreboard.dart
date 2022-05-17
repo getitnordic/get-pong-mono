@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/src/Presentation/widgets/scoreboard_list_header.dart';
+import 'package:get_pong/src/Presentation/widgets/scoreboard_list_player.dart';
 import 'package:get_pong/src/domain/entities/scoreboard_player.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 enum SortingOptions {
-  highToLow, lowToHigh, none
+  highToLow, lowToHigh, none, name, played, wins, losses
 }
 
 class ScoreBoard extends StatefulWidget {
@@ -37,18 +38,18 @@ class _ScoreBoardState extends State<ScoreBoard> {
     ScoreboardPlayer('Ann', 71, 25),
   ];
 
-  SortingOptions playedSorted = SortingOptions.highToLow;
+  SortingOptions playedSorted = SortingOptions.none;
   SortingOptions winsSorted = SortingOptions.none;
   SortingOptions lossesSorted = SortingOptions.none;
   SortingOptions namesSorted = SortingOptions.none;
 
   void sortByPlayedGames(SortingOptions sortingOption) {
-    if(isLowToHighOrNone(sortingOption)) {
-      players.sort((a, b) => (b.wins + b.losses).compareTo(a.wins + a.losses));
-      playedSorted = SortingOptions.highToLow;
-    } else {
+    if(isHighToLow(sortingOption)) {
       players.sort((a, b) => (a.wins + a.losses).compareTo(b.wins + b.losses));
       playedSorted = SortingOptions.lowToHigh;
+    } else {
+      players.sort((a, b) => (b.wins + b.losses).compareTo(a.wins + a.losses));
+      playedSorted = SortingOptions.highToLow;
     }
     winsSorted = SortingOptions.none;
     lossesSorted = SortingOptions.none;
@@ -56,12 +57,12 @@ class _ScoreBoardState extends State<ScoreBoard> {
   }
 
   void sortByWins(SortingOptions sortingOption) {
-    if(isLowToHighOrNone(sortingOption)) {
-      players.sort((a, b) => b.wins.compareTo(a.wins));
-      winsSorted = SortingOptions.highToLow;
-    } else {
+    if(isHighToLow(sortingOption)) {
       players.sort((a, b) => a.wins.compareTo(b.wins));
       winsSorted = SortingOptions.lowToHigh;
+    } else {
+      players.sort((a, b) => b.wins.compareTo(a.wins));
+      winsSorted = SortingOptions.highToLow;
     }
     lossesSorted = SortingOptions.none;
     playedSorted = SortingOptions.none;
@@ -69,12 +70,12 @@ class _ScoreBoardState extends State<ScoreBoard> {
   }
 
   void sortByLosses(SortingOptions sortingOption) {
-    if(isLowToHighOrNone(sortingOption)) {
-      players.sort((a, b) => b.losses.compareTo(a.losses));
-      lossesSorted = SortingOptions.highToLow;
-    } else {
+    if(isHighToLow(sortingOption)) {
       players.sort((a, b) => a.losses.compareTo(b.losses));
       lossesSorted = SortingOptions.lowToHigh;
+    } else {
+      players.sort((a, b) => b.losses.compareTo(a.losses));
+      lossesSorted = SortingOptions.highToLow;
     }
     winsSorted = SortingOptions.none;
     playedSorted = SortingOptions.none;
@@ -82,19 +83,19 @@ class _ScoreBoardState extends State<ScoreBoard> {
   }
 
   void sortByNames(SortingOptions sortingOption) {
-    if(isLowToHighOrNone(sortingOption)) {
-      players.sort((a, b) => a.name.compareTo(b.name));
-      namesSorted = SortingOptions.highToLow;
-    } else {
+    if(isHighToLow(sortingOption)) {
       players.sort((a, b) => b.name.compareTo(a.name));
       namesSorted = SortingOptions.lowToHigh;
+    } else {
+      players.sort((a, b) => a.name.compareTo(b.name));
+      namesSorted = SortingOptions.highToLow;
     }
     winsSorted = SortingOptions.none;
     playedSorted = SortingOptions.none;
     lossesSorted = SortingOptions.none;
   }
 
-  bool isLowToHighOrNone(SortingOptions sortingOptions) => sortingOptions == SortingOptions.lowToHigh || sortingOptions == SortingOptions.none;
+  bool isHighToLow(SortingOptions sortingOptions) => sortingOptions == SortingOptions.highToLow;
 
   @override
   Widget build(BuildContext context) {
@@ -129,78 +130,27 @@ class _ScoreBoardState extends State<ScoreBoard> {
           ),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            sortByNames(namesSorted);
-                          });
-                        },
-                        child: Text(
-                            'Player',
-                            style: GoogleFonts.goldman(
-                                fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
-                        ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 13),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                          width: 50,
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                sortByPlayedGames(playedSorted);
-                              });
-                            },
-                            child: Text(
-                              'P',
-                              style: GoogleFonts.goldman(
-                                  fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 50,
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                sortByWins(winsSorted);
-                              });
-                            },
-                            child: Text(
-                              'W',
-                              style: GoogleFonts.goldman(
-                                  fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 50,
-                          child: TextButton(
-                            onPressed: () {
-                              setState(() {
-                                sortByLosses(lossesSorted);
-                              });
-                            },
-                            child: Text(
-                              'L',
-                              style: GoogleFonts.goldman(
-                                  fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              ScoreboardListHeader(
+                onPressedPlayer: () {
+                  setState(() {
+                    sortByNames(namesSorted);
+                  });
+                },
+                onPressedPlayed: () {
+                  setState(() {
+                    sortByPlayedGames(playedSorted);
+                  });
+                },
+                onPressedWins: () {
+                  setState(() {
+                    sortByWins(winsSorted);
+                  });
+                },
+                onPressedLosses: () {
+                  setState(() {
+                    sortByLosses(lossesSorted);
+                  });
+                },
               ),
               const Divider(
                 height: 3,
@@ -210,72 +160,9 @@ class _ScoreBoardState extends State<ScoreBoard> {
                 child: ListView.builder(
                     itemCount: players.length,
                     itemBuilder: (context, index) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 3),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    (index + 1).toString(),
-                                    style: const TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 10),
-                                    child: Text(
-                                      players[index].name,
-                                      style: const TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.white70,
-                                          fontWeight: FontWeight.bold
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(
-                                width: 50,
-                                child: Text(
-                                  '${players[index].wins + players[index].losses}',
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50,
-                                child: Text(
-                                  players[index].wins.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 50,
-                                child: Text(
-                                  players[index].losses.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      return ScoreboardListPlayer(
+                        player: players[index],
+                        index: index,
                       );
                     }),
               ),
