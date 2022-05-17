@@ -133,7 +133,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.only(left: 15),
+                    padding: const EdgeInsets.only(left: 10),
                     child: TextButton(
                         onPressed: () {
                           setState(() {
@@ -147,8 +147,8 @@ class _ScoreBoardState extends State<ScoreBoard> {
                         ),
                     ),
                   ),
-                  SizedBox(
-                    width: 160,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 13),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -210,60 +210,72 @@ class _ScoreBoardState extends State<ScoreBoard> {
                 child: ListView.builder(
                     itemCount: players.length,
                     itemBuilder: (context, index) {
-                      return ListTile(
-                        leading: SizedBox(
-                          width: 195,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 3),
-                            child: Row(
-                              children: [
-                                Text(
-                                  (index + 1).toString(),
-                                  style: const TextStyle(
-                                    fontSize: 15,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    players[index].name,
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 3),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    (index + 1).toString(),
                                     style: const TextStyle(
                                       fontSize: 15,
-                                      color: Colors.white70,
-                                      fontWeight: FontWeight.bold
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      players[index].name,
+                                      style: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white70,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        title: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '${players[index].wins + players[index].losses}',
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.white70,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: 50,
+                                child: Text(
+                                  '${players[index].wins + players[index].losses}',
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white70,
+                                  ),
+                                ),
                               ),
-                            ),
-                            Text(
-                              players[index].wins.toString(),
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.white70,
+                              SizedBox(
+                                width: 50,
+                                child: Text(
+                                  players[index].wins.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white70,
+                                  ),
+                                ),
                               ),
-                            ),
-                            Text(
-                              players[index].losses.toString(),
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.white70,
+                              SizedBox(
+                                width: 50,
+                                child: Text(
+                                  players[index].losses.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white70,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
+                        ],
                       );
                     }),
               ),
