@@ -44,6 +44,7 @@ class _ScoreBoardState extends State<ScoreBoard> {
   SortingOptions namesSorted = SortingOptions.none;
 
   void sortByPlayedGames(SortingOptions sortingOption) {
+    resetSortingOptions();
     if(isHighToLow(sortingOption)) {
       players.sort((a, b) => (a.wins + a.losses).compareTo(b.wins + b.losses));
       playedSorted = SortingOptions.lowToHigh;
@@ -51,12 +52,10 @@ class _ScoreBoardState extends State<ScoreBoard> {
       players.sort((a, b) => (b.wins + b.losses).compareTo(a.wins + a.losses));
       playedSorted = SortingOptions.highToLow;
     }
-    winsSorted = SortingOptions.none;
-    lossesSorted = SortingOptions.none;
-    namesSorted = SortingOptions.none;
   }
 
   void sortByWins(SortingOptions sortingOption) {
+    resetSortingOptions();
     if(isHighToLow(sortingOption)) {
       players.sort((a, b) => a.wins.compareTo(b.wins));
       winsSorted = SortingOptions.lowToHigh;
@@ -64,12 +63,10 @@ class _ScoreBoardState extends State<ScoreBoard> {
       players.sort((a, b) => b.wins.compareTo(a.wins));
       winsSorted = SortingOptions.highToLow;
     }
-    lossesSorted = SortingOptions.none;
-    playedSorted = SortingOptions.none;
-    namesSorted = SortingOptions.none;
   }
 
   void sortByLosses(SortingOptions sortingOption) {
+    resetSortingOptions();
     if(isHighToLow(sortingOption)) {
       players.sort((a, b) => a.losses.compareTo(b.losses));
       lossesSorted = SortingOptions.lowToHigh;
@@ -77,12 +74,10 @@ class _ScoreBoardState extends State<ScoreBoard> {
       players.sort((a, b) => b.losses.compareTo(a.losses));
       lossesSorted = SortingOptions.highToLow;
     }
-    winsSorted = SortingOptions.none;
-    playedSorted = SortingOptions.none;
-    namesSorted = SortingOptions.none;
   }
 
   void sortByNames(SortingOptions sortingOption) {
+    resetSortingOptions();
     if(isHighToLow(sortingOption)) {
       players.sort((a, b) => b.name.compareTo(a.name));
       namesSorted = SortingOptions.lowToHigh;
@@ -90,12 +85,16 @@ class _ScoreBoardState extends State<ScoreBoard> {
       players.sort((a, b) => a.name.compareTo(b.name));
       namesSorted = SortingOptions.highToLow;
     }
-    winsSorted = SortingOptions.none;
-    playedSorted = SortingOptions.none;
-    lossesSorted = SortingOptions.none;
   }
 
   bool isHighToLow(SortingOptions sortingOptions) => sortingOptions == SortingOptions.highToLow;
+
+  void resetSortingOptions() {
+    winsSorted = SortingOptions.none;
+    lossesSorted = SortingOptions.none;
+    namesSorted = SortingOptions.none;
+    playedSorted = SortingOptions.none;
+  }
 
   @override
   Widget build(BuildContext context) {
