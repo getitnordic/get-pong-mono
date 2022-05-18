@@ -26,6 +26,10 @@ class ScoreboardPlayersNotifier extends StateNotifier<List<ScoreboardPlayer>> {
       ]
   );
 
+  void addPlayer(ScoreboardPlayer player) {
+    state = [...state, player];
+  }
+
   void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {
         switch(sortingOptions) {
               case SortingOptions.name:
@@ -49,27 +53,34 @@ class ScoreboardPlayersNotifier extends StateNotifier<List<ScoreboardPlayer>> {
         sortHighToLow ?
         state.sort((a, b) => (b.losses).compareTo(a.losses)):
         state.sort((a, b) => (a.losses).compareTo(b.losses));
+        state = [...state];
   }
 
   void _sortByWins(bool sortHighToLow) {
         sortHighToLow ?
         state.sort((a, b) => (b.wins).compareTo(a.wins)):
         state.sort((a, b) => (a.wins).compareTo(b.wins));
+        state = [...state];
   }
 
   void _sortByPlayed(bool sortHighToLow) {
         sortHighToLow ?
         state.sort((a, b) => (b.wins + b.losses).compareTo(a.wins + a.losses)):
         state.sort((a, b) => (a.wins + a.losses).compareTo(b.wins + b.losses));
+        state = [...state];
   }
 
   void _sortByName(bool sortHighToLow) {
         sortHighToLow ?
         state.sort((a, b) => (a.name).compareTo(b.name)):
         state.sort((a, b) => (b.name).compareTo(a.name));
+        state = [...state];
   }
 
 }
 
 final scoreboardPlayerProvider = StateNotifierProvider<ScoreboardPlayersNotifier,
     List<ScoreboardPlayer>>((ref) => ScoreboardPlayersNotifier());
+
+final scoreboardSortingTypeProvider = StateProvider<bool>((ref) => true);
+final scoreboardPressedLastProvider = StateProvider<SortingOptions>((ref) => SortingOptions.none);
