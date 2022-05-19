@@ -3,36 +3,35 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_header.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_player.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-
-import '../../../domain/entities/scoreboard_player.dart';
-import '../../../presentation/providers/scoreboard_players_notifier.dart';
+import '../../../domain/entities/player.dart';
 import '../../../util/sorting_options.dart';
 import '../../../../config/route/route.dart' as route;
+import '../../providers/players_notifier.dart';
 
 class PlayerRanking extends ConsumerWidget {
   const PlayerRanking({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<ScoreboardPlayer> players = ref.watch(scoreboardPlayerProvider);
-    final SortingOptions lastPressed = ref.watch(scoreboardPressedLastProvider);
-    bool highToLow = ref.watch(scoreboardSortingTypeProvider);
+    final List<Player> players = ref.watch(playersProvider);
+    final SortingOptions lastPressed = ref.watch(rankingPressedLastProvider);
+    bool highToLow = ref.watch(rankingSortingTypeProvider);
 
     void toggleHighToLow() {
       highToLow ?
-      ref.watch(scoreboardSortingTypeProvider.notifier).update((state) => false):
-      ref.watch(scoreboardSortingTypeProvider.notifier).update((state) => true);
+      ref.watch(rankingSortingTypeProvider.notifier).update((state) => false):
+      ref.watch(rankingSortingTypeProvider.notifier).update((state) => true);
     }
 
     void setLastPressed(SortingOptions option) {
-      ref.watch(scoreboardPressedLastProvider.notifier).update((state) => option);
+      ref.watch(rankingPressedLastProvider.notifier).update((state) => option);
     }
 
     void sortByLosses() {
       if(lastPressed != SortingOptions.losses) {
         highToLow = true;
       }
-      ref.watch(scoreboardPlayerProvider.notifier)
+      ref.watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.losses, highToLow);
       setLastPressed(SortingOptions.losses);
       toggleHighToLow();
@@ -42,7 +41,7 @@ class PlayerRanking extends ConsumerWidget {
       if(lastPressed != SortingOptions.wins) {
         highToLow = true;
       }
-      ref.watch(scoreboardPlayerProvider.notifier)
+      ref.watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.wins, highToLow);
       setLastPressed(SortingOptions.wins);
       toggleHighToLow();
@@ -52,7 +51,7 @@ class PlayerRanking extends ConsumerWidget {
       if(lastPressed != SortingOptions.name) {
         highToLow = true;
       }
-      ref.watch(scoreboardPlayerProvider.notifier)
+      ref.watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.name, highToLow);
       setLastPressed(SortingOptions.name);
       toggleHighToLow();
@@ -62,7 +61,7 @@ class PlayerRanking extends ConsumerWidget {
       if(lastPressed != SortingOptions.played) {
         highToLow = true;
       }
-      ref.watch(scoreboardPlayerProvider.notifier)
+      ref.watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.played, highToLow);
       setLastPressed(SortingOptions.played);
       toggleHighToLow();

@@ -1,8 +1,8 @@
-import 'package:get_pong/src/domain/entities/scoreboard_player.dart';
+import 'package:get_pong/src/domain/entities/player.dart';
 
 class PingPongMatch {
-  final ScoreboardPlayer playerOne;
-  final ScoreboardPlayer playerTwo;
+  final Player playerOne;
+  final Player playerTwo;
   final int playerOneScore;
   final int playerTwoScore;
 

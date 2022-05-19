@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/domain/entities/scoreboard_player.dart';
+import 'package:get_pong/src/domain/entities/player.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 import '../widgets/widgets.dart';
@@ -25,7 +25,7 @@ class ProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ProfilePage'),
+        title: const Text('Profile Page'),
       ),
       // ignore: avoid_unnecessary_containers
       body: Container(

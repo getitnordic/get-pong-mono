@@ -4,6 +4,7 @@ import 'package:get_pong/src/Presentation/providers/ping_pong_match_notifier.dar
 import 'package:get_pong/src/Presentation/widgets/scoreboard/scoreboard_list_item.dart';
 import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+import '../../../../config/route/route.dart' as route;
 
 class Scoreboard extends ConsumerWidget {
   const Scoreboard({Key? key}) : super(key: key);
@@ -54,8 +55,14 @@ class Scoreboard extends ConsumerWidget {
               child: ListView.builder(
                   itemCount: matches.length,
                   itemBuilder: (context, index) {
-                    return ScoreboardListItem(
-                        match: matches[index],
+                    return GestureDetector(
+                      onTap: () => Navigator.pushNamed(
+                      context,
+                      route.matchDetailsPage,
+                      ),
+                      child: ScoreboardListItem(
+                          match: matches[index],
+                      ),
                     );
                   }),
             ),

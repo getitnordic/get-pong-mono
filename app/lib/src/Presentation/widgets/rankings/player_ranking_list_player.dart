@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/domain/entities/scoreboard_player.dart';
+import 'package:get_pong/src/domain/entities/player.dart';
 
 class PlayerRankingListPlayer extends StatelessWidget {
   const PlayerRankingListPlayer({
@@ -8,7 +8,7 @@ class PlayerRankingListPlayer extends StatelessWidget {
     required this.index
   }) : super(key: key);
 
-  final ScoreboardPlayer player;
+  final Player player;
   final int index;
 
   @override
