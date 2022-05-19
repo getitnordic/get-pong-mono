@@ -17,7 +17,7 @@ class ScoreboardPlayersNotifier extends StateNotifier<List<ScoreboardPlayer>> {
         const ScoreboardPlayer('Lucia', 100, 20, 'https://i.pravatar.cc/100?img=20'),
         const ScoreboardPlayer('Vattenmannen', 20, 100, 'https://i.pravatar.cc/100?img=7'),
         const ScoreboardPlayer('Ludwig', 85, 44, 'https://i.pravatar.cc/100?img=17'),
-        const ScoreboardPlayer('Brad Pitt', 78, 25, 'https://i.pravatar.cc/100?img=69'),
+        const ScoreboardPlayer('Brad Pitt', 78, 25, 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.PLaeTcrtaHMZxHQCRR3gxwHaHa%26pid%3DApi&f=1'),
         const ScoreboardPlayer('Kocken', 65, 45, 'https://i.pravatar.cc/100?img=11'),
         const ScoreboardPlayer('Adam', 87, 0, 'https://i.pravatar.cc/100?img=12'),
         const ScoreboardPlayer('Woke', 12, 3, 'https://i.pravatar.cc/100?img=6'),
@@ -28,6 +28,10 @@ class ScoreboardPlayersNotifier extends StateNotifier<List<ScoreboardPlayer>> {
 
   void addPlayer(ScoreboardPlayer player) {
     state = [...state, player];
+  }
+
+  void getPlayerById(int id) {
+
   }
 
   void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {

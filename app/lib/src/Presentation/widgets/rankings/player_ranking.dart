@@ -113,7 +113,16 @@ class PlayerRanking extends ConsumerWidget {
                   itemCount: players.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, route.profilePage),
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        route.profilePage,
+                        arguments: {
+                          'name': players[index].name,
+                          'gamesWon': players[index].wins.toString(),
+                          'gamesLost': players[index].losses.toString(),
+                          'imageUrl': players[index].imageUrl
+                        },
+                      ),
                       child: PlayerRankingListPlayer(
                         player: players[index],
                         index: index,

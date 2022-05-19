@@ -5,8 +5,8 @@ import 'package:get_pong/src/Presentation/widgets/scoreboard/scoreboard_list_ite
 import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
-class ScoreBoard extends ConsumerWidget {
-  const ScoreBoard({Key? key}) : super(key: key);
+class Scoreboard extends ConsumerWidget {
+  const Scoreboard({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

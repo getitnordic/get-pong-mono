@@ -3,18 +3,17 @@
 import 'package:flutter/material.dart';
 
 class BigAvatar extends StatelessWidget {
-  const BigAvatar({Key? key}) : super(key: key);
+  const BigAvatar({Key? key, required this.imageUrl}) : super(key: key);
+
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: CircleAvatar(
-          backgroundImage: AssetImage('assets/images/monkey.jpg'),
-          radius: 80,
-        ),
+    return Center(
+      child: CircleAvatar(
+        backgroundImage: NetworkImage(imageUrl),
+        radius: 80,
       ),
-      // ignore: prefer_const_literals_to_create_immutable
     );
   }
 }

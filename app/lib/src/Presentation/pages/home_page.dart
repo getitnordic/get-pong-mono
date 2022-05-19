@@ -22,7 +22,7 @@ class HomePage extends ConsumerWidget {
   }) {
     switch (currentIndex) {
       case 1:
-        return ScoreBoard();
+        return Scoreboard();
       case 2:
         return PlayerRanking();
       case 0:

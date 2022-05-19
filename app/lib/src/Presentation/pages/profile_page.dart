@@ -1,16 +1,28 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get_pong/src/domain/entities/scoreboard_player.dart';
+import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 import '../widgets/widgets.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({
     Key? key,
+    required this.name,
+    required this.gamesWon,
+    required this.gamesLost,
+    required this.imageUrl,
   }) : super(key: key);
+
+  final String name;
+  final String gamesWon;
+  final String gamesLost;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('ProfilePage'),
@@ -24,10 +36,12 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 30),
-            BigAvatar(),
+            BigAvatar(
+              imageUrl: imageUrl,
+            ),
             SizedBox(height: 20),
             NameCard(
-              playerName: 'jeppenator',
+              playerName: name,
             ),
             SizedBox(height: 12),
             Text(
@@ -37,7 +51,10 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30),
-            GameStats(),
+            GameStats(
+              wins: gamesWon,
+              losses: gamesLost,
+            ),
             SizedBox(height: 50),
             Center(
               child: Text(

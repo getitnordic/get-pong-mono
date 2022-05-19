@@ -35,6 +35,12 @@ class PingPongMatchNotifier extends StateNotifier<List<PingPongMatch>> {
         playerOneScore: 23,
         playerTwoScore: 25
     ),
+    PingPongMatch(
+        playerOne: const ScoreboardPlayer('Brad Pitt', 78, 25, 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.PLaeTcrtaHMZxHQCRR3gxwHaHa%26pid%3DApi&f=1'),
+        playerTwo: const ScoreboardPlayer('Stefan', 8, 5, 'https://i.pravatar.cc/100?img=3'),
+        playerOneScore: 16,
+        playerTwoScore: 25
+    ),
   ]);
 }
 

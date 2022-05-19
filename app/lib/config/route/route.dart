@@ -20,8 +20,15 @@ Route<dynamic> controller(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => PlayerListPage());
     case scorePage:
       return MaterialPageRoute(builder: (context) => ScorePage());
-    case profilePage:
-      return MaterialPageRoute(builder: (context) => ProfilePage());
+    case profilePage: {
+      final args = settings.arguments as Map;
+      return MaterialPageRoute(builder: (context) => ProfilePage(
+        name: args['name'],
+        gamesWon: args['gamesWon'],
+        gamesLost: args['gamesLost'],
+        imageUrl: args['imageUrl'],
+      ));
+    }
     default:
       throw ("This route name don't exist");
   }
