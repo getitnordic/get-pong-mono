@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/Presentation/widgets/scoreboard_list_header.dart';
-import 'package:get_pong/src/Presentation/widgets/scoreboard_list_player.dart';
+import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_header.dart';
+import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_player.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
-import '../../domain/entities/scoreboard_player.dart';
-import '../../util/sorting_options.dart';
-import '../providers/scoreboard_players_notifier.dart';
+import '../../../domain/entities/scoreboard_player.dart';
+import '../../../presentation/providers/scoreboard_players_notifier.dart';
+import '../../../util/sorting_options.dart';
+import '../../../../config/route/route.dart' as route;
 
-class ScoreBoard extends ConsumerWidget {
-  const ScoreBoard({Key? key}) : super(key: key);
+class PlayerRanking extends ConsumerWidget {
+  const PlayerRanking({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,8 +20,8 @@ class ScoreBoard extends ConsumerWidget {
 
     void toggleHighToLow() {
       highToLow ?
-        ref.watch(scoreboardSortingTypeProvider.notifier).update((state) => false):
-        ref.watch(scoreboardSortingTypeProvider.notifier).update((state) => true);
+      ref.watch(scoreboardSortingTypeProvider.notifier).update((state) => false):
+      ref.watch(scoreboardSortingTypeProvider.notifier).update((state) => true);
     }
 
     void setLastPressed(SortingOptions option) {
@@ -67,7 +68,6 @@ class ScoreBoard extends ConsumerWidget {
       toggleHighToLow();
     }
 
-
     return Container(
       padding: const EdgeInsets.all(8),
       child: GlassmorphicContainer(
@@ -98,7 +98,7 @@ class ScoreBoard extends ConsumerWidget {
         ),
         child: Column(
           children: [
-            ScoreboardListHeader(
+            PlayerRankingListHeader(
               onPressedPlayer: sortByName,
               onPressedPlayed: sortByPlayed,
               onPressedWins: sortByWins,
@@ -112,9 +112,12 @@ class ScoreBoard extends ConsumerWidget {
               child: ListView.builder(
                   itemCount: players.length,
                   itemBuilder: (context, index) {
-                    return ScoreboardListPlayer(
-                      player: players[index],
-                      index: index,
+                    return GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, route.profilePage),
+                      child: PlayerRankingListPlayer(
+                        player: players[index],
+                        index: index,
+                      ),
                     );
                   }),
             ),

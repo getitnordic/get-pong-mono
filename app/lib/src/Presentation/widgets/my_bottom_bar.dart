@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
 
 import '../pages/pages.dart';
 

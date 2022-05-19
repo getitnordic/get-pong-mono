@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ScoreboardListHeader extends StatelessWidget {
+class PlayerRankingListHeader extends StatelessWidget {
 
   final VoidCallback onPressedPlayer;
   final VoidCallback onPressedWins;
   final VoidCallback onPressedLosses;
   final VoidCallback onPressedPlayed;
 
-  const ScoreboardListHeader({
+  const PlayerRankingListHeader({
     Key? key,
     required this.onPressedPlayer,
     required this.onPressedPlayed,

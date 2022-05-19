@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/src/domain/entities/scoreboard_player.dart';
 
-class ScoreboardListPlayer extends StatelessWidget {
-  const ScoreboardListPlayer({
+class PlayerRankingListPlayer extends StatelessWidget {
+  const PlayerRankingListPlayer({
     Key? key,
     required this.player,
     required this.index

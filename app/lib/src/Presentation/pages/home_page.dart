@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
+import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 import '../widgets/my_player_list.dart';
@@ -23,12 +24,7 @@ class HomePage extends ConsumerWidget {
       case 1:
         return ScoreBoard();
       case 2:
-        return PlayerList(
-          players: players,
-          pageIndex: currentIndex,
-          listTitle: 'All Players',
-          pageTitle: 'All players',
-        );
+        return PlayerRanking();
       case 0:
       default:
         return StartGamePage();
