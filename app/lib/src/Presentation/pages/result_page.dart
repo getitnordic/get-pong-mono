@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../domain/entities/player.dart';
 import '../providers/my_providers.dart';
 import '../../../config/route/route.dart' as route;
 

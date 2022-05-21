@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
-import 'package:get_pong/src/presentation/providers/my_providers.dart';
-
-import '../widgets/my_player_list.dart';
+import '../../domain/entities/player.dart';
+import '../providers/bottom_bar_index_provider.dart';
+import '../providers/players_notifier.dart';
+import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';
 
 class HomePage extends ConsumerWidget {
@@ -34,17 +35,36 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomBarIndexProvider.state);
-    List<Player> playerList = ref.watch(playerProvider);
+    List<Player> playerList = ref.watch(playersProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('GetPong'),
-        backgroundColor:
-            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        actions: [
+          IconButton(
+            onPressed: (){
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return AddPlayerBottomSheet();
+                  },
+              );
+            },
+            icon: Icon(Icons.person_add),
+            color: Theme.of(context)
+                .bottomNavigationBarTheme
+                .selectedItemColor,
+          ),
+        ],
       ),
       body: Container(
           // height: 500,
           child: renderContent(
-              players: playerList, currentIndex: currentIndex.state)),
+              players: playerList,
+              currentIndex: currentIndex.state
+          ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex.state,
           showUnselectedLabels: false,
@@ -75,7 +95,8 @@ class HomePage extends ConsumerWidget {
   }
 }
 
-    
+
+
 // ignore_for_file: prefer_const_constructors
 
 // class MyBottomBar extends StatefulWidget {

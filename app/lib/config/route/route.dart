@@ -8,6 +8,7 @@ const String playerListPage = 'playerListPage';
 const String scorePage = 'scorepage';
 const String profilePage = 'profilepage';
 const String matchDetailsPage = 'matchdetails';
+const String addNewPlayerPage = 'addplayer';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {

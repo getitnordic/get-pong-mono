@@ -1,37 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Player {
-  Player({
-    required this.name,
-    required this.email,
-    required this.id,
-    required this.score,
-    // required this.ranking,
-  });
-  final String name;
-  final String email;
-  final String id;
-  final String score;
-  // final String ranking;
-
-  Player copyWith({String? name, String? email, String? id, String? score}) {
-    return Player(
-      name: name ?? this.name,
-      email: email ?? this.email,
-      id: id ?? this.id,
-      score: score ?? this.score,
-
-      // ranking: ranking ?? this.ranking,
-    );
-  }
-}
-
+import '../../domain/entities/player.dart';
 // ranking: "1"
 class PlayerNotifier extends StateNotifier<List<Player>> {
-  PlayerNotifier()
-      : super([
-          Player(name: 'olof', email: 'email@test.com', id: '1', score: '2')
-        ]);
+  PlayerNotifier() : super([]);
 
   void addPlayer(Player player) {
     state = [...state, player];
@@ -49,10 +21,6 @@ class PlayerNotifier extends StateNotifier<List<Player>> {
 final playerProvider =
     StateNotifierProvider<PlayerNotifier, List<Player>>((ref) {
   return PlayerNotifier();
-});
-
-final bottomBarIndexProvider = StateProvider<int>((ref) {
-  return 0;
 });
 
 class SelectedPlayersNotifier extends StateNotifier<List<String>> {

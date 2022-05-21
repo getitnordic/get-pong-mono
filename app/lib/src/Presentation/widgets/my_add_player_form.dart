@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/main_dev.dart';
-import 'package:uuid/uuid.dart';
-import '../providers/my_providers.dart';
+import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
+import '../../domain/entities/player.dart';
+import '../../../config/route/route.dart' as route;
 
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);
@@ -16,9 +16,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
   String email = '';
   String userName = '';
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
+
     return Form(
       key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -31,7 +30,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
             buildUserName(),
             buildSubmitButton(),
           ],
-        ),
+        )
       ),
     );
   }
@@ -41,7 +40,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           top: 20,
         ),
         child: TextFormField(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
                 color: Color.fromARGB(255, 130, 164, 193),
@@ -55,7 +54,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           ),
           keyboardType: TextInputType.emailAddress,
           validator: (value) {
-            final pattern =
+            const pattern =
                 r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
             final regExp = RegExp(pattern);
 
@@ -72,7 +71,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
   Widget buildUserName() => Padding(
         padding: const EdgeInsets.only(top: 10),
         child: TextFormField(
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: 'User name',
             labelStyle: TextStyle(color: Color.fromARGB(255, 130, 164, 193)),
             prefixIcon:
@@ -87,7 +86,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           keyboardType: TextInputType.text,
           validator: (value) {
             if (value!.length < 4) {
-              return 'UserName must at least have 4 characters';
+              return 'Username must at least have 4 characters';
             } else {
               return null;
             }
@@ -102,21 +101,32 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           if (isValid) {
             formKey.currentState!.save();
 
-            ref.read(playerProvider.notifier).addPlayer(Player(
-                name: userName, email: email, id: Uuid().v4(), score: "1"));
-            final message = 'UserName: $userName\nEmail:$email';
+            ref.read(playersProvider.notifier).addPlayer(Player(DateTime.now().toString(), userName, 0, 0, 'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg'));
+            const message = 'Player created!';
 
             final snackBar = SnackBar(
-              content: Text(
-                message,
-                style: TextStyle(fontSize: 20),
+              content: SizedBox(
+                width: 400,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Text(
+                      message,
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
               ),
-              backgroundColor: Color.fromARGB(255, 23, 44, 63),
+              duration: const Duration(seconds: 1),
+              backgroundColor: const Color.fromARGB(255, 23, 44, 63),
+              elevation: 1000,
+              behavior: SnackBarBehavior.floating,
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            Navigator.pop(context);
           }
         },
-        child: Text('submit'),
+        child: const Text('submit'),
       );
 }
 // ranking: "1"

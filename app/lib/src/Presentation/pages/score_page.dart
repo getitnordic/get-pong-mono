@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/widgets/save_button.dart';
 import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:glassmorphism/glassmorphism.dart';
-import '../providers/my_providers.dart';
+
+import '../../presentation/providers/selected_players_notifier.dart';
 
 // class DummyObj {
 //   final String id;
@@ -23,7 +24,8 @@ class ScorePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Player> players = ref.watch(playerProvider);
+    List<String> players = ref.watch(selectedPlayersProvider);
+    print(players);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +42,6 @@ class ScorePage extends ConsumerWidget {
             // ),
 
             SizedBox(height: 20),
-
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -51,7 +52,7 @@ class ScorePage extends ConsumerWidget {
               ),
             ),
             SizedBox(height: 15),
-            buildPlayerResultCard("anders svensson"),
+            buildPlayerResultCard('players[0]'),
             SizedBox(height: 15),
             // SizedBox(height: 15),
             Align(
@@ -64,8 +65,7 @@ class ScorePage extends ConsumerWidget {
               ),
             ),
             SizedBox(height: 20),
-            buildPlayerResultCard("olof"),
-
+            buildPlayerResultCard('players[1]'),
             SizedBox(height: 15),
             Center(
               // ignore: prefer_const_literals_to_create_immutables

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
-import 'package:glassmorphism/glassmorphism.dart';
 
 class ScoreboardListItem extends StatelessWidget {
   const ScoreboardListItem({Key? key, required this.match}) : super(key: key);
@@ -10,32 +10,7 @@ class ScoreboardListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: GlassmorphicContainer(
-        width: double.infinity,
-        height: 50,
-        borderRadius: 15,
-        blur: 20,
-        alignment: Alignment.center,
-        border: 0.5,
-        linearGradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              const Color(0xFFffffff).withOpacity(0.1),
-              const Color(0xFFFFFFFF).withOpacity(0.05),
-            ],
-            stops: const [
-              0.1,
-              1,
-            ]),
-        borderGradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            const Color(0xFFffffff).withOpacity(0.5),
-            const Color((0xFFFFFFFF)).withOpacity(0.5),
-          ],
-        ),
+      child: CustomSmallContainer(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

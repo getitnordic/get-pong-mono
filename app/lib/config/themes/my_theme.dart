@@ -24,8 +24,13 @@ class Customtheme {
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
             bodyText2: GoogleFonts.goldman(
-                fontSize: 20, color: Color.fromARGB(255, 248, 114, 39)),
+                fontSize: 20,
+                color: Color.fromARGB(255, 248, 114, 39)
+            ),
           ),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: Color.fromARGB(255, 12, 32, 50),
+      ),
       //   textTheme: TextTheme(
       //       headline1: TextStyle(color: Colors.orange),
       //       headline2: TextStyle(color: Color.fromARGB(255, 10, 34, 11)),

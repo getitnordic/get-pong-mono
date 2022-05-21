@@ -9,7 +9,7 @@ class BigButton extends StatelessWidget {
     return Center(
       child: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 40,
         ),
