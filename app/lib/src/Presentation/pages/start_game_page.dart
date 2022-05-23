@@ -17,7 +17,7 @@ class StartGamePage extends ConsumerWidget {
     List<String> selectedPlayers = ref.watch(selectedPlayersProvider);
     var playersNotifier = ref.watch(playersProvider.notifier);
     bool isOneSelected = selectedPlayers.isNotEmpty;
-    bool isTwoSelected = selectedPlayers.length == 2;
+    bool isTwoSelected = selectedPlayers.length >= 2;
 
     return Column(
       children: [

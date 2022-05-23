@@ -2,11 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/save_button.dart';
 import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
-import '../../presentation/providers/selected_players_notifier.dart';
+import '../../domain/entities/player.dart';
 
 // class DummyObj {
 //   final String id;
@@ -15,17 +16,19 @@ import '../../presentation/providers/selected_players_notifier.dart';
 // }
 
 class ScorePage extends ConsumerWidget {
-  // Ta in de valda spelarna som argument
 
-  // final Object? arguments;
+  final List<String> selectedPlayersId;
+
   const ScorePage({
     Key? key,
+    required this.selectedPlayersId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<String> players = ref.watch(selectedPlayersProvider);
-    print(players);
+    var playersNotifier = ref.watch(playersProvider.notifier);
+    Player playerOne = playersNotifier.getPlayerById(selectedPlayersId[0]);
+    Player playerTwo = playersNotifier.getPlayerById(selectedPlayersId[1]);
 
     return Scaffold(
       appBar: AppBar(
@@ -37,35 +40,12 @@ class ScorePage extends ConsumerWidget {
         height: double.infinity,
         child: Column(
           children: [
-            // Expanded(
-            //   child: Column(),
-            // ),
-
             SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'player 1',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
             SizedBox(height: 15),
-            buildPlayerResultCard('players[0]'),
+            buildPlayerResultCard(playerOne.name),
             SizedBox(height: 15),
-            // SizedBox(height: 15),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'player 2',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
             SizedBox(height: 20),
-            buildPlayerResultCard('players[1]'),
+            buildPlayerResultCard(playerTwo.name),
             SizedBox(height: 15),
             Center(
               // ignore: prefer_const_literals_to_create_immutables
@@ -106,7 +86,7 @@ class ScorePage extends ConsumerWidget {
               Color(0xFFffffff).withOpacity(0.07),
               Color(0xFFFFFFFF).withOpacity(0.07),
             ],
-            stops: [
+            stops: const [
               0.1,
               1,
             ]),

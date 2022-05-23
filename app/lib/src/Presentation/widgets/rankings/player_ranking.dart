@@ -89,6 +89,7 @@ class PlayerRanking extends ConsumerWidget {
                       context,
                       route.profilePage,
                       arguments: {
+                        'id': players[index].id,
                         'name': players[index].name,
                         'gamesWon': players[index].wins.toString(),
                         'gamesLost': players[index].losses.toString(),

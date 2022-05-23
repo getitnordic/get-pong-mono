@@ -20,7 +20,7 @@ class _AddResultFormState extends State<AddResultForm> {
   }
 
   Widget buildResultSlider() => Padding(
-        padding: EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 10),
         child: Slider(
           value: _currentSliderValue,
           max: 25,

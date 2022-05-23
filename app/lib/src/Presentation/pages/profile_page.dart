@@ -1,27 +1,37 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/Presentation/providers/ping_pong_match_notifier.dart';
+import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
+import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
 import 'package:get_pong/src/domain/entities/player.dart';
 import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 import '../widgets/widgets.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerWidget {
   const ProfilePage({
     Key? key,
+    required this.id,
     required this.name,
     required this.gamesWon,
     required this.gamesLost,
     required this.imageUrl,
   }) : super(key: key);
 
+  final String id;
   final String name;
   final String gamesWon;
   final String gamesLost;
   final String imageUrl;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    List<PingPongMatch> matches = ref
+        .watch(pingPongMatchProvider.notifier)
+        .getMatchesByPlayerId(id);
 
     return Scaffold(
       appBar: AppBar(
@@ -62,24 +72,12 @@ class ProfilePage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
-            Row(
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
-                SizedBox(width: 40),
-                Text(
-                  'Match Result',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 58, 116, 166),
-                  ),
-                ),
-                SizedBox(width: 70),
-                Text(
-                  'Points',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 58, 116, 166),
-                  ),
-                ),
-              ],
+            Flexible(
+              child: ListView.builder(
+                  itemCount: matches.length,
+                  itemBuilder: (context, index) {
+                    return PlayerProfileListItem(match: matches[index]);
+                  }),
             ),
           ],
         ),

@@ -21,11 +21,16 @@ Route<dynamic> controller(RouteSettings settings) {
               ));
     case playerListPage:
       return MaterialPageRoute(builder: (context) => PlayerListPage());
-    case scorePage:
-      return MaterialPageRoute(builder: (context) => ScorePage());
+    case scorePage: {
+     final args = settings.arguments as List<String>;
+     return MaterialPageRoute(builder: (context) => ScorePage(
+       selectedPlayersId: args,
+     ));
+    }
     case profilePage: {
       final args = settings.arguments as Map;
       return MaterialPageRoute(builder: (context) => ProfilePage(
+        id: args['id'],
         name: args['name'],
         gamesWon: args['gamesWon'],
         gamesLost: args['gamesLost'],

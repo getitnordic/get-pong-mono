@@ -80,7 +80,7 @@ class MyPlayerAvatar extends StatelessWidget {
             if (withCheckbox)
               Checkbox(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
-                checkColor: Colors.white,
+                checkColor: Colors.white70,
                 activeColor: Color.fromARGB(255, 248, 114, 39),
                 value: isSelected,
                 onChanged: onChanged,
