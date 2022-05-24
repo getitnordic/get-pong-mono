@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "base.proto";
+package leaderboard;
+
+// Services
+service LeaderboardService {
+  rpc GetLeaderboard (GetLeaderboardRequest) returns (GetLeaderboardReply) {}
+  rpc getLeaderboardById (GetLeaderboardModelByIdRequest) returns (GetLeaderboardModelByIdReply) {}
+}
+
+// Get leaderboard
+message GetLeaderboardRequest {
+}
+
+message GetLeaderboardReply {
+  repeated LeaderboardModel leaderboardModel = 1;
+}
+
+// Get leaderboard by Id
+message GetLeaderboardModelByIdRequest {
+  int32 playerId = 1;
+}
+
+message GetLeaderboardModelByIdReply {
+  LeaderboardModel leaderboardModel = 1;
+}
+
+// Models
+message LeaderboardModel {
+  base.PlayerModel playerModel = 1;
+  int32 streak = 2;
+  int32 win = 3;
+  int32 loss = 4;
+  int32 totalScore = 5;
+  base.StreakEnum streakEnum = 6;
+}
