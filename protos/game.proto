@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "base.proto";
+
+package game;
+
+// Services
+
+// Get Games
+message GetGamesRequest {
+  int32 limit = 1;
+  int32 offset = 2;
+}
+
+message GetGamesReply {
+  repeated GameModel gameModel = 1;
+}
+// Save Games
+message SaveGameRequest {
+  GameModel gameModel = 1;
+}
+
+message SaveGameReply {
+}
+
+
+// Models
+message GameModel {
+  int64 timeStamp = 1;
+  repeated int32 homeTeamIds = 2;
+  repeated int32 awayTeamIds = 3;
+  repeated base.SetModel sets =4;
+}
+
+
+

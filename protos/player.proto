@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "base.proto";
+
+package player;
+
+// Services
+service PlayerService{
+  rpc RegisterExternal (RegisterExternalRequest) returns (RegisterExternalReply) {}
+  rpc GetPlayers (GetPlayersRequest) returns (GetPlayersReply) {}
+}
+
+// Register
+message RegisterExternalRequest {
+  base.PlayerModel playerModel = 1;
+}
+
+message RegisterExternalReply {
+  base.PlayerModel playerModel = 1;
+}
+
+// Get players
+message GetPlayersRequest {
+}
+
+message GetPlayersReply {
+  repeated base.PlayerModel playerModel = 1;
+}
+
+// Update players
+
+message UpdatePlayerRequest {
+  string playerId = 1;
+}
+
+message UpdatePlayerReply {
+  base.PlayerModel playerModel = 1;
+}
