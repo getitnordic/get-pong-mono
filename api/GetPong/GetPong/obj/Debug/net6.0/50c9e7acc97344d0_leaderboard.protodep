@@ -1,0 +1,3 @@
+obj\Debug\net6.0/Leaderboard.cs \
+obj\Debug\net6.0/LeaderboardGrpc.cs: ../../../protos/base.proto\
+ ../../../protos/leaderboard.proto

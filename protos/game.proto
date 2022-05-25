@@ -5,6 +5,7 @@ import "base.proto";
 package game;
 
 // Services
+// TODO: Add services
 
 // Get Games
 message GetGamesRequest {
@@ -29,7 +30,7 @@ message GameModel {
   int64 timeStamp = 1;
   repeated int32 homeTeamIds = 2;
   repeated int32 awayTeamIds = 3;
-  repeated base.SetModel sets =4;
+  repeated base.SetModel sets = 4;
 }
 
 

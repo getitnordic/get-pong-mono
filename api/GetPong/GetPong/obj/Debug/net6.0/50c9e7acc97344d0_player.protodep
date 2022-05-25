@@ -1,0 +1,3 @@
+obj\Debug\net6.0/Player.cs \
+obj\Debug\net6.0/PlayerGrpc.cs: ../../../protos/base.proto\
+ ../../../protos/player.proto

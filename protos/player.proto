@@ -28,7 +28,7 @@ message GetPlayersReply {
 }
 
 // Update players
-
+// TODO: have to send in new data aswell
 message UpdatePlayerRequest {
   string playerId = 1;
 }
