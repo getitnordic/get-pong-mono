@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package base;
+
+service Base {
+}
+
+enum StreakEnum {
+  NONE = 0;
+  WIN = 1;
+  LOSS = 2;
+}
+
+message PlayerModel {
+  string firstName = 1;
+  string lastName = 2;
+  string nickname = 3;
+  string imageUrl = 4;
+  string email = 5;
+}
+
+message SetModel {
+  int32 setNo = 1;
+  int32 homeTeam = 2;
+  int32 awayTeam = 3;
+}
