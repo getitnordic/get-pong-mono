@@ -14,7 +14,7 @@ message GetLeaderboardRequest {
 }
 
 message GetLeaderboardReply {
-  repeated LeaderboardModel leaderboardModel = 1;
+  repeated base.PlayerModel playerModel = 1;
 }
 
 // Get leaderboard by Id
@@ -23,15 +23,6 @@ message GetLeaderboardModelByIdRequest {
 }
 
 message GetLeaderboardModelByIdReply {
-  LeaderboardModel leaderboardModel = 1;
+  base.PlayerModel playerModel = 1;
 }
 
-// Models
-message LeaderboardModel {
-  base.PlayerModel playerModel = 1;
-  int32 streak = 2;
-  int32 win = 3;
-  int32 loss = 4;
-  int32 totalScore = 5;
-  base.StreakEnum streakEnum = 6;
-}
