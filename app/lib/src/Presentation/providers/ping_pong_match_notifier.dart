@@ -67,6 +67,10 @@ class PingPongMatchNotifier extends StateNotifier<List<PingPongMatch>> {
     ),
   ]);
 
+  void addMatch(PingPongMatch match) {
+    state = [...state, match];
+  }
+
   List<PingPongMatch> getMatchesByPlayerId(String id) {
     List<PingPongMatch> matches = [];
     for (PingPongMatch match in state) {

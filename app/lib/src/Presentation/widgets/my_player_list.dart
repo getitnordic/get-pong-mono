@@ -44,13 +44,7 @@ class PlayerList extends StatelessWidget {
                           onTap: () => Navigator.pushNamed(
                             context,
                             route.profilePage,
-                            arguments: {
-                              'id': players[index].id,
-                              'name': players[index].name,
-                              'gamesWon': players[index].wins.toString(),
-                              'gamesLost': players[index].losses.toString(),
-                              'imageUrl': players[index].imageUrl
-                            },
+                            arguments: players[index],
                           ),
                           child: MyPlayerAvatar(
                             title: player.name,

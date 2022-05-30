@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/src/Presentation/pages/match_details_page.dart';
+import 'package:get_pong/src/domain/entities/player.dart';
 import '../../src/Presentation/pages/pages.dart';
 
 const String homePage = 'homePage';
@@ -22,19 +23,15 @@ Route<dynamic> controller(RouteSettings settings) {
     case playerListPage:
       return MaterialPageRoute(builder: (context) => PlayerListPage());
     case scorePage: {
-     final args = settings.arguments as List<String>;
+     final players = settings.arguments as List<String>;
      return MaterialPageRoute(builder: (context) => ScorePage(
-       selectedPlayersId: args,
+       selectedPlayersId: players,
      ));
     }
     case profilePage: {
-      final args = settings.arguments as Map;
+      final player = settings.arguments as Player;
       return MaterialPageRoute(builder: (context) => ProfilePage(
-        id: args['id'],
-        name: args['name'],
-        gamesWon: args['gamesWon'],
-        gamesLost: args['gamesLost'],
-        imageUrl: args['imageUrl'],
+        player: player,
       ));
     }
     case matchDetailsPage:

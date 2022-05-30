@@ -11,27 +11,22 @@ import 'package:get_pong/src/presentation/providers/my_providers.dart';
 import '../widgets/widgets.dart';
 
 class ProfilePage extends ConsumerWidget {
+
+  final Player player;
+
   const ProfilePage({
     Key? key,
-    required this.id,
-    required this.name,
-    required this.gamesWon,
-    required this.gamesLost,
-    required this.imageUrl,
+    required this.player,
   }) : super(key: key);
 
-  final String id;
-  final String name;
-  final String gamesWon;
-  final String gamesLost;
-  final String imageUrl;
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
     List<PingPongMatch> matches = ref
         .watch(pingPongMatchProvider.notifier)
-        .getMatchesByPlayerId(id);
+        .getMatchesByPlayerId(player.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,11 +42,11 @@ class ProfilePage extends ConsumerWidget {
           children: [
             SizedBox(height: 30),
             BigAvatar(
-              imageUrl: imageUrl,
+              imageUrl: player.imageUrl,
             ),
             SizedBox(height: 20),
             NameCard(
-              playerName: name,
+              playerName: player.name,
             ),
             SizedBox(height: 12),
             Text(
@@ -62,8 +57,8 @@ class ProfilePage extends ConsumerWidget {
             ),
             SizedBox(height: 30),
             GameStats(
-              wins: gamesWon,
-              losses: gamesLost,
+              wins: player.wins.toString(),
+              losses: player.losses.toString(),
             ),
             SizedBox(height: 50),
             Center(
