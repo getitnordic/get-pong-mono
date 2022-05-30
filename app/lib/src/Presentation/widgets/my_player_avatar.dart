@@ -11,18 +11,20 @@ class MyPlayerAvatar extends StatelessWidget {
     required this.withCheckbox,
     this.isSelected = false,
     this.onChanged,
+    required this.imageUrl,
   }) : super(key: key);
   final VoidCallback onTap;
   final String title;
   final bool withCheckbox;
   final bool isSelected;
+  final String imageUrl;
   final void Function(bool? value)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        bottom: 8.0,
+      padding: const EdgeInsets.symmetric(
+        vertical: 6,
       ),
       child: GlassmorphicContainer(
         width: double.infinity,
@@ -38,7 +40,7 @@ class MyPlayerAvatar extends StatelessWidget {
               Color(0xFFffffff).withOpacity(0.1),
               Color(0xFFFFFFFF).withOpacity(0.05),
             ],
-            stops: [
+            stops: const [
               0.1,
               1,
             ]),
@@ -57,36 +59,29 @@ class MyPlayerAvatar extends StatelessWidget {
           // leading: Padding(
           //   padding: const EdgeInsets.all(8.0),
           children: [
-            Container(
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                    child: CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: AssetImage('assets/images/monkey.jpg'),
-                    ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                  child: CircleAvatar(
+                    radius: 20.0,
+                    backgroundImage: NetworkImage(imageUrl),
                   ),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.white70,
-                    ),
+                ),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white70,
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Text(
-                'Rank:',
-                style: TextStyle(color: Colors.white70),
-              ),
+                ),
+              ],
             ),
             if (withCheckbox)
               Checkbox(
-                checkColor: Colors.white,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                checkColor: Colors.white70,
+                activeColor: Color.fromARGB(255, 248, 114, 39),
                 value: isSelected,
                 onChanged: onChanged,
               ),

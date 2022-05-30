@@ -1,19 +1,36 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/Presentation/providers/ping_pong_match_notifier.dart';
+import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
+import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
+import 'package:get_pong/src/domain/entities/player.dart';
+import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 import '../widgets/widgets.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends ConsumerWidget {
+
+  final Player player;
+
   const ProfilePage({
     Key? key,
+    required this.player,
   }) : super(key: key);
 
+
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    List<PingPongMatch> matches = ref
+        .watch(pingPongMatchProvider.notifier)
+        .getMatchesByPlayerId(player.id);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ProfilePage'),
+        title: const Text('Profile Page'),
       ),
       // ignore: avoid_unnecessary_containers
       body: Container(
@@ -24,10 +41,12 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: 30),
-            BigAvatar(),
+            BigAvatar(
+              imageUrl: player.imageUrl,
+            ),
             SizedBox(height: 20),
             NameCard(
-              playerName: 'jeppenator',
+              playerName: player.name,
             ),
             SizedBox(height: 12),
             Text(
@@ -37,7 +56,10 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30),
-            GameStats(),
+            GameStats(
+              wins: player.wins.toString(),
+              losses: player.losses.toString(),
+            ),
             SizedBox(height: 50),
             Center(
               child: Text(
@@ -45,24 +67,12 @@ class ProfilePage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyText2,
               ),
             ),
-            Row(
-              // ignore: prefer_const_literals_to_create_immutables
-              children: [
-                SizedBox(width: 40),
-                Text(
-                  'Match Result',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 58, 116, 166),
-                  ),
-                ),
-                SizedBox(width: 70),
-                Text(
-                  'Points',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 58, 116, 166),
-                  ),
-                ),
-              ],
+            Flexible(
+              child: ListView.builder(
+                  itemCount: matches.length,
+                  itemBuilder: (context, index) {
+                    return PlayerProfileListItem(match: matches[index]);
+                  }),
             ),
           ],
         ),

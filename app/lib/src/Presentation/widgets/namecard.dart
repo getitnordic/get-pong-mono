@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glassmorphism/glassmorphism.dart';
 
 class NameCard extends StatelessWidget {
   final String playerName;
@@ -6,15 +7,36 @@ class NameCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 40,
-        width: 200,
-        color: Color.fromARGB(255, 48, 95, 129),
-        child: Center(
-          child: Text(
-            (playerName),
-            style: TextStyle(color: Colors.white),
-          ),
-        ));
+    return GlassmorphicContainer(
+      width: 200,
+      height: 50,
+      borderRadius: 15,
+      blur: 20,
+      alignment: Alignment.center,
+      border: 0.5,
+      linearGradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            const Color(0xFFffffff).withOpacity(0.1),
+            const Color(0xFFFFFFFF).withOpacity(0.05),
+          ],
+          stops: const [
+            0.1,
+            1,
+          ]),
+      borderGradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [
+          const Color(0xFFffffff).withOpacity(0.5),
+          const Color((0xFFFFFFFF)).withOpacity(0.5),
+        ],
+      ),
+      child: Text(
+        (playerName),
+        style: TextStyle(color: Colors.white),
+      ),
+    );
   }
 }
