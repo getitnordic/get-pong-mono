@@ -24,16 +24,18 @@ namespace Base {
     static BaseReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "CgpiYXNlLnByb3RvEgRiYXNlImUKC1BsYXllck1vZGVsEhEKCWZpcnN0TmFt",
-            "ZRgBIAEoCRIQCghsYXN0TmFtZRgCIAEoCRIQCghuaWNrbmFtZRgDIAEoCRIQ",
-            "CghpbWFnZVVybBgEIAEoCRINCgVlbWFpbBgFIAEoCSI9CghTZXRNb2RlbBIN",
-            "CgVzZXRObxgBIAEoBRIQCghob21lVGVhbRgCIAEoBRIQCghhd2F5VGVhbRgD",
-            "IAEoBSopCgpTdHJlYWtFbnVtEggKBE5PTkUQABIHCgNXSU4QARIICgRMT1NT",
-            "EAIyBgoEQmFzZWIGcHJvdG8z"));
+            "CgpiYXNlLnByb3RvEgRiYXNlIsoBCgtQbGF5ZXJNb2RlbBIRCglmaXJzdE5h",
+            "bWUYASABKAkSEAoIbGFzdE5hbWUYAiABKAkSEAoIbmlja25hbWUYAyABKAkS",
+            "EAoIaW1hZ2VVcmwYBCABKAkSDQoFZW1haWwYBSABKAkSDgoGc3RyZWFrGAYg",
+            "ASgFEgsKA3dpbhgHIAEoBRIMCgRsb3NzGAggASgFEhIKCnRvdGFsU2NvcmUY",
+            "CSABKAUSJAoKc3RyZWFrRW51bRgKIAEoDjIQLmJhc2UuU3RyZWFrRW51bSI9",
+            "CghTZXRNb2RlbBINCgVzZXRObxgBIAEoBRIQCghob21lVGVhbRgCIAEoBRIQ",
+            "Cghhd2F5VGVhbRgDIAEoBSopCgpTdHJlYWtFbnVtEggKBE5PTkUQABIHCgNX",
+            "SU4QARIICgRMT1NTEAIyBgoEQmFzZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Base.StreakEnum), }, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Base.PlayerModel), global::Base.PlayerModel.Parser, new[]{ "FirstName", "LastName", "Nickname", "ImageUrl", "Email" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Base.PlayerModel), global::Base.PlayerModel.Parser, new[]{ "FirstName", "LastName", "Nickname", "ImageUrl", "Email", "Streak", "Win", "Loss", "TotalScore", "StreakEnum" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Base.SetModel), global::Base.SetModel.Parser, new[]{ "SetNo", "HomeTeam", "AwayTeam" }, null, null, null, null)
           }));
     }
@@ -89,6 +91,11 @@ namespace Base {
       nickname_ = other.nickname_;
       imageUrl_ = other.imageUrl_;
       email_ = other.email_;
+      streak_ = other.streak_;
+      win_ = other.win_;
+      loss_ = other.loss_;
+      totalScore_ = other.totalScore_;
+      streakEnum_ = other.streakEnum_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -158,6 +165,66 @@ namespace Base {
       }
     }
 
+    /// <summary>Field number for the "streak" field.</summary>
+    public const int StreakFieldNumber = 6;
+    private int streak_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Streak {
+      get { return streak_; }
+      set {
+        streak_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "win" field.</summary>
+    public const int WinFieldNumber = 7;
+    private int win_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Win {
+      get { return win_; }
+      set {
+        win_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "loss" field.</summary>
+    public const int LossFieldNumber = 8;
+    private int loss_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Loss {
+      get { return loss_; }
+      set {
+        loss_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "totalScore" field.</summary>
+    public const int TotalScoreFieldNumber = 9;
+    private int totalScore_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int TotalScore {
+      get { return totalScore_; }
+      set {
+        totalScore_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "streakEnum" field.</summary>
+    public const int StreakEnumFieldNumber = 10;
+    private global::Base.StreakEnum streakEnum_ = global::Base.StreakEnum.None;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public global::Base.StreakEnum StreakEnum {
+      get { return streakEnum_; }
+      set {
+        streakEnum_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -178,6 +245,11 @@ namespace Base {
       if (Nickname != other.Nickname) return false;
       if (ImageUrl != other.ImageUrl) return false;
       if (Email != other.Email) return false;
+      if (Streak != other.Streak) return false;
+      if (Win != other.Win) return false;
+      if (Loss != other.Loss) return false;
+      if (TotalScore != other.TotalScore) return false;
+      if (StreakEnum != other.StreakEnum) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -190,6 +262,11 @@ namespace Base {
       if (Nickname.Length != 0) hash ^= Nickname.GetHashCode();
       if (ImageUrl.Length != 0) hash ^= ImageUrl.GetHashCode();
       if (Email.Length != 0) hash ^= Email.GetHashCode();
+      if (Streak != 0) hash ^= Streak.GetHashCode();
+      if (Win != 0) hash ^= Win.GetHashCode();
+      if (Loss != 0) hash ^= Loss.GetHashCode();
+      if (TotalScore != 0) hash ^= TotalScore.GetHashCode();
+      if (StreakEnum != global::Base.StreakEnum.None) hash ^= StreakEnum.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -228,6 +305,26 @@ namespace Base {
         output.WriteRawTag(42);
         output.WriteString(Email);
       }
+      if (Streak != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Streak);
+      }
+      if (Win != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Win);
+      }
+      if (Loss != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Loss);
+      }
+      if (TotalScore != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(TotalScore);
+      }
+      if (StreakEnum != global::Base.StreakEnum.None) {
+        output.WriteRawTag(80);
+        output.WriteEnum((int) StreakEnum);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -258,6 +355,26 @@ namespace Base {
         output.WriteRawTag(42);
         output.WriteString(Email);
       }
+      if (Streak != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Streak);
+      }
+      if (Win != 0) {
+        output.WriteRawTag(56);
+        output.WriteInt32(Win);
+      }
+      if (Loss != 0) {
+        output.WriteRawTag(64);
+        output.WriteInt32(Loss);
+      }
+      if (TotalScore != 0) {
+        output.WriteRawTag(72);
+        output.WriteInt32(TotalScore);
+      }
+      if (StreakEnum != global::Base.StreakEnum.None) {
+        output.WriteRawTag(80);
+        output.WriteEnum((int) StreakEnum);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -282,6 +399,21 @@ namespace Base {
       }
       if (Email.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Email);
+      }
+      if (Streak != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Streak);
+      }
+      if (Win != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Win);
+      }
+      if (Loss != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Loss);
+      }
+      if (TotalScore != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalScore);
+      }
+      if (StreakEnum != global::Base.StreakEnum.None) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) StreakEnum);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -309,6 +441,21 @@ namespace Base {
       }
       if (other.Email.Length != 0) {
         Email = other.Email;
+      }
+      if (other.Streak != 0) {
+        Streak = other.Streak;
+      }
+      if (other.Win != 0) {
+        Win = other.Win;
+      }
+      if (other.Loss != 0) {
+        Loss = other.Loss;
+      }
+      if (other.TotalScore != 0) {
+        TotalScore = other.TotalScore;
+      }
+      if (other.StreakEnum != global::Base.StreakEnum.None) {
+        StreakEnum = other.StreakEnum;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -345,6 +492,26 @@ namespace Base {
             Email = input.ReadString();
             break;
           }
+          case 48: {
+            Streak = input.ReadInt32();
+            break;
+          }
+          case 56: {
+            Win = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            Loss = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            TotalScore = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            StreakEnum = (global::Base.StreakEnum) input.ReadEnum();
+            break;
+          }
         }
       }
     #endif
@@ -378,6 +545,26 @@ namespace Base {
           }
           case 42: {
             Email = input.ReadString();
+            break;
+          }
+          case 48: {
+            Streak = input.ReadInt32();
+            break;
+          }
+          case 56: {
+            Win = input.ReadInt32();
+            break;
+          }
+          case 64: {
+            Loss = input.ReadInt32();
+            break;
+          }
+          case 72: {
+            TotalScore = input.ReadInt32();
+            break;
+          }
+          case 80: {
+            StreakEnum = (global::Base.StreakEnum) input.ReadEnum();
             break;
           }
         }

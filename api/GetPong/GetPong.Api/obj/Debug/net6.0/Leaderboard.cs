@@ -25,29 +25,23 @@ namespace Leaderboard {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFsZWFkZXJib2FyZC5wcm90bxILbGVhZGVyYm9hcmQaCmJhc2UucHJvdG8i",
-            "FwoVR2V0TGVhZGVyYm9hcmRSZXF1ZXN0Ik4KE0dldExlYWRlcmJvYXJkUmVw",
-            "bHkSNwoQbGVhZGVyYm9hcmRNb2RlbBgBIAMoCzIdLmxlYWRlcmJvYXJkLkxl",
-            "YWRlcmJvYXJkTW9kZWwiMgoeR2V0TGVhZGVyYm9hcmRNb2RlbEJ5SWRSZXF1",
-            "ZXN0EhAKCHBsYXllcklkGAEgASgFIlcKHEdldExlYWRlcmJvYXJkTW9kZWxC",
-            "eUlkUmVwbHkSNwoQbGVhZGVyYm9hcmRNb2RlbBgBIAEoCzIdLmxlYWRlcmJv",
-            "YXJkLkxlYWRlcmJvYXJkTW9kZWwinwEKEExlYWRlcmJvYXJkTW9kZWwSJgoL",
-            "cGxheWVyTW9kZWwYASABKAsyES5iYXNlLlBsYXllck1vZGVsEg4KBnN0cmVh",
-            "axgCIAEoBRILCgN3aW4YAyABKAUSDAoEbG9zcxgEIAEoBRISCgp0b3RhbFNj",
-            "b3JlGAUgASgFEiQKCnN0cmVha0VudW0YBiABKA4yEC5iYXNlLlN0cmVha0Vu",
-            "dW0y3gEKEkxlYWRlcmJvYXJkU2VydmljZRJYCg5HZXRMZWFkZXJib2FyZBIi",
-            "LmxlYWRlcmJvYXJkLkdldExlYWRlcmJvYXJkUmVxdWVzdBogLmxlYWRlcmJv",
-            "YXJkLkdldExlYWRlcmJvYXJkUmVwbHkiABJuChJnZXRMZWFkZXJib2FyZEJ5",
-            "SWQSKy5sZWFkZXJib2FyZC5HZXRMZWFkZXJib2FyZE1vZGVsQnlJZFJlcXVl",
-            "c3QaKS5sZWFkZXJib2FyZC5HZXRMZWFkZXJib2FyZE1vZGVsQnlJZFJlcGx5",
-            "IgBiBnByb3RvMw=="));
+            "FwoVR2V0TGVhZGVyYm9hcmRSZXF1ZXN0Ij0KE0dldExlYWRlcmJvYXJkUmVw",
+            "bHkSJgoLcGxheWVyTW9kZWwYASADKAsyES5iYXNlLlBsYXllck1vZGVsIjIK",
+            "HkdldExlYWRlcmJvYXJkTW9kZWxCeUlkUmVxdWVzdBIQCghwbGF5ZXJJZBgB",
+            "IAEoBSJGChxHZXRMZWFkZXJib2FyZE1vZGVsQnlJZFJlcGx5EiYKC3BsYXll",
+            "ck1vZGVsGAEgASgLMhEuYmFzZS5QbGF5ZXJNb2RlbDLeAQoSTGVhZGVyYm9h",
+            "cmRTZXJ2aWNlElgKDkdldExlYWRlcmJvYXJkEiIubGVhZGVyYm9hcmQuR2V0",
+            "TGVhZGVyYm9hcmRSZXF1ZXN0GiAubGVhZGVyYm9hcmQuR2V0TGVhZGVyYm9h",
+            "cmRSZXBseSIAEm4KEmdldExlYWRlcmJvYXJkQnlJZBIrLmxlYWRlcmJvYXJk",
+            "LkdldExlYWRlcmJvYXJkTW9kZWxCeUlkUmVxdWVzdBopLmxlYWRlcmJvYXJk",
+            "LkdldExlYWRlcmJvYXJkTW9kZWxCeUlkUmVwbHkiAGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Base.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardRequest), global::Leaderboard.GetLeaderboardRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardReply), global::Leaderboard.GetLeaderboardReply.Parser, new[]{ "LeaderboardModel" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardReply), global::Leaderboard.GetLeaderboardReply.Parser, new[]{ "PlayerModel" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardModelByIdRequest), global::Leaderboard.GetLeaderboardModelByIdRequest.Parser, new[]{ "PlayerId" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardModelByIdReply), global::Leaderboard.GetLeaderboardModelByIdReply.Parser, new[]{ "LeaderboardModel" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.LeaderboardModel), global::Leaderboard.LeaderboardModel.Parser, new[]{ "PlayerModel", "Streak", "Win", "Loss", "TotalScore", "StreakEnum" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardModelByIdReply), global::Leaderboard.GetLeaderboardModelByIdReply.Parser, new[]{ "PlayerModel" }, null, null, null, null)
           }));
     }
     #endregion
@@ -243,7 +237,7 @@ namespace Leaderboard {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetLeaderboardReply(GetLeaderboardReply other) : this() {
-      leaderboardModel_ = other.leaderboardModel_.Clone();
+      playerModel_ = other.playerModel_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -253,15 +247,15 @@ namespace Leaderboard {
       return new GetLeaderboardReply(this);
     }
 
-    /// <summary>Field number for the "leaderboardModel" field.</summary>
-    public const int LeaderboardModelFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Leaderboard.LeaderboardModel> _repeated_leaderboardModel_codec
-        = pb::FieldCodec.ForMessage(10, global::Leaderboard.LeaderboardModel.Parser);
-    private readonly pbc::RepeatedField<global::Leaderboard.LeaderboardModel> leaderboardModel_ = new pbc::RepeatedField<global::Leaderboard.LeaderboardModel>();
+    /// <summary>Field number for the "playerModel" field.</summary>
+    public const int PlayerModelFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Base.PlayerModel> _repeated_playerModel_codec
+        = pb::FieldCodec.ForMessage(10, global::Base.PlayerModel.Parser);
+    private readonly pbc::RepeatedField<global::Base.PlayerModel> playerModel_ = new pbc::RepeatedField<global::Base.PlayerModel>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<global::Leaderboard.LeaderboardModel> LeaderboardModel {
-      get { return leaderboardModel_; }
+    public pbc::RepeatedField<global::Base.PlayerModel> PlayerModel {
+      get { return playerModel_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -279,7 +273,7 @@ namespace Leaderboard {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if(!leaderboardModel_.Equals(other.leaderboardModel_)) return false;
+      if(!playerModel_.Equals(other.playerModel_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -287,7 +281,7 @@ namespace Leaderboard {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      hash ^= leaderboardModel_.GetHashCode();
+      hash ^= playerModel_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -306,7 +300,7 @@ namespace Leaderboard {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      leaderboardModel_.WriteTo(output, _repeated_leaderboardModel_codec);
+      playerModel_.WriteTo(output, _repeated_playerModel_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -317,7 +311,7 @@ namespace Leaderboard {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      leaderboardModel_.WriteTo(ref output, _repeated_leaderboardModel_codec);
+      playerModel_.WriteTo(ref output, _repeated_playerModel_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -328,7 +322,7 @@ namespace Leaderboard {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      size += leaderboardModel_.CalculateSize(_repeated_leaderboardModel_codec);
+      size += playerModel_.CalculateSize(_repeated_playerModel_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -341,7 +335,7 @@ namespace Leaderboard {
       if (other == null) {
         return;
       }
-      leaderboardModel_.Add(other.leaderboardModel_);
+      playerModel_.Add(other.playerModel_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -358,7 +352,7 @@ namespace Leaderboard {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            leaderboardModel_.AddEntriesFrom(input, _repeated_leaderboardModel_codec);
+            playerModel_.AddEntriesFrom(input, _repeated_playerModel_codec);
             break;
           }
         }
@@ -377,7 +371,7 @@ namespace Leaderboard {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            leaderboardModel_.AddEntriesFrom(ref input, _repeated_leaderboardModel_codec);
+            playerModel_.AddEntriesFrom(ref input, _repeated_playerModel_codec);
             break;
           }
         }
@@ -613,7 +607,7 @@ namespace Leaderboard {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetLeaderboardModelByIdReply(GetLeaderboardModelByIdReply other) : this() {
-      leaderboardModel_ = other.leaderboardModel_ != null ? other.leaderboardModel_.Clone() : null;
+      playerModel_ = other.playerModel_ != null ? other.playerModel_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -623,15 +617,15 @@ namespace Leaderboard {
       return new GetLeaderboardModelByIdReply(this);
     }
 
-    /// <summary>Field number for the "leaderboardModel" field.</summary>
-    public const int LeaderboardModelFieldNumber = 1;
-    private global::Leaderboard.LeaderboardModel leaderboardModel_;
+    /// <summary>Field number for the "playerModel" field.</summary>
+    public const int PlayerModelFieldNumber = 1;
+    private global::Base.PlayerModel playerModel_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Leaderboard.LeaderboardModel LeaderboardModel {
-      get { return leaderboardModel_; }
+    public global::Base.PlayerModel PlayerModel {
+      get { return playerModel_; }
       set {
-        leaderboardModel_ = value;
+        playerModel_ = value;
       }
     }
 
@@ -650,278 +644,7 @@ namespace Leaderboard {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(LeaderboardModel, other.LeaderboardModel)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (leaderboardModel_ != null) hash ^= LeaderboardModel.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (leaderboardModel_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(LeaderboardModel);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (leaderboardModel_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(LeaderboardModel);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int CalculateSize() {
-      int size = 0;
-      if (leaderboardModel_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(LeaderboardModel);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(GetLeaderboardModelByIdReply other) {
-      if (other == null) {
-        return;
-      }
-      if (other.leaderboardModel_ != null) {
-        if (leaderboardModel_ == null) {
-          LeaderboardModel = new global::Leaderboard.LeaderboardModel();
-        }
-        LeaderboardModel.MergeFrom(other.LeaderboardModel);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (leaderboardModel_ == null) {
-              LeaderboardModel = new global::Leaderboard.LeaderboardModel();
-            }
-            input.ReadMessage(LeaderboardModel);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            if (leaderboardModel_ == null) {
-              LeaderboardModel = new global::Leaderboard.LeaderboardModel();
-            }
-            input.ReadMessage(LeaderboardModel);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
-  /// <summary>
-  /// Models
-  /// </summary>
-  public sealed partial class LeaderboardModel : pb::IMessage<LeaderboardModel>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<LeaderboardModel> _parser = new pb::MessageParser<LeaderboardModel>(() => new LeaderboardModel());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pb::MessageParser<LeaderboardModel> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Leaderboard.LeaderboardReflection.Descriptor.MessageTypes[4]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LeaderboardModel() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LeaderboardModel(LeaderboardModel other) : this() {
-      playerModel_ = other.playerModel_ != null ? other.playerModel_.Clone() : null;
-      streak_ = other.streak_;
-      win_ = other.win_;
-      loss_ = other.loss_;
-      totalScore_ = other.totalScore_;
-      streakEnum_ = other.streakEnum_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public LeaderboardModel Clone() {
-      return new LeaderboardModel(this);
-    }
-
-    /// <summary>Field number for the "playerModel" field.</summary>
-    public const int PlayerModelFieldNumber = 1;
-    private global::Base.PlayerModel playerModel_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Base.PlayerModel PlayerModel {
-      get { return playerModel_; }
-      set {
-        playerModel_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "streak" field.</summary>
-    public const int StreakFieldNumber = 2;
-    private int streak_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Streak {
-      get { return streak_; }
-      set {
-        streak_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "win" field.</summary>
-    public const int WinFieldNumber = 3;
-    private int win_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Win {
-      get { return win_; }
-      set {
-        win_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "loss" field.</summary>
-    public const int LossFieldNumber = 4;
-    private int loss_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Loss {
-      get { return loss_; }
-      set {
-        loss_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "totalScore" field.</summary>
-    public const int TotalScoreFieldNumber = 5;
-    private int totalScore_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int TotalScore {
-      get { return totalScore_; }
-      set {
-        totalScore_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "streakEnum" field.</summary>
-    public const int StreakEnumFieldNumber = 6;
-    private global::Base.StreakEnum streakEnum_ = global::Base.StreakEnum.None;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public global::Base.StreakEnum StreakEnum {
-      get { return streakEnum_; }
-      set {
-        streakEnum_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public override bool Equals(object other) {
-      return Equals(other as LeaderboardModel);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public bool Equals(LeaderboardModel other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
       if (!object.Equals(PlayerModel, other.PlayerModel)) return false;
-      if (Streak != other.Streak) return false;
-      if (Win != other.Win) return false;
-      if (Loss != other.Loss) return false;
-      if (TotalScore != other.TotalScore) return false;
-      if (StreakEnum != other.StreakEnum) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -930,11 +653,6 @@ namespace Leaderboard {
     public override int GetHashCode() {
       int hash = 1;
       if (playerModel_ != null) hash ^= PlayerModel.GetHashCode();
-      if (Streak != 0) hash ^= Streak.GetHashCode();
-      if (Win != 0) hash ^= Win.GetHashCode();
-      if (Loss != 0) hash ^= Loss.GetHashCode();
-      if (TotalScore != 0) hash ^= TotalScore.GetHashCode();
-      if (StreakEnum != global::Base.StreakEnum.None) hash ^= StreakEnum.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -957,26 +675,6 @@ namespace Leaderboard {
         output.WriteRawTag(10);
         output.WriteMessage(PlayerModel);
       }
-      if (Streak != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Streak);
-      }
-      if (Win != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(Win);
-      }
-      if (Loss != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(Loss);
-      }
-      if (TotalScore != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(TotalScore);
-      }
-      if (StreakEnum != global::Base.StreakEnum.None) {
-        output.WriteRawTag(48);
-        output.WriteEnum((int) StreakEnum);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -990,26 +688,6 @@ namespace Leaderboard {
       if (playerModel_ != null) {
         output.WriteRawTag(10);
         output.WriteMessage(PlayerModel);
-      }
-      if (Streak != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Streak);
-      }
-      if (Win != 0) {
-        output.WriteRawTag(24);
-        output.WriteInt32(Win);
-      }
-      if (Loss != 0) {
-        output.WriteRawTag(32);
-        output.WriteInt32(Loss);
-      }
-      if (TotalScore != 0) {
-        output.WriteRawTag(40);
-        output.WriteInt32(TotalScore);
-      }
-      if (StreakEnum != global::Base.StreakEnum.None) {
-        output.WriteRawTag(48);
-        output.WriteEnum((int) StreakEnum);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -1024,21 +702,6 @@ namespace Leaderboard {
       if (playerModel_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerModel);
       }
-      if (Streak != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Streak);
-      }
-      if (Win != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Win);
-      }
-      if (Loss != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Loss);
-      }
-      if (TotalScore != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(TotalScore);
-      }
-      if (StreakEnum != global::Base.StreakEnum.None) {
-        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) StreakEnum);
-      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1047,7 +710,7 @@ namespace Leaderboard {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public void MergeFrom(LeaderboardModel other) {
+    public void MergeFrom(GetLeaderboardModelByIdReply other) {
       if (other == null) {
         return;
       }
@@ -1056,21 +719,6 @@ namespace Leaderboard {
           PlayerModel = new global::Base.PlayerModel();
         }
         PlayerModel.MergeFrom(other.PlayerModel);
-      }
-      if (other.Streak != 0) {
-        Streak = other.Streak;
-      }
-      if (other.Win != 0) {
-        Win = other.Win;
-      }
-      if (other.Loss != 0) {
-        Loss = other.Loss;
-      }
-      if (other.TotalScore != 0) {
-        TotalScore = other.TotalScore;
-      }
-      if (other.StreakEnum != global::Base.StreakEnum.None) {
-        StreakEnum = other.StreakEnum;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1094,26 +742,6 @@ namespace Leaderboard {
             input.ReadMessage(PlayerModel);
             break;
           }
-          case 16: {
-            Streak = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            Win = input.ReadInt32();
-            break;
-          }
-          case 32: {
-            Loss = input.ReadInt32();
-            break;
-          }
-          case 40: {
-            TotalScore = input.ReadInt32();
-            break;
-          }
-          case 48: {
-            StreakEnum = (global::Base.StreakEnum) input.ReadEnum();
-            break;
-          }
         }
       }
     #endif
@@ -1134,26 +762,6 @@ namespace Leaderboard {
               PlayerModel = new global::Base.PlayerModel();
             }
             input.ReadMessage(PlayerModel);
-            break;
-          }
-          case 16: {
-            Streak = input.ReadInt32();
-            break;
-          }
-          case 24: {
-            Win = input.ReadInt32();
-            break;
-          }
-          case 32: {
-            Loss = input.ReadInt32();
-            break;
-          }
-          case 40: {
-            TotalScore = input.ReadInt32();
-            break;
-          }
-          case 48: {
-            StreakEnum = (global::Base.StreakEnum) input.ReadEnum();
             break;
           }
         }

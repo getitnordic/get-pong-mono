@@ -12,7 +12,10 @@ service PlayerService{
 
 // Register
 message RegisterExternalRequest {
-  base.PlayerModel playerModel = 1;
+  string firstName = 1;
+  string lastName = 2;
+  string nickname = 3;
+  string email = 4;
 }
 
 message RegisterExternalReply {

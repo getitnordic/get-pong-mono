@@ -1,2 +1,3 @@
-obj\Debug\net6.0/Game.cs: ../../../protos/base.proto\
+obj\Debug\net6.0/Game.cs \
+obj\Debug\net6.0/GameGrpc.cs: ../../../protos/base.proto\
  ../../../protos/game.proto
