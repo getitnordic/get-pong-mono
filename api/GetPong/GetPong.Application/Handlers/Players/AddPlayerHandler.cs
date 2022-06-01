@@ -1,11 +1,9 @@
 using System;
-using System.Threading.Tasks;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 using GetPong.Core.Models.Commands.Players;
 using GetPong.Core.Models.Enum;
-using GetPong.Infrastructure.MongoDb;
 
 namespace GetPong.Application.Handlers.Players
 {
@@ -17,8 +15,7 @@ namespace GetPong.Application.Handlers.Players
         {
             _playerRepository = playerRepository;
         }
-
-
+        
         public Player Handle(AddPlayerCommand addPlayerCommand)
         {
             ValidatePlayerCommand(addPlayerCommand);

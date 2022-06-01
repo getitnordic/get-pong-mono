@@ -12,16 +12,17 @@ enum StreakEnum {
 }
 
 message PlayerModel {
-  string firstName = 1;
-  string lastName = 2;
-  string nickname = 3;
-  string imageUrl = 4;
-  string email = 5;
-  int32 streak = 6;
-  int32 win = 7;
-  int32 loss = 8;
-  int32 totalScore = 9;
-  StreakEnum streakEnum = 10;
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string nickname = 4;
+  string imageUrl = 5;
+  string email = 6;
+  int32 streak = 7;
+  int32 win = 8;
+  int32 loss = 9;
+  int32 totalScore = 10;
+  StreakEnum streakEnum = 11;
 }
 
 message SetModel {

@@ -1,24 +1,22 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 
 namespace GetPong.Application.Handlers.Players
 {
-    public class GetPlayersHandler : IGetPlayersHandler
+    public class GetPlayerByIdHandler : IGetPlayerByIdHandler
     {
         private readonly IPlayerRepository _playerRepository;
 
-        public GetPlayersHandler(IPlayerRepository playerRepository)
+        public GetPlayerByIdHandler(IPlayerRepository playerRepository)
         {
             _playerRepository = playerRepository;
         }
 
-        public List<Player> Handle()
+        public async Task<Player> Handle(string playerId)
         {
-            return _playerRepository.GetPlayers();
-
+            return await _playerRepository.GetPlayerById(playerId);
         }
-        
     }
 }
