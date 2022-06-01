@@ -25,20 +25,21 @@ namespace Leaderboard {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFsZWFkZXJib2FyZC5wcm90bxILbGVhZGVyYm9hcmQaCmJhc2UucHJvdG8i",
-            "FwoVR2V0TGVhZGVyYm9hcmRSZXF1ZXN0Ij0KE0dldExlYWRlcmJvYXJkUmVw",
-            "bHkSJgoLcGxheWVyTW9kZWwYASADKAsyES5iYXNlLlBsYXllck1vZGVsIjIK",
-            "HkdldExlYWRlcmJvYXJkTW9kZWxCeUlkUmVxdWVzdBIQCghwbGF5ZXJJZBgB",
-            "IAEoBSJGChxHZXRMZWFkZXJib2FyZE1vZGVsQnlJZFJlcGx5EiYKC3BsYXll",
-            "ck1vZGVsGAEgASgLMhEuYmFzZS5QbGF5ZXJNb2RlbDLeAQoSTGVhZGVyYm9h",
-            "cmRTZXJ2aWNlElgKDkdldExlYWRlcmJvYXJkEiIubGVhZGVyYm9hcmQuR2V0",
-            "TGVhZGVyYm9hcmRSZXF1ZXN0GiAubGVhZGVyYm9hcmQuR2V0TGVhZGVyYm9h",
-            "cmRSZXBseSIAEm4KEmdldExlYWRlcmJvYXJkQnlJZBIrLmxlYWRlcmJvYXJk",
-            "LkdldExlYWRlcmJvYXJkTW9kZWxCeUlkUmVxdWVzdBopLmxlYWRlcmJvYXJk",
-            "LkdldExlYWRlcmJvYXJkTW9kZWxCeUlkUmVwbHkiAGIGcHJvdG8z"));
+            "NgoVR2V0TGVhZGVyYm9hcmRSZXF1ZXN0Eg4KBm9mZnNldBgBIAEoBRINCgVs",
+            "aW1pdBgCIAEoBSI9ChNHZXRMZWFkZXJib2FyZFJlcGx5EiYKC3BsYXllck1v",
+            "ZGVsGAEgAygLMhEuYmFzZS5QbGF5ZXJNb2RlbCIyCh5HZXRMZWFkZXJib2Fy",
+            "ZE1vZGVsQnlJZFJlcXVlc3QSEAoIcGxheWVySWQYASABKAUiRgocR2V0TGVh",
+            "ZGVyYm9hcmRNb2RlbEJ5SWRSZXBseRImCgtwbGF5ZXJNb2RlbBgBIAEoCzIR",
+            "LmJhc2UuUGxheWVyTW9kZWwy3gEKEkxlYWRlcmJvYXJkU2VydmljZRJYCg5H",
+            "ZXRMZWFkZXJib2FyZBIiLmxlYWRlcmJvYXJkLkdldExlYWRlcmJvYXJkUmVx",
+            "dWVzdBogLmxlYWRlcmJvYXJkLkdldExlYWRlcmJvYXJkUmVwbHkiABJuChJn",
+            "ZXRMZWFkZXJib2FyZEJ5SWQSKy5sZWFkZXJib2FyZC5HZXRMZWFkZXJib2Fy",
+            "ZE1vZGVsQnlJZFJlcXVlc3QaKS5sZWFkZXJib2FyZC5HZXRMZWFkZXJib2Fy",
+            "ZE1vZGVsQnlJZFJlcGx5IgBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Base.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardRequest), global::Leaderboard.GetLeaderboardRequest.Parser, null, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardRequest), global::Leaderboard.GetLeaderboardRequest.Parser, new[]{ "Offset", "Limit" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardReply), global::Leaderboard.GetLeaderboardReply.Parser, new[]{ "PlayerModel" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardModelByIdRequest), global::Leaderboard.GetLeaderboardModelByIdRequest.Parser, new[]{ "PlayerId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Leaderboard.GetLeaderboardModelByIdReply), global::Leaderboard.GetLeaderboardModelByIdReply.Parser, new[]{ "PlayerModel" }, null, null, null, null)
@@ -85,6 +86,8 @@ namespace Leaderboard {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetLeaderboardRequest(GetLeaderboardRequest other) : this() {
+      offset_ = other.offset_;
+      limit_ = other.limit_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -92,6 +95,30 @@ namespace Leaderboard {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public GetLeaderboardRequest Clone() {
       return new GetLeaderboardRequest(this);
+    }
+
+    /// <summary>Field number for the "offset" field.</summary>
+    public const int OffsetFieldNumber = 1;
+    private int offset_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Offset {
+      get { return offset_; }
+      set {
+        offset_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "limit" field.</summary>
+    public const int LimitFieldNumber = 2;
+    private int limit_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Limit {
+      get { return limit_; }
+      set {
+        limit_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -109,6 +136,8 @@ namespace Leaderboard {
       if (ReferenceEquals(other, this)) {
         return true;
       }
+      if (Offset != other.Offset) return false;
+      if (Limit != other.Limit) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -116,6 +145,8 @@ namespace Leaderboard {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
+      if (Offset != 0) hash ^= Offset.GetHashCode();
+      if (Limit != 0) hash ^= Limit.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -134,6 +165,14 @@ namespace Leaderboard {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
+      if (Offset != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Offset);
+      }
+      if (Limit != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Limit);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -144,6 +183,14 @@ namespace Leaderboard {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (Offset != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(Offset);
+      }
+      if (Limit != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Limit);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -154,6 +201,12 @@ namespace Leaderboard {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
+      if (Offset != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Offset);
+      }
+      if (Limit != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Limit);
+      }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -165,6 +218,12 @@ namespace Leaderboard {
     public void MergeFrom(GetLeaderboardRequest other) {
       if (other == null) {
         return;
+      }
+      if (other.Offset != 0) {
+        Offset = other.Offset;
+      }
+      if (other.Limit != 0) {
+        Limit = other.Limit;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -181,6 +240,14 @@ namespace Leaderboard {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+          case 8: {
+            Offset = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            Limit = input.ReadInt32();
+            break;
+          }
         }
       }
     #endif
@@ -196,6 +263,14 @@ namespace Leaderboard {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
+          case 8: {
+            Offset = input.ReadInt32();
+            break;
+          }
+          case 16: {
+            Limit = input.ReadInt32();
+            break;
+          }
         }
       }
     }

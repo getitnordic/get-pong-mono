@@ -11,6 +11,8 @@ service LeaderboardService {
 
 // Get leaderboard
 message GetLeaderboardRequest {
+  int32 offset = 1;
+  int32 limit = 2;
 }
 
 message GetLeaderboardReply {

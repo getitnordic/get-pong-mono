@@ -8,6 +8,7 @@ package player;
 service PlayerService{
   rpc RegisterExternal (RegisterExternalRequest) returns (RegisterExternalReply) {}
   rpc GetPlayers (GetPlayersRequest) returns (GetPlayersReply) {}
+  rpc GetPlayerById (GetPlayerByIdRequest) returns (GetPlayerByIdReply) {}
 }
 
 // Register
@@ -28,6 +29,15 @@ message GetPlayersRequest {
 
 message GetPlayersReply {
   repeated base.PlayerModel playerModel = 1;
+}
+
+// Get player by id
+message GetPlayerByIdRequest {
+  string playerId = 1;
+}
+
+message GetPlayerByIdReply {
+  base.PlayerModel playerModel= 1;
 }
 
 // Update players
