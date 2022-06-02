@@ -32,16 +32,17 @@ namespace Player {
             "bGF5ZXJzUmVwbHkSJgoLcGxheWVyTW9kZWwYASADKAsyES5iYXNlLlBsYXll",
             "ck1vZGVsIigKFEdldFBsYXllckJ5SWRSZXF1ZXN0EhAKCHBsYXllcklkGAEg",
             "ASgJIjwKEkdldFBsYXllckJ5SWRSZXBseRImCgtwbGF5ZXJNb2RlbBgBIAEo",
-            "CzIRLmJhc2UuUGxheWVyTW9kZWwiTwoTVXBkYXRlUGxheWVyUmVxdWVzdBIQ",
-            "CghwbGF5ZXJJZBgBIAEoCRImCgtwbGF5ZXJNb2RlbBgCIAEoCzIRLmJhc2Uu",
-            "UGxheWVyTW9kZWwiOwoRVXBkYXRlUGxheWVyUmVwbHkSJgoLcGxheWVyTW9k",
-            "ZWwYASABKAsyES5iYXNlLlBsYXllck1vZGVsMvYBCg1QbGF5ZXJTZXJ2aWNl",
-            "ElQKEFJlZ2lzdGVyRXh0ZXJuYWwSHy5wbGF5ZXIuUmVnaXN0ZXJFeHRlcm5h",
-            "bFJlcXVlc3QaHS5wbGF5ZXIuUmVnaXN0ZXJFeHRlcm5hbFJlcGx5IgASQgoK",
-            "R2V0UGxheWVycxIZLnBsYXllci5HZXRQbGF5ZXJzUmVxdWVzdBoXLnBsYXll",
-            "ci5HZXRQbGF5ZXJzUmVwbHkiABJLCg1HZXRQbGF5ZXJCeUlkEhwucGxheWVy",
-            "LkdldFBsYXllckJ5SWRSZXF1ZXN0GhoucGxheWVyLkdldFBsYXllckJ5SWRS",
-            "ZXBseSIAYgZwcm90bzM="));
+            "CzIRLmJhc2UuUGxheWVyTW9kZWwiPQoTVXBkYXRlUGxheWVyUmVxdWVzdBIm",
+            "CgtwbGF5ZXJNb2RlbBgBIAEoCzIRLmJhc2UuUGxheWVyTW9kZWwiOwoRVXBk",
+            "YXRlUGxheWVyUmVwbHkSJgoLcGxheWVyTW9kZWwYASABKAsyES5iYXNlLlBs",
+            "YXllck1vZGVsMsACCg1QbGF5ZXJTZXJ2aWNlElQKEFJlZ2lzdGVyRXh0ZXJu",
+            "YWwSHy5wbGF5ZXIuUmVnaXN0ZXJFeHRlcm5hbFJlcXVlc3QaHS5wbGF5ZXIu",
+            "UmVnaXN0ZXJFeHRlcm5hbFJlcGx5IgASQgoKR2V0UGxheWVycxIZLnBsYXll",
+            "ci5HZXRQbGF5ZXJzUmVxdWVzdBoXLnBsYXllci5HZXRQbGF5ZXJzUmVwbHki",
+            "ABJLCg1HZXRQbGF5ZXJCeUlkEhwucGxheWVyLkdldFBsYXllckJ5SWRSZXF1",
+            "ZXN0GhoucGxheWVyLkdldFBsYXllckJ5SWRSZXBseSIAEkgKDFVwZGF0ZVBs",
+            "YXllchIbLnBsYXllci5VcGRhdGVQbGF5ZXJSZXF1ZXN0GhkucGxheWVyLlVw",
+            "ZGF0ZVBsYXllclJlcGx5IgBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Base.BaseReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -51,7 +52,7 @@ namespace Player {
             new pbr::GeneratedClrTypeInfo(typeof(global::Player.GetPlayersReply), global::Player.GetPlayersReply.Parser, new[]{ "PlayerModel" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Player.GetPlayerByIdRequest), global::Player.GetPlayerByIdRequest.Parser, new[]{ "PlayerId" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Player.GetPlayerByIdReply), global::Player.GetPlayerByIdReply.Parser, new[]{ "PlayerModel" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Player.UpdatePlayerRequest), global::Player.UpdatePlayerRequest.Parser, new[]{ "PlayerId", "PlayerModel" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Player.UpdatePlayerRequest), global::Player.UpdatePlayerRequest.Parser, new[]{ "PlayerModel" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Player.UpdatePlayerReply), global::Player.UpdatePlayerReply.Parser, new[]{ "PlayerModel" }, null, null, null, null)
           }));
     }
@@ -1320,7 +1321,6 @@ namespace Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public UpdatePlayerRequest(UpdatePlayerRequest other) : this() {
-      playerId_ = other.playerId_;
       playerModel_ = other.playerModel_ != null ? other.playerModel_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -1331,20 +1331,8 @@ namespace Player {
       return new UpdatePlayerRequest(this);
     }
 
-    /// <summary>Field number for the "playerId" field.</summary>
-    public const int PlayerIdFieldNumber = 1;
-    private string playerId_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public string PlayerId {
-      get { return playerId_; }
-      set {
-        playerId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
     /// <summary>Field number for the "playerModel" field.</summary>
-    public const int PlayerModelFieldNumber = 2;
+    public const int PlayerModelFieldNumber = 1;
     private global::Base.PlayerModel playerModel_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
@@ -1370,7 +1358,6 @@ namespace Player {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (PlayerId != other.PlayerId) return false;
       if (!object.Equals(PlayerModel, other.PlayerModel)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -1379,7 +1366,6 @@ namespace Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (PlayerId.Length != 0) hash ^= PlayerId.GetHashCode();
       if (playerModel_ != null) hash ^= PlayerModel.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -1399,12 +1385,8 @@ namespace Player {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (PlayerId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(PlayerId);
-      }
       if (playerModel_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(PlayerModel);
       }
       if (_unknownFields != null) {
@@ -1417,12 +1399,8 @@ namespace Player {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (PlayerId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(PlayerId);
-      }
       if (playerModel_ != null) {
-        output.WriteRawTag(18);
+        output.WriteRawTag(10);
         output.WriteMessage(PlayerModel);
       }
       if (_unknownFields != null) {
@@ -1435,9 +1413,6 @@ namespace Player {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (PlayerId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(PlayerId);
-      }
       if (playerModel_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(PlayerModel);
       }
@@ -1452,9 +1427,6 @@ namespace Player {
     public void MergeFrom(UpdatePlayerRequest other) {
       if (other == null) {
         return;
-      }
-      if (other.PlayerId.Length != 0) {
-        PlayerId = other.PlayerId;
       }
       if (other.playerModel_ != null) {
         if (playerModel_ == null) {
@@ -1478,10 +1450,6 @@ namespace Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            PlayerId = input.ReadString();
-            break;
-          }
-          case 18: {
             if (playerModel_ == null) {
               PlayerModel = new global::Base.PlayerModel();
             }
@@ -1504,10 +1472,6 @@ namespace Player {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
           case 10: {
-            PlayerId = input.ReadString();
-            break;
-          }
-          case 18: {
             if (playerModel_ == null) {
               PlayerModel = new global::Base.PlayerModel();
             }

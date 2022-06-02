@@ -9,6 +9,7 @@ service PlayerService{
   rpc RegisterExternal (RegisterExternalRequest) returns (RegisterExternalReply) {}
   rpc GetPlayers (GetPlayersRequest) returns (GetPlayersReply) {}
   rpc GetPlayerById (GetPlayerByIdRequest) returns (GetPlayerByIdReply) {}
+  rpc UpdatePlayer (UpdatePlayerRequest) returns (UpdatePlayerReply) {}
 }
 
 // Register
@@ -42,8 +43,7 @@ message GetPlayerByIdReply {
 
 // Update players
 message UpdatePlayerRequest {
-  string playerId = 1;
-  base.PlayerModel playerModel = 2;
+  base.PlayerModel playerModel = 1;
 }
 
 message UpdatePlayerReply {

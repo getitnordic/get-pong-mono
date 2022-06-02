@@ -54,6 +54,7 @@
         <Compile Include="Handlers\Players\AddPlayerHandler.cs" />
         <Compile Include="Handlers\Players\GetPlayerByIdHandler.cs" />
         <Compile Include="Handlers\Players\GetPlayersHandler.cs" />
+        <Compile Include="Handlers\Players\UpdatePlayerHandler.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Startup.cs" />
     </ItemGroup>

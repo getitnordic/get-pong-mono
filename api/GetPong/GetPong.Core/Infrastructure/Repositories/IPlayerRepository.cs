@@ -10,5 +10,7 @@ namespace GetPong.Core.Infrastructure.Repositories
         List<Player> GetPlayers();
 
         Task<Player> GetPlayerById(string playerId);
+
+        Task<Player> UpdatePlayer(Player player);
     }
 }

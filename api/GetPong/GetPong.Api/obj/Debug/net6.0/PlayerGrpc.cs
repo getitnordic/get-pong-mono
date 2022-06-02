@@ -60,6 +60,10 @@ namespace Player {
     static readonly grpc::Marshaller<global::Player.GetPlayerByIdRequest> __Marshaller_player_GetPlayerByIdRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Player.GetPlayerByIdRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Player.GetPlayerByIdReply> __Marshaller_player_GetPlayerByIdReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Player.GetPlayerByIdReply.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Player.UpdatePlayerRequest> __Marshaller_player_UpdatePlayerRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Player.UpdatePlayerRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Player.UpdatePlayerReply> __Marshaller_player_UpdatePlayerReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Player.UpdatePlayerReply.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Player.RegisterExternalRequest, global::Player.RegisterExternalReply> __Method_RegisterExternal = new grpc::Method<global::Player.RegisterExternalRequest, global::Player.RegisterExternalReply>(
@@ -84,6 +88,14 @@ namespace Player {
         "GetPlayerById",
         __Marshaller_player_GetPlayerByIdRequest,
         __Marshaller_player_GetPlayerByIdReply);
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Player.UpdatePlayerRequest, global::Player.UpdatePlayerReply> __Method_UpdatePlayer = new grpc::Method<global::Player.UpdatePlayerRequest, global::Player.UpdatePlayerReply>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "UpdatePlayer",
+        __Marshaller_player_UpdatePlayerRequest,
+        __Marshaller_player_UpdatePlayerReply);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -113,6 +125,12 @@ namespace Player {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Player.UpdatePlayerReply> UpdatePlayer(global::Player.UpdatePlayerRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -123,7 +141,8 @@ namespace Player {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_RegisterExternal, serviceImpl.RegisterExternal)
           .AddMethod(__Method_GetPlayers, serviceImpl.GetPlayers)
-          .AddMethod(__Method_GetPlayerById, serviceImpl.GetPlayerById).Build();
+          .AddMethod(__Method_GetPlayerById, serviceImpl.GetPlayerById)
+          .AddMethod(__Method_UpdatePlayer, serviceImpl.UpdatePlayer).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -136,6 +155,7 @@ namespace Player {
       serviceBinder.AddMethod(__Method_RegisterExternal, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Player.RegisterExternalRequest, global::Player.RegisterExternalReply>(serviceImpl.RegisterExternal));
       serviceBinder.AddMethod(__Method_GetPlayers, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Player.GetPlayersRequest, global::Player.GetPlayersReply>(serviceImpl.GetPlayers));
       serviceBinder.AddMethod(__Method_GetPlayerById, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Player.GetPlayerByIdRequest, global::Player.GetPlayerByIdReply>(serviceImpl.GetPlayerById));
+      serviceBinder.AddMethod(__Method_UpdatePlayer, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Player.UpdatePlayerRequest, global::Player.UpdatePlayerReply>(serviceImpl.UpdatePlayer));
     }
 
   }

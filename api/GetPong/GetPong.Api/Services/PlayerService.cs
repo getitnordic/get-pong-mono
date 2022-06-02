@@ -93,4 +93,9 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         return Task.FromResult(new RegisterExternalReply() { PlayerModel = externalUser });
     }
     
+    //Update player
+    public override Task<UpdatePlayerReply> UpdatePlayer(UpdatePlayerRequest request, ServerCallContext context)
+    {
+        
+    }
 }
