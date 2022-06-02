@@ -45,11 +45,11 @@ namespace GetPong.Infrastructure.MongoDb
         public List<Player> GetPlayers()
         {
             var allPlayersBson = _mongoCollection.Find(new BsonDocument()).ToList();
-            List<Player> allPlayers = new List<Player>();
+            var allPlayers = new List<Player>();
 
             foreach (BsonDocument doc in allPlayersBson)
             {
-                Player player = new Player();
+                var player = new Player();
                 player.Id = doc.GetValue("_id").ToString();
                 player.FirstName = doc.GetValue("first_name").ToString();
                 player.LastName = doc.GetValue("last_name").ToString();
@@ -75,8 +75,9 @@ namespace GetPong.Infrastructure.MongoDb
             var docs = await _mongoCollection.FindAsync(filter);
 
             var doc = docs.FirstOrDefault();
-
+            
             Player player = new Player();
+
             player.Id = doc.GetValue("_id").ToString();
             player.FirstName = doc.GetValue("first_name").ToString();
             player.LastName = doc.GetValue("last_name").ToString();
@@ -90,6 +91,7 @@ namespace GetPong.Infrastructure.MongoDb
             player.StreakEnum = (StreakEnum)doc.GetValue("streak_enum").ToInt32();
 
             return player;
+
         }
 
 
@@ -131,6 +133,7 @@ namespace GetPong.Infrastructure.MongoDb
             player.TotalScore = playerDoc.GetValue("total_score").ToInt32();
             player.StreakEnum = (StreakEnum)playerDoc.GetValue("streak_enum").ToInt32();
             return player;
+
         }
     }
 }

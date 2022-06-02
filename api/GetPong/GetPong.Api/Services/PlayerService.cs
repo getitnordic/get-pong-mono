@@ -1,5 +1,4 @@
 using Base;
-using GetPong.Application.Handlers.Players;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
 using Grpc.Core;
@@ -15,9 +14,11 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
 
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
+
         IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler)
+
     {
-        this._addPlayerHandler = addPlayerHandler;
+        _addPlayerHandler = addPlayerHandler;
         _getPlayersHandler = getPlayersHandler;
         _getPlayerByIdHandler = getPlayerByIdHandler;
         _updatePlayerHandler = updatePlayerHandler;
@@ -39,7 +40,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
             Win = p.Win,
             Loss = p.Loss,
             TotalScore = p.TotalScore,
-            StreakEnum = (Base.StreakEnum)((int)p.StreakEnum)
+            StreakEnum = (StreakEnum)((int)p.StreakEnum)
         }).ToList();
 
         return Task.FromResult(new GetPlayersReply() { PlayerModel = { playerModels } });
@@ -49,7 +50,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     public override async Task<GetPlayerByIdReply> GetPlayerById(GetPlayerByIdRequest request,
         ServerCallContext context)
     {
-        var player = await _getPlayerByIdHandler.Handle(request.PlayerId.ToString());
+        var player = await _getPlayerByIdHandler.Handle(request.PlayerId);
         PlayerModel playerModel = new PlayerModel();
         playerModel.Id = player.Id;
         playerModel.FirstName = player.FirstName;
@@ -61,7 +62,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         playerModel.Win = player.Win;
         playerModel.Loss = player.Loss;
         playerModel.TotalScore = player.TotalScore;
-        playerModel.StreakEnum = (Base.StreakEnum)((int)player.StreakEnum);
+        playerModel.StreakEnum = (StreakEnum)(int)player.StreakEnum;
 
         return new GetPlayerByIdReply() { PlayerModel = playerModel };
     }
@@ -81,6 +82,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
 
         PlayerModel externalUser = new PlayerModel()
         {
+            Id = player.Id,
             FirstName = player.FirstName,
             LastName = player.LastName,
             Email = player.Email,
@@ -90,11 +92,12 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
             Win = player.Win,
             Loss = player.Loss,
             TotalScore = player.TotalScore,
-            StreakEnum = Base.StreakEnum.None
+            StreakEnum = StreakEnum.None
         };
 
         return Task.FromResult(new RegisterExternalReply() { PlayerModel = externalUser });
     }
+
 
     //Update player
     public override Task<UpdatePlayerReply> UpdatePlayer(UpdatePlayerRequest request, ServerCallContext context)
@@ -123,4 +126,5 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
 
         return Task.FromResult(new UpdatePlayerReply() { PlayerModel = updatedPlayerModel });
     }
+
 }
