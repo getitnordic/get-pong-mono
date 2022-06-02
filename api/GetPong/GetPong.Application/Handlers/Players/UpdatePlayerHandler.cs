@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
@@ -14,10 +16,9 @@ namespace GetPong.Application.Handlers.Players
             _playerRepository = playerRepository;
         }
 
-        public Player Handle(AddPlayerCommand addPlayerCommand)
+        public  async Task<Player> Handle(string playerId, AddPlayerCommand addPlayerCommand)
         {
-            // xxxxxxxxxx
-            return null;
+            return await _playerRepository.UpdatePlayer(playerId, addPlayerCommand);
         }
     }
 }

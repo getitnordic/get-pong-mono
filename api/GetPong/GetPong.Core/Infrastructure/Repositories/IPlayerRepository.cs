@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GetPong.Core.Infrastructure.Entities.Players;
+using GetPong.Core.Models.Commands.Players;
 
 namespace GetPong.Core.Infrastructure.Repositories
 {
@@ -11,6 +12,7 @@ namespace GetPong.Core.Infrastructure.Repositories
 
         Task<Player> GetPlayerById(string playerId);
 
-        Task<Player> UpdatePlayer(Player player);
+        Task<Player> UpdatePlayer(string playerId, AddPlayerCommand addPlayerCommand);
+        
     }
 }

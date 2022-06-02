@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Models.Commands.Players;
 
@@ -5,6 +6,6 @@ namespace GetPong.Core.Handlers.Players
 {
     public interface IUpdatePlayerHandler
     {
-        Player Handle(AddPlayerCommand addPlayerCommand);
+        Task<Player> Handle(string playerId, AddPlayerCommand addPlayerCommand);
     }
 }
