@@ -11,13 +11,17 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly IAddPlayerHandler _addPlayerHandler;
     private readonly IGetPlayersHandler _getPlayersHandler;
     private readonly IGetPlayerByIdHandler _getPlayerByIdHandler;
+    private readonly IUpdatePlayerHandler _updatePlayerHandler;
 
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
-        IGetPlayerByIdHandler getPlayerByIdHandler)
+
+        IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler)
+
     {
         _addPlayerHandler = addPlayerHandler;
         _getPlayersHandler = getPlayersHandler;
         _getPlayerByIdHandler = getPlayerByIdHandler;
+        _updatePlayerHandler = updatePlayerHandler;
     }
 
     // Get all players
@@ -93,4 +97,34 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
 
         return Task.FromResult(new RegisterExternalReply() { PlayerModel = externalUser });
     }
+
+
+    //Update player
+    public override Task<UpdatePlayerReply> UpdatePlayer(UpdatePlayerRequest request, ServerCallContext context)
+    {
+        var updatedPlayer = _updatePlayerHandler.Handle(request.PlayerModel.Id, new AddPlayerCommand()
+        {
+            FirstName = request.PlayerModel.FirstName,
+            LastName = request.PlayerModel.LastName,
+            Email = request.PlayerModel.Email,
+            Nickname = request.PlayerModel.Nickname
+        });
+        PlayerModel updatedPlayerModel = new PlayerModel()
+        {
+            Id = request.PlayerModel.Id,
+            FirstName = updatedPlayer.Result.FirstName,
+            LastName = updatedPlayer.Result.LastName,
+            Email = updatedPlayer.Result.Email,
+            Nickname = updatedPlayer.Result.Nickname,
+            ImageUrl = updatedPlayer.Result.ImageUrl,
+            Streak = updatedPlayer.Result.Streak,
+            Win = updatedPlayer.Result.Win,
+            Loss = updatedPlayer.Result.Loss,
+            TotalScore = updatedPlayer.Result.TotalScore,
+            StreakEnum = (StreakEnum)updatedPlayer.Result.StreakEnum
+        };
+
+        return Task.FromResult(new UpdatePlayerReply() { PlayerModel = updatedPlayerModel });
+    }
+
 }

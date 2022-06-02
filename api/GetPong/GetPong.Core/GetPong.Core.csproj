@@ -110,6 +110,7 @@
         <Compile Include="Handlers\Players\IAddPlayerHandler.cs" />
         <Compile Include="Handlers\Players\IGetPlayerByIdHandler.cs" />
         <Compile Include="Handlers\Players\IGetPlayersHandler.cs" />
+        <Compile Include="Handlers\Players\IUpdatePlayerHandler.cs" />
         <Compile Include="Infrastructure\Entities\Players\Player.cs" />
         <Compile Include="Infrastructure\Repositories\IPlayerRepository.cs" />
         <Compile Include="Models\Commands\Players\AddPlayerCommand.cs" />
