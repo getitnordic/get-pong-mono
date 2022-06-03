@@ -1,3 +1,4 @@
+using AutoMapper;
 using Base;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
@@ -12,16 +13,18 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly IGetPlayersHandler _getPlayersHandler;
     private readonly IGetPlayerByIdHandler _getPlayerByIdHandler;
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
+    private readonly IMapper _mapper;
 
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
 
-        IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler)
+        IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper)
 
     {
         _addPlayerHandler = addPlayerHandler;
         _getPlayersHandler = getPlayersHandler;
         _getPlayerByIdHandler = getPlayerByIdHandler;
         _updatePlayerHandler = updatePlayerHandler;
+        _mapper = mapper;
     }
 
     // Get all players
@@ -51,18 +54,21 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         ServerCallContext context)
     {
         var player = await _getPlayerByIdHandler.Handle(request.PlayerId);
-        PlayerModel playerModel = new PlayerModel();
-        playerModel.Id = player.Id;
-        playerModel.FirstName = player.FirstName;
-        playerModel.LastName = player.LastName;
-        playerModel.Nickname = player.Nickname;
-        playerModel.ImageUrl = player.ImageUrl;
-        playerModel.Email = player.Email;
-        playerModel.Streak = player.Streak;
-        playerModel.Win = player.Win;
-        playerModel.Loss = player.Loss;
-        playerModel.TotalScore = player.TotalScore;
-        playerModel.StreakEnum = (StreakEnum)(int)player.StreakEnum;
+
+        var playerModel = _mapper.Map<PlayerModel>(player);
+        
+        // PlayerModel playerModel = new PlayerModel();
+        // playerModel.Id = player.Id;
+        // playerModel.FirstName = player.FirstName;
+        // playerModel.LastName = player.LastName;
+        // playerModel.Nickname = player.Nickname;
+        // playerModel.ImageUrl = player.ImageUrl;
+        // playerModel.Email = player.Email;
+        // playerModel.Streak = player.Streak;
+        // playerModel.Win = player.Win;
+        // playerModel.Loss = player.Loss;
+        // playerModel.TotalScore = player.TotalScore;
+        // playerModel.StreakEnum = (StreakEnum)(int)player.StreakEnum;
 
         return new GetPlayerByIdReply() { PlayerModel = playerModel };
     }

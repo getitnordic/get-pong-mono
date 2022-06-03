@@ -16,6 +16,7 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddGrpc();
+        services.AddAutoMapper(typeof(Startup));
         
         Infrastructure.Startup.ConfigureServices(services);
         Application.Startup.ConfigureServices(services);

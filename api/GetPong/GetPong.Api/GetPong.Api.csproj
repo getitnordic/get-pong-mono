@@ -46,6 +46,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Google.Protobuf" Version="3.21.0-rc2" />
     <PackageReference Include="Grpc" Version="2.46.3" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
