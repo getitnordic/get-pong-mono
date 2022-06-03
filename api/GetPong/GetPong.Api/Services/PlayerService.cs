@@ -31,21 +31,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
         List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
-        List<PlayerModel> playerModels = players.Select(p => new PlayerModel()
-        {
-            Id = p.Id,
-            FirstName = p.FirstName,
-            LastName = p.LastName,
-            Nickname = p.Nickname,
-            ImageUrl = p.ImageUrl,
-            Email = p.Email,
-            Streak = p.Streak,
-            Win = p.Win,
-            Loss = p.Loss,
-            TotalScore = p.TotalScore,
-            StreakEnum = (StreakEnum)((int)p.StreakEnum)
-        }).ToList();
-
+        var playerModels = _mapper.Map<List<PlayerModel>>(players);
         return Task.FromResult(new GetPlayersReply() { PlayerModel = { playerModels } });
     }
 
@@ -54,22 +40,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         ServerCallContext context)
     {
         var player = await _getPlayerByIdHandler.Handle(request.PlayerId);
-
         var playerModel = _mapper.Map<PlayerModel>(player);
-        
-        // PlayerModel playerModel = new PlayerModel();
-        // playerModel.Id = player.Id;
-        // playerModel.FirstName = player.FirstName;
-        // playerModel.LastName = player.LastName;
-        // playerModel.Nickname = player.Nickname;
-        // playerModel.ImageUrl = player.ImageUrl;
-        // playerModel.Email = player.Email;
-        // playerModel.Streak = player.Streak;
-        // playerModel.Win = player.Win;
-        // playerModel.Loss = player.Loss;
-        // playerModel.TotalScore = player.TotalScore;
-        // playerModel.StreakEnum = (StreakEnum)(int)player.StreakEnum;
-
         return new GetPlayerByIdReply() { PlayerModel = playerModel };
     }
 
@@ -84,53 +55,25 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
             Email = request.Email,
             Nickname = request.Nickname
         });
-
-
-        PlayerModel externalUser = new PlayerModel()
-        {
-            Id = player.Id,
-            FirstName = player.FirstName,
-            LastName = player.LastName,
-            Email = player.Email,
-            Nickname = player.Nickname,
-            ImageUrl = player.ImageUrl,
-            Streak = player.Streak,
-            Win = player.Win,
-            Loss = player.Loss,
-            TotalScore = player.TotalScore,
-            StreakEnum = StreakEnum.None
-        };
-
+        
+        var externalUser = _mapper.Map<PlayerModel>(player);
         return Task.FromResult(new RegisterExternalReply() { PlayerModel = externalUser });
     }
 
 
     //Update player
-    public override Task<UpdatePlayerReply> UpdatePlayer(UpdatePlayerRequest request, ServerCallContext context)
+    public override async Task<UpdatePlayerReply> UpdatePlayer(UpdatePlayerRequest request, ServerCallContext context)
     {
-        var updatedPlayer = _updatePlayerHandler.Handle(request.PlayerModel.Id, new AddPlayerCommand()
+        var updatedPlayer = await _updatePlayerHandler.Handle(request.PlayerModel.Id, new AddPlayerCommand()
         {
             FirstName = request.PlayerModel.FirstName,
             LastName = request.PlayerModel.LastName,
             Email = request.PlayerModel.Email,
             Nickname = request.PlayerModel.Nickname
         });
-        PlayerModel updatedPlayerModel = new PlayerModel()
-        {
-            Id = request.PlayerModel.Id,
-            FirstName = updatedPlayer.Result.FirstName,
-            LastName = updatedPlayer.Result.LastName,
-            Email = updatedPlayer.Result.Email,
-            Nickname = updatedPlayer.Result.Nickname,
-            ImageUrl = updatedPlayer.Result.ImageUrl,
-            Streak = updatedPlayer.Result.Streak,
-            Win = updatedPlayer.Result.Win,
-            Loss = updatedPlayer.Result.Loss,
-            TotalScore = updatedPlayer.Result.TotalScore,
-            StreakEnum = (StreakEnum)updatedPlayer.Result.StreakEnum
-        };
 
-        return Task.FromResult(new UpdatePlayerReply() { PlayerModel = updatedPlayerModel });
+        var updatedPlayerModel =  _mapper.Map<PlayerModel>(updatedPlayer);
+        return await Task.FromResult(new UpdatePlayerReply() { PlayerModel = updatedPlayerModel });
     }
 
 }

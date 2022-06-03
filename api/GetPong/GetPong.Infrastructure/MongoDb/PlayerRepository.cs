@@ -115,10 +115,7 @@ namespace GetPong.Infrastructure.MongoDb
                 .Add("total_score", getPlayer.TotalScore)
                 .Add("streak_enum", getPlayer.StreakEnum);
 
-
-            // var docs = await _mongoCollection.UpdateOneAsync(filter, playerDoc);
             await _mongoCollection.ReplaceOneAsync(filter, playerDoc);
-            //var docs = await _mongoCollection.UpdateOneAsync(filter, doc);
 
             Player player = new Player();
             player.Id = playerDoc.GetValue("_id").ToString();
@@ -132,7 +129,8 @@ namespace GetPong.Infrastructure.MongoDb
             player.Loss = playerDoc.GetValue("loss").ToInt32();
             player.TotalScore = playerDoc.GetValue("total_score").ToInt32();
             player.StreakEnum = (StreakEnum)playerDoc.GetValue("streak_enum").ToInt32();
-            return player;
+            
+            return  player;
 
         }
     }
