@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GetPong.Application
 {
-    public class Startup
+    public static class Startup
     {
         public static void ConfigureServices(IServiceCollection services)
         {
