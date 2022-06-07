@@ -15,11 +15,11 @@ namespace GetPong.Application.Handlers.Players
         {
             _playerRepository = playerRepository;
         }
-        
+
         public Player Handle(AddPlayerCommand addPlayerCommand)
         {
             ValidatePlayerCommand(addPlayerCommand);
-            Player player = new Player
+            var player = new Player
             {
                 FirstName = addPlayerCommand.FirstName,
                 LastName = addPlayerCommand.LastName,
@@ -38,17 +38,12 @@ namespace GetPong.Application.Handlers.Players
             return player;
         }
 
-        private void ValidatePlayerCommand(AddPlayerCommand playerCommand)
+        private static void ValidatePlayerCommand(AddPlayerCommand playerCommand)
         {
             if (string.IsNullOrEmpty(playerCommand.FirstName))
             {
                 throw new Exception("firstname is mandatory");
             }
-        }
-
-        public Player Handle(Player addPlayerCommand)
-        {
-            throw new NotImplementedException();
         }
     }
 }

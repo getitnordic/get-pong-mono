@@ -4,8 +4,8 @@ namespace GetPong.Api;
 
 public class Startup
 {
-    public IConfiguration Configuration { get; }
-    public IWebHostEnvironment Environment { get; }
+    private IConfiguration Configuration { get; }
+    private IWebHostEnvironment Environment { get; }
 
     public Startup(IConfiguration configuration, IWebHostEnvironment environment)
     {
@@ -13,7 +13,7 @@ public class Startup
         Environment = environment;
     }
 
-    public void ConfigureServices(IServiceCollection services)
+    public static void ConfigureServices(IServiceCollection services)
     {
         services.AddGrpc();
         services.AddAutoMapper(typeof(Startup));
