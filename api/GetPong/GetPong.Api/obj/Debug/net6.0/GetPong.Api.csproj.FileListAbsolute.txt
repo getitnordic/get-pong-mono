@@ -186,3 +186,5 @@ C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Api\obj\Debug\net6
 C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Api\obj\Debug\net6.0\ref\GetPong.Api.dll
 C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Api\bin\Debug\net6.0\AutoMapper.dll
 C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Api\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Api\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

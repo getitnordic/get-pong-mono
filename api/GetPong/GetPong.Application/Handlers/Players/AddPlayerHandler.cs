@@ -45,5 +45,10 @@ namespace GetPong.Application.Handlers.Players
                 throw new Exception("firstname is mandatory");
             }
         }
+
+        public Player Handle(Player addPlayerCommand)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

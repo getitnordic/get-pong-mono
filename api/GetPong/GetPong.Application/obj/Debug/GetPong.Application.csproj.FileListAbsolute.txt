@@ -144,3 +144,11 @@ C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Application\bin\De
 C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\AutoMapper.xml
 C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\Microsoft.Extensions.Options.xml
 C:\Users\Jens\RiderProjects\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\Microsoft.Extensions.Primitives.xml
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\AutoMapper.dll
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\Microsoft.Extensions.Options.dll
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\Microsoft.Extensions.Primitives.dll
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\System.ComponentModel.Annotations.dll
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\AutoMapper.xml
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\Microsoft.Extensions.Options.xml
+C:\Users\torbe\RiderProjects\get-pong-mono\get-pong-mono\api\GetPong\GetPong.Application\bin\Debug\Microsoft.Extensions.Primitives.xml
