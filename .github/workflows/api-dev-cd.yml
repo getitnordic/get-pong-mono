@@ -31,24 +31,29 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal
         working-directory: api/GetPong
-        
+
   build_and_push:
     runs-on: ubuntu-latest
     needs: test
     steps:
       - name: Checkout main
-        uses: actions/checkout@v2   
-        
+        uses: actions/checkout@v2
+
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
-          username: ${{ env.REGISTRY_USERNAME }} 
+          username: ${{ env.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
           login-server: ${{ env.REGISTRY }}
 
       - name: Build container image
         run: docker build -t $(echo $REGISTRY)/$(echo $REPO)/$(echo $IMAGE):$(echo $GITHUB_SHA | head -c7) . -f api/GetPong/Dockerfile
-     
+
       - name: Push image to DigitalOcean Container Registry
         run: docker push $(echo $REGISTRY)/$(echo $REPO)/$(echo $IMAGE):$(echo $GITHUB_SHA | head -c7)
-    
+
+      - name: Build container image
+        run: docker build -t $(echo $REGISTRY)/$(echo $REPO)/$(echo $IMAGE):latest . -f api/GetPong/Dockerfile
+
+      - name: Push image to DigitalOcean Container Registry
+        run: docker push $(echo $REGISTRY)/$(echo $REPO)/$(echo $IMAGE):latest

@@ -20,7 +20,7 @@ public class Startup
         
         Infrastructure.Startup.ConfigureServices(services);
         Application.Startup.ConfigureServices(services);
-    }
+    } 
 
     public void Configure(IApplicationBuilder app)
     {
