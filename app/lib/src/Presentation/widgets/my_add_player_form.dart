@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/enums/streak_enum.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 
@@ -42,13 +43,12 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           decoration: const InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Color.fromARGB(255, 130, 164, 193),
+                color: ColorConstants.formColor,
               ),
             ),
             labelText: 'Email',
-            labelStyle: TextStyle(color: Color.fromARGB(255, 130, 164, 193)),
-            prefixIcon:
-                Icon(Icons.mail, color: Color.fromARGB(255, 130, 164, 193)),
+            labelStyle: TextStyle(color: ColorConstants.formColor),
+            prefixIcon: Icon(Icons.mail, color: ColorConstants.formColor),
             border: OutlineInputBorder(),
           ),
           keyboardType: TextInputType.emailAddress,
@@ -72,13 +72,12 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'User name',
-            labelStyle: TextStyle(color: Color.fromARGB(255, 130, 164, 193)),
-            prefixIcon:
-                Icon(Icons.person, color: Color.fromARGB(255, 130, 164, 193)),
+            labelStyle: TextStyle(color: ColorConstants.formColor),
+            prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
             border: OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Color.fromARGB(255, 130, 164, 193),
+                color: ColorConstants.formColor,
               ),
             ),
           ),
@@ -94,49 +93,69 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
         ),
       );
 
-  Widget buildSubmitButton() => ElevatedButton(
-        onPressed: () {
-          final isValid = formKey.currentState!.validate();
-          if (isValid) {
-            formKey.currentState!.save();
+  Widget buildSubmitButton() => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        child: ElevatedButton(
+          onPressed: () {
+            final isValid = formKey.currentState!.validate();
+            if (isValid) {
+              formKey.currentState!.save();
 
-            ref.read(playersProvider.notifier).addPlayer(Player(
-                DateTime.now().toString(),
-                userName,
-                0,
-                0,
-                'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg',
-                '',
-                '',
-                '',
-                0,
-                0,
-                StreakEnum.none));
-            const message = 'Player created!';
+              ref.read(playersProvider.notifier).addPlayer(Player(
+                  DateTime.now().toString(),
+                  userName,
+                  0,
+                  0,
+                  'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg',
+                  '',
+                  '',
+                  '',
+                  0,
+                  0,
+                  StreakEnum.none));
+              const message = 'Player created!';
 
-            final snackBar = SnackBar(
-              content: SizedBox(
-                width: 400,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text(
-                      message,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ],
+              final snackBar = SnackBar(
+                content: SizedBox(
+                  width: 400,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Text(
+                        message,
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              duration: const Duration(seconds: 2),
-              backgroundColor: const Color.fromARGB(255, 23, 44, 63),
-              elevation: 1000,
-              behavior: SnackBarBehavior.floating,
-            );
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            Navigator.pop(context);
-          }
-        },
-        child: const Text('submit'),
+                duration: const Duration(seconds: 2),
+                backgroundColor: ColorConstants.appBarColor,
+                elevation: 1000,
+                behavior: SnackBarBehavior.floating,
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              Navigator.pop(context);
+            }
+          },
+          style: ButtonStyle(
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            )),
+            minimumSize: MaterialStateProperty.all<Size>(const Size(300, 50)),
+            backgroundColor: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.pressed)) {
+                  return ColorConstants.primaryColor;
+                } else if (states.contains(MaterialState.disabled)) {
+                  return ColorConstants.disabledButtonColor;
+                }
+                return ColorConstants.primaryColor;
+              },
+            ),
+          ),
+          child: const Text('submit'),
+        ),
       );
 }
 // ranking: "1"

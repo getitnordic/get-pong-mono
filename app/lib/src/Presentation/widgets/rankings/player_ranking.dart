@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_header.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_player.dart';
 
@@ -87,7 +88,7 @@ class PlayerRanking extends ConsumerWidget {
           ),
           const Divider(
             height: 3,
-            color: Colors.white,
+            color: ColorConstants.dividerColor,
           ),
           Flexible(
             child: ListView.builder(

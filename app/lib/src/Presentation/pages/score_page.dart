@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
@@ -29,37 +30,37 @@ class ScorePage extends ConsumerWidget {
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selectedPlayersNotifier = ref.watch(selectedProvider.notifier);
     final matchType = ref.watch(matchTypeProvider);
-    final _playerOne = selectedPlayers[0];
-    final _playerTwo = selectedPlayers[1];
-    final _playerThree = selectedPlayers[2];
-    final _playerFour = selectedPlayers[3];
-    double _scoreOne = 5;
-    double _scoreTwo = 5;
+    final playerOne = selectedPlayers[0];
+    final playerTwo = selectedPlayers[1];
+    final playerThree = selectedPlayers[2];
+    final playerFour = selectedPlayers[3];
+    double scoreOne = 5;
+    double scoreTwo = 5;
 
-    void _setScoreOne(double score) {
-      _scoreOne = score;
+    void setScoreOne(double score) {
+      scoreOne = score;
     }
 
-    void _setScoreTwo(double score) {
-      _scoreTwo = score;
+    void setScoreTwo(double score) {
+      scoreTwo = score;
     }
 
-    void _saveNewMatch() {
+    void saveNewMatch() {
       if (selectedPlayers[2].nickname.isNotEmpty) {
         Game match = Game(
-          teamOne: [_playerOne, _playerTwo],
-          teamTwo: [_playerThree, _playerFour],
-          teamOneScore: _scoreOne.toInt(),
-          teamTwoScore: _scoreTwo.toInt(),
+          teamOne: [playerOne, playerTwo],
+          teamTwo: [playerThree, playerFour],
+          teamOneScore: scoreOne.toInt(),
+          teamTwoScore: scoreTwo.toInt(),
         );
         matchesNotifier.addMatch(match);
         selectedPlayersNotifier.resetState();
       } else {
         Game match = Game(
-          teamOne: [_playerOne],
-          teamTwo: [_playerTwo],
-          teamOneScore: _scoreOne.toInt(),
-          teamTwoScore: _scoreTwo.toInt(),
+          teamOne: [playerOne],
+          teamTwo: [playerTwo],
+          teamOneScore: scoreOne.toInt(),
+          teamTwoScore: scoreTwo.toInt(),
         );
         matchesNotifier.addMatch(match);
         selectedPlayersNotifier.resetState();
@@ -82,9 +83,9 @@ class ScorePage extends ConsumerWidget {
                 width: 350,
                 height: 150,
                 child: ResultCardSingle(
-                  name: _playerOne.nickname,
+                  name: playerOne.nickname,
                   child: AddResultForm(
-                    callback: _setScoreOne,
+                    callback: setScoreOne,
                   ),
                 ),
               ),
@@ -94,10 +95,10 @@ class ScorePage extends ConsumerWidget {
                 height: 200,
                 child: ResultCardDouble(
                   title: 'Team 1',
-                  playerOne: _playerOne.nickname,
-                  playerTwo: _playerTwo.nickname,
+                  playerOne: playerOne.nickname,
+                  playerTwo: playerTwo.nickname,
                   child: AddResultForm(
-                    callback: _setScoreOne,
+                    callback: setScoreOne,
                   ),
                 ),
               ),
@@ -107,9 +108,9 @@ class ScorePage extends ConsumerWidget {
                 width: 350,
                 height: 150,
                 child: ResultCardSingle(
-                  name: _playerTwo.nickname,
+                  name: playerTwo.nickname,
                   child: AddResultForm(
-                    callback: _setScoreTwo,
+                    callback: setScoreTwo,
                   ),
                 ),
               ),
@@ -119,10 +120,10 @@ class ScorePage extends ConsumerWidget {
                 height: 200,
                 child: ResultCardDouble(
                   title: 'Team 2',
-                  playerOne: _playerThree.nickname,
-                  playerTwo: _playerFour.nickname,
+                  playerOne: playerThree.nickname,
+                  playerTwo: playerFour.nickname,
                   child: AddResultForm(
-                    callback: _setScoreTwo,
+                    callback: setScoreTwo,
                   ),
                 ),
               ),
@@ -137,13 +138,13 @@ class ScorePage extends ConsumerWidget {
                       width: 250,
                       child: ElevatedButton(
                         onPressed: () {
-                          _saveNewMatch();
+                          saveNewMatch();
 
                           Navigator.pop(context);
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xff305F81),
+                            ColorConstants.primaryColor,
                           ),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -155,6 +156,7 @@ class ScorePage extends ConsumerWidget {
                         child: Text(
                           'Save Result',
                           style: GoogleFonts.goldman(
+                            color: ColorConstants.textColor,
                             fontSize: 20,
                           ),
                         ),
@@ -168,7 +170,7 @@ class ScorePage extends ConsumerWidget {
                       width: 250,
                       child: ElevatedButton(
                         onPressed: () {
-                          _saveNewMatch();
+                          saveNewMatch();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: SizedBox(
@@ -184,18 +186,17 @@ class ScorePage extends ConsumerWidget {
                                 ),
                               ),
                               duration: const Duration(seconds: 2),
-                              backgroundColor:
-                                  const Color.fromARGB(255, 23, 44, 63),
+                              backgroundColor: ColorConstants.appBarColor,
                               elevation: 1000,
                               behavior: SnackBarBehavior.floating,
                             ),
                           );
-                          _scoreOne = 5;
-                          _scoreTwo = 5;
+                          scoreOne = 5;
+                          scoreTwo = 5;
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
-                            Color(0xff305F81),
+                            ColorConstants.primaryColor,
                           ),
                           shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -207,6 +208,7 @@ class ScorePage extends ConsumerWidget {
                         child: Text(
                           'Rematch',
                           style: GoogleFonts.goldman(
+                            color: ColorConstants.textColor,
                             fontSize: 20,
                           ),
                         ),

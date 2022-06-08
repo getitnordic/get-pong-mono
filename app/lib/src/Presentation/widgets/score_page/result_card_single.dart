@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 
 class ResultCardSingle extends StatelessWidget {
   final Widget child;
@@ -20,7 +21,7 @@ class ResultCardSingle extends StatelessWidget {
             child: Text(
               name,
               style: const TextStyle(
-                color: Colors.white,
+                color: ColorConstants.textColor,
                 fontSize: 25,
               ),
             ),
@@ -32,7 +33,7 @@ class ResultCardSingle extends StatelessWidget {
                 const Text(
                   'Enter Result',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.textColor,
                     fontSize: 15,
                   ),
                 ),

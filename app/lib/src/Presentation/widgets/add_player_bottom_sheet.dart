@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 
 import '../../presentation/widgets/my_add_player_form.dart';
 
@@ -17,7 +18,7 @@ class AddPlayerBottomSheet extends StatelessWidget {
             padding: EdgeInsets.only(top: 15),
             child: Text(
               'Add player',
-              style: TextStyle(color: Colors.white70, fontSize: 20),
+              style: TextStyle(color: ColorConstants.textColor, fontSize: 20),
             ),
           ),
           AddPlayerFields(),

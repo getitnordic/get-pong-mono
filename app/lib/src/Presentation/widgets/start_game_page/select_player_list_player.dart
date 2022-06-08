@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
@@ -40,7 +41,7 @@ class SelectPlayerListPlayer extends ConsumerWidget {
                   player.nickname,
                   style: const TextStyle(
                     fontSize: 17,
-                    color: Colors.white70,
+                    color: ColorConstants.textColor,
                   ),
                 ),
               ],
@@ -53,7 +54,7 @@ class SelectPlayerListPlayer extends ConsumerWidget {
                 },
                 child: const Icon(
                   Icons.add,
-                  color: Color.fromARGB(255, 248, 114, 39),
+                  color: ColorConstants.primaryColor,
                   size: 30,
                 )),
           ],
