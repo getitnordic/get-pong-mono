@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.WebSockets;
+using System.Threading.Tasks;
 using GetPong.Core.Infrastructure.Entities.Games;
 using GetPong.Core.Infrastructure.Repositories;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace GetPong.Infrastructure.MongoDb
@@ -20,16 +22,19 @@ namespace GetPong.Infrastructure.MongoDb
 
         public Game AddGame(Game game)
         {
+            var homeList = game.Sets[0].HomeTeam;
+            var awyList = game.Sets[0].AwayTeam;
+
             var doc = new BsonDocument()
-                    // .Add("_id", game.Id)
-                    .Add("time_stamp", game.TimeStamp)
-                    .Add("home_team_ids", new BsonArray(game.HomeTeamIds))
-                    .Add("away_team_ids", new BsonArray(game.AwayTeamIds))
-                // .Add("game_sets", new BsonArray(game.Sets))
-                ;
+                .Add("time_stamp", game.TimeStamp)
+                .Add("home_team_ids", new BsonArray(game.HomeTeamIds))
+                .Add("away_team_ids", new BsonArray(game.AwayTeamIds))
+                .Add("sets", // TODO hur stoppar vi in en lista av sets???`?
 
 
-            MongoCollection.InsertOne(doc);
+                    MongoCollection.InsertOne(doc);
+
+
             game.Id = doc["_id"].ToString();
             return game;
         }
