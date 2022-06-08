@@ -1,7 +1,10 @@
+using GetPong.Application.Handlers.Games;
 using GetPong.Application.Handlers.Players;
 using GetPong.Application.old.Handlers.Players;
+using GetPong.Core.Handlers.Games;
 using GetPong.Core.Handlers.Players;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace GetPong.Application
 {
@@ -14,6 +17,8 @@ namespace GetPong.Application
             services.AddScoped<IGetPlayersHandler, GetPlayersHandler>();
             services.AddScoped<IGetPlayerByIdHandler, GetPlayerByIdHandler>();
             services.AddScoped<IUpdatePlayerHandler, UpdatePlayerHandler>();
+
+            services.AddScoped<IAddGameHandler, AddGameHandler>();
         }
     }
 }

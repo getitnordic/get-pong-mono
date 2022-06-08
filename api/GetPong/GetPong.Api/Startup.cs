@@ -1,7 +1,6 @@
-
 using GetPong.Services;
 
-namespace GetPong;
+namespace GetPong.Api;
 
 public class Startup
 {
@@ -39,6 +38,7 @@ public class Startup
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapGrpcService<PlayerService>();
+            endpoints.MapGrpcService<GameService>();
             
             endpoints.MapGet("/", async context =>
             {
