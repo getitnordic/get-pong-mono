@@ -1,4 +1,4 @@
-name: k8s DEVELOPMENT Deployment
+name: GetPong.Api Dev - Push to CR
 
 on:
   push:
