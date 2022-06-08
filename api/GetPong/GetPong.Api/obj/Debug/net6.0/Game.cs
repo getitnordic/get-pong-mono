@@ -29,8 +29,8 @@ namespace Game {
             "ZXNSZXBseRIiCglnYW1lTW9kZWwYASADKAsyDy5nYW1lLkdhbWVNb2RlbCI1",
             "Cg9TYXZlR2FtZVJlcXVlc3QSIgoJZ2FtZU1vZGVsGAEgASgLMg8uZ2FtZS5H",
             "YW1lTW9kZWwiDwoNU2F2ZUdhbWVSZXBseSJmCglHYW1lTW9kZWwSEQoJdGlt",
-            "ZVN0YW1wGAEgASgDEhMKC2hvbWVUZWFtSWRzGAIgAygFEhMKC2F3YXlUZWFt",
-            "SWRzGAMgAygFEhwKBHNldHMYBCADKAsyDi5iYXNlLlNldE1vZGVsMoEBCgtH",
+            "ZVN0YW1wGAEgASgDEhMKC2hvbWVUZWFtSWRzGAIgAygJEhMKC2F3YXlUZWFt",
+            "SWRzGAMgAygJEhwKBHNldHMYBCADKAsyDi5iYXNlLlNldE1vZGVsMoEBCgtH",
             "YW1lU2VydmljZRI4CghHZXRHYW1lcxIVLmdhbWUuR2V0R2FtZXNSZXF1ZXN0",
             "GhMuZ2FtZS5HZXRHYW1lc1JlcGx5IgASOAoIU2F2ZUdhbWUSFS5nYW1lLlNh",
             "dmVHYW1lUmVxdWVzdBoTLmdhbWUuU2F2ZUdhbWVSZXBseSIAYgZwcm90bzM="));
@@ -872,23 +872,23 @@ namespace Game {
 
     /// <summary>Field number for the "homeTeamIds" field.</summary>
     public const int HomeTeamIdsFieldNumber = 2;
-    private static readonly pb::FieldCodec<int> _repeated_homeTeamIds_codec
-        = pb::FieldCodec.ForInt32(18);
-    private readonly pbc::RepeatedField<int> homeTeamIds_ = new pbc::RepeatedField<int>();
+    private static readonly pb::FieldCodec<string> _repeated_homeTeamIds_codec
+        = pb::FieldCodec.ForString(18);
+    private readonly pbc::RepeatedField<string> homeTeamIds_ = new pbc::RepeatedField<string>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<int> HomeTeamIds {
+    public pbc::RepeatedField<string> HomeTeamIds {
       get { return homeTeamIds_; }
     }
 
     /// <summary>Field number for the "awayTeamIds" field.</summary>
     public const int AwayTeamIdsFieldNumber = 3;
-    private static readonly pb::FieldCodec<int> _repeated_awayTeamIds_codec
-        = pb::FieldCodec.ForInt32(26);
-    private readonly pbc::RepeatedField<int> awayTeamIds_ = new pbc::RepeatedField<int>();
+    private static readonly pb::FieldCodec<string> _repeated_awayTeamIds_codec
+        = pb::FieldCodec.ForString(26);
+    private readonly pbc::RepeatedField<string> awayTeamIds_ = new pbc::RepeatedField<string>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public pbc::RepeatedField<int> AwayTeamIds {
+    public pbc::RepeatedField<string> AwayTeamIds {
       get { return awayTeamIds_; }
     }
 
@@ -1028,13 +1028,11 @@ namespace Game {
             TimeStamp = input.ReadInt64();
             break;
           }
-          case 18:
-          case 16: {
+          case 18: {
             homeTeamIds_.AddEntriesFrom(input, _repeated_homeTeamIds_codec);
             break;
           }
-          case 26:
-          case 24: {
+          case 26: {
             awayTeamIds_.AddEntriesFrom(input, _repeated_awayTeamIds_codec);
             break;
           }
@@ -1061,13 +1059,11 @@ namespace Game {
             TimeStamp = input.ReadInt64();
             break;
           }
-          case 18:
-          case 16: {
+          case 18: {
             homeTeamIds_.AddEntriesFrom(ref input, _repeated_homeTeamIds_codec);
             break;
           }
-          case 26:
-          case 24: {
+          case 26: {
             awayTeamIds_.AddEntriesFrom(ref input, _repeated_awayTeamIds_codec);
             break;
           }

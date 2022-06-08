@@ -987,24 +987,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\torbe\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\GustafAndersson\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Api\\GetPong.Api.csproj",
+      "projectUniqueName": "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Api\\GetPong.Api.csproj",
       "projectName": "GetPong.Api",
-      "projectPath": "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Api\\GetPong.Api.csproj",
-      "packagesPath": "C:\\Users\\torbe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Api\\obj\\",
+      "projectPath": "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Api\\GetPong.Api.csproj",
+      "packagesPath": "C:\\Users\\GustafAndersson\\.nuget\\packages\\",
+      "outputPath": "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Api\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\torbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\GustafAndersson\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1018,14 +1013,14 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Application\\GetPong.Application.csproj": {
-              "projectPath": "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Application\\GetPong.Application.csproj"
+            "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Application\\GetPong.Application.csproj": {
+              "projectPath": "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Application\\GetPong.Application.csproj"
             },
-            "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Core\\GetPong.Core.csproj": {
-              "projectPath": "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Core\\GetPong.Core.csproj"
+            "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Core\\GetPong.Core.csproj": {
+              "projectPath": "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Core\\GetPong.Core.csproj"
             },
-            "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Infrastructure\\GetPong.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\torbe\\RiderProjects\\get-pong-mono\\get-pong-mono\\api\\GetPong\\GetPong.Infrastructure\\GetPong.Infrastructure.csproj"
+            "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Infrastructure\\GetPong.Infrastructure.csproj": {
+              "projectPath": "C:\\projects\\get-pong\\get-pong-mono\\api\\GetPong\\GetPong.Infrastructure\\GetPong.Infrastructure.csproj"
             }
           }
         }
@@ -1081,7 +1076,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
