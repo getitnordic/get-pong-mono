@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 class NameCard extends StatelessWidget {
@@ -35,7 +36,7 @@ class NameCard extends StatelessWidget {
       ),
       child: Text(
         (playerName),
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: ColorConstants.textColor),
       ),
     );
   }

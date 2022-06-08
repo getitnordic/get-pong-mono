@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 
 import '../../../domain/entities/player.dart';
 
@@ -25,7 +26,7 @@ class SelectedPlayerAvatar extends StatelessWidget {
             style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                color: Colors.white70),
+                color: ColorConstants.textColor),
           ),
         ),
       ],

@@ -22,7 +22,6 @@ class PlayerListPage extends ConsumerWidget {
         title: const Text(
           'GetPong',
         ),
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       ),
       body: Column(
         children: [

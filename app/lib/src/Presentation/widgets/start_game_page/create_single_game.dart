@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/config/route/route.dart' as route;
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
@@ -43,14 +44,14 @@ class CreateSingleGame extends ConsumerWidget {
                       ? Text(
                           'Select player 1',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white70),
+                              fontSize: 20, color: ColorConstants.textColor),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[0].id)
                               .nickname,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white70),
+                              fontSize: 20, color: ColorConstants.textColor),
                         ),
                 ),
               ),
@@ -61,7 +62,6 @@ class CreateSingleGame extends ConsumerWidget {
                     width: 150,
                     child: Divider(
                       height: 5,
-                      color: Colors.white,
                     ),
                   ),
                   Padding(
@@ -75,7 +75,6 @@ class CreateSingleGame extends ConsumerWidget {
                     width: 150,
                     child: Divider(
                       height: 5,
-                      color: Colors.white,
                     ),
                   ),
                 ],
@@ -95,14 +94,14 @@ class CreateSingleGame extends ConsumerWidget {
                       ? Text(
                           'Select player 2',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white70),
+                              fontSize: 20, color: ColorConstants.textColor),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[1].id)
                               .nickname,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white70),
+                              fontSize: 20, color: ColorConstants.textColor),
                         ),
                 ),
               ),
@@ -124,11 +123,11 @@ class CreateSingleGame extends ConsumerWidget {
                 backgroundColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed)) {
-                      return const Color.fromARGB(255, 248, 114, 39);
+                      return ColorConstants.primaryColor;
                     } else if (states.contains(MaterialState.disabled)) {
-                      return const Color(0xff8f8f90);
+                      return ColorConstants.disabledButtonColor;
                     }
-                    return const Color.fromARGB(255, 248, 114, 39);
+                    return ColorConstants.primaryColor;
                   },
                 ),
               ),
@@ -142,7 +141,13 @@ class CreateSingleGame extends ConsumerWidget {
                       );
                     }
                   : null,
-              child: const Text('Start Game'),
+              child: Text(
+                'Start Game',
+                style: GoogleFonts.goldman(
+                  fontSize: 20,
+                  color: ColorConstants.textColor,
+                ),
+              ),
             ),
           ),
         ),

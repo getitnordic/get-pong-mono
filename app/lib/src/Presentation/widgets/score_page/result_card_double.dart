@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 
 class ResultCardDouble extends StatelessWidget {
   final Widget child;
@@ -23,11 +24,11 @@ class ResultCardDouble extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: Text(
               title,
-              style: TextStyle(
-                color: Colors.white,
+              style: const TextStyle(
+                color: ColorConstants.textColor,
                 fontSize: 25,
               ),
             ),
@@ -38,14 +39,14 @@ class ResultCardDouble extends StatelessWidget {
               Text(
                 playerOne,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: ColorConstants.textColor,
                   fontSize: 20,
                 ),
               ),
               Text(
                 playerTwo,
                 style: const TextStyle(
-                  color: Colors.white,
+                  color: ColorConstants.textColor,
                   fontSize: 20,
                 ),
               ),
@@ -58,7 +59,7 @@ class ResultCardDouble extends StatelessWidget {
                 const Text(
                   'Enter Result',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.textColor,
                     fontSize: 15,
                   ),
                 ),

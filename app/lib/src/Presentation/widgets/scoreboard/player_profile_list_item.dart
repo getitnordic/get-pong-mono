@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/domain/entities/game.dart';
 
 class PlayerProfileListItem extends StatelessWidget {
@@ -22,7 +23,7 @@ class PlayerProfileListItem extends StatelessWidget {
                   match.teamOne[0].nickname,
                   style: const TextStyle(
                     fontSize: 12,
-                    color: Colors.white70,
+                    color: ColorConstants.textColor,
                   ),
                 ),
                 Padding(
@@ -38,7 +39,7 @@ class PlayerProfileListItem extends StatelessWidget {
                     match.teamOneScore.toString(),
                     style: const TextStyle(
                         fontSize: 12,
-                        color: Colors.white70,
+                        color: ColorConstants.textColor,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -51,7 +52,7 @@ class PlayerProfileListItem extends StatelessWidget {
               ' - ',
               style: TextStyle(
                   fontSize: 12,
-                  color: Colors.white70,
+                  color: ColorConstants.textColor,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -66,7 +67,7 @@ class PlayerProfileListItem extends StatelessWidget {
                     match.teamTwoScore.toString(),
                     style: const TextStyle(
                         fontSize: 12,
-                        color: Colors.white70,
+                        color: ColorConstants.textColor,
                         fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -81,7 +82,7 @@ class PlayerProfileListItem extends StatelessWidget {
                   match.teamTwo[0].nickname,
                   style: const TextStyle(
                     fontSize: 11,
-                    color: Colors.white70,
+                    color: ColorConstants.textColor,
                   ),
                 ),
               ],

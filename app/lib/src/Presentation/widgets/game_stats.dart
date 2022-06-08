@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 
 class GameStats extends StatelessWidget {
   const GameStats({Key? key, required this.wins, required this.losses})
@@ -31,13 +32,13 @@ class GameStats extends StatelessWidget {
                 Text(
                   'Games Won',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 58, 116, 166),
+                    color: ColorConstants.secondaryTextColor,
                   ),
                 ),
                 Text(
                   wins,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.textColor,
                   ),
                 ),
               ],
@@ -58,13 +59,13 @@ class GameStats extends StatelessWidget {
                 Text(
                   'Streak',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 58, 116, 166),
+                    color: ColorConstants.secondaryTextColor,
                   ),
                 ),
                 Text(
                   '15',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.textColor,
                   ),
                 ),
               ],
@@ -85,13 +86,13 @@ class GameStats extends StatelessWidget {
                 Text(
                   'GamesLost',
                   style: TextStyle(
-                    color: Color.fromARGB(255, 58, 116, 166),
+                    color: ColorConstants.secondaryTextColor,
                   ),
                 ),
                 Text(
                   losses,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: ColorConstants.textColor,
                   ),
                 ),
               ],

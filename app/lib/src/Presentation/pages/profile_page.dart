@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
+import 'package:get_pong/src/Presentation/widgets/big_avatar.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
 import 'package:get_pong/src/domain/entities/game.dart';
 import 'package:get_pong/src/domain/entities/player.dart';
@@ -46,7 +48,7 @@ class ProfilePage extends ConsumerWidget {
             Text(
               'Rank: 1',
               style: TextStyle(
-                color: Colors.white,
+                color: ColorConstants.secondaryTextColor,
               ),
             ),
             SizedBox(height: 30),
@@ -58,7 +60,9 @@ class ProfilePage extends ConsumerWidget {
             Center(
               child: Text(
                 'Latest games',
-                style: Theme.of(context).textTheme.bodyText2,
+                style: TextStyle(
+                  color: ColorConstants.primaryColor,
+                ),
               ),
             ),
             Flexible(
