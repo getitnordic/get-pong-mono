@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
+import 'package:get_pong/src/domain/entities/game.dart';
 
 class PlayerProfileListItem extends StatelessWidget {
-  const PlayerProfileListItem({Key? key, required this.match}) : super(key: key);
-  final PingPongMatch match;
+  const PlayerProfileListItem({Key? key, required this.match})
+      : super(key: key);
+  final Game match;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class PlayerProfileListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  match.playerOne.name,
+                  match.teamOne[0].nickname,
                   style: const TextStyle(
                     fontSize: 12,
                     color: Colors.white70,
@@ -28,18 +29,17 @@ class PlayerProfileListItem extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10),
                   child: CircleAvatar(
                     radius: 12.0,
-                    backgroundImage: NetworkImage(match.playerOne.imageUrl),
+                    backgroundImage: NetworkImage(match.teamOne[0].imageUrl),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    match.playerOneScore.toString(),
+                    match.teamOneScore.toString(),
                     style: const TextStyle(
                         fontSize: 12,
                         color: Colors.white70,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -52,8 +52,7 @@ class PlayerProfileListItem extends StatelessWidget {
               style: TextStyle(
                   fontSize: 12,
                   color: Colors.white70,
-                  fontWeight: FontWeight.bold
-              ),
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -64,23 +63,22 @@ class PlayerProfileListItem extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
                   child: Text(
-                    match.playerTwoScore.toString(),
+                    match.teamTwoScore.toString(),
                     style: const TextStyle(
                         fontSize: 12,
                         color: Colors.white70,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: CircleAvatar(
                     radius: 12.0,
-                    backgroundImage: NetworkImage(match.playerTwo.imageUrl),
+                    backgroundImage: NetworkImage(match.teamTwo[0].imageUrl),
                   ),
                 ),
                 Text(
-                  match.playerTwo.name,
+                  match.teamTwo[0].nickname,
                   style: const TextStyle(
                     fontSize: 11,
                     color: Colors.white70,

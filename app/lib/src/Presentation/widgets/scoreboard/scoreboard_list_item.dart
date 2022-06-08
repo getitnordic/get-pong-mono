@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
-import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
+import 'package:get_pong/src/domain/entities/game.dart';
 
 class ScoreboardListItem extends StatelessWidget {
+  final Game match;
   const ScoreboardListItem({Key? key, required this.match}) : super(key: key);
-  final PingPongMatch match;
 
   @override
   Widget build(BuildContext context) {
+    final isDouble = match.teamOne.length == 2;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomSmallContainer(
+        width: double.infinity,
+        height: isDouble ? 70 : 50,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -19,29 +23,59 @@ class ScoreboardListItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    match.playerOne.name,
-                    style: const TextStyle(
-                        fontSize: 12,
-                        color: Colors.white70,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: CircleAvatar(
-                      radius: 12.0,
-                      backgroundImage: NetworkImage(match.playerOne.imageUrl),
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            match.teamOne[0].nickname,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: CircleAvatar(
+                              radius: 12.0,
+                              backgroundImage:
+                                  NetworkImage(match.teamOne[0].imageUrl),
+                            ),
+                          ),
+                        ],
+                      ),
+                      if (isDouble)
+                        Row(
+                          children: [
+                            Text(
+                              match.teamOne[1].nickname,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: CircleAvatar(
+                                radius: 12.0,
+                                backgroundImage:
+                                    NetworkImage(match.teamOne[1].imageUrl),
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 10),
                     child: Text(
-                      match.playerOneScore.toString(),
+                      match.teamOneScore.toString(),
                       style: const TextStyle(
                           fontSize: 12,
                           color: Colors.white70,
-                          fontWeight: FontWeight.bold
-                      ),
+                          fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -50,12 +84,11 @@ class ScoreboardListItem extends StatelessWidget {
             const SizedBox(
               width: 5,
               child: Text(
-                  ' - ',
+                ' - ',
                 style: TextStyle(
                     fontSize: 12,
                     color: Colors.white70,
-                    fontWeight: FontWeight.bold
-                ),
+                    fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
@@ -66,27 +99,57 @@ class ScoreboardListItem extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
                     child: Text(
-                      match.playerTwoScore.toString(),
+                      match.teamTwoScore.toString(),
                       style: const TextStyle(
                           fontSize: 12,
                           color: Colors.white70,
-                          fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: CircleAvatar(
+                              radius: 12.0,
+                              backgroundImage:
+                                  NetworkImage(match.teamTwo[0].imageUrl),
+                            ),
+                          ),
+                          Text(
+                            match.teamTwo[0].nickname,
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: Colors.white70,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: CircleAvatar(
-                      radius: 12.0,
-                      backgroundImage: NetworkImage(match.playerTwo.imageUrl),
-                    ),
-                  ),
-                  Text(
-                      match.playerTwo.name,
-                    style: const TextStyle(
-                        fontSize: 11,
-                        color: Colors.white70,
-                    ),
+                      if (isDouble)
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: CircleAvatar(
+                                radius: 12.0,
+                                backgroundImage:
+                                    NetworkImage(match.teamTwo[1].imageUrl),
+                              ),
+                            ),
+                            Text(
+                              match.teamTwo[1].nickname,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                    ],
                   ),
                 ],
               ),

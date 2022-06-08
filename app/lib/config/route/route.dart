@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/pages/match_details_page.dart';
 import 'package:get_pong/src/domain/entities/player.dart';
 import '../../src/Presentation/pages/pages.dart';
@@ -21,11 +22,12 @@ Route<dynamic> controller(RouteSettings settings) {
                 arguments: settings.arguments!,
               ));
     case playerListPage:
-      return MaterialPageRoute(builder: (context) => PlayerListPage());
+      final playerSelectIndex = settings.arguments as PlayerSelectChoice;
+      return MaterialPageRoute(builder: (context) => PlayerListPage(playerSelectIndex: playerSelectIndex,));
     case scorePage: {
-     final players = settings.arguments as List<String>;
+     final players = settings.arguments as List<Player>;
      return MaterialPageRoute(builder: (context) => ScorePage(
-       selectedPlayersId: players,
+       selectedPlayers: players,
      ));
     }
     case profilePage: {

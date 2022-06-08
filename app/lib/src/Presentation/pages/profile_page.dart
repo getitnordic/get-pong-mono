@@ -2,16 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/Presentation/providers/ping_pong_match_notifier.dart';
+import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
-import 'package:get_pong/src/domain/entities/ping_pong_match.dart';
+import 'package:get_pong/src/domain/entities/game.dart';
 import 'package:get_pong/src/domain/entities/player.dart';
-import 'package:get_pong/src/presentation/providers/my_providers.dart';
 
 import '../widgets/widgets.dart';
 
 class ProfilePage extends ConsumerWidget {
-
   final Player player;
 
   const ProfilePage({
@@ -19,14 +17,10 @@ class ProfilePage extends ConsumerWidget {
     required this.player,
   }) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    List<PingPongMatch> matches = ref
-        .watch(pingPongMatchProvider.notifier)
-        .getMatchesByPlayerId(player.id);
+    List<Game> matches =
+        ref.watch(singleMatchProvider.notifier).getMatchesByPlayerId(player.id);
 
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +40,7 @@ class ProfilePage extends ConsumerWidget {
             ),
             SizedBox(height: 20),
             NameCard(
-              playerName: player.name,
+              playerName: player.nickname,
             ),
             SizedBox(height: 12),
             Text(
