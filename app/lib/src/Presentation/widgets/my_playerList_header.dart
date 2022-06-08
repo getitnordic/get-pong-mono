@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:glassmorphism/glassmorphism.dart';
+
 import '../../../config/route/route.dart' as route;
 
 class PlayerListHeader extends StatelessWidget {
@@ -43,13 +45,13 @@ class PlayerListHeader extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(color: Colors.white70),
+              style: const TextStyle(color: ColorConstants.textColor),
             ),
             if (addButton == true)
               IconButton(
                 onPressed: () =>
                     Navigator.pushNamed(context, route.playerListPage),
-                icon: Icon(Icons.person_add),
+                icon: const Icon(Icons.person_add),
                 color: Theme.of(context)
                     .bottomNavigationBarTheme
                     .selectedItemColor,
@@ -58,23 +60,5 @@ class PlayerListHeader extends StatelessWidget {
         ),
       ),
     );
-    // Container(
-    //   color: Colors.black12,
-    //   child: Padding(
-    //     padding: const EdgeInsets.all(8.0),
-    //     child: Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: [
-    //         Text(title),
-    //         addButton == true
-    //             ? IconButton(
-    //                 onPressed: () =>
-    //                     Navigator.pushNamed(context, route.playerListPage),
-    //                 icon: Icon(Icons.person_add))
-    //             : Text('')
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

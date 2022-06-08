@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/game_list_view.dart';
 
 class Scoreboard extends ConsumerWidget {
@@ -16,7 +17,7 @@ class Scoreboard extends ConsumerWidget {
             child: Text(
               'Matches',
               style: TextStyle(
-                color: Colors.white,
+                color: ColorConstants.textColor,
                 fontSize: 35,
               ),
             ),

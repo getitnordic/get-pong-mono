@@ -1,37 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Customtheme {
   static ThemeData get mainTheme {
     return ThemeData(
-      primaryColor: Color.fromARGB(255, 248, 114, 39),
+      primaryColor: ColorConstants.primaryColor,
       backgroundColor: Color.fromARGB(255, 55, 0, 255),
-      bottomAppBarColor: Color.fromARGB(255, 23, 44, 63),
-      scaffoldBackgroundColor: Color.fromARGB(255, 12, 32, 50),
+      bottomAppBarColor: ColorConstants.appBarColor,
+      scaffoldBackgroundColor: ColorConstants.scaffoldBackgroundColor,
+      dividerColor: ColorConstants.dividerColor,
       // scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
       appBarTheme: AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 23, 44, 63),
+        backgroundColor: ColorConstants.appBarColor,
         titleTextStyle: GoogleFonts.gochiHand(
-            color: Color.fromARGB(255, 130, 164, 193), fontSize: 20),
+            color: ColorConstants.secondaryTextColor, fontSize: 20),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedLabelStyle: GoogleFonts.goldman(),
         unselectedLabelStyle: GoogleFonts.goldman(),
-        unselectedItemColor: Colors.white70,
-        selectedItemColor: Color.fromARGB(255, 248, 114, 39),
-        backgroundColor: Color.fromARGB(255, 23, 44, 63),
+        unselectedItemColor: ColorConstants.secondaryTextColor,
+        selectedItemColor: ColorConstants.primaryColor,
+        backgroundColor: ColorConstants.appBarColor,
       ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
             bodyText2: GoogleFonts.goldman(
-                fontSize: 20, color: Color.fromARGB(255, 248, 114, 39)),
+                fontSize: 20, color: ColorConstants.primaryColor),
           ),
-      bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: Color.fromARGB(255, 12, 32, 50),
+      bottomSheetTheme: const BottomSheetThemeData(
+        backgroundColor: ColorConstants.scaffoldBackgroundColor,
       ),
       tabBarTheme: TabBarTheme(
-        labelColor: Color.fromARGB(255, 248, 114, 39),
-        unselectedLabelColor: Colors.white70,
+        labelColor: ColorConstants.primaryColor,
+        unselectedLabelColor: ColorConstants.secondaryTextColor,
         labelStyle: GoogleFonts.goldman(),
         unselectedLabelStyle: GoogleFonts.goldman(),
       ),
@@ -47,7 +49,7 @@ class Customtheme {
   static final notPressed = ThemeData(
     textTheme: Typography.material2018().white.copyWith(
           headline6: GoogleFonts.goldman(
-              fontSize: 40, color: Color.fromARGB(255, 248, 114, 39)),
+              fontSize: 40, color: ColorConstants.primaryColor),
         ),
   );
 
@@ -59,14 +61,14 @@ class Customtheme {
       // scaffoldBackgroundColor: Color.fromARGB(255, 0, 0, 0),
       scaffoldBackgroundColor: Color.fromARGB(255, 26, 52, 74),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        selectedItemColor: Color.fromARGB(255, 248, 114, 39),
+        selectedItemColor: ColorConstants.primaryColor,
         unselectedItemColor: Color.fromARGB(255, 130, 164, 193),
         selectedLabelStyle: GoogleFonts.goldman(),
         unselectedLabelStyle: GoogleFonts.goldman(),
-        backgroundColor: Color.fromARGB(255, 23, 44, 63),
+        backgroundColor: ColorConstants.appBarColor,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: Color.fromARGB(255, 23, 44, 63),
+        backgroundColor: ColorConstants.appBarColor,
         titleTextStyle: GoogleFonts.gochiHand(
             color: Color.fromARGB(255, 130, 164, 193), fontSize: 20),
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 
 import 'create_double_game.dart';
@@ -40,7 +41,7 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
           child: Text(
             'Create Match',
             style: TextStyle(
-              color: Colors.white,
+              color: ColorConstants.textColor,
               fontSize: 35,
             ),
           ),
@@ -60,7 +61,7 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
                   text: 'Roundhouse',
                 ),
               ],
-              indicatorColor: const Color.fromARGB(255, 248, 114, 39),
+              indicatorColor: ColorConstants.primaryColor,
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height - 300,

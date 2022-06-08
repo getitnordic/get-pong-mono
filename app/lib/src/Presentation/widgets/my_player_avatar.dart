@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 class MyPlayerAvatar extends StatelessWidget {
@@ -68,7 +69,7 @@ class MyPlayerAvatar extends StatelessWidget {
                   title,
                   style: TextStyle(
                     fontSize: 17,
-                    color: Colors.white70,
+                    color: ColorConstants.textColor,
                   ),
                 ),
               ],
@@ -77,8 +78,8 @@ class MyPlayerAvatar extends StatelessWidget {
               Checkbox(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4)),
-                checkColor: Colors.white70,
-                activeColor: Color.fromARGB(255, 248, 114, 39),
+                checkColor: ColorConstants.textColor,
+                activeColor: ColorConstants.primaryColor,
                 value: isSelected,
                 onChanged: onChanged,
               ),

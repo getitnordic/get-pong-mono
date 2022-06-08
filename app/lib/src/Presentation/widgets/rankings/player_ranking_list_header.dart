@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PlayerRankingListHeader extends StatelessWidget {
@@ -27,7 +28,7 @@ class PlayerRankingListHeader extends StatelessWidget {
             child: Text(
               'Player',
               style: GoogleFonts.goldman(
-                  fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
+                  fontSize: 20, color: ColorConstants.primaryColor),
             ),
           ),
         ),
@@ -43,8 +44,7 @@ class PlayerRankingListHeader extends StatelessWidget {
                   child: Text(
                     'P',
                     style: GoogleFonts.goldman(
-                        fontSize: 20,
-                        color: const Color.fromARGB(255, 248, 114, 39)),
+                        fontSize: 20, color: ColorConstants.primaryColor),
                   ),
                 ),
               ),
@@ -55,8 +55,7 @@ class PlayerRankingListHeader extends StatelessWidget {
                   child: Text(
                     'W',
                     style: GoogleFonts.goldman(
-                        fontSize: 20,
-                        color: const Color.fromARGB(255, 248, 114, 39)),
+                        fontSize: 20, color: ColorConstants.primaryColor),
                   ),
                 ),
               ),
@@ -67,8 +66,7 @@ class PlayerRankingListHeader extends StatelessWidget {
                   child: Text(
                     'L',
                     style: GoogleFonts.goldman(
-                        fontSize: 20,
-                        color: const Color.fromARGB(255, 248, 114, 39)),
+                        fontSize: 20, color: ColorConstants.primaryColor),
                   ),
                 ),
               ),

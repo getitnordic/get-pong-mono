@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:get_pong/src/domain/entities/game.dart';
 
@@ -33,7 +34,7 @@ class ScoreboardListItem extends StatelessWidget {
                             match.teamOne[0].nickname,
                             style: const TextStyle(
                               fontSize: 12,
-                              color: Colors.white70,
+                              color: ColorConstants.textColor,
                             ),
                           ),
                           Padding(
@@ -53,7 +54,7 @@ class ScoreboardListItem extends StatelessWidget {
                               match.teamOne[1].nickname,
                               style: const TextStyle(
                                 fontSize: 12,
-                                color: Colors.white70,
+                                color: ColorConstants.textColor,
                               ),
                             ),
                             Padding(
@@ -74,7 +75,7 @@ class ScoreboardListItem extends StatelessWidget {
                       match.teamOneScore.toString(),
                       style: const TextStyle(
                           fontSize: 12,
-                          color: Colors.white70,
+                          color: ColorConstants.textColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -87,7 +88,7 @@ class ScoreboardListItem extends StatelessWidget {
                 ' - ',
                 style: TextStyle(
                     fontSize: 12,
-                    color: Colors.white70,
+                    color: ColorConstants.textColor,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -102,7 +103,7 @@ class ScoreboardListItem extends StatelessWidget {
                       match.teamTwoScore.toString(),
                       style: const TextStyle(
                           fontSize: 12,
-                          color: Colors.white70,
+                          color: ColorConstants.textColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -124,7 +125,7 @@ class ScoreboardListItem extends StatelessWidget {
                             match.teamTwo[0].nickname,
                             style: const TextStyle(
                               fontSize: 11,
-                              color: Colors.white70,
+                              color: ColorConstants.textColor,
                             ),
                           ),
                         ],
@@ -144,7 +145,7 @@ class ScoreboardListItem extends StatelessWidget {
                               match.teamTwo[1].nickname,
                               style: const TextStyle(
                                 fontSize: 11,
-                                color: Colors.white70,
+                                color: ColorConstants.textColor,
                               ),
                             ),
                           ],
