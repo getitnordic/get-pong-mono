@@ -5,7 +5,7 @@ using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 using GetPong.Core.Models.Commands.Players;
 
-namespace GetPong.Application.Handlers.Players
+namespace GetPong.Application.old.Handlers.Players
 {
     public class UpdatePlayerHandler : IUpdatePlayerHandler
     {

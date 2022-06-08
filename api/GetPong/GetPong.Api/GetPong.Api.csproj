@@ -58,7 +58,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\GetPong.Application\GetPong.Application.csproj" />
-    <ProjectReference Include="..\GetPong.Core\GetPong.Core.csproj" />
     <ProjectReference Include="..\GetPong.Infrastructure\GetPong.Infrastructure.csproj" />
   </ItemGroup>
 

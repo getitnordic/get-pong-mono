@@ -3,7 +3,7 @@ using GetPong.Core.Handlers.Players;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 
-namespace GetPong.Application.Handlers.Players
+namespace GetPong.Application.old.Handlers.Players
 {
     public class GetPlayersHandler : IGetPlayersHandler
     {

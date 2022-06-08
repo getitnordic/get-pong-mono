@@ -1,6 +1,7 @@
+
 using GetPong.Services;
 
-namespace GetPong.Api;
+namespace GetPong;
 
 public class Startup
 {
