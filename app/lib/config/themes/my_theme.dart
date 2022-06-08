@@ -22,12 +22,10 @@ class Customtheme {
         backgroundColor: Color.fromARGB(255, 23, 44, 63),
       ),
       textTheme: Typography.material2018().white.copyWith(
-        bodyText1: GoogleFonts.goldman(),
-        bodyText2: GoogleFonts.goldman(
-            fontSize: 20,
-            color: Color.fromARGB(255, 248, 114, 39)
-        ),
-      ),
+            bodyText1: GoogleFonts.goldman(),
+            bodyText2: GoogleFonts.goldman(
+                fontSize: 20, color: Color.fromARGB(255, 248, 114, 39)),
+          ),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: Color.fromARGB(255, 12, 32, 50),
       ),

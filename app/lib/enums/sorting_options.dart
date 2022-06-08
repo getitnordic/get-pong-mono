@@ -1,3 +1,1 @@
-enum SortingOptions {
-  name, played, wins, losses, none
-}
+enum SortingOptions { name, played, wins, losses, none }

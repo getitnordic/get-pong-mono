@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ResultCardDouble extends StatelessWidget {
-
   final Widget child;
   final String playerOne;
   final String playerTwo;
   final String title;
 
-  const ResultCardDouble({
-    Key? key,
-    required this.child,
-    required this.playerOne,
-    required this.playerTwo,
-    required this.title
-  }) : super(key: key);
+  const ResultCardDouble(
+      {Key? key,
+      required this.child,
+      required this.playerOne,
+      required this.playerTwo,
+      required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

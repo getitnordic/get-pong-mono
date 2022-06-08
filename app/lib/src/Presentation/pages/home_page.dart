@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
+
 import '../../domain/entities/player.dart';
 import '../providers/bottom_bar_index_provider.dart';
 import '../providers/players_notifier.dart';
@@ -40,30 +41,27 @@ class HomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('GetPong'),
-        backgroundColor: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+        backgroundColor:
+            Theme.of(context).bottomNavigationBarTheme.backgroundColor,
         actions: [
           IconButton(
-            onPressed: (){
+            onPressed: () {
               showModalBottomSheet(
                 context: context,
                 builder: (context) {
                   return AddPlayerBottomSheet();
-                  },
+                },
               );
             },
             icon: Icon(Icons.person_add),
-            color: Theme.of(context)
-                .bottomNavigationBarTheme
-                .selectedItemColor,
+            color: Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
           ),
         ],
       ),
       body: Container(
-          // height: 500,
-          child: renderContent(
-              players: playerList,
-              currentIndex: currentIndex.state
-          ),
+        // height: 500,
+        child: renderContent(
+            players: playerList, currentIndex: currentIndex.state),
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex.state,
@@ -95,8 +93,6 @@ class HomePage extends ConsumerWidget {
   }
 }
 
-
-
 // ignore_for_file: prefer_const_constructors
 
 // class MyBottomBar extends StatefulWidget {
@@ -113,5 +109,3 @@ class HomePage extends ConsumerWidget {
 //     PlayerListPage(),
 //     ResultPage(),
 //   ];
-
- 

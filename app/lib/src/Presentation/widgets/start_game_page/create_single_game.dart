@@ -43,14 +43,14 @@ class CreateSingleGame extends ConsumerWidget {
                       ? Text(
                           'Select player 1',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[0].id)
                               .nickname,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         ),
                 ),
               ),
@@ -95,14 +95,14 @@ class CreateSingleGame extends ConsumerWidget {
                       ? Text(
                           'Select player 2',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[1].id)
                               .nickname,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         ),
                 ),
               ),

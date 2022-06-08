@@ -1,3 +1,1 @@
-enum MatchType {
-  single, double, roundhouse, none
-}
+enum MatchType { single, double, roundhouse, none }

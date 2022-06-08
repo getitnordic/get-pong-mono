@@ -6,7 +6,12 @@ class ResultCardContainer extends StatelessWidget {
   final double width;
   final double height;
 
-  const ResultCardContainer({Key? key, required this.child, required this.width, required this.height}) : super(key: key);
+  const ResultCardContainer(
+      {Key? key,
+      required this.child,
+      required this.width,
+      required this.height})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

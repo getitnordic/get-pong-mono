@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ResultCardSingle extends StatelessWidget {
-
   final Widget child;
   final String name;
 
-  const ResultCardSingle({Key? key, required this.child, required this.name}) : super(key: key);
+  const ResultCardSingle({Key? key, required this.child, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

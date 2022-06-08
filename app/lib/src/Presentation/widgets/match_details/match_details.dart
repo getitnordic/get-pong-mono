@@ -8,9 +8,7 @@ class MatchDetails extends StatelessWidget {
     return Column(
       children: [
         Row(
-          children: [
-
-          ],
+          children: [],
         ),
       ],
     );

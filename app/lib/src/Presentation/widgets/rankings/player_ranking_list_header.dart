@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PlayerRankingListHeader extends StatelessWidget {
-
   final VoidCallback onPressedPlayer;
   final VoidCallback onPressedWins;
   final VoidCallback onPressedLosses;
@@ -44,7 +43,8 @@ class PlayerRankingListHeader extends StatelessWidget {
                   child: Text(
                     'P',
                     style: GoogleFonts.goldman(
-                        fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 248, 114, 39)),
                   ),
                 ),
               ),
@@ -55,7 +55,8 @@ class PlayerRankingListHeader extends StatelessWidget {
                   child: Text(
                     'W',
                     style: GoogleFonts.goldman(
-                        fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 248, 114, 39)),
                   ),
                 ),
               ),
@@ -66,7 +67,8 @@ class PlayerRankingListHeader extends StatelessWidget {
                   child: Text(
                     'L',
                     style: GoogleFonts.goldman(
-                        fontSize: 20, color: const Color.fromARGB(255, 248, 114, 39)),
+                        fontSize: 20,
+                        color: const Color.fromARGB(255, 248, 114, 39)),
                   ),
                 ),
               ),

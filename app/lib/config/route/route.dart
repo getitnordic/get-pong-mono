@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/pages/match_details_page.dart';
 import 'package:get_pong/src/domain/entities/player.dart';
+
 import '../../src/Presentation/pages/pages.dart';
 
 const String homePage = 'homePage';
@@ -15,7 +16,7 @@ const String addNewPlayerPage = 'addplayer';
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
     case homePage:
-      return MaterialPageRoute(builder: (context) => HomePage());
+      return MaterialPageRoute(builder: (context) => const HomePage());
     case startGamePage:
       return MaterialPageRoute(
           builder: (context) => StartGamePage(
@@ -23,26 +24,32 @@ Route<dynamic> controller(RouteSettings settings) {
               ));
     case playerListPage:
       final playerSelectIndex = settings.arguments as PlayerSelectChoice;
-      return MaterialPageRoute(builder: (context) => PlayerListPage(playerSelectIndex: playerSelectIndex,));
-    case scorePage: {
-     final players = settings.arguments as List<Player>;
-     return MaterialPageRoute(builder: (context) => ScorePage(
-       selectedPlayers: players,
-     ));
-    }
-    case profilePage: {
-      final player = settings.arguments as Player;
-      return MaterialPageRoute(builder: (context) => ProfilePage(
-        player: player,
-      ));
-    }
+      return MaterialPageRoute(
+          builder: (context) => PlayerListPage(
+                playerSelectIndex: playerSelectIndex,
+              ));
+    case scorePage:
+      {
+        final players = settings.arguments as List<Player>;
+        return MaterialPageRoute(
+            builder: (context) => ScorePage(
+                  selectedPlayers: players,
+                ));
+      }
+    case profilePage:
+      {
+        final player = settings.arguments as Player;
+        return MaterialPageRoute(
+            builder: (context) => ProfilePage(
+                  player: player,
+                ));
+      }
     case matchDetailsPage:
       return MaterialPageRoute(builder: (context) => MatchDetailsPage());
     default:
       throw ("This route name don't exist");
   }
 }
-
 
 // case scorePage:
 //       return MaterialPageRoute(

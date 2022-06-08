@@ -1,12 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SelectedPlayersNotifier extends StateNotifier<List<String>> {
-  SelectedPlayersNotifier() : super([
-    '',
-    '',
-    '',
-    ''
-  ]);
+  SelectedPlayersNotifier() : super(['', '', '', '']);
 
   void addPlayerId(String id) {
     state = [...state, id];
@@ -20,12 +15,7 @@ class SelectedPlayersNotifier extends StateNotifier<List<String>> {
   }
 
   void selectNone() {
-    state = [
-      '',
-      '',
-      '',
-      ''
-    ];
+    state = ['', '', '', ''];
   }
 
   void setPlayerOne(String id) {
@@ -34,13 +24,10 @@ class SelectedPlayersNotifier extends StateNotifier<List<String>> {
     state = newSelectedList;
   }
 
-  void setPlayerTwo(String id) {
-
-  }
-
+  void setPlayerTwo(String id) {}
 }
 
 final selectedPlayersProvider =
-StateNotifierProvider<SelectedPlayersNotifier, List<String>>((ref) {
+    StateNotifierProvider<SelectedPlayersNotifier, List<String>>((ref) {
   return SelectedPlayersNotifier();
 });

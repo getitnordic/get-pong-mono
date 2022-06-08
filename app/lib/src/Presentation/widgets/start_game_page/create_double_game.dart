@@ -45,14 +45,14 @@ class CreateDoubleGame extends ConsumerWidget {
                       ? Text(
                           'Select player 1',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[0].id)
                               .nickname,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         ),
                 ),
               ),
@@ -73,14 +73,14 @@ class CreateDoubleGame extends ConsumerWidget {
                         ? Text(
                             'Select player 2',
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: Colors.white),
+                                fontSize: 20, color: Colors.white70),
                           )
                         : Text(
                             playersNotifier
                                 .getPlayerById(selected[1].id)
                                 .nickname,
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: Colors.white),
+                                fontSize: 20, color: Colors.white70),
                           ),
                   ),
                 ),
@@ -126,14 +126,14 @@ class CreateDoubleGame extends ConsumerWidget {
                       ? Text(
                           'Select player 3',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[2].id)
                               .nickname,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: Colors.white),
+                              fontSize: 20, color: Colors.white70),
                         ),
                 ),
               ),
@@ -154,14 +154,14 @@ class CreateDoubleGame extends ConsumerWidget {
                         ? Text(
                             'Select player 4',
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: Colors.white),
+                                fontSize: 20, color: Colors.white70),
                           )
                         : Text(
                             playersNotifier
                                 .getPlayerById(selected[3].id)
                                 .nickname,
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: Colors.white),
+                                fontSize: 20, color: Colors.white70),
                           ),
                   ),
                 ),

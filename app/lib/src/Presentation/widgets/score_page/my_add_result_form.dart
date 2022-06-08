@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AddResultForm extends StatefulWidget {
-
   final Function(double) callback;
 
   const AddResultForm({Key? key, required this.callback}) : super(key: key);

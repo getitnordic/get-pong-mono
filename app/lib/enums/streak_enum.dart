@@ -1,3 +1,1 @@
-enum StreakEnum{
-  win, loss, none
-}
+enum StreakEnum { win, loss, none }

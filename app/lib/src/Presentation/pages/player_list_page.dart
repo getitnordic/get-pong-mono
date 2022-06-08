@@ -6,7 +6,6 @@ import 'package:get_pong/src/Presentation/widgets/start_game_page/select_player_
 import 'package:get_pong/src/domain/entities/player.dart';
 
 class PlayerListPage extends ConsumerWidget {
-
   final PlayerSelectChoice playerSelectIndex;
 
   const PlayerListPage({
@@ -16,7 +15,6 @@ class PlayerListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     List<Player> playerList = ref.watch(playersProvider);
 
     return Scaffold(
@@ -29,9 +27,7 @@ class PlayerListPage extends ConsumerWidget {
       body: Column(
         children: [
           SelectPlayerList(
-              playerSelectIndex: playerSelectIndex,
-              players: playerList
-          ),
+              playerSelectIndex: playerSelectIndex, players: playerList),
         ],
       ),
     );

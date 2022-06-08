@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 
 class GameStats extends StatelessWidget {
-  const GameStats({Key? key, required this.wins, required this.losses}) : super(key: key);
+  const GameStats({Key? key, required this.wins, required this.losses})
+      : super(key: key);
   final String wins;
   final String losses;
 

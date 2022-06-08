@@ -1,3 +1,1 @@
-enum PlayerSelectChoice {
-  playerOne, playerTwo, playerThree, playerFour, none
-}
+enum PlayerSelectChoice { playerOne, playerTwo, playerThree, playerFour, none }

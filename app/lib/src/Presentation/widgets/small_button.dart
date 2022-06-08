@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 import 'package:flutter/material.dart';
-import '../../../config/route/route.dart' as route;
 
 class SmallButton extends StatelessWidget {
   const SmallButton({Key? key}) : super(key: key);
@@ -27,7 +26,6 @@ class SmallButton extends StatelessWidget {
   }
 }
 
-
 // ignore_for_file: prefer_const_constructors, deprecated_member_use
 
 // import 'package:flutter/material.dart';
@@ -41,7 +39,7 @@ class SmallButton extends StatelessWidget {
 //     return Container(
 //       child: Stack(
 //         fit: StackFit.expand,
-        
+
 //         children: <Widget>[
 //           Align(
 //             alignment: Alignment.centerLeft,

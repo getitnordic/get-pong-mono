@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_header.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_player.dart';
-import '../../../domain/entities/player.dart';
-import '../../../../enums/sorting_options.dart';
+
 import '../../../../config/route/route.dart' as route;
+import '../../../../enums/sorting_options.dart';
+import '../../../domain/entities/player.dart';
 import '../../providers/players_notifier.dart';
 
 class PlayerRanking extends ConsumerWidget {
@@ -17,9 +18,13 @@ class PlayerRanking extends ConsumerWidget {
     bool highToLow = ref.watch(rankingSortingTypeProvider);
 
     void toggleHighToLow() {
-      highToLow ?
-      ref.watch(rankingSortingTypeProvider.notifier).update((state) => false):
-      ref.watch(rankingSortingTypeProvider.notifier).update((state) => true);
+      highToLow
+          ? ref
+              .watch(rankingSortingTypeProvider.notifier)
+              .update((state) => false)
+          : ref
+              .watch(rankingSortingTypeProvider.notifier)
+              .update((state) => true);
     }
 
     void setLastPressed(SortingOptions option) {
@@ -27,40 +32,44 @@ class PlayerRanking extends ConsumerWidget {
     }
 
     void sortByLosses() {
-      if(lastPressed != SortingOptions.losses) {
+      if (lastPressed != SortingOptions.losses) {
         highToLow = true;
       }
-      ref.watch(playersProvider.notifier)
+      ref
+          .watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.losses, highToLow);
       setLastPressed(SortingOptions.losses);
       toggleHighToLow();
     }
 
     void sortByWins() {
-      if(lastPressed != SortingOptions.wins) {
+      if (lastPressed != SortingOptions.wins) {
         highToLow = true;
       }
-      ref.watch(playersProvider.notifier)
+      ref
+          .watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.wins, highToLow);
       setLastPressed(SortingOptions.wins);
       toggleHighToLow();
     }
 
     void sortByName() {
-      if(lastPressed != SortingOptions.name) {
+      if (lastPressed != SortingOptions.name) {
         highToLow = true;
       }
-      ref.watch(playersProvider.notifier)
+      ref
+          .watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.name, highToLow);
       setLastPressed(SortingOptions.name);
       toggleHighToLow();
     }
 
     void sortByPlayed() {
-      if(lastPressed != SortingOptions.played) {
+      if (lastPressed != SortingOptions.played) {
         highToLow = true;
       }
-      ref.watch(playersProvider.notifier)
+      ref
+          .watch(playersProvider.notifier)
           .sortPlayerList(SortingOptions.played, highToLow);
       setLastPressed(SortingOptions.played);
       toggleHighToLow();
