@@ -3,14 +3,14 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build 
 WORKDIR /src
-COPY ["/proto", "/"]
-COPY ["api/GetPong/GetPong.Api/GetPong.Api.csproj", "api/GetPong.Api/"]
-COPY ["api/GetPong/GetPong.Core/GetPong.Core.csproj", "api/GetPong.Core/"]
-COPY ["api/GetPong/GetPong.Infrastructure/GetPong.Infrastructure.csproj", "api/GetPong.Infrastructure/"]
-COPY ["api/GetPong/GetPong.Application/GetPong.Application.csproj", "api/GetPong.Application/"]
-RUN dotnet restore "api/GetPong.Api/GetPong.Api.csproj"
+COPY ["/protos", "/"]
+COPY ["api/GetPong/GetPong.Api/GetPong.Api.csproj", "api/GetPong/GetPong.Api/"]
+COPY ["api/GetPong/GetPong.Core/GetPong.Core.csproj", "api/GetPong/GetPong.Core/"]
+COPY ["api/GetPong/GetPong.Infrastructure/GetPong.Infrastructure.csproj", "api/GetPong/GetPong.Infrastructure/"]
+COPY ["api/GetPong/GetPong.Application/GetPong.Application.csproj", "api/GetPong/GetPong.Application/"]
+RUN dotnet restore "api/GetPong/GetPong.Api/GetPong.Api.csproj"
 COPY . .
-WORKDIR "/src/api/GetPong.Api"
+WORKDIR "/src/api/GetPong/GetPong.Api"
 RUN dotnet build "GetPong.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
