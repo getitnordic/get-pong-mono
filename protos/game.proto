@@ -26,6 +26,7 @@ message SaveGameRequest {
 }
 
 message SaveGameReply {
+  GameModel gameModel = 1;
 }
 
 // Models
