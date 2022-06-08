@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/player.dart';
+import '../../../domain/entities/player.dart';
 
 class SelectedPlayerAvatar extends StatelessWidget {
   const SelectedPlayerAvatar({
@@ -21,12 +21,11 @@ class SelectedPlayerAvatar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: Text(
-              player.name,
+            player.nickname,
             style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
-                color: Colors.white70
-            ),
+                color: Colors.white70),
           ),
         ),
       ],

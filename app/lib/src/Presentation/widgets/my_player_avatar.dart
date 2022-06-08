@@ -54,10 +54,6 @@ class MyPlayerAvatar extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // contentPadding: EdgeInsets.zero,
-          // onTap: onTap,
-          // leading: Padding(
-          //   padding: const EdgeInsets.all(8.0),
           children: [
             Row(
               children: [

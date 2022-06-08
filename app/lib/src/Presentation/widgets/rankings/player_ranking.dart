@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_header.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_player.dart';
 import '../../../domain/entities/player.dart';
-import '../../../util/sorting_options.dart';
+import '../../../../enums/sorting_options.dart';
 import '../../../../config/route/route.dart' as route;
 import '../../providers/players_notifier.dart';
 
@@ -88,13 +88,7 @@ class PlayerRanking extends ConsumerWidget {
                     onTap: () => Navigator.pushNamed(
                       context,
                       route.profilePage,
-                      arguments: {
-                        'id': players[index].id,
-                        'name': players[index].name,
-                        'gamesWon': players[index].wins.toString(),
-                        'gamesLost': players[index].losses.toString(),
-                        'imageUrl': players[index].imageUrl
-                      },
+                      arguments: players[index],
                     ),
                     child: PlayerRankingListPlayer(
                       player: players[index],

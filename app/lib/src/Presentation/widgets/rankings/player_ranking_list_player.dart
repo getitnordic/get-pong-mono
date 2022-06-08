@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get_pong/src/domain/entities/player.dart';
 
 class PlayerRankingListPlayer extends StatelessWidget {
-  const PlayerRankingListPlayer({
-    Key? key,
-    required this.player,
-    required this.index
-  }) : super(key: key);
+  const PlayerRankingListPlayer(
+      {Key? key, required this.player, required this.index})
+      : super(key: key);
 
   final Player player;
   final int index;
@@ -31,12 +29,11 @@ class PlayerRankingListPlayer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    player.name,
+                    player.nickname,
                     style: const TextStyle(
                         fontSize: 15,
                         color: Colors.white70,
-                        fontWeight: FontWeight.bold
-                    ),
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],

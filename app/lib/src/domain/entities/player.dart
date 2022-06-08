@@ -1,20 +1,28 @@
+import 'package:get_pong/enums/streak_enum.dart';
+
 class Player {
   final String id;
-  final String name;
+  final String firstName;
+  final String lastName;
+  final String email;
+  final String nickname;
   final int wins;
   final int losses;
+  final int streak;
+  final int totalScore;
   final String imageUrl;
+  final StreakEnum streakEnum;
 
-  const Player(this.id, this.name, this.wins, this.losses, this.imageUrl);
-
-  Player copyWith(String? id, String? name, int? wins, int? losses, String? imageUrl) {
-    return Player(
-        id ?? this.id,
-        name ?? this.name,
-        wins ?? this.wins,
-        losses ?? this.losses,
-        imageUrl ?? this.imageUrl
-    );
-  }
-
+  const Player(
+      this.id,
+      this.nickname,
+      this.wins,
+      this.losses,
+      this.imageUrl,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.streak,
+      this.totalScore,
+      this.streakEnum);
 }

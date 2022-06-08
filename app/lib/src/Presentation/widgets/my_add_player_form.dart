@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/enums/streak_enum.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
+
 import '../../domain/entities/player.dart';
-import '../../../config/route/route.dart' as route;
 
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);
@@ -17,21 +18,19 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
   String userName = '';
   @override
   Widget build(BuildContext context) {
-
     return Form(
       key: formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            buildEmail(),
-            buildUserName(),
-            buildSubmitButton(),
-          ],
-        )
-      ),
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              buildEmail(),
+              buildUserName(),
+              buildSubmitButton(),
+            ],
+          )),
     );
   }
 
@@ -101,7 +100,18 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           if (isValid) {
             formKey.currentState!.save();
 
-            ref.read(playersProvider.notifier).addPlayer(Player(DateTime.now().toString(), userName, 0, 0, 'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg'));
+            ref.read(playersProvider.notifier).addPlayer(Player(
+                DateTime.now().toString(),
+                userName,
+                0,
+                0,
+                'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg',
+                '',
+                '',
+                '',
+                0,
+                0,
+                StreakEnum.none));
             const message = 'Player created!';
 
             final snackBar = SnackBar(
@@ -117,7 +127,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
                   ],
                 ),
               ),
-              duration: const Duration(seconds: 1),
+              duration: const Duration(seconds: 2),
               backgroundColor: const Color.fromARGB(255, 23, 44, 63),
               elevation: 1000,
               behavior: SnackBarBehavior.floating,
