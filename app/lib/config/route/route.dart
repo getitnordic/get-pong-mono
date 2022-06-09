@@ -18,16 +18,20 @@ Route<dynamic> controller(RouteSettings settings) {
     case homePage:
       return MaterialPageRoute(builder: (context) => const HomePage());
     case startGamePage:
-      return MaterialPageRoute(
-          builder: (context) => StartGamePage(
-                arguments: settings.arguments!,
-              ));
+      {
+        return MaterialPageRoute(
+            builder: (context) => StartGamePage(
+                  arguments: settings.arguments!,
+                ));
+      }
     case playerListPage:
-      final playerSelectIndex = settings.arguments as PlayerSelectChoice;
-      return MaterialPageRoute(
-          builder: (context) => PlayerListPage(
-                playerSelectIndex: playerSelectIndex,
-              ));
+      {
+        final playerSelectIndex = settings.arguments as PlayerSelectChoice;
+        return MaterialPageRoute(
+            builder: (context) => PlayerListPage(
+                  playerSelectIndex: playerSelectIndex,
+                ));
+      }
     case scorePage:
       {
         final players = settings.arguments as List<Player>;
