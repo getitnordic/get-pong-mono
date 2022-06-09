@@ -9,7 +9,7 @@ param containerImage string
 
 // ACA etworking
 @description('Set whether you want your ingress visible externally, or internally within a VNET')
-param useExternalIngress bool = false
+param useExternalIngress bool = true
 
 @description('The port your container listens to for incoming requests. Your application ingress endpoint is always exposed on port 443')
 param containerPort int
@@ -23,6 +23,7 @@ param containerPort int
 ])
 param transportMethod string = 'auto'
 
+param registry string
 // param registry string 
 param registryUsername string
 // @secure()
@@ -45,7 +46,7 @@ resource containerApp 'Microsoft.Web/containerApps@2021-03-01' = {
       ]    
       registries: [
         {
-          server: 'getpong.azurecr.io'
+          server: registry
           username: registryUsername
           passwordSecretRef: 'container-registry-password'
         }

@@ -21,7 +21,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
 
 module logAnalytics 'modules/createLogAnalytics.bicep' = {
   scope: resourceGroup(rg.name)
-  name: 'logAnalyticsWorkspace'
+  name: 'gp-logAnalyticsWorkspace'
   params: {
     name: 'getpong-logs'
     location: location
@@ -30,10 +30,10 @@ module logAnalytics 'modules/createLogAnalytics.bicep' = {
 
 module containerAppEnv 'modules/createContainerAppEnv.bicep' = {
   scope: resourceGroup(rg.name)
-  name: 'containerAppEnv'
+  name: 'containerApiAppEnv'
   params: {
     location: location
-    name: 'getpong-env'
+    name: 'getpong-api-env'
     workspaceClientId: logAnalytics.outputs.clientId
     workspaceClientSecret: logAnalytics.outputs.clientSecret
   }
@@ -41,16 +41,17 @@ module containerAppEnv 'modules/createContainerAppEnv.bicep' = {
 
 module grpcBackend 'modules/createContainerApp.bicep' = {
   scope: resourceGroup(rg.name)
-  name: 'getpong-grpc-backend'
+  name: 'getpong-grpc-api'
   params: {
-    name: 'getpong-grpc-backend'
+    name: 'getpong-grpc-api'
     location: location
     containerImage: 'getpong.azurecr.io/getpong-api-dev/getpong-dev:latest'
     containerAppEnvironmentId: containerAppEnv.outputs.id
     containerPort: 5000
-    useExternalIngress: false
+    useExternalIngress: true
     transportMethod: 'http2'
     environmentVariables: []
+    registry: 'getpong.azurecr.io'
     registryUsername: 'getpong'
     registryPassword: 'H+ZbZr2C7YuBHNvHvkEq0sIhPc+Pq7cq'
   }
