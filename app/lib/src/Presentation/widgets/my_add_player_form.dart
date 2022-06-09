@@ -4,7 +4,7 @@ import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/enums/streak_enum.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 
-import '../../domain/entities/player.dart';
+import '../../domain/models/player.dart';
 
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);

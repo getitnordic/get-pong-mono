@@ -6,7 +6,7 @@ import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_p
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../enums/sorting_options.dart';
-import '../../../domain/entities/player.dart';
+import '../../../domain/models/player.dart';
 import '../../providers/players_notifier.dart';
 
 class PlayerRanking extends ConsumerWidget {

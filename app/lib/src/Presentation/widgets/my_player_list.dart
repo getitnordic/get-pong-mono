@@ -3,7 +3,7 @@ import 'package:get_pong/enums/streak_enum.dart';
 import 'package:get_pong/src/Presentation/widgets/my_player_avatar.dart';
 
 import '../../../config/route/route.dart' as route;
-import '../../domain/entities/player.dart';
+import '../../domain/models/player.dart';
 
 class PlayerList extends StatelessWidget {
   final List<Player> players;

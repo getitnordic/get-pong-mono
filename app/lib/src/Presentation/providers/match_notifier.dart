@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/streak_enum.dart';
-import 'package:get_pong/src/domain/entities/game.dart';
+import 'package:get_pong/src/domain/models/game.dart';
 
-import '../../domain/entities/player.dart';
+import '../../domain/models/player.dart';
 
 class MatchNotifier extends StateNotifier<List<Game>> {
   MatchNotifier()

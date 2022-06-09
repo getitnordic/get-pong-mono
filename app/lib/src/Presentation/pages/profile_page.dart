@@ -6,8 +6,8 @@ import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/big_avatar.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
-import 'package:get_pong/src/domain/entities/game.dart';
-import 'package:get_pong/src/domain/entities/player.dart';
+import 'package:get_pong/src/domain/models/game.dart';
+import 'package:get_pong/src/domain/models/player.dart';
 
 import '../widgets/widgets.dart';
 

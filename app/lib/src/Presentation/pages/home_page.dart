@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
+import 'package:get_pong/src/domain/models/player.dart';
 
-import '../../domain/entities/player.dart';
 import '../providers/bottom_bar_index_provider.dart';
 import '../providers/players_notifier.dart';
 import '../widgets/add_player_bottom_sheet.dart';

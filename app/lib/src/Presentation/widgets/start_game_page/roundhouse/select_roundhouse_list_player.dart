@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/domain/entities/player.dart';
+import 'package:get_pong/src/domain/models/player.dart';
 
 class SelectRoundhouseListPlayer extends ConsumerStatefulWidget {
   final Player player;

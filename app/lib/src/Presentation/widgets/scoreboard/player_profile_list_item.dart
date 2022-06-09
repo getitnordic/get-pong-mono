@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/config/themes/color_constants.dart';
-import 'package:get_pong/src/domain/entities/game.dart';
+import 'package:get_pong/src/domain/models/game.dart';
 
 class PlayerProfileListItem extends StatelessWidget {
   const PlayerProfileListItem({Key? key, required this.match})

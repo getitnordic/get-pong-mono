@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/scoreboard_list_item.dart';
-import 'package:get_pong/src/domain/entities/game.dart';
+import 'package:get_pong/src/domain/models/game.dart';
 
 import '../../../../config/route/route.dart' as route;
 

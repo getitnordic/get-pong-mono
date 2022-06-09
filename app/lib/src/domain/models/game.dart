@@ -1,4 +1,4 @@
-import 'package:get_pong/src/domain/entities/player.dart';
+import 'package:get_pong/src/domain/models/player.dart';
 
 class Game {
   final List<Player> teamOne;

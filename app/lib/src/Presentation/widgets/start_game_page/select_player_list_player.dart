@@ -4,7 +4,7 @@ import 'package:get_pong/config/themes/color_constants.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
-import 'package:get_pong/src/domain/entities/player.dart';
+import 'package:get_pong/src/domain/models/player.dart';
 
 class SelectPlayerListPlayer extends ConsumerWidget {
   final Player player;
