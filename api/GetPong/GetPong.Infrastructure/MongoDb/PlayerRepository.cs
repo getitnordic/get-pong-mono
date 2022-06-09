@@ -63,7 +63,7 @@ namespace GetPong.Infrastructure.MongoDb
                 })
                 .ToList();
         }
-
+//TODO return player directly
         public async Task<Player> GetPlayerById(string playerId)
         {
             var objectId = ObjectId.Parse(playerId);
