@@ -29,7 +29,7 @@ namespace GetPong.Infrastructure.MongoDb
                 .Add("time_stamp", game.TimeStamp)
                 .Add("home_team_ids", new BsonArray(game.HomeTeamIds))
                 .Add("away_team_ids", new BsonArray(game.AwayTeamIds))
-                .Add("sets", // TODO hur stoppar vi in en lista av sets???`?
+                .Add("sets", new BsonArray(game.Sets.Select(i => i.ToBsonDocument())));
 
 
                     MongoCollection.InsertOne(doc);
