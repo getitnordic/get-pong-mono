@@ -22,18 +22,13 @@ namespace GetPong.Infrastructure.MongoDb
 
         public Game AddGame(Game game)
         {
-            var homeList = game.Sets[0].HomeTeam;
-            var awyList = game.Sets[0].AwayTeam;
-
             var doc = new BsonDocument()
                 .Add("time_stamp", game.TimeStamp)
                 .Add("home_team_ids", new BsonArray(game.HomeTeamIds))
                 .Add("away_team_ids", new BsonArray(game.AwayTeamIds))
                 .Add("sets", new BsonArray(game.Sets.Select(i => i.ToBsonDocument())));
 
-
-                    MongoCollection.InsertOne(doc);
-
+            MongoCollection.InsertOne(doc);
 
             game.Id = doc["_id"].ToString();
             return game;
