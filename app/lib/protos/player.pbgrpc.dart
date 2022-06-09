@@ -26,6 +26,18 @@ class PlayerServiceClient extends $grpc.Client {
           ($0.GetPlayersRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.GetPlayersReply.fromBuffer(value));
+  static final _$getPlayerById =
+      $grpc.ClientMethod<$0.GetPlayerByIdRequest, $0.GetPlayerByIdReply>(
+          '/player.PlayerService/GetPlayerById',
+          ($0.GetPlayerByIdRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.GetPlayerByIdReply.fromBuffer(value));
+  static final _$updatePlayer =
+      $grpc.ClientMethod<$0.UpdatePlayerRequest, $0.UpdatePlayerReply>(
+          '/player.PlayerService/UpdatePlayer',
+          ($0.UpdatePlayerRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.UpdatePlayerReply.fromBuffer(value));
 
   PlayerServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -42,6 +54,18 @@ class PlayerServiceClient extends $grpc.Client {
       $0.GetPlayersRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$getPlayers, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.GetPlayerByIdReply> getPlayerById(
+      $0.GetPlayerByIdRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getPlayerById, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.UpdatePlayerReply> updatePlayer(
+      $0.UpdatePlayerRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updatePlayer, request, options: options);
   }
 }
 
@@ -65,6 +89,24 @@ abstract class PlayerServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.GetPlayersRequest.fromBuffer(value),
         ($0.GetPlayersReply value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.GetPlayerByIdRequest, $0.GetPlayerByIdReply>(
+            'GetPlayerById',
+            getPlayerById_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.GetPlayerByIdRequest.fromBuffer(value),
+            ($0.GetPlayerByIdReply value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.UpdatePlayerRequest, $0.UpdatePlayerReply>(
+            'UpdatePlayer',
+            updatePlayer_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.UpdatePlayerRequest.fromBuffer(value),
+            ($0.UpdatePlayerReply value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.RegisterExternalReply> registerExternal_Pre(
@@ -78,8 +120,22 @@ abstract class PlayerServiceBase extends $grpc.Service {
     return getPlayers(call, await request);
   }
 
+  $async.Future<$0.GetPlayerByIdReply> getPlayerById_Pre($grpc.ServiceCall call,
+      $async.Future<$0.GetPlayerByIdRequest> request) async {
+    return getPlayerById(call, await request);
+  }
+
+  $async.Future<$0.UpdatePlayerReply> updatePlayer_Pre($grpc.ServiceCall call,
+      $async.Future<$0.UpdatePlayerRequest> request) async {
+    return updatePlayer(call, await request);
+  }
+
   $async.Future<$0.RegisterExternalReply> registerExternal(
       $grpc.ServiceCall call, $0.RegisterExternalRequest request);
   $async.Future<$0.GetPlayersReply> getPlayers(
       $grpc.ServiceCall call, $0.GetPlayersRequest request);
+  $async.Future<$0.GetPlayerByIdReply> getPlayerById(
+      $grpc.ServiceCall call, $0.GetPlayerByIdRequest request);
+  $async.Future<$0.UpdatePlayerReply> updatePlayer(
+      $grpc.ServiceCall call, $0.UpdatePlayerRequest request);
 }
