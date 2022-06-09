@@ -22,14 +22,10 @@ public class GameService : global::Game.GameService.GameServiceBase
     public override Task<SaveGameReply> SaveGame(SaveGameRequest request, ServerCallContext context)
     {
         var game = _addGameHandler.Handle(_mapper.Map<Core.Infrastructure.Entities.Games.Game>(request.GameModel));
-        GameModel gm = new GameModel()
-        {
-            TimeStamp = game.TimeStamp,
-            HomeTeamIds = { game.HomeTeamIds },
-            AwayTeamIds = {game.AwayTeamIds}
-        };
+        var gameModel = _mapper.Map<GameModel>(game);
 
-
-        return Task.FromResult(new SaveGameReply() {GameModel = gm});
+        
+        return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
+        
     }
 }

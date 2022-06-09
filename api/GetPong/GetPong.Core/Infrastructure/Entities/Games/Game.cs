@@ -8,7 +8,7 @@ namespace GetPong.Core.Infrastructure.Entities.Games
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { set; get; }
+        public string? Id { set; get; }
         public long TimeStamp { set; get; }
         public List<string> HomeTeamIds { set; get; }
         public List<string> AwayTeamIds { set; get; }

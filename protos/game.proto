@@ -14,7 +14,7 @@ service GameService {
 message GetGamesRequest {
   int32 limit = 1;
   int32 offset = 2;
-} 
+}
 
 message GetGamesReply {
   repeated GameModel gameModel = 1;
@@ -31,10 +31,11 @@ message SaveGameReply {
 
 // Models
 message GameModel {
-  int64 timeStamp = 1;
-  repeated string homeTeamIds = 2;
-  repeated string awayTeamIds = 3;
-  repeated base.SetModel sets = 4;
+  string id = 1;
+  int64 timeStamp = 2;
+  repeated string homeTeamIds = 3;
+  repeated string awayTeamIds = 4;
+  repeated base.SetModel sets = 5;
 }
 
 

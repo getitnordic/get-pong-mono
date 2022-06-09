@@ -16,6 +16,7 @@ public class GetPongProfile : Profile
         CreateMap(typeof(AddPlayerCommand), typeof(Core.Infrastructure.Entities.Players.Player)).ReverseMap();
         CreateMap(typeof(RegisterExternalRequest), typeof(AddPlayerCommand)).ReverseMap();
         CreateMap(typeof(PlayerModel), typeof(AddPlayerCommand)).ReverseMap();
+        
         CreateMap(typeof(GameModel), typeof(Core.Infrastructure.Entities.Games.Game)).ReverseMap();
         CreateMap(typeof(SetModel), typeof(GameSet)).ReverseMap();
     }
