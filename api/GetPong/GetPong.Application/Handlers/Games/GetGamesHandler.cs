@@ -13,8 +13,22 @@ public class GetGamesHandler : IGetGamesHandler
         _gameRepository = gameRepository;
     }
 
-    public List<Game> Handle()
+    public List<Game> Handle(int limit, int offset)
     {
-        return _gameRepository.GetGames();
+        var offsetMax = offset * limit; // 10
+        var offsetMin = offsetMax - limit; // 0
+
+        var games = _gameRepository.GetGames();
+
+        var gamesList = games.OrderBy(g => g.TimeStamp).ToList();
+        gamesList.Reverse();
+
+        List<Game> pagenatedList = new List<Game>();
+        for (int i = offsetMin; i < offsetMax; i++)
+        {
+            pagenatedList.Add(gamesList[i]);
+        }
+
+        return pagenatedList;
     }
 }
