@@ -24,8 +24,7 @@ namespace GetPong.Infrastructure.MongoDb
         public Game AddGame(Game game)
         {
             var doc = new BsonDocument()
-                //TODO set timestamp as actual current time
-                .Add("time_stamp", game.TimeStamp)
+                .Add("time_stamp", DateTime.UtcNow.Ticks)
                 .Add("home_team_ids", new BsonArray(game.HomeTeamIds))
                 .Add("away_team_ids", new BsonArray(game.AwayTeamIds))
                 .Add("sets", new BsonArray(game.Sets.Select(i => i.ToBsonDocument())));
@@ -33,13 +32,13 @@ namespace GetPong.Infrastructure.MongoDb
             MongoCollection.InsertOne(doc);
 
             game.Id = doc["_id"].ToString();
+            game.TimeStamp = doc["time_stamp"].ToInt64();
             return game;
         }
 
         public List<Game> GetGames()
         {
             var allGamesBson = MongoCollection.Find(new BsonDocument()).ToList();
-
 
             return allGamesBson.Select(doc => new Game()
             {
@@ -49,7 +48,8 @@ namespace GetPong.Infrastructure.MongoDb
                 AwayTeamIds = doc.GetValue("away_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
                 Sets = doc.GetValue("sets").AsBsonArray.Select(x => new GameSet()
                 {
-                    AwayTeam = doc.GetValue("", x.AsBsonDocument.GetValue("AwayTeam")).AsInt32, //TODO varför behöver vi ha en tom sträng här?
+                    AwayTeam = doc.GetValue("", x.AsBsonDocument.GetValue("AwayTeam"))
+                        .AsInt32, //TODO varför behöver vi ha en tom sträng här?
                     HomeTeam = doc.GetValue("", x.AsBsonDocument.GetValue("HomeTeam")).AsInt32,
                     SetNo = doc.GetValue("", x.AsBsonDocument.GetValue("SetNo")).AsInt32
                 }).ToList()
