@@ -19,6 +19,7 @@ namespace GetPong.Application
             services.AddScoped<IUpdatePlayerHandler, UpdatePlayerHandler>();
 
             services.AddScoped<IAddGameHandler, AddGameHandler>();
+            services.AddScoped<IGetGamesHandler, GetGamesHandler>();
         }
     }
 }
