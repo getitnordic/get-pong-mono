@@ -26,7 +26,6 @@ public class GameService : global::Game.GameService.GameServiceBase
         var game = _addGameHandler.Handle(_mapper.Map<Core.Infrastructure.Entities.Games.Game>(request.GameModel));
         var gameModel = _mapper.Map<GameModel>(game);
 
-
         return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
     }
 
@@ -34,6 +33,7 @@ public class GameService : global::Game.GameService.GameServiceBase
     {
         var games = _getGamesHandler.Handle();
         var gameModel = _mapper.Map<List<GameModel>>(games);
+        
         return Task.FromResult(new GetGamesReply() {GameModel = {gameModel}});
     }
 }

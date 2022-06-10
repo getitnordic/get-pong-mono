@@ -24,8 +24,7 @@ namespace GetPong.Infrastructure.MongoDb
         public Game AddGame(Game game)
         {
             var doc = new BsonDocument()
-                //TODO set timestamp as actual current time
-                .Add("time_stamp", game.TimeStamp)
+                .Add("time_stamp", DateTime.UtcNow.Ticks)
                 .Add("home_team_ids", new BsonArray(game.HomeTeamIds))
                 .Add("away_team_ids", new BsonArray(game.AwayTeamIds))
                 .Add("sets", new BsonArray(game.Sets.Select(i => i.ToBsonDocument())));
@@ -33,6 +32,7 @@ namespace GetPong.Infrastructure.MongoDb
             MongoCollection.InsertOne(doc);
 
             game.Id = doc["_id"].ToString();
+            game.TimeStamp = doc["time_stamp"].ToInt64();
             return game;
         }
 
