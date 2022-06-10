@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/config/themes/color_constants.dart';
-import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/big_avatar.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
 import 'package:get_pong/src/domain/models/game.dart';
@@ -21,8 +20,7 @@ class ProfilePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Game> matches =
-        ref.watch(singleMatchProvider.notifier).getMatchesByPlayerId(player.id);
+    List<Game> matches = [];
 
     return Scaffold(
       appBar: AppBar(

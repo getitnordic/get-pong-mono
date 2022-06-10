@@ -40,6 +40,7 @@ class HomePage extends ConsumerWidget {
           IconButton(
             onPressed: () {
               showModalBottomSheet(
+                isScrollControlled: true,
                 context: context,
                 builder: (context) {
                   return const AddPlayerBottomSheet();

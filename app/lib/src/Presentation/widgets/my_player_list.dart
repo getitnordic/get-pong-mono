@@ -72,18 +72,18 @@ class PlayerList extends StatelessWidget {
 
   getPlayerName(String id) {
     final player1 = players.firstWhere((player) => player.id == id,
-        orElse: () => Player(
-            DateTime.now().toString(),
-            'Player',
-            0,
-            0,
-            'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg',
-            '',
-            '',
-            '',
-            0,
-            0,
-            StreakEnum.none));
+        orElse: () => const Player(
+            id: '',
+            firstName: '',
+            lastName: '',
+            nickname: '',
+            email: '',
+            wins: 0,
+            losses: 0,
+            totalScore: 0,
+            streak: 0,
+            imageUrl: '',
+            streakEnum: StreakEnum.none));
     return player1.nickname;
   }
 }

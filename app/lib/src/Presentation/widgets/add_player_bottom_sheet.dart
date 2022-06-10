@@ -11,7 +11,7 @@ class AddPlayerBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 320,
+      height: MediaQuery.of(context).size.height * 0.65,
       child: Column(
         children: const [
           Padding(

@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/sorting_options.dart';
 import 'package:get_pong/protos/base.pb.dart';
+import 'package:get_pong/protos/player.pbgrpc.dart';
 import 'package:get_pong/services/player_service.dart';
 import 'package:get_pong/src/domain/models/player.dart';
 import 'package:get_pong/util/enum_mapper.dart';
@@ -19,8 +22,7 @@ class PlayersNotifier extends StateNotifier<List<Player>> {
     return state.firstWhere((player) => player.id == id);
   }
 
-  Future<String> fetchPlayers() async {
-    print('fetching...');
+  Future<GetPlayersReply?> fetchPlayers() async {
     final response = await service.getPlayers();
     final List<Player> players = [];
 
@@ -31,23 +33,27 @@ class PlayersNotifier extends StateNotifier<List<Player>> {
       }
     }
     state = players;
-    print('done.');
-    return 'Success';
+    return response;
+  }
+
+  Future<RegisterExternalReply?> createPlayer(PlayerModel player) async {
+    return await service.addPlayer(player);
   }
 
   Player mapToPlayer(PlayerModel p) {
+    final randomNum = Random().nextInt(70);
     Player newPlayer = Player(
-        p.id,
-        p.nickname,
-        p.win,
-        p.loss,
-        'https://i.pravatar.cc/200',
-        p.firstName,
-        p.lastName,
-        p.email,
-        p.streak,
-        p.totalScore,
-        EnumMapper.getStreakEnum(p.streakEnum.toString()));
+        id: p.id,
+        nickname: p.nickname,
+        wins: p.win,
+        losses: p.loss,
+        imageUrl: 'https://i.pravatar.cc/200?img=${randomNum + 1}',
+        firstName: p.firstName,
+        lastName: p.lastName,
+        email: p.email,
+        streak: p.streak,
+        totalScore: p.totalScore,
+        streakEnum: EnumMapper.getStreakEnum(p.streakEnum.toString()));
     return newPlayer;
   }
 

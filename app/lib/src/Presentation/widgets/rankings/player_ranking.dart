@@ -6,7 +6,6 @@ import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_p
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../enums/sorting_options.dart';
-import '../../../domain/models/player.dart';
 import '../../providers/players_notifier.dart';
 
 class PlayerRanking extends ConsumerWidget {
@@ -14,7 +13,6 @@ class PlayerRanking extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Player> players = ref.watch(playersProvider);
     final SortingOptions lastPressed = ref.watch(rankingPressedLastProvider);
     bool highToLow = ref.watch(rankingSortingTypeProvider);
 
@@ -78,37 +76,45 @@ class PlayerRanking extends ConsumerWidget {
 
     return Container(
       padding: const EdgeInsets.all(8),
-      child: Column(
-        children: [
-          PlayerRankingListHeader(
-            onPressedPlayer: sortByName,
-            onPressedPlayed: sortByPlayed,
-            onPressedWins: sortByWins,
-            onPressedLosses: sortByLosses,
-          ),
-          const Divider(
-            height: 3,
-            color: ColorConstants.dividerColor,
-          ),
-          Flexible(
-            child: ListView.builder(
-                itemCount: players.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      route.profilePage,
-                      arguments: players[index],
-                    ),
-                    child: PlayerRankingListPlayer(
-                      player: players[index],
-                      index: index,
-                    ),
-                  );
-                }),
-          ),
-        ],
-      ),
+      child: FutureBuilder(
+          future: ref.watch(playersProvider.notifier).fetchPlayers(),
+          builder: (_, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return Column(
+                children: [
+                  PlayerRankingListHeader(
+                    onPressedPlayer: sortByName,
+                    onPressedPlayed: sortByPlayed,
+                    onPressedWins: sortByWins,
+                    onPressedLosses: sortByLosses,
+                  ),
+                  const Divider(
+                    height: 3,
+                    color: ColorConstants.dividerColor,
+                  ),
+                  Flexible(
+                    child: ListView.builder(
+                        itemCount: ref.watch(playersProvider).length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              route.profilePage,
+                              arguments: ref.watch(playersProvider)[index],
+                            ),
+                            child: PlayerRankingListPlayer(
+                              player: ref.watch(playersProvider)[index],
+                              index: index,
+                            ),
+                          );
+                        }),
+                  ),
+                ],
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          }),
     );
   }
 }

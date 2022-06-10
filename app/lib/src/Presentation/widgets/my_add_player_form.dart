@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/config/themes/color_constants.dart';
-import 'package:get_pong/enums/streak_enum.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-
-import '../../domain/models/player.dart';
 
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);
@@ -17,6 +15,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
   final formKey = GlobalKey<FormState>();
   String email = '';
   String userName = '';
+  String firstName = '';
+  String lastName = '';
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -27,8 +27,10 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              buildFirstName(),
+              buildLastName(),
+              buildNickname(),
               buildEmail(),
-              buildUserName(),
               buildSubmitButton(),
             ],
           )),
@@ -67,11 +69,11 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
         ),
       );
 
-  Widget buildUserName() => Padding(
+  Widget buildNickname() => Padding(
         padding: const EdgeInsets.only(top: 10),
         child: TextFormField(
           decoration: const InputDecoration(
-            labelText: 'User name',
+            labelText: 'Nickname',
             labelStyle: TextStyle(color: ColorConstants.formColor),
             prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
             border: OutlineInputBorder(),
@@ -83,13 +85,65 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
           ),
           keyboardType: TextInputType.text,
           validator: (value) {
-            if (value!.length < 4) {
-              return 'Username must at least have 4 characters';
+            if (value!.length < 4 || value.length > 12) {
+              return 'Nickname must be between 4 and 12 characters long';
             } else {
               return null;
             }
           },
           onSaved: (value) => setState(() => userName = value!),
+        ),
+      );
+
+  Widget buildFirstName() => Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: TextFormField(
+          decoration: const InputDecoration(
+            labelText: 'First name',
+            labelStyle: TextStyle(color: ColorConstants.formColor),
+            prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
+            border: OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: ColorConstants.formColor,
+              ),
+            ),
+          ),
+          keyboardType: TextInputType.text,
+          validator: (value) {
+            if (value!.length < 2) {
+              return 'First name must at least have 2 characters';
+            } else {
+              return null;
+            }
+          },
+          onSaved: (value) => setState(() => firstName = value!),
+        ),
+      );
+
+  Widget buildLastName() => Padding(
+        padding: const EdgeInsets.only(top: 10),
+        child: TextFormField(
+          decoration: const InputDecoration(
+            labelText: 'Last name',
+            labelStyle: TextStyle(color: ColorConstants.formColor),
+            prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
+            border: OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: ColorConstants.formColor,
+              ),
+            ),
+          ),
+          keyboardType: TextInputType.text,
+          validator: (value) {
+            if (value!.length < 2) {
+              return 'Last name must at least have 2 characters';
+            } else {
+              return null;
+            }
+          },
+          onSaved: (value) => setState(() => lastName = value!),
         ),
       );
 
@@ -101,18 +155,12 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
             if (isValid) {
               formKey.currentState!.save();
 
-              ref.read(playersProvider.notifier).addPlayer(Player(
-                  DateTime.now().toString(),
-                  userName,
-                  0,
-                  0,
-                  'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-744x744.jpg',
-                  '',
-                  '',
-                  '',
-                  0,
-                  0,
-                  StreakEnum.none));
+              ref.read(playersProvider.notifier).createPlayer(PlayerModel(
+                    firstName: firstName,
+                    lastName: lastName,
+                    nickname: userName,
+                    email: email,
+                  ));
               const message = 'Player created!';
 
               final snackBar = SnackBar(
