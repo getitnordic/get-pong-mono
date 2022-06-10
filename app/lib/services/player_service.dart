@@ -5,10 +5,10 @@ import 'package:get_pong/services/grpc_client.dart';
 import 'package:grpc/grpc.dart';
 
 class PlayerService {
-  final client = PlayerServiceClient(GrpcClient.client);
+  PlayerServiceClient client = PlayerServiceClient(GrpcClient.client);
 
   Future<GetPlayersReply?> getPlayers() async {
-    var request = GetPlayersRequest();
+    final request = GetPlayersRequest();
 
     try {
       return await client.getPlayers(request);

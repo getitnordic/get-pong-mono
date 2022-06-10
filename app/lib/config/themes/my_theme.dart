@@ -40,6 +40,10 @@ class Customtheme {
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: ColorConstants.secondaryTextColor,
       ),
+      cardTheme: const CardTheme(
+        color: ColorConstants.appBarColor,
+        elevation: 200,
+      ),
     );
   }
 

@@ -8,13 +8,13 @@ class MatchNotifier extends StateNotifier<List<Game>> {
     state = [...state, match];
   }
 
-  List<Game> getMatchesByPlayerId(String id) {
+  List<Game> getMatchesByPlayerEmail(String email) {
     List<Game> matches = [];
     for (Game match in state) {
-      if (match.teamOne[0].id == id) {
+      if (match.teamOne[0].email == email) {
         matches.add(match);
       }
-      if (match.teamTwo[0].id == id) {
+      if (match.teamTwo[0].email == email) {
         matches.add(match);
       }
     }
