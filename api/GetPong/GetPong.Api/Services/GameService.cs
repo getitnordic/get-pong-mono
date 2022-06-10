@@ -32,7 +32,7 @@ public class GameService : global::Game.GameService.GameServiceBase
 
     public override Task<GetGamesReply> GetGames(GetGamesRequest request, ServerCallContext context)
     {
-        var games = _getGamesHandler.Handle();
+        var games = _getGamesHandler.Handle(request.Limit, request.Offset);
         var gameModel = _mapper.Map<List<GameModel>>(games);
         return Task.FromResult(new GetGamesReply() {GameModel = {gameModel}});
     }

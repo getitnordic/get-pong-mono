@@ -4,6 +4,6 @@ namespace GetPong.Core.Handlers.Games
 {
     public interface IGetGamesHandler
     {
-        List<Game> Handle();
+        List<Game> Handle(int limit, int offset);
     }
 }
