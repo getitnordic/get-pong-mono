@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import '../../domain/entities/player.dart';
+
 import '../../../config/route/route.dart' as route;
+import '../../domain/models/player.dart';
 
 class DummyObj {
   final String id;

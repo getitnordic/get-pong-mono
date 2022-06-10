@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/config/themes/color_constants.dart';
 
-import '../../../domain/entities/player.dart';
+import '../../../../domain/models/player.dart';
 
 class SelectedPlayerAvatar extends StatelessWidget {
   const SelectedPlayerAvatar({

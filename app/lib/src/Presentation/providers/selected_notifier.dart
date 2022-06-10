@@ -1,15 +1,59 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/enums/streak_enum.dart';
-import 'package:get_pong/src/domain/entities/player.dart';
+import 'package:get_pong/src/domain/models/player.dart';
 
 class SelectedNotifier extends StateNotifier<List<Player>> {
   SelectedNotifier()
       : super([
-          Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
-          Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
-          Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
-          Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
+          const Player(
+              id: '',
+              firstName: '',
+              lastName: '',
+              nickname: '',
+              email: '',
+              wins: 0,
+              losses: 0,
+              totalScore: 0,
+              streak: 0,
+              imageUrl: '',
+              streakEnum: StreakEnum.none),
+          const Player(
+              id: '',
+              firstName: '',
+              lastName: '',
+              nickname: '',
+              email: '',
+              wins: 0,
+              losses: 0,
+              totalScore: 0,
+              streak: 0,
+              imageUrl: '',
+              streakEnum: StreakEnum.none),
+          const Player(
+              id: '',
+              firstName: '',
+              lastName: '',
+              nickname: '',
+              email: '',
+              wins: 0,
+              losses: 0,
+              totalScore: 0,
+              streak: 0,
+              imageUrl: '',
+              streakEnum: StreakEnum.none),
+          const Player(
+              id: '',
+              firstName: '',
+              lastName: '',
+              nickname: '',
+              email: '',
+              wins: 0,
+              losses: 0,
+              totalScore: 0,
+              streak: 0,
+              imageUrl: '',
+              streakEnum: StreakEnum.none),
         ]);
 
   void addPlayer(Player player) {
@@ -18,10 +62,54 @@ class SelectedNotifier extends StateNotifier<List<Player>> {
 
   void resetState() {
     state = [
-      Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
-      Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
-      Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
-      Player('', '', 0, 0, '', '', '', '', 0, 0, StreakEnum.none),
+      const Player(
+          id: '',
+          firstName: '',
+          lastName: '',
+          nickname: '',
+          email: '',
+          wins: 0,
+          losses: 0,
+          totalScore: 0,
+          streak: 0,
+          imageUrl: '',
+          streakEnum: StreakEnum.none),
+      const Player(
+          id: '',
+          firstName: '',
+          lastName: '',
+          nickname: '',
+          email: '',
+          wins: 0,
+          losses: 0,
+          totalScore: 0,
+          streak: 0,
+          imageUrl: '',
+          streakEnum: StreakEnum.none),
+      const Player(
+          id: '',
+          firstName: '',
+          lastName: '',
+          nickname: '',
+          email: '',
+          wins: 0,
+          losses: 0,
+          totalScore: 0,
+          streak: 0,
+          imageUrl: '',
+          streakEnum: StreakEnum.none),
+      const Player(
+          id: '',
+          firstName: '',
+          lastName: '',
+          nickname: '',
+          email: '',
+          wins: 0,
+          losses: 0,
+          totalScore: 0,
+          streak: 0,
+          imageUrl: '',
+          streakEnum: StreakEnum.none),
     ];
   }
 

@@ -11,10 +11,10 @@ import 'package:get_pong/src/Presentation/widgets/score_page/my_add_result_form.
 import 'package:get_pong/src/Presentation/widgets/score_page/result_card_container.dart';
 import 'package:get_pong/src/Presentation/widgets/score_page/result_card_double.dart';
 import 'package:get_pong/src/Presentation/widgets/score_page/result_card_single.dart';
-import 'package:get_pong/src/domain/entities/game.dart';
+import 'package:get_pong/src/domain/models/game.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../domain/entities/player.dart';
+import '../../domain/models/player.dart';
 
 class ScorePage extends ConsumerWidget {
   final List<Player> selectedPlayers;

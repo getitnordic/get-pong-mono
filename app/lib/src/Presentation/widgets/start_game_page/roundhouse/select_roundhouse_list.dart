@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/config/route/route.dart' as route;
-import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/src/Presentation/widgets/start_game_page/select_player_list_player.dart';
-import 'package:get_pong/src/domain/models/player.dart';
+import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
+import 'package:get_pong/src/Presentation/widgets/start_game_page/roundhouse/select_roundhouse_list_player.dart';
 
-class SelectPlayerList extends StatelessWidget {
-  final List<Player> players;
-  final PlayerSelectChoice playerSelectIndex;
-
-  const SelectPlayerList(
-      {Key? key, required this.players, required this.playerSelectIndex})
-      : super(key: key);
+class SelectRoundhouseList extends ConsumerStatefulWidget {
+  const SelectRoundhouseList({
+    Key? key,
+  }) : super(key: key);
 
   @override
+  ConsumerState createState() => _SelectRoundhouseListState();
+}
+
+class _SelectRoundhouseListState extends ConsumerState<SelectRoundhouseList> {
+  @override
   Widget build(BuildContext context) {
+    final players = ref.watch(playersProvider);
+
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -25,8 +29,7 @@ class SelectPlayerList extends StatelessWidget {
                 route.profilePage,
                 arguments: players[index],
               ),
-              child: SelectPlayerListPlayer(
-                playerSelectIndex: playerSelectIndex,
+              child: SelectRoundhouseListPlayer(
                 player: players[index],
               ),
             );
@@ -35,5 +38,6 @@ class SelectPlayerList extends StatelessWidget {
         ),
       ),
     );
+    ;
   }
 }

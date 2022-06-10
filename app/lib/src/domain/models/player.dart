@@ -13,16 +13,17 @@ class Player {
   final String imageUrl;
   final StreakEnum streakEnum;
 
-  const Player(
-      this.id,
-      this.nickname,
-      this.wins,
-      this.losses,
-      this.imageUrl,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.streak,
-      this.totalScore,
-      this.streakEnum);
+  const Player({
+    required this.id,
+    required this.nickname,
+    required this.wins,
+    required this.losses,
+    required this.imageUrl,
+    required this.firstName,
+    required this.lastName,
+    required this.email,
+    required this.streak,
+    required this.totalScore,
+    required this.streakEnum,
+  });
 }

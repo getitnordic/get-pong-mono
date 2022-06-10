@@ -37,6 +37,13 @@ class Customtheme {
         labelStyle: GoogleFonts.goldman(),
         unselectedLabelStyle: GoogleFonts.goldman(),
       ),
+      progressIndicatorTheme: const ProgressIndicatorThemeData(
+        color: ColorConstants.secondaryTextColor,
+      ),
+      cardTheme: const CardTheme(
+        color: ColorConstants.appBarColor,
+        elevation: 200,
+      ),
     );
   }
 

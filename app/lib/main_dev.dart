@@ -13,6 +13,7 @@ import 'my_app.dart';
 // final testProvider = StateProvider((ref) => 'testProvider');
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(ProviderScope(
     child: MyApp(
       themeData: Customtheme.mainTheme,

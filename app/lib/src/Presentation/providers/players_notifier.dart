@@ -1,68 +1,18 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/sorting_options.dart';
-import 'package:get_pong/enums/streak_enum.dart';
-
-import '../../domain/entities/player.dart';
+import 'package:get_pong/protos/base.pb.dart';
+import 'package:get_pong/protos/player.pbgrpc.dart';
+import 'package:get_pong/services/player_service.dart';
+import 'package:get_pong/src/domain/models/player.dart';
+import 'package:get_pong/util/enum_mapper.dart';
 
 class PlayersNotifier extends StateNotifier<List<Player>> {
-  PlayersNotifier()
-      : super([
-          Player('1', 'Göran', 10, 24, 'https://i.pravatar.cc/200?img=69', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('2', 'Erik', 100, 34, 'https://i.pravatar.cc/200?img=68', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('3', 'Madonna', 25, 120, 'https://i.pravatar.cc/200?img=45',
-              '', '', '', 0, 0, StreakEnum.none),
-          Player('4', 'Emma', 245, 78, 'https://i.pravatar.cc/200?img=44', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('5', 'Gecko', 50, 50, 'https://i.pravatar.cc/200?img=33', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('6', 'Murarn', 8, 20, 'https://i.pravatar.cc/200?img=32', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('7', 'Storkrökarn', 32, 32, 'https://i.pravatar.cc/200?img=14',
-              '', '', '', 0, 0, StreakEnum.none),
-          Player('8', 'Benny', 12, 75, 'https://i.pravatar.cc/200?img=8', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('9', 'Lucia', 100, 20, 'https://i.pravatar.cc/200?img=20', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player(
-              '10',
-              'Vattenmannen',
-              20,
-              100,
-              'https://i.pravatar.cc/200?img=7',
-              '',
-              '',
-              '',
-              0,
-              0,
-              StreakEnum.none),
-          Player('11', 'Ludwig', 85, 44, 'https://i.pravatar.cc/200?img=17', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player(
-              '12',
-              'Brad Pitt',
-              78,
-              25,
-              'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.PLaeTcrtaHMZxHQCRR3gxwHaHa%26pid%3DApi&f=1',
-              '',
-              '',
-              '',
-              0,
-              0,
-              StreakEnum.none),
-          Player('13', 'Kocken', 65, 45, 'https://i.pravatar.cc/200?img=11', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('14', 'Adam', 87, 0, 'https://i.pravatar.cc/200?img=12', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('15', 'Woke', 12, 3, 'https://i.pravatar.cc/200?img=6', '', '',
-              '', 0, 0, StreakEnum.none),
-          Player('16', 'Stefan', 8, 5, 'https://i.pravatar.cc/200?img=3', '',
-              '', '', 0, 0, StreakEnum.none),
-          Player('17', 'Ann', 71, 25, 'https://i.pravatar.cc/200?img=30', '',
-              '', '', 0, 0, StreakEnum.none),
-        ]);
+  PlayersNotifier() : super([]);
+
+  final service = PlayerService();
 
   void addPlayer(Player player) {
     state = [...state, player];
@@ -70,6 +20,41 @@ class PlayersNotifier extends StateNotifier<List<Player>> {
 
   Player getPlayerById(String id) {
     return state.firstWhere((player) => player.id == id);
+  }
+
+  Future<GetPlayersReply?> fetchPlayers() async {
+    final response = await service.getPlayers();
+    final List<Player> players = [];
+
+    if (response != null) {
+      for (var p in response.playerModel) {
+        Player newPlayer = mapToPlayer(p);
+        players.add(newPlayer);
+      }
+    }
+    state = players;
+    return response;
+  }
+
+  Future<RegisterExternalReply?> createPlayer(PlayerModel player) async {
+    return await service.addPlayer(player);
+  }
+
+  Player mapToPlayer(PlayerModel p) {
+    final randomNum = Random().nextInt(70);
+    Player newPlayer = Player(
+        id: p.id,
+        nickname: p.nickname,
+        wins: p.win,
+        losses: p.loss,
+        imageUrl: 'https://i.pravatar.cc/200?img=${randomNum + 1}',
+        firstName: p.firstName,
+        lastName: p.lastName,
+        email: p.email,
+        streak: p.streak,
+        totalScore: p.totalScore,
+        streakEnum: EnumMapper.getStreakEnum(p.streakEnum.toString()));
+    return newPlayer;
   }
 
   void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {
@@ -121,10 +106,13 @@ class PlayersNotifier extends StateNotifier<List<Player>> {
   }
 }
 
-final playersProvider = StateNotifierProvider<PlayersNotifier, List<Player>>(
-    (ref) => PlayersNotifier());
+final playersProvider =
+    StateNotifierProvider.autoDispose<PlayersNotifier, List<Player>>(
+        (ref) => PlayersNotifier());
 
-final rankingSortingTypeProvider = StateProvider<bool>((ref) => true);
+final rankingSortingTypeProvider =
+    StateProvider.autoDispose<bool>((ref) => true);
 final rankingPressedLastProvider =
-    StateProvider<SortingOptions>((ref) => SortingOptions.none);
-final matchTypeProvider = StateProvider<MatchType>((ref) => MatchType.none);
+    StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
+final matchTypeProvider =
+    StateProvider.autoDispose<MatchType>((ref) => MatchType.none);
