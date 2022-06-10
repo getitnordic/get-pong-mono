@@ -40,17 +40,20 @@ namespace GetPong.Infrastructure.MongoDb
         {
             var allGamesBson = MongoCollection.Find(new BsonDocument()).ToList();
 
+
             return allGamesBson.Select(doc => new Game()
             {
                 Id = doc.GetValue("_id").ToString(),
                 TimeStamp = doc.GetValue("time_stamp").ToInt64(),
                 HomeTeamIds = doc.GetValue("home_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
-                AwayTeamIds =  doc.GetValue("away_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
-                
-                Sets = doc.GetValue("sets").AsBsonArray.Select(" )
-
-            })
-                .ToList();
+                AwayTeamIds = doc.GetValue("away_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
+                Sets = doc.GetValue("sets").AsBsonArray.Select(x => new GameSet()
+                {
+                    AwayTeam = doc.GetValue("", x.AsBsonDocument.GetValue("AwayTeam")).AsInt32, //TODO varför behöver vi ha en tom sträng här?
+                    HomeTeam = doc.GetValue("", x.AsBsonDocument.GetValue("HomeTeam")).AsInt32,
+                    SetNo = doc.GetValue("", x.AsBsonDocument.GetValue("SetNo")).AsInt32
+                }).ToList()
+            }).ToList();
         }
     }
 }
