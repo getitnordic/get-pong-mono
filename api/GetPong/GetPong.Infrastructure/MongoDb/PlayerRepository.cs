@@ -63,7 +63,7 @@ namespace GetPong.Infrastructure.MongoDb
                 })
                 .ToList();
         }
-
+//TODO return player directly
         public async Task<Player> GetPlayerById(string playerId)
         {
             var objectId = ObjectId.Parse(playerId);
@@ -71,7 +71,7 @@ namespace GetPong.Infrastructure.MongoDb
             var docs = await MongoCollection.FindAsync(filter);
             var doc = docs.FirstOrDefault();
 
-            return new Player
+            var player = new Player
             {
                 Id = doc.GetValue("_id").ToString(),
                 FirstName = doc.GetValue("first_name").ToString(),
@@ -85,6 +85,7 @@ namespace GetPong.Infrastructure.MongoDb
                 TotalScore = doc.GetValue("total_score").ToInt32(),
                 StreakEnum = (StreakEnum)doc.GetValue("streak_enum").ToInt32()
             };
+            return player;
         }
 
 
@@ -109,7 +110,7 @@ namespace GetPong.Infrastructure.MongoDb
 
             await MongoCollection.ReplaceOneAsync(filter, playerDoc);
 
-            return new Player
+            var player = new Player
             {
                 Id = playerDoc.GetValue("_id").ToString(),
                 FirstName = playerDoc.GetValue("first_name").ToString(),
@@ -123,6 +124,7 @@ namespace GetPong.Infrastructure.MongoDb
                 TotalScore = playerDoc.GetValue("total_score").ToInt32(),
                 StreakEnum = (StreakEnum)playerDoc.GetValue("streak_enum").ToInt32()
             };
+            return player;
         }
     }
 }

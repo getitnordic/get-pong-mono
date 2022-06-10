@@ -14,8 +14,9 @@ namespace GetPong.Application.Handlers.Games
             _gameRepository = gameRepository;
         }
 
-        public Game Handle(Game game)
+        public  Game Handle(Game game)
         {
+            
             return _gameRepository.AddGame(game);
         }
     }
