@@ -17,7 +17,7 @@ public class Startup
     {
         services.AddGrpc();
         services.AddAutoMapper(typeof(Startup));
-        
+
         Infrastructure.Startup.ConfigureServices(services);
         Application.Startup.ConfigureServices(services);
     }
@@ -39,11 +39,13 @@ public class Startup
         {
             endpoints.MapGrpcService<PlayerService>();
             endpoints.MapGrpcService<GameService>();
-            
-            endpoints.MapGet("/", async context =>
-            {
-                await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client.");
-            });
+
+            endpoints.MapGet("/",
+                async context =>
+                {
+                    await context.Response.WriteAsync(
+                        "Communication with gRPC endpoints must be made through a gRPC client.");
+                });
         });
     }
 }
