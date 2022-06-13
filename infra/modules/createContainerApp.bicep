@@ -24,9 +24,9 @@ param containerPort int
 param transportMethod string = 'auto'
 
 param registry string
-// param registry string 
 param registryUsername string
-// @secure()
+
+@secure()
 param registryPassword string
 
 param environmentVariables array = []
