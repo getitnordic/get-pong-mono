@@ -17,6 +17,7 @@ namespace GetPong.Application
             services.AddScoped<IGetPlayersHandler, GetPlayersHandler>();
             services.AddScoped<IGetPlayerByIdHandler, GetPlayerByIdHandler>();
             services.AddScoped<IUpdatePlayerHandler, UpdatePlayerHandler>();
+            services.AddScoped<ISyncAzureAdToDb, SyncAzureAdToDb>();
 
             services.AddScoped<IAddGameHandler, AddGameHandler>();
             services.AddScoped<IGetGamesHandler, GetGamesHandler>();

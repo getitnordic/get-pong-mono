@@ -36,4 +36,6 @@ public class GameService : global::Game.GameService.GameServiceBase
         
         return Task.FromResult(new GetGamesReply() {GameModel = {gameModel}});
     }
+    
+    
 }
