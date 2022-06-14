@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
+import 'package:get_pong/utils/mixins/validation_mixin.dart';
 
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);
@@ -11,7 +12,8 @@ class AddPlayerFields extends ConsumerStatefulWidget {
   _AddPlayerFieldsState createState() => _AddPlayerFieldsState();
 }
 
-class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
+class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
+    with ValidationMixin {
   final formKey = GlobalKey<FormState>();
   String email = '';
   String userName = '';
@@ -39,7 +41,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
 
   Widget buildEmail() => Padding(
         padding: const EdgeInsets.only(
-          top: 20,
+          top: 10,
         ),
         child: TextFormField(
           decoration: const InputDecoration(
@@ -54,17 +56,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
             border: OutlineInputBorder(),
           ),
           keyboardType: TextInputType.emailAddress,
-          validator: (value) {
-            const pattern =
-                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-            final regExp = RegExp(pattern);
-
-            if (!regExp.hasMatch(value!)) {
-              return 'Enter a valid email';
-            } else {
-              return null;
-            }
-          },
+          validator: (value) => validateEmail(value!),
           onSaved: (value) => setState(() => email = value!),
         ),
       );
@@ -84,13 +76,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
             ),
           ),
           keyboardType: TextInputType.text,
-          validator: (value) {
-            if (value!.length < 4 || value.length > 12) {
-              return 'Nickname must be between 4 and 12 characters long';
-            } else {
-              return null;
-            }
-          },
+          validator: (value) => validateNickname(value!),
           onSaved: (value) => setState(() => userName = value!),
         ),
       );
@@ -110,13 +96,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
             ),
           ),
           keyboardType: TextInputType.text,
-          validator: (value) {
-            if (value!.length < 2) {
-              return 'First name must at least have 2 characters';
-            } else {
-              return null;
-            }
-          },
+          validator: (value) => validateFirstName(value!),
           onSaved: (value) => setState(() => firstName = value!),
         ),
       );
@@ -136,13 +116,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields> {
             ),
           ),
           keyboardType: TextInputType.text,
-          validator: (value) {
-            if (value!.length < 2) {
-              return 'Last name must at least have 2 characters';
-            } else {
-              return null;
-            }
-          },
+          validator: (value) => validateLastName(value!),
           onSaved: (value) => setState(() => lastName = value!),
         ),
       );

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/big_avatar.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
-import 'package:get_pong/src/domain/models/player.dart';
+import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
 import '../widgets/widgets.dart';
 
-class ProfilePage extends ConsumerWidget {
-  final Player player;
+class ProfilePage extends ConsumerWidget with SetProfileImageMixin {
+  final PlayerModel player;
 
   const ProfilePage({
     Key? key,
@@ -26,7 +27,7 @@ class ProfilePage extends ConsumerWidget {
         children: [
           const SizedBox(height: 30),
           BigAvatar(
-            imageUrl: player.imageUrl,
+            imageUrl: setImage(player.imageUrl),
           ),
           const SizedBox(height: 20),
           NameCard(
@@ -42,8 +43,8 @@ class ProfilePage extends ConsumerWidget {
           ),
           const SizedBox(height: 30),
           GameStats(
-            wins: player.wins.toString(),
-            losses: player.losses.toString(),
+            wins: player.win.toString(),
+            losses: player.loss.toString(),
           ),
           const SizedBox(height: 50),
           const Center(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/src/domain/models/game.dart';
+import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
-class PlayerProfileListItem extends StatelessWidget {
+class PlayerProfileListItem extends StatelessWidget with SetProfileImageMixin {
   const PlayerProfileListItem({Key? key, required this.match})
       : super(key: key);
   final Game match;
@@ -30,7 +31,8 @@ class PlayerProfileListItem extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10),
                   child: CircleAvatar(
                     radius: 12.0,
-                    backgroundImage: NetworkImage(match.teamOne[0].imageUrl),
+                    backgroundImage:
+                        NetworkImage(setImage(match.teamOne[0].imageUrl)),
                   ),
                 ),
                 Padding(
@@ -75,7 +77,8 @@ class PlayerProfileListItem extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10),
                   child: CircleAvatar(
                     radius: 12.0,
-                    backgroundImage: NetworkImage(match.teamTwo[0].imageUrl),
+                    backgroundImage:
+                        NetworkImage(setImage(match.teamTwo[0].imageUrl)),
                   ),
                 ),
                 Text(

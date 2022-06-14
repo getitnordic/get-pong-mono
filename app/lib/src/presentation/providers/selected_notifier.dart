@@ -1,144 +1,143 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/enums/streak_enum.dart';
-import 'package:get_pong/src/domain/models/player.dart';
+import 'package:get_pong/protos/base.pb.dart';
 
-class SelectedNotifier extends StateNotifier<List<Player>> {
+class SelectedNotifier extends StateNotifier<List<PlayerModel>> {
   SelectedNotifier()
       : super([
-          const Player(
+          PlayerModel(
               id: '',
               firstName: '',
               lastName: '',
               nickname: '',
               email: '',
-              wins: 0,
-              losses: 0,
+              win: 0,
+              loss: 0,
               totalScore: 0,
               streak: 0,
               imageUrl: '',
-              streakEnum: StreakEnum.none),
-          const Player(
+              streakEnum: StreakEnum.NONE),
+          PlayerModel(
               id: '',
               firstName: '',
               lastName: '',
               nickname: '',
               email: '',
-              wins: 0,
-              losses: 0,
+              win: 0,
+              loss: 0,
               totalScore: 0,
               streak: 0,
               imageUrl: '',
-              streakEnum: StreakEnum.none),
-          const Player(
+              streakEnum: StreakEnum.NONE),
+          PlayerModel(
               id: '',
               firstName: '',
               lastName: '',
               nickname: '',
               email: '',
-              wins: 0,
-              losses: 0,
+              win: 0,
+              loss: 0,
               totalScore: 0,
               streak: 0,
               imageUrl: '',
-              streakEnum: StreakEnum.none),
-          const Player(
+              streakEnum: StreakEnum.NONE),
+          PlayerModel(
               id: '',
               firstName: '',
               lastName: '',
               nickname: '',
               email: '',
-              wins: 0,
-              losses: 0,
+              win: 0,
+              loss: 0,
               totalScore: 0,
               streak: 0,
               imageUrl: '',
-              streakEnum: StreakEnum.none),
+              streakEnum: StreakEnum.NONE),
         ]);
 
-  void addPlayer(Player player) {
+  void addPlayer(PlayerModel player) {
     state = [...state, player];
   }
 
   void resetState() {
     state = [
-      const Player(
+      PlayerModel(
           id: '',
           firstName: '',
           lastName: '',
           nickname: '',
           email: '',
-          wins: 0,
-          losses: 0,
+          win: 0,
+          loss: 0,
           totalScore: 0,
           streak: 0,
           imageUrl: '',
-          streakEnum: StreakEnum.none),
-      const Player(
+          streakEnum: StreakEnum.NONE),
+      PlayerModel(
           id: '',
           firstName: '',
           lastName: '',
           nickname: '',
           email: '',
-          wins: 0,
-          losses: 0,
+          win: 0,
+          loss: 0,
           totalScore: 0,
           streak: 0,
           imageUrl: '',
-          streakEnum: StreakEnum.none),
-      const Player(
+          streakEnum: StreakEnum.NONE),
+      PlayerModel(
           id: '',
           firstName: '',
           lastName: '',
           nickname: '',
           email: '',
-          wins: 0,
-          losses: 0,
+          win: 0,
+          loss: 0,
           totalScore: 0,
           streak: 0,
           imageUrl: '',
-          streakEnum: StreakEnum.none),
-      const Player(
+          streakEnum: StreakEnum.NONE),
+      PlayerModel(
           id: '',
           firstName: '',
           lastName: '',
           nickname: '',
           email: '',
-          wins: 0,
-          losses: 0,
+          win: 0,
+          loss: 0,
           totalScore: 0,
           streak: 0,
           imageUrl: '',
-          streakEnum: StreakEnum.none),
+          streakEnum: StreakEnum.NONE),
     ];
   }
 
-  void _setPlayerOne(Player player) {
-    List<Player> newSelectedList = [...state];
+  void _setPlayerOne(PlayerModel player) {
+    List<PlayerModel> newSelectedList = [...state];
     newSelectedList[0] = player;
     state = newSelectedList;
   }
 
-  void _setPlayerTwo(Player player) {
-    List<Player> newSelectedList = [...state];
+  void _setPlayerTwo(PlayerModel player) {
+    List<PlayerModel> newSelectedList = [...state];
     newSelectedList[1] = player;
     state = newSelectedList;
   }
 
-  void _setPlayerThree(Player player) {
-    List<Player> newSelectedList = [...state];
+  void _setPlayerThree(PlayerModel player) {
+    List<PlayerModel> newSelectedList = [...state];
     newSelectedList[2] = player;
     state = newSelectedList;
   }
 
-  void _setPlayerFour(Player player) {
-    List<Player> newSelectedList = [...state];
+  void _setPlayerFour(PlayerModel player) {
+    List<PlayerModel> newSelectedList = [...state];
     newSelectedList[3] = player;
     state = newSelectedList;
   }
 
   void setPlayer(
-      {required Player player,
+      {required PlayerModel player,
       required PlayerSelectChoice playerSelectChoice}) {
     switch (playerSelectChoice) {
       case PlayerSelectChoice.playerOne:
@@ -159,5 +158,6 @@ class SelectedNotifier extends StateNotifier<List<Player>> {
   }
 }
 
-final selectedProvider = StateNotifierProvider<SelectedNotifier, List<Player>>(
-    (ref) => SelectedNotifier());
+final selectedProvider =
+    StateNotifierProvider<SelectedNotifier, List<PlayerModel>>(
+        (ref) => SelectedNotifier());

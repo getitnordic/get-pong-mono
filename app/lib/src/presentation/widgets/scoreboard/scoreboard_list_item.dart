@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:get_pong/src/domain/models/game.dart';
+import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
-class ScoreboardListItem extends StatelessWidget {
+class ScoreboardListItem extends StatelessWidget with SetProfileImageMixin {
   final Game match;
   const ScoreboardListItem({Key? key, required this.match}) : super(key: key);
 
@@ -41,8 +42,8 @@ class ScoreboardListItem extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 10),
                             child: CircleAvatar(
                               radius: 12.0,
-                              backgroundImage:
-                                  NetworkImage(match.teamOne[0].imageUrl),
+                              backgroundImage: NetworkImage(
+                                  setImage(match.teamOne[0].imageUrl)),
                             ),
                           ),
                         ],
@@ -61,8 +62,8 @@ class ScoreboardListItem extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 10),
                               child: CircleAvatar(
                                 radius: 12.0,
-                                backgroundImage:
-                                    NetworkImage(match.teamOne[1].imageUrl),
+                                backgroundImage: NetworkImage(
+                                    setImage(match.teamOne[1].imageUrl)),
                               ),
                             ),
                           ],
@@ -117,8 +118,8 @@ class ScoreboardListItem extends StatelessWidget {
                             padding: const EdgeInsets.only(right: 10),
                             child: CircleAvatar(
                               radius: 12.0,
-                              backgroundImage:
-                                  NetworkImage(match.teamTwo[0].imageUrl),
+                              backgroundImage: NetworkImage(
+                                  setImage(match.teamTwo[0].imageUrl)),
                             ),
                           ),
                           Text(
@@ -137,8 +138,8 @@ class ScoreboardListItem extends StatelessWidget {
                               padding: const EdgeInsets.only(right: 10),
                               child: CircleAvatar(
                                 radius: 12.0,
-                                backgroundImage:
-                                    NetworkImage(match.teamTwo[1].imageUrl),
+                                backgroundImage: NetworkImage(
+                                    setImage(match.teamTwo[1].imageUrl)),
                               ),
                             ),
                             Text(

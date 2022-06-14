@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
@@ -14,10 +15,8 @@ import 'package:get_pong/src/Presentation/widgets/score_page/result_card_single.
 import 'package:get_pong/src/domain/models/game.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../domain/models/player.dart';
-
 class ScorePage extends ConsumerWidget {
-  final List<Player> selectedPlayers;
+  final List<PlayerModel> selectedPlayers;
 
   const ScorePage({
     Key? key,

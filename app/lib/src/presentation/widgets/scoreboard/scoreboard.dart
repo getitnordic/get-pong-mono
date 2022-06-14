@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/game_list_view.dart';
 
 class Scoreboard extends ConsumerWidget {

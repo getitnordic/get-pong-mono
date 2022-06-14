@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/config/route/route.dart' as route;
 import 'package:get_pong/enums/player_select_choice.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/widgets/start_game_page/select_player_list_player.dart';
-import 'package:get_pong/src/domain/models/player.dart';
 
 class SelectPlayerList extends StatelessWidget {
-  final List<Player> players;
+  final List<PlayerModel> players;
   final PlayerSelectChoice playerSelectIndex;
 
   const SelectPlayerList(

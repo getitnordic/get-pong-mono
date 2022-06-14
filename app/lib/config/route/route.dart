@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/pages/match_details_page.dart';
-import 'package:get_pong/src/domain/models/player.dart';
 
+import '../../protos/base.pb.dart';
 import '../../src/Presentation/pages/pages.dart';
 
 const String homePage = 'homePage';
@@ -34,7 +34,7 @@ Route<dynamic> controller(RouteSettings settings) {
       }
     case scorePage:
       {
-        final players = settings.arguments as List<Player>;
+        final players = settings.arguments as List<PlayerModel>;
         return MaterialPageRoute(
             builder: (context) => ScorePage(
                   selectedPlayers: players,
@@ -42,7 +42,7 @@ Route<dynamic> controller(RouteSettings settings) {
       }
     case profilePage:
       {
-        final player = settings.arguments as Player;
+        final player = settings.arguments as PlayerModel;
         return MaterialPageRoute(
             builder: (context) => ProfilePage(
                   player: player,

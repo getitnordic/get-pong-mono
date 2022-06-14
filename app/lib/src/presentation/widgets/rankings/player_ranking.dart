@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
-import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_header.dart';
-import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking_list_player.dart';
+import 'package:get_pong/constants/color_constants.dart';
+import 'package:get_pong/src/presentation/widgets/rankings/player_ranking_list_player.dart';
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../enums/sorting_options.dart';
+import '../../../Presentation/widgets/rankings/player_ranking_list_header.dart';
 import '../../providers/players_notifier.dart';
 
 class PlayerRanking extends ConsumerWidget {

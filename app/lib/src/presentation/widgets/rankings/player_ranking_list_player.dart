@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
-import 'package:get_pong/src/domain/models/player.dart';
+import 'package:get_pong/constants/color_constants.dart';
+
+import '../../../../protos/base.pbgrpc.dart';
 
 class PlayerRankingListPlayer extends StatelessWidget {
   const PlayerRankingListPlayer(
       {Key? key, required this.player, required this.index})
       : super(key: key);
 
-  final Player player;
+  final PlayerModel player;
   final int index;
 
   @override
@@ -47,7 +48,7 @@ class PlayerRankingListPlayer extends StatelessWidget {
             SizedBox(
               width: 50,
               child: Text(
-                '${player.wins + player.losses}',
+                '${player.win + player.loss}',
                 style: const TextStyle(
                   fontSize: 15,
                   color: ColorConstants.textColor,
@@ -57,7 +58,7 @@ class PlayerRankingListPlayer extends StatelessWidget {
             SizedBox(
               width: 50,
               child: Text(
-                player.wins.toString(),
+                player.win.toString(),
                 style: const TextStyle(
                   fontSize: 15,
                   color: ColorConstants.textColor,
@@ -67,7 +68,7 @@ class PlayerRankingListPlayer extends StatelessWidget {
             SizedBox(
               width: 50,
               child: Text(
-                player.losses.toString(),
+                player.loss.toString(),
                 style: const TextStyle(
                   fontSize: 15,
                   color: ColorConstants.textColor,

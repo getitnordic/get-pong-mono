@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:get_pong/src/domain/models/player.dart';
 

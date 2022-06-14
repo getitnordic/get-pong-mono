@@ -1,60 +1,41 @@
-import 'dart:math';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/sorting_options.dart';
 import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/protos/player.pbgrpc.dart';
-import 'package:get_pong/services/player_service.dart';
-import 'package:get_pong/src/domain/models/player.dart';
-import 'package:get_pong/util/enum_mapper.dart';
+import 'package:get_pong/register_services.dart';
+import 'package:get_pong/src/core/common/common.dart';
 
-class PlayersNotifier extends StateNotifier<List<Player>> {
-  PlayersNotifier() : super([]);
+import '../../domain/use_cases/use_cases.dart';
 
-  final service = PlayerService();
+class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
+  final GetPlayers getPlayers;
+  final AddPlayer registerNewPlayer;
 
-  void addPlayer(Player player) {
+  PlayersNotifier(this.getPlayers, this.registerNewPlayer) : super([]);
+
+  void addPlayer(PlayerModel player) {
     state = [...state, player];
   }
 
-  Player getPlayerById(String id) {
+  PlayerModel getPlayerById(String id) {
     return state.firstWhere((player) => player.id == id);
   }
 
-  Future<GetPlayersReply?> fetchPlayers() async {
-    final response = await service.getPlayers();
-    final List<Player> players = [];
+  Future<DataState<List<PlayerModel>>> fetchPlayers() async {
+    final response = await getPlayers(params: EmptyParams());
 
-    if (response != null) {
-      for (var p in response.playerModel) {
-        Player newPlayer = mapToPlayer(p);
-        players.add(newPlayer);
-      }
+    List<PlayerModel> players = [];
+
+    if (response is DataSuccess) {
+      players = response.data!;
     }
     state = players;
+
     return response;
   }
 
-  Future<RegisterExternalReply?> createPlayer(PlayerModel player) async {
-    return await service.addPlayer(player);
-  }
-
-  Player mapToPlayer(PlayerModel p) {
-    final randomNum = Random().nextInt(70);
-    Player newPlayer = Player(
-        id: p.id,
-        nickname: p.nickname,
-        wins: p.win,
-        losses: p.loss,
-        imageUrl: 'https://i.pravatar.cc/200?img=${randomNum + 1}',
-        firstName: p.firstName,
-        lastName: p.lastName,
-        email: p.email,
-        streak: p.streak,
-        totalScore: p.totalScore,
-        streakEnum: EnumMapper.getStreakEnum(p.streakEnum.toString()));
-    return newPlayer;
+  Future<DataState<String>> createPlayer(PlayerModel player) async {
+    return await registerNewPlayer(params: player);
   }
 
   void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {
@@ -78,23 +59,22 @@ class PlayersNotifier extends StateNotifier<List<Player>> {
 
   void _sortByLosses(bool sortHighToLow) {
     sortHighToLow
-        ? state.sort((a, b) => (b.losses).compareTo(a.losses))
-        : state.sort((a, b) => (a.losses).compareTo(b.losses));
+        ? state.sort((a, b) => (b.loss).compareTo(a.loss))
+        : state.sort((a, b) => (a.loss).compareTo(b.loss));
     state = [...state];
   }
 
   void _sortByWins(bool sortHighToLow) {
     sortHighToLow
-        ? state.sort((a, b) => (b.wins).compareTo(a.wins))
-        : state.sort((a, b) => (a.wins).compareTo(b.wins));
+        ? state.sort((a, b) => (b.win).compareTo(a.win))
+        : state.sort((a, b) => (a.win).compareTo(b.win));
     state = [...state];
   }
 
   void _sortByPlayed(bool sortHighToLow) {
     sortHighToLow
-        ? state.sort((a, b) => (b.wins + b.losses).compareTo(a.wins + a.losses))
-        : state
-            .sort((a, b) => (a.wins + a.losses).compareTo(b.wins + b.losses));
+        ? state.sort((a, b) => (b.win + b.loss).compareTo(a.win + a.loss))
+        : state.sort((a, b) => (a.win + a.loss).compareTo(b.win + b.loss));
     state = [...state];
   }
 
@@ -107,8 +87,8 @@ class PlayersNotifier extends StateNotifier<List<Player>> {
 }
 
 final playersProvider =
-    StateNotifierProvider.autoDispose<PlayersNotifier, List<Player>>(
-        (ref) => PlayersNotifier());
+    StateNotifierProvider.autoDispose<PlayersNotifier, List<PlayerModel>>(
+        (ref) => PlayersNotifier(getIt<GetPlayers>(), getIt<AddPlayer>()));
 
 final rankingSortingTypeProvider =
     StateProvider.autoDispose<bool>((ref) => true);

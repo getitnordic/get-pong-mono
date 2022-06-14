@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
-import 'package:get_pong/src/domain/models/player.dart';
+import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
-class SelectPlayerListPlayer extends ConsumerWidget {
-  final Player player;
+class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
+  final PlayerModel player;
   final PlayerSelectChoice playerSelectIndex;
 
   const SelectPlayerListPlayer({
@@ -34,7 +35,7 @@ class SelectPlayerListPlayer extends ConsumerWidget {
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                   child: CircleAvatar(
                     radius: 20.0,
-                    backgroundImage: NetworkImage(player.imageUrl),
+                    backgroundImage: NetworkImage(setImage(player.imageUrl)),
                   ),
                 ),
                 Text(

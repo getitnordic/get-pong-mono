@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 
 import '../../../config/route/route.dart' as route;
-import '../../domain/models/player.dart';
+import '../../../protos/base.pb.dart';
 
 class DummyObj {
   final String id;
@@ -19,7 +19,7 @@ class ResultPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Player> players = ref.watch(playersProvider);
+    List<PlayerModel> players = ref.watch(playersProvider);
 
     return Column(
       children: [

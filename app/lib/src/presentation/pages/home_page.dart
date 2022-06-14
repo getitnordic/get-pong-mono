@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/themes/color_constants.dart';
+import 'package:get_pong/constants/color_constants.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
-import 'package:get_pong/src/domain/models/player.dart';
 
 import '../providers/bottom_bar_index_provider.dart';
 import '../providers/players_notifier.dart';
@@ -14,7 +14,7 @@ class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   Widget renderContent({
-    required List<Player> players,
+    required List<PlayerModel> players,
     required int currentIndex,
   }) {
     switch (currentIndex) {
@@ -31,7 +31,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomBarIndexProvider.state);
-    List<Player> playerList = ref.watch(playersProvider);
+    List<PlayerModel> playerList = ref.watch(playersProvider);
 
     return Scaffold(
       appBar: AppBar(
