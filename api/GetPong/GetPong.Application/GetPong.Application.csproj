@@ -14,6 +14,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GetPong.Core\GetPong.Core.csproj" />
+      <ProjectReference Include="..\GetPong.Infrastructure\GetPong.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

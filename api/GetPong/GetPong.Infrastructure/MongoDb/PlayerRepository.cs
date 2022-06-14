@@ -43,28 +43,11 @@ namespace GetPong.Infrastructure.MongoDb
 
             return player;
         }
-        
 
         public List<Player> GetPlayers()
         {
             var allPlayersBson = MongoCollection.Find(new BsonDocument()).ToList();
-
-            return allPlayersBson.Select(doc => new Player
-                {
-                    Id = doc.GetValue("_id").ToString(),
-                    FirstName = doc.GetValue("first_name").ToString(),
-                    LastName = doc.GetValue("last_name").ToString(),
-                    Nickname = doc.GetValue("nickname").ToString(),
-                    ImageUrl = doc.GetValue("image_url").ToString(),
-                    Email = doc.GetValue("email").ToString(),
-                    Streak = doc.GetValue("streak").ToInt32(),
-                    Win = doc.GetValue("win").ToInt32(),
-                    Loss = doc.GetValue("loss").ToInt32(),
-                    TotalScore = doc.GetValue("total_score").ToInt32(),
-                    AzureAdId = doc.GetValue("azure_ad_id").ToString(),
-                    StreakEnum = (StreakEnum)doc.GetValue("streak_enum").ToInt32()
-                    
-                })
+            return allPlayersBson.Select(doc => new Player(doc))
                 .ToList();
         }
 
@@ -75,22 +58,7 @@ namespace GetPong.Infrastructure.MongoDb
             var docs = await MongoCollection.FindAsync(filter);
             var doc = docs.FirstOrDefault();
 
-            return new Player
-            {
-                Id = doc.GetValue("_id").ToString(),
-                FirstName = doc.GetValue("first_name").ToString(),
-                LastName = doc.GetValue("last_name").ToString(),
-                Nickname = doc.GetValue("nickname").ToString(),
-                ImageUrl = doc.GetValue("image_url").ToString(),
-                Email = doc.GetValue("email").ToString(),
-                Streak = doc.GetValue("streak").ToInt32(),
-                Win = doc.GetValue("win").ToInt32(),
-                Loss = doc.GetValue("loss").ToInt32(),
-                TotalScore = doc.GetValue("total_score").ToInt32(),
-                AzureAdId = doc.GetValue("azure_ad_id").ToString(),
-                StreakEnum = (StreakEnum)doc.GetValue("streak_enum").ToInt32()
-                
-            };
+            return new Player(doc);
         }
 
         public async Task<Player> UpdatePlayer(string playerId, AddPlayerCommand addPlayerCommand)
@@ -112,13 +80,12 @@ namespace GetPong.Infrastructure.MongoDb
                 .Add("total_score", getPlayer.TotalScore)
                 .Add("streak_enum", getPlayer.StreakEnum)
                 .Add("azure_ad_id", getPlayer.AzureAdId);
-                
+
 
             await MongoCollection.ReplaceOneAsync(filter, playerDoc);
 
             return new Player
             {
-                Id = playerDoc.GetValue("_id").ToString(),
                 FirstName = playerDoc.GetValue("first_name").ToString(),
                 LastName = playerDoc.GetValue("last_name").ToString(),
                 Nickname = playerDoc.GetValue("nickname").ToString(),
@@ -130,7 +97,6 @@ namespace GetPong.Infrastructure.MongoDb
                 TotalScore = playerDoc.GetValue("total_score").ToInt32(),
                 AzureAdId = playerDoc.GetValue("azure_ad_id").ToString(),
                 StreakEnum = (StreakEnum)playerDoc.GetValue("streak_enum").ToInt32()
-                
             };
         }
     }
