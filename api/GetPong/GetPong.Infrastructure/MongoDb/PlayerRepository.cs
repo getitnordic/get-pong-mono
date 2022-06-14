@@ -16,7 +16,7 @@ namespace GetPong.Infrastructure.MongoDb
     {
         private static readonly MongoClient MongoClient =
             new MongoClient(
-                "mongodb+srv://gpadmin:z2Gt6fKIypG6ATlL@getpongcluster.jsweu.mongodb.net/?retryWrites=true&w=majority");
+                "mongodb+srv://gpadmin:z2Gt6fKIypG6ATlL@getpongcluster.jsweu.mongodb.net/?retryWrites=true&w=majority"); //TODO Fetch connectionstring from appsettings & dependency injection
 
         private static readonly IMongoDatabase MongoDatabase = MongoClient.GetDatabase("gpdb");
 

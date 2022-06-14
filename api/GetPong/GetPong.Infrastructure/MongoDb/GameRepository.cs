@@ -18,7 +18,7 @@ namespace GetPong.Infrastructure.MongoDb
         public GameRepository(IHelper helper)
         {
             _helper = helper;
-            var MongoClient = new MongoClient("mongodb+srv://gpadmin:z2Gt6fKIypG6ATlL@getpongcluster.jsweu.mongodb.net/?retryWrites=true&w=majority");
+            var MongoClient = new MongoClient("mongodb+srv://gpadmin:z2Gt6fKIypG6ATlL@getpongcluster.jsweu.mongodb.net/?retryWrites=true&w=majority"); //TODO Fetch connectionstring from appsettings
             var MongoDatabase = MongoClient.GetDatabase("gpdb");
             MongoCollection = MongoDatabase.GetCollection<BsonDocument>("games");
         }
