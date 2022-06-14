@@ -7,7 +7,8 @@ namespace GetPong.Core.Infrastructure.Repositories
 {
     public interface IPlayerRepository
     {
-        Player RegisterExternal(Player player);
+        Player RegisterPlayer(Player player);
+
         List<Player> GetPlayers();
 
         Task<Player> GetPlayerById(string playerId);

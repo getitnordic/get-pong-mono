@@ -32,6 +32,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
         List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
+
         var playerModels = _mapper.Map<List<PlayerModel>>(players);
         return Task.FromResult(new GetPlayersReply() {PlayerModel = {playerModels}});
     }
@@ -54,6 +55,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
                 _mapper.Map<AddPlayerCommand>(request));
 
         var externalUser = _mapper.Map<PlayerModel>(player);
+        
         return Task.FromResult(new RegisterExternalReply() {PlayerModel = externalUser});
     }
 
@@ -69,6 +71,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         return await Task.FromResult(new UpdatePlayerReply() {PlayerModel = updatedPlayerModel});
     }
 
+    //Sync ad to db
     public override Task<SyncAzureAdToDbReply> SyncAzureAdToDb(SyncAzureAdToDbRequest request,
         ServerCallContext context)
     {

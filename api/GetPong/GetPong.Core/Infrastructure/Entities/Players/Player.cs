@@ -9,6 +9,7 @@ namespace GetPong.Core.Infrastructure.Entities.Players
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { set; get; }
+
         public string FirstName { set; get; }
         public string LastName { set; get; }
         public string Nickname { set; get; }
@@ -18,6 +19,7 @@ namespace GetPong.Core.Infrastructure.Entities.Players
         public int Win { set; get; }
         public int Loss { set; get; }
         public int TotalScore { set; get; }
+        public string AzureAdId { set; get; }
         public StreakEnum StreakEnum { set; get; }
     }
 }
