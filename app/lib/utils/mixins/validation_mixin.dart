@@ -21,7 +21,7 @@ abstract class ValidationMixin {
 
   String? validateFirstName(String value) {
     if (value.length < 2) {
-      return 'First name must at least have 2 characters';
+      return 'First name must have at least 2 characters';
     } else {
       return null;
     }
@@ -29,7 +29,7 @@ abstract class ValidationMixin {
 
   String? validateLastName(String value) {
     if (value.length < 2) {
-      return 'Last name must at least have 2 characters';
+      return 'Last name must have at least 2 characters';
     } else {
       return null;
     }
