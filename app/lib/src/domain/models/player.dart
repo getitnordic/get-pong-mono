@@ -26,4 +26,32 @@ class Player {
     required this.totalScore,
     required this.streakEnum,
   });
+
+  Player copyWith({
+    String? id,
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? nickname,
+    int? wins,
+    int? losses,
+    int? streak,
+    int? totalScore,
+    String? imageUrl,
+    StreakEnum? streakEnum,
+  }) {
+    return Player(
+      id: id ?? this.id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      nickname: nickname ?? this.nickname,
+      wins: wins ?? this.wins,
+      losses: losses ?? this.losses,
+      streak: streak ?? this.streak,
+      totalScore: totalScore ?? this.totalScore,
+      imageUrl: imageUrl ?? this.imageUrl,
+      streakEnum: streakEnum ?? this.streakEnum,
+    );
+  }
 }

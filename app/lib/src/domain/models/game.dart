@@ -1,8 +1,8 @@
-import 'package:get_pong/src/domain/models/player.dart';
+import 'package:get_pong/protos/base.pb.dart';
 
 class Game {
-  final List<Player> teamOne;
-  final List<Player> teamTwo;
+  final List<PlayerModel> teamOne;
+  final List<PlayerModel> teamTwo;
   final int teamOneScore;
   final int teamTwoScore;
 
