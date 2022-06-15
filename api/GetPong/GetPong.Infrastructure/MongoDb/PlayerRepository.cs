@@ -89,6 +89,7 @@ namespace GetPong.Infrastructure.MongoDb
 
             return new Player
             {
+                Id = playerId,
                 FirstName = playerDoc.GetValue("first_name").ToString(),
                 LastName = playerDoc.GetValue("last_name").ToString(),
                 Nickname = playerDoc.GetValue("nickname").ToString(),
