@@ -39,6 +39,16 @@ jobs:
       - name: Checkout main
         uses: actions/checkout@v2
 
+      - name: Variable Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: "api/GetPong/GetPong.Api/appsettings.json"
+        env:
+          AzureAd.TenantId: "8990c32d-7eb3-4e7e-8a29-0e4ec8618f48"
+          AzureAd.ClientId: "df75520c-c168-4c9e-a9b9-ccb7045fd434"
+          AzureAd.ClientSecret: ${{ secrets.AZ_CLIENT_SECRET }}
+          MongoDb.ConnectionString: ${{ secrets.CONNSTR_DEV }}
+
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
         with:
