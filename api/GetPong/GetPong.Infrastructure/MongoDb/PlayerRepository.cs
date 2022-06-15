@@ -7,6 +7,7 @@ using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 using GetPong.Core.Models.Commands.Players;
 using GetPong.Core.Models.Enum;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -14,14 +15,16 @@ namespace GetPong.Infrastructure.MongoDb
 {
     public class PlayerRepository : IPlayerRepository
     {
-        private static readonly MongoClient MongoClient =
-            new MongoClient(
-                "mongodb+srv://gpadmin:z2Gt6fKIypG6ATlL@getpongcluster.jsweu.mongodb.net/?retryWrites=true&w=majority"); //TODO Fetch connectionstring from appsettings & dependency injection
-
-        private static readonly IMongoDatabase MongoDatabase = MongoClient.GetDatabase("gpdb");
-
-        private static readonly IMongoCollection<BsonDocument> MongoCollection =
-            MongoDatabase.GetCollection<BsonDocument>("players");
+        private readonly IMongoCollection<BsonDocument> MongoCollection;
+        private readonly IConfiguration _configuration;
+        
+        public PlayerRepository( IConfiguration configuration)
+        {
+            _configuration = configuration;
+            var MongoClient = new MongoClient(_configuration["MongoDb:ConnectionString"]);
+            var MongoDatabase = MongoClient.GetDatabase("gpdb");
+            MongoCollection = MongoDatabase.GetCollection<BsonDocument>("players");
+        }
 
         public Player RegisterPlayer(Player player)
         {
@@ -96,7 +99,7 @@ namespace GetPong.Infrastructure.MongoDb
                 Loss = playerDoc.GetValue("loss").ToInt32(),
                 TotalScore = playerDoc.GetValue("total_score").ToInt32(),
                 AzureAdId = playerDoc.GetValue("azure_ad_id").ToString(),
-                StreakEnum = (StreakEnum)playerDoc.GetValue("streak_enum").ToInt32()
+                StreakEnum = (StreakEnum) playerDoc.GetValue("streak_enum").ToInt32()
             };
         }
     }
