@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/src/domain/models/game.dart';
+import 'package:get_pong/protos/game.pbgrpc.dart';
+import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
-class PlayerProfileListItem extends StatelessWidget with SetProfileImageMixin {
+class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   const PlayerProfileListItem({Key? key, required this.match})
       : super(key: key);
-  final Game match;
+  final GameModel match;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -21,7 +23,10 @@ class PlayerProfileListItem extends StatelessWidget with SetProfileImageMixin {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
-                  match.teamOne[0].nickname,
+                  ref
+                      .watch(playersProvider.notifier)
+                      .getPlayerById(match.homeTeamIds[0])
+                      .firstName,
                   style: const TextStyle(
                     fontSize: 12,
                     color: ColorConstants.textColor,
@@ -31,14 +36,16 @@ class PlayerProfileListItem extends StatelessWidget with SetProfileImageMixin {
                   padding: const EdgeInsets.only(left: 10),
                   child: CircleAvatar(
                     radius: 12.0,
-                    backgroundImage:
-                        NetworkImage(setImage(match.teamOne[0].imageUrl)),
+                    backgroundImage: NetworkImage(setImage(ref
+                        .watch(playersProvider.notifier)
+                        .getPlayerById(match.homeTeamIds[0])
+                        .imageUrl)),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    match.teamOneScore.toString(),
+                    match.sets[0].homeTeam.toString(),
                     style: const TextStyle(
                         fontSize: 12,
                         color: ColorConstants.textColor,
@@ -66,7 +73,7 @@ class PlayerProfileListItem extends StatelessWidget with SetProfileImageMixin {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
                   child: Text(
-                    match.teamTwoScore.toString(),
+                    match.sets[0].awayTeam.toString(),
                     style: const TextStyle(
                         fontSize: 12,
                         color: ColorConstants.textColor,
@@ -77,12 +84,17 @@ class PlayerProfileListItem extends StatelessWidget with SetProfileImageMixin {
                   padding: const EdgeInsets.only(right: 10),
                   child: CircleAvatar(
                     radius: 12.0,
-                    backgroundImage:
-                        NetworkImage(setImage(match.teamTwo[0].imageUrl)),
+                    backgroundImage: NetworkImage(setImage(ref
+                        .watch(playersProvider.notifier)
+                        .getPlayerById(match.awayTeamIds[0])
+                        .imageUrl)),
                   ),
                 ),
                 Text(
-                  match.teamTwo[0].nickname,
+                  ref
+                      .watch(playersProvider.notifier)
+                      .getPlayerById(match.awayTeamIds[0])
+                      .firstName,
                   style: const TextStyle(
                     fontSize: 11,
                     color: ColorConstants.textColor,

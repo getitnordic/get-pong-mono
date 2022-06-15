@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/constants/color_constants.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
-import 'package:get_pong/src/domain/models/player.dart';
 
 class SelectedDoubleAvatar extends StatelessWidget {
-  final Player player;
+  final PlayerModel player;
 
   const SelectedDoubleAvatar({
     Key? key,

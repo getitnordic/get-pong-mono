@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/scoreboard_list_item.dart';
-import 'package:get_pong/src/domain/models/game.dart';
 
 import '../../../../config/route/route.dart' as route;
 
@@ -13,7 +12,7 @@ class GameListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    List<Game> matches = ref.watch(singleMatchProvider);
+    final matches = ref.watch(matchProvider);
 
     return Flexible(
       child: ListView.builder(

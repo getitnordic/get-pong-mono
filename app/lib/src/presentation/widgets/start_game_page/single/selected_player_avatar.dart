@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/constants/color_constants.dart';
-
-import '../../../../domain/models/player.dart';
+import 'package:get_pong/protos/base.pb.dart';
 
 class SelectedPlayerAvatar extends StatelessWidget {
   const SelectedPlayerAvatar({
@@ -9,7 +8,7 @@ class SelectedPlayerAvatar extends StatelessWidget {
     required this.player,
   }) : super(key: key);
 
-  final Player player;
+  final PlayerModel player;
 
   @override
   Widget build(BuildContext context) {

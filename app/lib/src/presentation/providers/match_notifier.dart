@@ -1,20 +1,20 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/domain/models/game.dart';
+import 'package:get_pong/protos/game.pbgrpc.dart';
 
-class MatchNotifier extends StateNotifier<List<Game>> {
+class MatchNotifier extends StateNotifier<List<GameModel>> {
   MatchNotifier() : super([]);
 
-  void addMatch(Game match) {
+  void addMatch(GameModel match) {
     state = [...state, match];
   }
 
-  List<Game> getMatchesByPlayerEmail(String email) {
-    List<Game> matches = [];
-    for (Game match in state) {
-      if (match.teamOne[0].email == email) {
+  List<GameModel> getMatchesByPlayerId(String id) {
+    List<GameModel> matches = [];
+    for (GameModel match in state) {
+      if (match.homeTeamIds[0] == id) {
         matches.add(match);
       }
-      if (match.teamTwo[0].email == email) {
+      if (match.awayTeamIds[0] == id) {
         matches.add(match);
       }
     }
@@ -22,5 +22,5 @@ class MatchNotifier extends StateNotifier<List<Game>> {
   }
 }
 
-final singleMatchProvider =
-    StateNotifierProvider<MatchNotifier, List<Game>>((ref) => MatchNotifier());
+final matchProvider = StateNotifierProvider<MatchNotifier, List<GameModel>>(
+    (ref) => MatchNotifier());
