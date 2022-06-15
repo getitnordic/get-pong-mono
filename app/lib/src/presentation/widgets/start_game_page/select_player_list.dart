@@ -23,7 +23,7 @@ class _SelectPlayerListState extends State<SelectPlayerList> {
 
   @override
   void initState() {
-    players.addAll(widget.players);
+    players = widget.players;
     super.initState();
   }
 
