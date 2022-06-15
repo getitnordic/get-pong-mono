@@ -17,7 +17,6 @@ namespace GetPong.Application.Handlers.Players
 
         public Player Handle(AddPlayerCommand addPlayerCommand)
         {
-            ValidatePlayerCommand(addPlayerCommand);
             var player = new Player
             {
                 FirstName = addPlayerCommand.FirstName,
@@ -29,10 +28,12 @@ namespace GetPong.Application.Handlers.Players
                 Win = 0,
                 Loss = 0,
                 TotalScore = 1000,
+                AzureAdId = "externalPlayer",
                 StreakEnum = StreakEnum.None
             };
+            ValidatePlayerCommand(addPlayerCommand);
 
-            _playerRepository.RegisterExternal(player);
+            _playerRepository.RegisterPlayer(player);
 
             return player;
         }

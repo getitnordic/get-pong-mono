@@ -22,7 +22,8 @@ message PlayerModel {
   int32 win = 8;
   int32 loss = 9;
   int32 totalScore = 10;
-  StreakEnum streakEnum = 11;
+  string azureAdId = 11;
+  StreakEnum streakEnum = 12;
 }
 
 message SetModel {

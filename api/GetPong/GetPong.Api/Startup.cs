@@ -18,7 +18,7 @@ public class Startup
         services.AddGrpc();
         services.AddAutoMapper(typeof(Startup));
         
-        Infrastructure.Startup.ConfigureServices(services);
+        Infrastructure.Startup.ConfigureServices(services); 
         Application.Startup.ConfigureServices(services);
     }
 

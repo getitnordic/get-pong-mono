@@ -7,11 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Azure.Identity" Version="1.6.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Graph" Version="4.30.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\GetPong.Core\GetPong.Core.csproj" />
+      <ProjectReference Include="..\GetPong.Infrastructure\GetPong.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
