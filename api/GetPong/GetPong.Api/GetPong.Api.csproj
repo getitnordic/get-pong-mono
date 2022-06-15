@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>GetPong</RootNamespace>
+    <UserSecretsId>862c5fc7-fe17-4c15-a20d-8f9dc6379a14</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
