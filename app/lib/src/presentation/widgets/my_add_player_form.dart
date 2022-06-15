@@ -45,15 +45,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
         ),
         child: TextFormField(
           decoration: const InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: ColorConstants.formColor,
-              ),
-            ),
             labelText: 'Email',
-            labelStyle: TextStyle(color: ColorConstants.formColor),
             prefixIcon: Icon(Icons.mail, color: ColorConstants.formColor),
-            border: OutlineInputBorder(),
           ),
           keyboardType: TextInputType.emailAddress,
           validator: (value) => validateEmail(value!),
@@ -66,14 +59,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Nickname',
-            labelStyle: TextStyle(color: ColorConstants.formColor),
             prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
-            border: OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: ColorConstants.formColor,
-              ),
-            ),
           ),
           keyboardType: TextInputType.text,
           validator: (value) => validateNickname(value!),
@@ -86,14 +72,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'First name',
-            labelStyle: TextStyle(color: ColorConstants.formColor),
             prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
-            border: OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: ColorConstants.formColor,
-              ),
-            ),
           ),
           keyboardType: TextInputType.text,
           validator: (value) => validateFirstName(value!),
@@ -106,14 +85,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Last name',
-            labelStyle: TextStyle(color: ColorConstants.formColor),
             prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
-            border: OutlineInputBorder(),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: ColorConstants.formColor,
-              ),
-            ),
           ),
           keyboardType: TextInputType.text,
           validator: (value) => validateLastName(value!),

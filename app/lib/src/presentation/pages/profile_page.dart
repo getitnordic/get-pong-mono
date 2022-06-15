@@ -59,13 +59,13 @@ class ProfilePage extends ConsumerWidget with SetProfileImageMixin {
             child: ListView.builder(
                 itemCount: ref
                     .watch(singleMatchProvider.notifier)
-                    .getMatchesByPlayerEmail(player.email)
+                    .getMatchesByPlayerId(player.id)
                     .length,
                 itemBuilder: (context, index) {
                   return PlayerProfileListItem(
                       match: ref
                           .watch(singleMatchProvider.notifier)
-                          .getMatchesByPlayerEmail(player.email)[index]);
+                          .getMatchesByPlayerId(player.id)[index]);
                 }),
           ),
         ],
