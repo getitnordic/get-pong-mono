@@ -38,6 +38,12 @@ class PlayerServiceClient extends $grpc.Client {
           ($0.UpdatePlayerRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.UpdatePlayerReply.fromBuffer(value));
+  static final _$syncAzureAdToDb =
+      $grpc.ClientMethod<$0.SyncAzureAdToDbRequest, $0.SyncAzureAdToDbReply>(
+          '/player.PlayerService/SyncAzureAdToDb',
+          ($0.SyncAzureAdToDbRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $0.SyncAzureAdToDbReply.fromBuffer(value));
 
   PlayerServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -66,6 +72,12 @@ class PlayerServiceClient extends $grpc.Client {
       $0.UpdatePlayerRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$updatePlayer, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.SyncAzureAdToDbReply> syncAzureAdToDb(
+      $0.SyncAzureAdToDbRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$syncAzureAdToDb, request, options: options);
   }
 }
 
@@ -107,6 +119,15 @@ abstract class PlayerServiceBase extends $grpc.Service {
             ($core.List<$core.int> value) =>
                 $0.UpdatePlayerRequest.fromBuffer(value),
             ($0.UpdatePlayerReply value) => value.writeToBuffer()));
+    $addMethod(
+        $grpc.ServiceMethod<$0.SyncAzureAdToDbRequest, $0.SyncAzureAdToDbReply>(
+            'SyncAzureAdToDb',
+            syncAzureAdToDb_Pre,
+            false,
+            false,
+            ($core.List<$core.int> value) =>
+                $0.SyncAzureAdToDbRequest.fromBuffer(value),
+            ($0.SyncAzureAdToDbReply value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.RegisterExternalReply> registerExternal_Pre(
@@ -130,6 +151,12 @@ abstract class PlayerServiceBase extends $grpc.Service {
     return updatePlayer(call, await request);
   }
 
+  $async.Future<$0.SyncAzureAdToDbReply> syncAzureAdToDb_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.SyncAzureAdToDbRequest> request) async {
+    return syncAzureAdToDb(call, await request);
+  }
+
   $async.Future<$0.RegisterExternalReply> registerExternal(
       $grpc.ServiceCall call, $0.RegisterExternalRequest request);
   $async.Future<$0.GetPlayersReply> getPlayers(
@@ -138,4 +165,6 @@ abstract class PlayerServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.GetPlayerByIdRequest request);
   $async.Future<$0.UpdatePlayerReply> updatePlayer(
       $grpc.ServiceCall call, $0.UpdatePlayerRequest request);
+  $async.Future<$0.SyncAzureAdToDbReply> syncAzureAdToDb(
+      $grpc.ServiceCall call, $0.SyncAzureAdToDbRequest request);
 }

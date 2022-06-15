@@ -39,9 +39,9 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
                   ),
                 ),
                 Text(
-                  player.nickname,
+                  player.firstName,
                   style: const TextStyle(
-                    fontSize: 17,
+                    fontSize: 14,
                     color: ColorConstants.textColor,
                   ),
                 ),

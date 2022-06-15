@@ -25,7 +25,8 @@ class PlayerModel extends $pb.GeneratedMessage {
     ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'win', $pb.PbFieldType.O3)
     ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'loss', $pb.PbFieldType.O3)
     ..a<$core.int>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalScore', $pb.PbFieldType.O3, protoName: 'totalScore')
-    ..e<StreakEnum>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streakEnum', $pb.PbFieldType.OE, protoName: 'streakEnum', defaultOrMaker: StreakEnum.NONE, valueOf: StreakEnum.valueOf, enumValues: StreakEnum.values)
+    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'azureAdId', protoName: 'azureAdId')
+    ..e<StreakEnum>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streakEnum', $pb.PbFieldType.OE, protoName: 'streakEnum', defaultOrMaker: StreakEnum.NONE, valueOf: StreakEnum.valueOf, enumValues: StreakEnum.values)
     ..hasRequiredFields = false
   ;
 
@@ -41,6 +42,7 @@ class PlayerModel extends $pb.GeneratedMessage {
     $core.int? win,
     $core.int? loss,
     $core.int? totalScore,
+    $core.String? azureAdId,
     StreakEnum? streakEnum,
   }) {
     final _result = create();
@@ -73,6 +75,9 @@ class PlayerModel extends $pb.GeneratedMessage {
     }
     if (totalScore != null) {
       _result.totalScore = totalScore;
+    }
+    if (azureAdId != null) {
+      _result.azureAdId = azureAdId;
     }
     if (streakEnum != null) {
       _result.streakEnum = streakEnum;
@@ -191,13 +196,22 @@ class PlayerModel extends $pb.GeneratedMessage {
   void clearTotalScore() => clearField(10);
 
   @$pb.TagNumber(11)
-  StreakEnum get streakEnum => $_getN(10);
+  $core.String get azureAdId => $_getSZ(10);
   @$pb.TagNumber(11)
-  set streakEnum(StreakEnum v) { setField(11, v); }
+  set azureAdId($core.String v) { $_setString(10, v); }
   @$pb.TagNumber(11)
-  $core.bool hasStreakEnum() => $_has(10);
+  $core.bool hasAzureAdId() => $_has(10);
   @$pb.TagNumber(11)
-  void clearStreakEnum() => clearField(11);
+  void clearAzureAdId() => clearField(11);
+
+  @$pb.TagNumber(12)
+  StreakEnum get streakEnum => $_getN(11);
+  @$pb.TagNumber(12)
+  set streakEnum(StreakEnum v) { setField(12, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasStreakEnum() => $_has(11);
+  @$pb.TagNumber(12)
+  void clearStreakEnum() => clearField(12);
 }
 
 class SetModel extends $pb.GeneratedMessage {

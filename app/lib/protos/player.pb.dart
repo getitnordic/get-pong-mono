@@ -219,6 +219,82 @@ class GetPlayersReply extends $pb.GeneratedMessage {
   $core.List<$1.PlayerModel> get playerModel => $_getList(0);
 }
 
+class SyncAzureAdToDbRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SyncAzureAdToDbRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
+    ..hasRequiredFields = false
+  ;
+
+  SyncAzureAdToDbRequest._() : super();
+  factory SyncAzureAdToDbRequest() => create();
+  factory SyncAzureAdToDbRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SyncAzureAdToDbRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SyncAzureAdToDbRequest clone() => SyncAzureAdToDbRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SyncAzureAdToDbRequest copyWith(void Function(SyncAzureAdToDbRequest) updates) => super.copyWith((message) => updates(message as SyncAzureAdToDbRequest)) as SyncAzureAdToDbRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SyncAzureAdToDbRequest create() => SyncAzureAdToDbRequest._();
+  SyncAzureAdToDbRequest createEmptyInstance() => create();
+  static $pb.PbList<SyncAzureAdToDbRequest> createRepeated() => $pb.PbList<SyncAzureAdToDbRequest>();
+  @$core.pragma('dart2js:noInline')
+  static SyncAzureAdToDbRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SyncAzureAdToDbRequest>(create);
+  static SyncAzureAdToDbRequest? _defaultInstance;
+}
+
+class SyncAzureAdToDbReply extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SyncAzureAdToDbReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'message')
+    ..hasRequiredFields = false
+  ;
+
+  SyncAzureAdToDbReply._() : super();
+  factory SyncAzureAdToDbReply({
+    $core.String? message,
+  }) {
+    final _result = create();
+    if (message != null) {
+      _result.message = message;
+    }
+    return _result;
+  }
+  factory SyncAzureAdToDbReply.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory SyncAzureAdToDbReply.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  SyncAzureAdToDbReply clone() => SyncAzureAdToDbReply()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  SyncAzureAdToDbReply copyWith(void Function(SyncAzureAdToDbReply) updates) => super.copyWith((message) => updates(message as SyncAzureAdToDbReply)) as SyncAzureAdToDbReply; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static SyncAzureAdToDbReply create() => SyncAzureAdToDbReply._();
+  SyncAzureAdToDbReply createEmptyInstance() => create();
+  static $pb.PbList<SyncAzureAdToDbReply> createRepeated() => $pb.PbList<SyncAzureAdToDbReply>();
+  @$core.pragma('dart2js:noInline')
+  static SyncAzureAdToDbReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<SyncAzureAdToDbReply>(create);
+  static SyncAzureAdToDbReply? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get message => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set message($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasMessage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearMessage() => clearField(1);
+}
+
 class GetPlayerByIdRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPlayerByIdRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerId', protoName: 'playerId')

@@ -21,7 +21,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     return state.firstWhere((player) => player.id == id);
   }
 
-  Future<DataState<List<PlayerModel>>> fetchPlayers() async {
+  Future<List<PlayerModel>> fetchPlayers() async {
     final response = await getPlayers(params: EmptyParams());
 
     List<PlayerModel> players = [];
@@ -29,9 +29,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     if (response is DataSuccess) {
       players = response.data!;
     }
+
     state = players;
 
-    return response;
+    return state;
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {
@@ -58,6 +59,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByLosses(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (b.loss).compareTo(a.loss))
         : state.sort((a, b) => (a.loss).compareTo(b.loss));
@@ -65,6 +67,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByWins(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (b.win).compareTo(a.win))
         : state.sort((a, b) => (a.win).compareTo(b.win));
@@ -72,6 +75,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByPlayed(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (b.win + b.loss).compareTo(a.win + a.loss))
         : state.sort((a, b) => (a.win + a.loss).compareTo(b.win + b.loss));
@@ -79,6 +83,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByName(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (a.nickname).compareTo(b.nickname))
         : state.sort((a, b) => (b.nickname).compareTo(a.nickname));
@@ -87,7 +92,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
 }
 
 final playersProvider =
-    StateNotifierProvider.autoDispose<PlayersNotifier, List<PlayerModel>>(
+    StateNotifierProvider<PlayersNotifier, List<PlayerModel>>(
         (ref) => PlayersNotifier(getIt<GetPlayers>(), getIt<AddPlayer>()));
 
 final rankingSortingTypeProvider =
