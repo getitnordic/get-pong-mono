@@ -10,6 +10,7 @@ service PlayerService{
   rpc GetPlayers (GetPlayersRequest) returns (GetPlayersReply) {}
   rpc GetPlayerById (GetPlayerByIdRequest) returns (GetPlayerByIdReply) {}
   rpc UpdatePlayer (UpdatePlayerRequest) returns (UpdatePlayerReply) {}
+  rpc SyncAzureAdToDb(SyncAzureAdToDbRequest) returns (SyncAzureAdToDbReply){}
 }
 
 // Register
@@ -32,13 +33,21 @@ message GetPlayersReply {
   repeated base.PlayerModel playerModel = 1;
 }
 
+// Sync AzureAD users to DB
+message SyncAzureAdToDbRequest{
+
+}
+message SyncAzureAdToDbReply{
+  string message = 1;
+}
+
 // Get player by id
 message GetPlayerByIdRequest {
   string playerId = 1;
 }
 
 message GetPlayerByIdReply {
-  base.PlayerModel playerModel= 1;
+  base.PlayerModel playerModel = 1;
 }
 
 // Update players
