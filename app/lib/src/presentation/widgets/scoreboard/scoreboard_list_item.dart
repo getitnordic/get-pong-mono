@@ -113,7 +113,7 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
                     child: Text(
-                      match.sets[1].awayTeam.toString(),
+                      match.sets[0].awayTeam.toString(),
                       style: const TextStyle(
                           fontSize: 12,
                           color: ColorConstants.textColor,

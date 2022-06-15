@@ -40,9 +40,31 @@ class Customtheme {
       progressIndicatorTheme: const ProgressIndicatorThemeData(
         color: ColorConstants.secondaryTextColor,
       ),
-      cardTheme: const CardTheme(
-        color: ColorConstants.appBarColor,
-        elevation: 200,
+      inputDecorationTheme: InputDecorationTheme(
+        focusedBorder: myFormBorder(),
+        enabledBorder: myFormBorder(),
+        labelStyle: const TextStyle(color: ColorConstants.formColor),
+        border: const OutlineInputBorder(),
+        errorBorder: myErrorFormBorder(),
+        focusedErrorBorder: myErrorFormBorder(),
+      ),
+    );
+  }
+
+  static OutlineInputBorder myFormBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(
+        color: ColorConstants.formColor,
+      ),
+    );
+  }
+
+  static OutlineInputBorder myErrorFormBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: const BorderSide(
+        color: Colors.red,
       ),
     );
   }
