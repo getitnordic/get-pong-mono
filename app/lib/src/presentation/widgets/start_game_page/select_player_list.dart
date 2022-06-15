@@ -29,23 +29,9 @@ class _SelectPlayerListState extends State<SelectPlayerList> {
 
   void filterPlayers(String query) {
     if (query.isNotEmpty) {
-      for (final p in widget.players) {
-        if (p.firstName.isNotEmpty) {
-          if (p.firstName.toLowerCase().contains(query.toLowerCase())) {
-            players.add(p);
-          }
-        }
-        if (p.lastName.isNotEmpty) {
-          if (p.lastName.toLowerCase().contains(query.toLowerCase())) {
-            players.add(p);
-          }
-        }
-        if (p.nickname.isNotEmpty) {
-          if (p.nickname.toLowerCase().contains(query.toLowerCase())) {
-            players.add(p);
-          }
-        }
-      }
+      players = players
+          .where((p) => p.firstName.toLowerCase().contains(query.toLowerCase()))
+          .toList();
     } else {
       players = widget.players;
     }

@@ -48,6 +48,23 @@ const GetPlayersReply$json = const {
 
 /// Descriptor for `GetPlayersReply`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getPlayersReplyDescriptor = $convert.base64Decode('Cg9HZXRQbGF5ZXJzUmVwbHkSMwoLcGxheWVyTW9kZWwYASADKAsyES5iYXNlLlBsYXllck1vZGVsUgtwbGF5ZXJNb2RlbA==');
+@$core.Deprecated('Use syncAzureAdToDbRequestDescriptor instead')
+const SyncAzureAdToDbRequest$json = const {
+  '1': 'SyncAzureAdToDbRequest',
+};
+
+/// Descriptor for `SyncAzureAdToDbRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List syncAzureAdToDbRequestDescriptor = $convert.base64Decode('ChZTeW5jQXp1cmVBZFRvRGJSZXF1ZXN0');
+@$core.Deprecated('Use syncAzureAdToDbReplyDescriptor instead')
+const SyncAzureAdToDbReply$json = const {
+  '1': 'SyncAzureAdToDbReply',
+  '2': const [
+    const {'1': 'message', '3': 1, '4': 1, '5': 9, '10': 'message'},
+  ],
+};
+
+/// Descriptor for `SyncAzureAdToDbReply`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List syncAzureAdToDbReplyDescriptor = $convert.base64Decode('ChRTeW5jQXp1cmVBZFRvRGJSZXBseRIYCgdtZXNzYWdlGAEgASgJUgdtZXNzYWdl');
 @$core.Deprecated('Use getPlayerByIdRequestDescriptor instead')
 const GetPlayerByIdRequest$json = const {
   '1': 'GetPlayerByIdRequest',

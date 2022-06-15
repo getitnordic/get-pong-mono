@@ -34,12 +34,13 @@ const PlayerModel$json = const {
     const {'1': 'win', '3': 8, '4': 1, '5': 5, '10': 'win'},
     const {'1': 'loss', '3': 9, '4': 1, '5': 5, '10': 'loss'},
     const {'1': 'totalScore', '3': 10, '4': 1, '5': 5, '10': 'totalScore'},
-    const {'1': 'streakEnum', '3': 11, '4': 1, '5': 14, '6': '.base.StreakEnum', '10': 'streakEnum'},
+    const {'1': 'azureAdId', '3': 11, '4': 1, '5': 9, '10': 'azureAdId'},
+    const {'1': 'streakEnum', '3': 12, '4': 1, '5': 14, '6': '.base.StreakEnum', '10': 'streakEnum'},
   ],
 };
 
 /// Descriptor for `PlayerModel`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List playerModelDescriptor = $convert.base64Decode('CgtQbGF5ZXJNb2RlbBIOCgJpZBgBIAEoCVICaWQSHAoJZmlyc3ROYW1lGAIgASgJUglmaXJzdE5hbWUSGgoIbGFzdE5hbWUYAyABKAlSCGxhc3ROYW1lEhoKCG5pY2tuYW1lGAQgASgJUghuaWNrbmFtZRIaCghpbWFnZVVybBgFIAEoCVIIaW1hZ2VVcmwSFAoFZW1haWwYBiABKAlSBWVtYWlsEhYKBnN0cmVhaxgHIAEoBVIGc3RyZWFrEhAKA3dpbhgIIAEoBVIDd2luEhIKBGxvc3MYCSABKAVSBGxvc3MSHgoKdG90YWxTY29yZRgKIAEoBVIKdG90YWxTY29yZRIwCgpzdHJlYWtFbnVtGAsgASgOMhAuYmFzZS5TdHJlYWtFbnVtUgpzdHJlYWtFbnVt');
+final $typed_data.Uint8List playerModelDescriptor = $convert.base64Decode('CgtQbGF5ZXJNb2RlbBIOCgJpZBgBIAEoCVICaWQSHAoJZmlyc3ROYW1lGAIgASgJUglmaXJzdE5hbWUSGgoIbGFzdE5hbWUYAyABKAlSCGxhc3ROYW1lEhoKCG5pY2tuYW1lGAQgASgJUghuaWNrbmFtZRIaCghpbWFnZVVybBgFIAEoCVIIaW1hZ2VVcmwSFAoFZW1haWwYBiABKAlSBWVtYWlsEhYKBnN0cmVhaxgHIAEoBVIGc3RyZWFrEhAKA3dpbhgIIAEoBVIDd2luEhIKBGxvc3MYCSABKAVSBGxvc3MSHgoKdG90YWxTY29yZRgKIAEoBVIKdG90YWxTY29yZRIcCglhenVyZUFkSWQYCyABKAlSCWF6dXJlQWRJZBIwCgpzdHJlYWtFbnVtGAwgASgOMhAuYmFzZS5TdHJlYWtFbnVtUgpzdHJlYWtFbnVt');
 @$core.Deprecated('Use setModelDescriptor instead')
 const SetModel$json = const {
   '1': 'SetModel',
