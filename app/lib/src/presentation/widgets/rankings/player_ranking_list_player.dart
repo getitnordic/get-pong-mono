@@ -31,8 +31,8 @@ class PlayerRankingListPlayer extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    player.firstName.length > 20
-                        ? player.firstName.substring(0, 20)
+                    player.firstName.length > 18
+                        ? player.firstName.substring(0, 18)
                         : player.firstName,
                     style: const TextStyle(
                         fontSize: 14,
