@@ -11,6 +11,13 @@ final playersProvider = StateNotifierProvider
     .autoDispose<PlayersNotifier, List<PlayerModel>>((ref) =>
         PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>()));
 
+final rankingSortingTypeProvider =
+    StateProvider.autoDispose<bool>((ref) => true);
+final rankingPressedLastProvider =
+    StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
+final matchTypeProvider =
+    StateProvider.autoDispose<MatchType>((ref) => MatchType.none);
+
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final GetPlayersUseCase getPlayersUseCase;
   final AddPlayerUseCase registerNewPlayerUseCase;
@@ -38,6 +45,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     if (response is DataSuccess) {
       players = response.data!;
     }
+
     state = players;
   }
 
@@ -65,6 +73,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByLosses(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (b.loss).compareTo(a.loss))
         : state.sort((a, b) => (a.loss).compareTo(b.loss));
@@ -72,6 +81,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByWins(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (b.win).compareTo(a.win))
         : state.sort((a, b) => (a.win).compareTo(b.win));
@@ -79,6 +89,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByPlayed(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (b.win + b.loss).compareTo(a.win + a.loss))
         : state.sort((a, b) => (a.win + a.loss).compareTo(b.win + b.loss));
@@ -86,16 +97,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   void _sortByName(bool sortHighToLow) {
+    print('Length: ${state.length}');
     sortHighToLow
         ? state.sort((a, b) => (a.nickname).compareTo(b.nickname))
         : state.sort((a, b) => (b.nickname).compareTo(a.nickname));
     state = [...state];
   }
 }
-
-final rankingSortingTypeProvider =
-    StateProvider.autoDispose<bool>((ref) => true);
-final rankingPressedLastProvider =
-    StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
-final matchTypeProvider =
-    StateProvider.autoDispose<MatchType>((ref) => MatchType.none);

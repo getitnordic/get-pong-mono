@@ -23,18 +23,16 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
 
     public List<Player> Handle()
     {
-        
         var users = _azureClient.getAzureClient();
 
-        List<Player> listOfPlayers = new List<Player>();
+        List<Player> listOfUsers = new List<Player>();
         foreach (var user in users)
         {
-            listOfPlayers.Add(new Player()
+            listOfUsers.Add(new Player()
             {
                 FirstName = user.DisplayName,
                 Email = "mailen",
                 AzureAdId = user.Id,
-                    
                 LastName = "lastname",
                 Nickname = "nickname",
                 ImageUrl = "",
@@ -47,14 +45,33 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
             });
         }
 
-        foreach (var player in listOfPlayers)
+        var PlayersInMongoDb = _playerRepository.GetPlayers();
+        bool isAdUserAlreadyInDb = false;
+
+        foreach (var player in listOfUsers)
         {
-            // TODO: Add check if AD user is already in mongoDB
-            // If present -> DON'T add to DB
-            // Else Add to DB
-            _playerRepository.RegisterPlayer(player);
+            foreach (var playerInMongoDb in PlayersInMongoDb)
+            {
+                if (playerInMongoDb.AzureAdId.Equals(player.AzureAdId))
+                {
+                    isAdUserAlreadyInDb = true;
+                }
+            }
+
+            if (!isAdUserAlreadyInDb)
+            {
+                _playerRepository.RegisterPlayer(player);
+                // TODO: Exchange Console.Writeline with real logging in the future
+                Console.WriteLine(player.FirstName + " added to mongo player collection");
+            }
+            else
+            {
+                // TODO: logging here fore users already exists in DB);
+            }
+
+            isAdUserAlreadyInDb = false;
         }
         
-        return listOfPlayers;
+        return listOfUsers;
     }
 }
