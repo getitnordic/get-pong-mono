@@ -23,7 +23,6 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
 
     public List<Player> Handle()
     {
-        
         var users = _azureClient.getAzureClient();
 
         List<Player> listOfUsers = new List<Player>();
@@ -48,8 +47,7 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
 
         var PlayersInMongoDb = _playerRepository.GetPlayers();
         bool isAdUserAlreadyInDb = false;
-        int testingInt = 1;
-        
+
         foreach (var player in listOfUsers)
         {
             foreach (var playerInMongoDb in PlayersInMongoDb)
@@ -68,8 +66,7 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
             }
             else
             {
-                // TODO: Exchange this with logging aswell; Console.WriteLine("Users already in db: " + testingInt);
-                testingInt++;
+                // TODO: logging here fore users already exists in DB);
             }
 
             isAdUserAlreadyInDb = false;
