@@ -29,7 +29,8 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
           .watch(playersProvider.notifier)
           .getPlayerById(match.awayTeamIds[1]);
     }
-
+    if (homeTeamOne == null || awayTeamOne == null)
+      return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomSmallContainer(

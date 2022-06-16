@@ -7,15 +7,16 @@ import 'package:get_pong/src/core/common/common.dart';
 
 import '../../domain/use_cases/use_cases.dart';
 
-final playersProvider =
-    StateNotifierProvider.autoDispose<PlayersNotifier, List<PlayerModel>>(
-        (ref) => PlayersNotifier(getIt<GetPlayers>(), getIt<AddPlayer>()));
+final playersProvider = StateNotifierProvider
+    .autoDispose<PlayersNotifier, List<PlayerModel>>((ref) =>
+        PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>()));
 
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
-  final GetPlayers getPlayers;
-  final AddPlayer registerNewPlayer;
+  final GetPlayersUseCase getPlayersUseCase;
+  final AddPlayerUseCase registerNewPlayerUseCase;
 
-  PlayersNotifier(this.getPlayers, this.registerNewPlayer) : super([]);
+  PlayersNotifier(this.getPlayersUseCase, this.registerNewPlayerUseCase)
+      : super([]);
 
   void addPlayer(PlayerModel player) {
     state = [...state, player];
@@ -26,8 +27,11 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
         orElse: () => BlankPlayerModel.player);
   }
 
-  Future<DataState<List<PlayerModel>>> fetchPlayers() async {
-    final response = await getPlayers(params: EmptyParams());
+  Future<void> fetchPlayers() async {
+    if (state.isNotEmpty) {
+      return;
+    }
+    final response = await getPlayersUseCase(params: EmptyParams());
 
     List<PlayerModel> players = [];
 
@@ -35,12 +39,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
       players = response.data!;
     }
     state = players;
-
-    return response;
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {
-    return await registerNewPlayer(params: player);
+    return await registerNewPlayerUseCase(params: player);
   }
 
   void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {

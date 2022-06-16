@@ -7,11 +7,11 @@ import '../../core/common/common.dart';
 import '../../domain/use_cases/use_cases.dart';
 
 final matchProvider = StateNotifierProvider<MatchNotifier, List<GameModel>>(
-    (ref) => MatchNotifier(getIt<GetGames>(), getIt<SaveGame>()));
+    (ref) => MatchNotifier(getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>()));
 
 class MatchNotifier extends StateNotifier<List<GameModel>> {
-  final GetGames getGames;
-  final SaveGame saveGame;
+  final GetGamesUseCase getGames;
+  final SaveGameUseCase saveGame;
 
   MatchNotifier(this.getGames, this.saveGame) : super([]);
 

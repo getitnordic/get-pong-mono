@@ -3,10 +3,10 @@ import 'package:get_pong/src/core/common/common.dart';
 
 import '../../clients/game_repository.dart';
 
-class SaveGame implements UseCase<DataState<String>, GameModel> {
+class SaveGameUseCase implements UseCase<DataState<String>, GameModel> {
   final GameRepository service;
 
-  SaveGame(this.service);
+  SaveGameUseCase(this.service);
 
   @override
   Future<DataState<String>> call({required GameModel params}) async {
