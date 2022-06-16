@@ -14,6 +14,8 @@ namespace GetPong.Core.Infrastructure.Repositories
         Task<Player> GetPlayerById(string playerId);
 
         Task<Player> UpdatePlayer(string playerId, AddPlayerCommand addPlayerCommand);
-        
+
+        void UpdateScoreOfPlayer(string playerId, bool didPlayerWin);
+
     }
 }
