@@ -23,10 +23,10 @@ class CreateSingleGame extends ConsumerWidget {
         selected[0].nickname.isNotEmpty && selected[1].nickname.isNotEmpty;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 160),
+          padding: const EdgeInsets.only(top: 10),
           child: Column(
             children: [
               CustomSmallContainer(
@@ -111,7 +111,7 @@ class CreateSingleGame extends ConsumerWidget {
         SizedBox(
           width: 300,
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 50),
+            padding: const EdgeInsets.only(bottom: 10),
             child: ElevatedButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

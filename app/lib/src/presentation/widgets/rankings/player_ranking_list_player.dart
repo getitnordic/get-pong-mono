@@ -14,33 +14,35 @@ class PlayerRankingListPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(12),
+        Expanded(
           child: Padding(
-            padding: const EdgeInsets.only(top: 3),
-            child: Row(
-              children: [
-                Text(
-                  (index + 1).toString(),
-                  style: const TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10),
-                  child: Text(
-                    player.firstName.length > 18
-                        ? player.firstName.substring(0, 18)
-                        : player.firstName,
+            padding: const EdgeInsets.all(12),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 3),
+              child: Row(
+                children: [
+                  Text(
+                    (index + 1).toString(),
                     style: const TextStyle(
-                        fontSize: 14,
-                        color: ColorConstants.textColor,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        player.firstName,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontSize: 14,
+                            color: ColorConstants.textColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

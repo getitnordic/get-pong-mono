@@ -65,7 +65,7 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
               indicatorColor: ColorConstants.primaryColor,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height - 300,
+              height: 400,
               child: TabBarView(controller: tabController, children: const [
                 CreateSingleGame(),
                 CreateDoubleGame(),
