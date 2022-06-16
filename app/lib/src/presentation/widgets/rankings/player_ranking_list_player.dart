@@ -25,15 +25,17 @@ class PlayerRankingListPlayer extends StatelessWidget {
                 Text(
                   (index + 1).toString(),
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 10),
                   child: Text(
-                    player.nickname,
+                    player.firstName.length > 20
+                        ? player.firstName.substring(0, 20)
+                        : player.firstName,
                     style: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         color: ColorConstants.textColor,
                         fontWeight: FontWeight.bold),
                   ),

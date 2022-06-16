@@ -57,12 +57,12 @@ class ScorePage extends ConsumerWidget {
             ),
           ],
         );
-        matchesNotifier.addMatch(match);
+        matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       } else {
         GameModel match = GameModel(
           homeTeamIds: [playerOne.id],
-          awayTeamIds: [playerThree.id],
+          awayTeamIds: [playerTwo.id],
           sets: [
             SetModel(
               setNo: 1,
@@ -71,7 +71,7 @@ class ScorePage extends ConsumerWidget {
             ),
           ],
         );
-        matchesNotifier.addMatch(match);
+        matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       }
     }

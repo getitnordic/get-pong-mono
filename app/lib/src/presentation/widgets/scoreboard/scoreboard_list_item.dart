@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/constants/color_constants.dart';
+import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/protos/game.pbgrpc.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
+import 'package:get_pong/src/core/common/common.dart';
 import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
 class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
@@ -13,6 +15,20 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDouble = match.homeTeamIds.length == 2;
+    final homeTeamOne =
+        ref.watch(playersProvider.notifier).getPlayerById(match.homeTeamIds[0]);
+    final awayTeamOne =
+        ref.watch(playersProvider.notifier).getPlayerById(match.awayTeamIds[0]);
+    PlayerModel homeTeamTwo = BlankPlayerModel.player;
+    PlayerModel awayTeamTwo = BlankPlayerModel.player;
+    if (isDouble) {
+      homeTeamTwo = ref
+          .watch(playersProvider.notifier)
+          .getPlayerById(match.homeTeamIds[1]);
+      awayTeamTwo = ref
+          .watch(playersProvider.notifier)
+          .getPlayerById(match.awayTeamIds[1]);
+    }
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -34,10 +50,9 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                       Row(
                         children: [
                           Text(
-                            ref
-                                .watch(playersProvider.notifier)
-                                .getPlayerById(match.homeTeamIds[0])
-                                .firstName,
+                            homeTeamOne.firstName.length > 14
+                                ? homeTeamOne.firstName.substring(0, 14)
+                                : homeTeamOne.firstName,
                             style: const TextStyle(
                               fontSize: 12,
                               color: ColorConstants.textColor,
@@ -47,10 +62,8 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                             padding: const EdgeInsets.only(left: 10),
                             child: CircleAvatar(
                               radius: 12.0,
-                              backgroundImage: NetworkImage(setImage(ref
-                                  .watch(playersProvider.notifier)
-                                  .getPlayerById(match.homeTeamIds[0])
-                                  .imageUrl)),
+                              backgroundImage:
+                                  NetworkImage(setImage(homeTeamOne.imageUrl)),
                             ),
                           ),
                         ],
@@ -59,10 +72,9 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                         Row(
                           children: [
                             Text(
-                              ref
-                                  .watch(playersProvider.notifier)
-                                  .getPlayerById(match.homeTeamIds[1])
-                                  .firstName,
+                              homeTeamTwo.firstName.length > 14
+                                  ? homeTeamTwo.firstName.substring(0, 14)
+                                  : homeTeamTwo.firstName,
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: ColorConstants.textColor,
@@ -72,10 +84,8 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                               padding: const EdgeInsets.only(left: 10),
                               child: CircleAvatar(
                                 radius: 12.0,
-                                backgroundImage: NetworkImage(setImage(ref
-                                    .watch(playersProvider.notifier)
-                                    .getPlayerById(match.homeTeamIds[1])
-                                    .imageUrl)),
+                                backgroundImage: NetworkImage(
+                                    setImage(homeTeamTwo.imageUrl)),
                               ),
                             ),
                           ],
@@ -130,17 +140,14 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                             padding: const EdgeInsets.only(right: 10),
                             child: CircleAvatar(
                               radius: 12.0,
-                              backgroundImage: NetworkImage(setImage(ref
-                                  .watch(playersProvider.notifier)
-                                  .getPlayerById(match.awayTeamIds[0])
-                                  .imageUrl)),
+                              backgroundImage:
+                                  NetworkImage(setImage(awayTeamOne.imageUrl)),
                             ),
                           ),
                           Text(
-                            ref
-                                .watch(playersProvider.notifier)
-                                .getPlayerById(match.awayTeamIds[0])
-                                .firstName,
+                            awayTeamOne.firstName.length > 14
+                                ? awayTeamOne.firstName.substring(0, 14)
+                                : awayTeamOne.firstName,
                             style: const TextStyle(
                               fontSize: 11,
                               color: ColorConstants.textColor,
@@ -155,17 +162,14 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                               padding: const EdgeInsets.only(right: 10),
                               child: CircleAvatar(
                                 radius: 12.0,
-                                backgroundImage: NetworkImage(setImage(ref
-                                    .watch(playersProvider.notifier)
-                                    .getPlayerById(match.awayTeamIds[1])
-                                    .imageUrl)),
+                                backgroundImage: NetworkImage(
+                                    setImage(awayTeamTwo.imageUrl)),
                               ),
                             ),
                             Text(
-                              ref
-                                  .watch(playersProvider.notifier)
-                                  .getPlayerById(match.awayTeamIds[0])
-                                  .firstName,
+                              awayTeamTwo.firstName.length > 14
+                                  ? awayTeamTwo.firstName.substring(0, 14)
+                                  : awayTeamTwo.firstName,
                               style: const TextStyle(
                                 fontSize: 11,
                                 color: ColorConstants.textColor,

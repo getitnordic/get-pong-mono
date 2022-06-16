@@ -7,6 +7,10 @@ import 'package:get_pong/src/core/common/common.dart';
 
 import '../../domain/use_cases/use_cases.dart';
 
+final playersProvider =
+    StateNotifierProvider.autoDispose<PlayersNotifier, List<PlayerModel>>(
+        (ref) => PlayersNotifier(getIt<GetPlayers>(), getIt<AddPlayer>()));
+
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final GetPlayers getPlayers;
   final AddPlayer registerNewPlayer;
@@ -18,7 +22,8 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   PlayerModel getPlayerById(String id) {
-    return state.firstWhere((player) => player.id == id);
+    return state.firstWhere((p) => p.id == id,
+        orElse: () => BlankPlayerModel.player);
   }
 
   Future<DataState<List<PlayerModel>>> fetchPlayers() async {
@@ -85,10 +90,6 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     state = [...state];
   }
 }
-
-final playersProvider =
-    StateNotifierProvider.autoDispose<PlayersNotifier, List<PlayerModel>>(
-        (ref) => PlayersNotifier(getIt<GetPlayers>(), getIt<AddPlayer>()));
 
 final rankingSortingTypeProvider =
     StateProvider.autoDispose<bool>((ref) => true);
