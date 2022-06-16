@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/big_avatar.dart';
-import 'package:get_pong/src/Presentation/widgets/scoreboard/player_profile_list_item.dart';
 import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
 import '../widgets/widgets.dart';
@@ -55,19 +53,18 @@ class ProfilePage extends ConsumerWidget with SetProfileImageMixin {
               ),
             ),
           ),
-          Flexible(
-            child: ListView.builder(
-                itemCount: ref
-                    .watch(singleMatchProvider.notifier)
-                    .getMatchesByPlayerId(player.id)
-                    .length,
-                itemBuilder: (context, index) {
-                  return PlayerProfileListItem(
-                      match: ref
-                          .watch(singleMatchProvider.notifier)
-                          .getMatchesByPlayerId(player.id)[index]);
-                }),
-          ),
+          // Flexible(
+          //   child: ListView.builder(
+          //       itemCount: ref
+          //           .watch(matchProvider.notifier)
+          //           .getMatchesByPlayerId(player.id),
+          //       itemBuilder: (context, index) {
+          //         return PlayerProfileListItem(
+          //             match: ref
+          //                 .watch(matchProvider.notifier)
+          //                 .getMatchesByPlayerId(player.id)[index]);
+          //       }),
+          // ),
         ],
       ),
     );

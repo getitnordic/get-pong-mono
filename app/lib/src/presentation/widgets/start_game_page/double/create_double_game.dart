@@ -42,18 +42,18 @@ class CreateDoubleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerOne,
                     );
                   },
-                  child: selected[0].nickname.isEmpty
+                  child: selected[0].firstName.isEmpty
                       ? Text(
                           'Select player 1',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[0].id)
-                              .nickname,
+                              .firstName,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         ),
                 ),
               ),
@@ -70,18 +70,18 @@ class CreateDoubleGame extends ConsumerWidget {
                         arguments: PlayerSelectChoice.playerTwo,
                       );
                     },
-                    child: selected[1].nickname.isEmpty
+                    child: selected[1].firstName.isEmpty
                         ? Text(
                             'Select player 2',
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: ColorConstants.textColor),
+                                fontSize: 18, color: ColorConstants.textColor),
                           )
                         : Text(
                             playersNotifier
                                 .getPlayerById(selected[1].id)
-                                .nickname,
+                                .firstName,
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: ColorConstants.textColor),
+                                fontSize: 18, color: ColorConstants.textColor),
                           ),
                   ),
                 ),
@@ -121,18 +121,18 @@ class CreateDoubleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerThree,
                     );
                   },
-                  child: selected[2].nickname.isEmpty
+                  child: selected[2].firstName.isEmpty
                       ? Text(
                           'Select player 3',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[2].id)
-                              .nickname,
+                              .firstName,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         ),
                 ),
               ),
@@ -149,18 +149,18 @@ class CreateDoubleGame extends ConsumerWidget {
                         arguments: PlayerSelectChoice.playerFour,
                       );
                     },
-                    child: selected[3].nickname.isEmpty
+                    child: selected[3].firstName.isEmpty
                         ? Text(
                             'Select player 4',
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: ColorConstants.textColor),
+                                fontSize: 18, color: ColorConstants.textColor),
                           )
                         : Text(
                             playersNotifier
                                 .getPlayerById(selected[3].id)
-                                .nickname,
+                                .firstName,
                             style: GoogleFonts.goldman(
-                                fontSize: 20, color: ColorConstants.textColor),
+                                fontSize: 18, color: ColorConstants.textColor),
                           ),
                   ),
                 ),

@@ -1,26 +1,52 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/domain/models/game.dart';
+import 'package:get_pong/protos/game.pbgrpc.dart';
+import 'package:get_pong/register_services.dart';
+import 'package:get_pong/src/core/models/get_games_params.dart';
 
-class MatchNotifier extends StateNotifier<List<Game>> {
-  MatchNotifier() : super([]);
+import '../../core/common/common.dart';
+import '../../domain/use_cases/use_cases.dart';
 
-  void addMatch(Game match) {
+final matchProvider = StateNotifierProvider<MatchNotifier, List<GameModel>>(
+    (ref) => MatchNotifier(getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>()));
+
+class MatchNotifier extends StateNotifier<List<GameModel>> {
+  final GetGamesUseCase getGames;
+  final SaveGameUseCase saveGame;
+
+  MatchNotifier(this.getGames, this.saveGame) : super([]);
+
+  void addMatch(GameModel match) {
     state = [...state, match];
   }
 
-  List<Game> getMatchesByPlayerId(String id) {
-    List<Game> matches = [];
-    for (Game match in state) {
-      if (match.teamOne[0].id == id) {
+  Future<DataState<List<GameModel>>> fetchGames() async {
+    final response =
+        await getGames(params: GetGamesParams(offset: 0, limit: 100));
+
+    List<GameModel> games = [];
+
+    if (response is DataSuccess) {
+      games = response.data!;
+    }
+    state = games;
+
+    return response;
+  }
+
+  Future<DataState<String>> createGame(GameModel game) async {
+    return await saveGame(params: game);
+  }
+
+  List<GameModel> getMatchesByPlayerId(String id) {
+    List<GameModel> matches = [];
+    for (GameModel match in state) {
+      if (match.homeTeamIds[0] == id) {
         matches.add(match);
       }
-      if (match.teamTwo[0].id == id) {
+      if (match.awayTeamIds[0] == id) {
         matches.add(match);
       }
     }
     return matches;
   }
 }
-
-final singleMatchProvider =
-    StateNotifierProvider<MatchNotifier, List<Game>>((ref) => MatchNotifier());

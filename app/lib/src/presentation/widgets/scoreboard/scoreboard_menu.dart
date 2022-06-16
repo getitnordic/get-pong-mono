@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
-import 'package:get_pong/src/Presentation/widgets/scoreboard/game_list_view.dart';
 
 class ScoreboardMenu extends ConsumerStatefulWidget {
   const ScoreboardMenu({
@@ -54,7 +53,7 @@ class _ScoreboardMenuState extends ConsumerState<ScoreboardMenu>
           child: TabBarView(controller: tabController, children: const [
             Padding(
               padding: EdgeInsets.only(top: 10),
-              child: GameListView(),
+              child: Text('GameListView'),
             ),
             Center(child: Text('Doubles')),
             Center(child: Text('Roundhouse')),

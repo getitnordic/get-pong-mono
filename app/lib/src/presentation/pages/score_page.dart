@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/protos/base.pb.dart';
+import 'package:get_pong/protos/game.pbgrpc.dart';
 import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
@@ -12,7 +13,6 @@ import 'package:get_pong/src/Presentation/widgets/score_page/my_add_result_form.
 import 'package:get_pong/src/Presentation/widgets/score_page/result_card_container.dart';
 import 'package:get_pong/src/Presentation/widgets/score_page/result_card_double.dart';
 import 'package:get_pong/src/Presentation/widgets/score_page/result_card_single.dart';
-import 'package:get_pong/src/domain/models/game.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ScorePage extends ConsumerWidget {
@@ -25,7 +25,7 @@ class ScorePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final matchesNotifier = ref.watch(singleMatchProvider.notifier);
+    final matchesNotifier = ref.watch(matchProvider.notifier);
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selectedPlayersNotifier = ref.watch(selectedProvider.notifier);
     final matchType = ref.watch(matchTypeProvider);
@@ -46,22 +46,32 @@ class ScorePage extends ConsumerWidget {
 
     void saveNewMatch() {
       if (selectedPlayers[2].nickname.isNotEmpty) {
-        Game match = Game(
-          teamOne: [playerOne, playerTwo],
-          teamTwo: [playerThree, playerFour],
-          teamOneScore: scoreOne.toInt(),
-          teamTwoScore: scoreTwo.toInt(),
+        GameModel match = GameModel(
+          homeTeamIds: [playerOne.id, playerTwo.id],
+          awayTeamIds: [playerThree.id, playerFour.id],
+          sets: [
+            SetModel(
+              setNo: 1,
+              homeTeam: scoreOne.toInt(),
+              awayTeam: scoreTwo.toInt(),
+            ),
+          ],
         );
-        matchesNotifier.addMatch(match);
+        matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       } else {
-        Game match = Game(
-          teamOne: [playerOne],
-          teamTwo: [playerTwo],
-          teamOneScore: scoreOne.toInt(),
-          teamTwoScore: scoreTwo.toInt(),
+        GameModel match = GameModel(
+          homeTeamIds: [playerOne.id],
+          awayTeamIds: [playerTwo.id],
+          sets: [
+            SetModel(
+              setNo: 1,
+              homeTeam: scoreOne.toInt(),
+              awayTeam: scoreTwo.toInt(),
+            ),
+          ],
         );
-        matchesNotifier.addMatch(match);
+        matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       }
     }

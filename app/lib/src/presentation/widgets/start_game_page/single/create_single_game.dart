@@ -40,18 +40,18 @@ class CreateSingleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerOne,
                     );
                   },
-                  child: selected[0].nickname.isEmpty
+                  child: selected[0].firstName.isEmpty
                       ? Text(
                           'Select player 1',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[0].id)
-                              .nickname,
+                              .firstName,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         ),
                 ),
               ),
@@ -90,18 +90,18 @@ class CreateSingleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerTwo,
                     );
                   },
-                  child: selected[1].nickname.isEmpty
+                  child: selected[1].firstName.isEmpty
                       ? Text(
                           'Select player 2',
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         )
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[1].id)
-                              .nickname,
+                              .firstName,
                           style: GoogleFonts.goldman(
-                              fontSize: 20, color: ColorConstants.textColor),
+                              fontSize: 18, color: ColorConstants.textColor),
                         ),
                 ),
               ),

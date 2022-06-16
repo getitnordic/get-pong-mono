@@ -7,22 +7,38 @@ import 'package:get_pong/src/core/common/common.dart';
 
 import '../../domain/use_cases/use_cases.dart';
 
-class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
-  final GetPlayers getPlayers;
-  final AddPlayer registerNewPlayer;
+final playersProvider = StateNotifierProvider
+    .autoDispose<PlayersNotifier, List<PlayerModel>>((ref) =>
+        PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>()));
 
-  PlayersNotifier(this.getPlayers, this.registerNewPlayer) : super([]);
+final rankingSortingTypeProvider =
+    StateProvider.autoDispose<bool>((ref) => true);
+final rankingPressedLastProvider =
+    StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
+final matchTypeProvider =
+    StateProvider.autoDispose<MatchType>((ref) => MatchType.none);
+
+class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
+  final GetPlayersUseCase getPlayersUseCase;
+  final AddPlayerUseCase registerNewPlayerUseCase;
+
+  PlayersNotifier(this.getPlayersUseCase, this.registerNewPlayerUseCase)
+      : super([]);
 
   void addPlayer(PlayerModel player) {
     state = [...state, player];
   }
 
   PlayerModel getPlayerById(String id) {
-    return state.firstWhere((player) => player.id == id);
+    return state.firstWhere((p) => p.id == id,
+        orElse: () => BlankPlayerModel.player);
   }
 
-  Future<List<PlayerModel>> fetchPlayers() async {
-    final response = await getPlayers(params: EmptyParams());
+  Future<void> fetchPlayers() async {
+    if (state.isNotEmpty) {
+      return;
+    }
+    final response = await getPlayersUseCase(params: EmptyParams());
 
     List<PlayerModel> players = [];
 
@@ -31,12 +47,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     }
 
     state = players;
-
-    return state;
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {
-    return await registerNewPlayer(params: player);
+    return await registerNewPlayerUseCase(params: player);
   }
 
   void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {
@@ -90,14 +104,3 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     state = [...state];
   }
 }
-
-final playersProvider =
-    StateNotifierProvider<PlayersNotifier, List<PlayerModel>>(
-        (ref) => PlayersNotifier(getIt<GetPlayers>(), getIt<AddPlayer>()));
-
-final rankingSortingTypeProvider =
-    StateProvider.autoDispose<bool>((ref) => true);
-final rankingPressedLastProvider =
-    StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
-final matchTypeProvider =
-    StateProvider.autoDispose<MatchType>((ref) => MatchType.none);

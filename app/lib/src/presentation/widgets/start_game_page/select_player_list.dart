@@ -43,14 +43,18 @@ class _SelectPlayerListState extends State<SelectPlayerList> {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-            child: TextField(
-              onChanged: (value) => setState(() {
-                filterPlayers(value);
-              }),
-              decoration: const InputDecoration(
-                labelText: 'Search',
-                suffixIcon: Icon(Icons.search, color: ColorConstants.formColor),
+            padding: const EdgeInsets.fromLTRB(8, 10, 8, 0),
+            child: SizedBox(
+              height: 50,
+              child: TextField(
+                onChanged: (value) => setState(() {
+                  filterPlayers(value);
+                }),
+                decoration: const InputDecoration(
+                  labelText: 'Search',
+                  suffixIcon:
+                      Icon(Icons.search, color: ColorConstants.formColor),
+                ),
               ),
             ),
           ),
