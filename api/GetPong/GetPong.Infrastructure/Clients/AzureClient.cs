@@ -23,7 +23,7 @@ public class AzureClient : IAzureClient
         var clientSecretCredential = new ClientSecretCredential(tenantId, clientId, clientSecret);
         var graphServiceClient = new GraphServiceClient(clientSecretCredential);
 
-        IGraphServiceUsersCollectionPage? users = graphServiceClient.Users.Request()
+        IGraphServiceUsersCollectionPage? users = graphServiceClient.Users.Request().Top(999)
             .Select(x => new { x.DisplayName, x.Mail, x.GivenName, x.Id }).GetAsync().Result;
 
         return users;
