@@ -28,6 +28,7 @@ namespace GetPong.Application
             
             // Helpers
             services.AddScoped<IHelper, Helper>();
+            services.AddScoped<IGameHelper, GameHelper>();
             
             //Clients
             services.AddScoped<IAzureClient, AzureClient>();

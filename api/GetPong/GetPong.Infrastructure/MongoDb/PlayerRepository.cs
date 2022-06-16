@@ -17,8 +17,8 @@ namespace GetPong.Infrastructure.MongoDb
     {
         private readonly IMongoCollection<BsonDocument> MongoCollection;
         private readonly IConfiguration _configuration;
-        
-        public PlayerRepository( IConfiguration configuration)
+
+        public PlayerRepository(IConfiguration configuration)
         {
             _configuration = configuration;
             var MongoClient = new MongoClient(_configuration["MongoDb:ConnectionString"]);
@@ -102,6 +102,52 @@ namespace GetPong.Infrastructure.MongoDb
                 AzureAdId = playerDoc.GetValue("azure_ad_id").ToString(),
                 StreakEnum = (StreakEnum) playerDoc.GetValue("streak_enum").ToInt32()
             };
+        }
+
+        public async void UpdateScoreOfPlayer(string playerId, bool didPlayerWin)
+        {
+            
+            var objectId = ObjectId.Parse(playerId);
+            var filter = Builders<BsonDocument>.Filter.Eq(d => d["_id"], objectId);
+            var getPlayer = await GetPlayerById(playerId);
+
+            BsonDocument playerDoc; 
+
+            if (didPlayerWin)
+            {
+                playerDoc = new BsonDocument()
+                    .Add("_id", ObjectId.Parse(playerId))
+                    .Add("first_name", getPlayer.FirstName)
+                    .Add("last_name", getPlayer.LastName)
+                    .Add("nickname", getPlayer.Nickname)
+                    .Add("email", getPlayer.Email)
+                    .Add("image_url", getPlayer.ImageUrl)
+                    .Add("streak", getPlayer.Streak)
+                    .Add("win", getPlayer.Win+1)
+                    .Add("loss", getPlayer.Loss)
+                    .Add("total_score", getPlayer.TotalScore+10)
+                    .Add("streak_enum", 1)
+                    .Add("azure_ad_id", getPlayer.AzureAdId);
+            }
+            else
+            {
+                playerDoc = new BsonDocument()
+                    .Add("_id", ObjectId.Parse(playerId))
+                    .Add("first_name", getPlayer.FirstName)
+                    .Add("last_name", getPlayer.LastName)
+                    .Add("nickname", getPlayer.Nickname)
+                    .Add("email", getPlayer.Email)
+                    .Add("image_url", getPlayer.ImageUrl)
+                    .Add("streak", getPlayer.Streak)
+                    .Add("win", getPlayer.Win)
+                    .Add("loss", getPlayer.Loss+1)
+                    .Add("total_score", getPlayer.TotalScore-10)
+                    .Add("streak_enum", 2)
+                    .Add("azure_ad_id", getPlayer.AzureAdId);
+            }
+                
+            
+            await MongoCollection.ReplaceOneAsync(filter, playerDoc);
         }
     }
 }
