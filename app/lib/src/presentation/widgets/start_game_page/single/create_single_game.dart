@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:get_pong/config/route/route.dart' as route;
 import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../providers/providers.dart';
 
 class CreateSingleGame extends ConsumerWidget {
   const CreateSingleGame({
@@ -33,6 +33,7 @@ class CreateSingleGame extends ConsumerWidget {
                 height: 50,
                 child: TextButton(
                   onPressed: () {
+                    ref.watch(playersProvider.notifier).fetchPlayers();
                     Navigator.pushNamed(
                       context,
                       route.playerListPage,

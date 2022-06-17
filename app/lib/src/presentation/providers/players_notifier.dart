@@ -7,9 +7,12 @@ import 'package:get_pong/src/core/common/common.dart';
 
 import '../../domain/use_cases/use_cases.dart';
 
-final playersProvider = StateNotifierProvider
-    .autoDispose<PlayersNotifier, List<PlayerModel>>((ref) =>
-        PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>()));
+final playersProvider =
+    StateNotifierProvider.autoDispose<PlayersNotifier, List<PlayerModel>>(
+        (ref) => PlayersNotifier(
+            getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>(), ref.read));
+
+final playersLoadingProvider = StateProvider<bool>((ref) => true);
 
 final rankingSortingTypeProvider =
     StateProvider.autoDispose<bool>((ref) => true);
@@ -21,8 +24,10 @@ final matchTypeProvider =
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final GetPlayersUseCase getPlayersUseCase;
   final AddPlayerUseCase registerNewPlayerUseCase;
+  final Reader read;
 
-  PlayersNotifier(this.getPlayersUseCase, this.registerNewPlayerUseCase)
+  PlayersNotifier(
+      this.getPlayersUseCase, this.registerNewPlayerUseCase, this.read)
       : super([]);
 
   void addPlayer(PlayerModel player) {
@@ -35,18 +40,23 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   Future<void> fetchPlayers() async {
+    read(playersLoadingProvider.notifier).update((state) => true);
+
     if (state.isNotEmpty) {
+      read(playersLoadingProvider.notifier).update((state) => false);
       return;
     }
-    final response = await getPlayersUseCase(params: EmptyParams());
-
     List<PlayerModel> players = [];
 
-    if (response is DataSuccess) {
-      players = response.data!;
-    }
-
-    state = players;
+    await getPlayersUseCase(params: EmptyParams()).then((value) => {
+          if (value is DataSuccess)
+            {
+              read(playersLoadingProvider.notifier).update((state) => false),
+              state = value.data!,
+            }
+          else
+            {print(value.error)}
+        });
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {

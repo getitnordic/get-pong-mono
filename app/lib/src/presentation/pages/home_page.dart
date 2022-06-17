@@ -74,6 +74,9 @@ class HomePage extends ConsumerWidget {
             ),
           ],
           onTap: (index) {
+            if (index == 2) {
+              ref.watch(playersProvider.notifier).fetchPlayers();
+            }
             ref
                 .read(bottomBarIndexProvider.notifier)
                 .update((state) => state = index);

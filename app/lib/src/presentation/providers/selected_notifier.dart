@@ -1,58 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/protos/base.pb.dart';
+import 'package:get_pong/src/core/common/common.dart';
 
 class SelectedNotifier extends StateNotifier<List<PlayerModel>> {
   SelectedNotifier()
       : super([
-          PlayerModel(
-              id: '',
-              firstName: '',
-              lastName: '',
-              nickname: '',
-              email: '',
-              win: 0,
-              loss: 0,
-              totalScore: 0,
-              streak: 0,
-              imageUrl: '',
-              streakEnum: StreakEnum.NONE),
-          PlayerModel(
-              id: '',
-              firstName: '',
-              lastName: '',
-              nickname: '',
-              email: '',
-              win: 0,
-              loss: 0,
-              totalScore: 0,
-              streak: 0,
-              imageUrl: '',
-              streakEnum: StreakEnum.NONE),
-          PlayerModel(
-              id: '',
-              firstName: '',
-              lastName: '',
-              nickname: '',
-              email: '',
-              win: 0,
-              loss: 0,
-              totalScore: 0,
-              streak: 0,
-              imageUrl: '',
-              streakEnum: StreakEnum.NONE),
-          PlayerModel(
-              id: '',
-              firstName: '',
-              lastName: '',
-              nickname: '',
-              email: '',
-              win: 0,
-              loss: 0,
-              totalScore: 0,
-              streak: 0,
-              imageUrl: '',
-              streakEnum: StreakEnum.NONE),
+          BlankPlayerModel.player,
+          BlankPlayerModel.player,
+          BlankPlayerModel.player,
+          BlankPlayerModel.player,
         ]);
 
   void addPlayer(PlayerModel player) {
@@ -61,54 +18,10 @@ class SelectedNotifier extends StateNotifier<List<PlayerModel>> {
 
   void resetState() {
     state = [
-      PlayerModel(
-          id: '',
-          firstName: '',
-          lastName: '',
-          nickname: '',
-          email: '',
-          win: 0,
-          loss: 0,
-          totalScore: 0,
-          streak: 0,
-          imageUrl: '',
-          streakEnum: StreakEnum.NONE),
-      PlayerModel(
-          id: '',
-          firstName: '',
-          lastName: '',
-          nickname: '',
-          email: '',
-          win: 0,
-          loss: 0,
-          totalScore: 0,
-          streak: 0,
-          imageUrl: '',
-          streakEnum: StreakEnum.NONE),
-      PlayerModel(
-          id: '',
-          firstName: '',
-          lastName: '',
-          nickname: '',
-          email: '',
-          win: 0,
-          loss: 0,
-          totalScore: 0,
-          streak: 0,
-          imageUrl: '',
-          streakEnum: StreakEnum.NONE),
-      PlayerModel(
-          id: '',
-          firstName: '',
-          lastName: '',
-          nickname: '',
-          email: '',
-          win: 0,
-          loss: 0,
-          totalScore: 0,
-          streak: 0,
-          imageUrl: '',
-          streakEnum: StreakEnum.NONE),
+      BlankPlayerModel.player,
+      BlankPlayerModel.player,
+      BlankPlayerModel.player,
+      BlankPlayerModel.player,
     ];
   }
 

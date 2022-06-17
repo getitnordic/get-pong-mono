@@ -13,6 +13,7 @@ class PlayerRanking extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool isLoading = ref.watch(playersLoadingProvider);
     final SortingOptions lastPressed = ref.watch(rankingPressedLastProvider);
     bool highToLow = ref.watch(rankingSortingTypeProvider);
 
@@ -74,47 +75,42 @@ class PlayerRanking extends ConsumerWidget {
       toggleHighToLow();
     }
 
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: FutureBuilder(
-          future: ref.watch(playersProvider.notifier).fetchPlayers(),
-          builder: (_, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Column(
-                children: [
-                  PlayerRankingListHeader(
-                    onPressedPlayer: sortByName,
-                    onPressedPlayed: sortByPlayed,
-                    onPressedWins: sortByWins,
-                    onPressedLosses: sortByLosses,
-                  ),
-                  const Divider(
-                    height: 3,
-                    color: ColorConstants.dividerColor,
-                  ),
-                  Flexible(
-                    child: ListView.builder(
-                        itemCount: ref.watch(playersProvider).length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () => Navigator.pushNamed(
-                              context,
-                              route.profilePage,
-                              arguments: ref.watch(playersProvider)[index],
-                            ),
-                            child: PlayerRankingListPlayer(
-                              player: ref.watch(playersProvider)[index],
-                              index: index,
-                            ),
-                          );
-                        }),
-                  ),
-                ],
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          }),
-    );
+    return isLoading
+        ? const Padding(
+          padding: EdgeInsets.only(top: 250),
+          child: Center(child: CircularProgressIndicator()),
+        )
+        : Column(
+            children: [
+              PlayerRankingListHeader(
+                onPressedPlayer: sortByName,
+                onPressedPlayed: sortByPlayed,
+                onPressedWins: sortByWins,
+                onPressedLosses: sortByLosses,
+              ),
+              const Divider(
+                height: 3,
+                color: ColorConstants.dividerColor,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: ListView.builder(
+                    itemCount: ref.watch(playersProvider).length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          route.profilePage,
+                          arguments: ref.watch(playersProvider)[index],
+                        ),
+                        child: PlayerRankingListPlayer(
+                          player: ref.watch(playersProvider)[index],
+                          index: index,
+                        ),
+                      );
+                    }),
+              ),
+            ],
+          );
   }
 }
