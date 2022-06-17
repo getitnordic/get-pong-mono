@@ -3,6 +3,7 @@ using Base;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
 using Grpc.Core;
+using NLog;
 using Player;
 
 namespace GetPong.Services;
@@ -15,6 +16,9 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly ISyncAzureAdToDb _syncAzureAdToDb;
     private readonly IMapper _mapper;
+    
+    // TODO: Instance logger via dependency injection in the future? <----
+    private static Logger _logger = LogManager.GetCurrentClassLogger();
 
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
         IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb)
@@ -31,6 +35,8 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     // Get all players
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
+        // Testing logging
+        _logger.Info("Someone requested all players");
         List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
 
         var playerModels = _mapper.Map<List<PlayerModel>>(players);
