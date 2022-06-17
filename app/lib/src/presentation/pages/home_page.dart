@@ -34,7 +34,6 @@ class HomePage extends ConsumerWidget {
     List<PlayerModel> playerList = ref.watch(playersProvider);
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('GetPong'),
         actions: [

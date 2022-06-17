@@ -48,8 +48,12 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height - 300,
+          height: MediaQuery.of(context).size.height,
+
+          // AppBar().preferredSize.height -
+          // kBottomNavigationBarHeight,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               TabBar(
                 controller: tabController,
