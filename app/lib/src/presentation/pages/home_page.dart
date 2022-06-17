@@ -34,6 +34,7 @@ class HomePage extends ConsumerWidget {
     List<PlayerModel> playerList = ref.watch(playersProvider);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('GetPong'),
         actions: [
@@ -52,8 +53,7 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: Container(
-        // height: 500,
+      body: SingleChildScrollView(
         child: renderContent(
             players: playerList, currentIndex: currentIndex.state),
       ),
