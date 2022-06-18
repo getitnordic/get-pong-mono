@@ -30,7 +30,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
       this.getPlayersUseCase, this.registerNewPlayerUseCase, this.read)
       : super([]);
 
-  void addPlayer(PlayerModel player) {
+  void addPlayer(PlayerModel player) async {
+    if (state.isEmpty) {
+      await fetchPlayers();
+    }
     state = [...state, player];
   }
 
@@ -46,7 +49,6 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
       read(playersLoadingProvider.notifier).update((state) => false);
       return;
     }
-    List<PlayerModel> players = [];
 
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
@@ -60,6 +62,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {
+    addPlayer(player);
     return await registerNewPlayerUseCase(params: player);
   }
 
