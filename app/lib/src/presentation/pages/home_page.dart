@@ -5,6 +5,7 @@ import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
 import 'package:get_pong/src/presentation/providers/providers.dart';
+import '../providers/matches_provider.dart';
 import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';
 
@@ -75,7 +76,7 @@ class HomePage extends ConsumerWidget {
           onTap: (index) async {
             if (index == 0) {}
             if (index == 1) {
-              await ref.watch(matchProvider.notifier).fetchGames();
+              ref.watch(matchesProvider.notifier).fetchGames();
             }
             if (index == 2) {
               await ref.read(playersProvider.notifier).fetchPlayers();
