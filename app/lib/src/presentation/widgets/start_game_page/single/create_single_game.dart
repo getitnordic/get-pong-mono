@@ -7,7 +7,9 @@ import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../providers/providers.dart';
+
+import '../../../../Presentation/providers/players_notifier.dart';
+import '../../../../Presentation/providers/selected_notifier.dart';
 
 class CreateSingleGame extends ConsumerWidget {
   const CreateSingleGame({

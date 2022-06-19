@@ -4,8 +4,9 @@ import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
-import 'package:get_pong/src/presentation/providers/providers.dart';
-import '../providers/matches_provider.dart';
+import '../../Presentation/providers/bottom_bar_index_provider.dart';
+import '../../Presentation/providers/players_notifier.dart';
+import '../providers/matches_notifier.dart';
 import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';
 
@@ -79,7 +80,7 @@ class HomePage extends ConsumerWidget {
               ref.watch(matchesProvider.notifier).fetchGames();
             }
             if (index == 2) {
-              await ref.read(playersProvider.notifier).fetchPlayers();
+              ref.read(playersProvider.notifier).fetchPlayers();
             }
             ref
                 .read(bottomBarIndexProvider.notifier)
