@@ -1,14 +1,8 @@
 import 'package:get_it/get_it.dart';
-import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/protos/player.pbgrpc.dart';
-import 'package:get_pong/src/data/clients/game_repository_impl.dart';
-import 'package:get_pong/src/data/clients/grpc_client.dart';
-import 'package:get_pong/src/data/clients/player_repository_impl.dart';
-import 'package:get_pong/src/domain/clients/clients.dart';
-import 'package:get_pong/src/domain/clients/game_repository.dart';
-import 'package:get_pong/src/domain/use_cases/games/get_games_usecase.dart';
-import 'package:get_pong/src/domain/use_cases/games/save_game_usecase.dart';
-import 'package:get_pong/src/domain/use_cases/use_cases.dart';
+import 'protos/protos.dart';
+import 'src/data/clients/clients.dart';
+import 'src/domain/clients/clients.dart';
+import 'src/domain/use_cases/use_cases.dart';
 
 final getIt = GetIt.instance;
 

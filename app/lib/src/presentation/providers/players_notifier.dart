@@ -8,11 +8,11 @@ import 'package:get_pong/src/core/common/common.dart';
 import '../../domain/use_cases/use_cases.dart';
 
 final playersProvider =
-    StateNotifierProvider.autoDispose<PlayersNotifier, List<PlayerModel>>(
-        (ref) => PlayersNotifier(
+    StateNotifierProvider<PlayersNotifier, List<PlayerModel>>((ref) =>
+        PlayersNotifier(
             getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>(), ref.read));
 
-final playersLoadingProvider = StateProvider<bool>((ref) => true);
+final playersLoadingProvider = StateProvider<bool>((ref) => false);
 
 final rankingSortingTypeProvider =
     StateProvider.autoDispose<bool>((ref) => true);
@@ -43,22 +43,26 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   Future<void> fetchPlayers() async {
-    read(playersLoadingProvider.notifier).update((state) => true);
+    setPlayersLoading(true);
 
     if (state.isNotEmpty) {
-      read(playersLoadingProvider.notifier).update((state) => false);
+      setPlayersLoading(false);
       return;
     }
 
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
             {
-              read(playersLoadingProvider.notifier).update((state) => false),
+              setPlayersLoading(false),
               state = value.data!,
             }
           else
-            {print(value.error)}
+            {setPlayersLoading(false), print(value.error)}
         });
+  }
+
+  void setPlayersLoading(bool loadingState) {
+    read(playersLoadingProvider.notifier).state = loadingState;
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {

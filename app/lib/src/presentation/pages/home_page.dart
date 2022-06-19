@@ -4,9 +4,7 @@ import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
-
-import '../providers/bottom_bar_index_provider.dart';
-import '../providers/players_notifier.dart';
+import 'package:get_pong/src/presentation/providers/providers.dart';
 import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';
 
@@ -23,6 +21,7 @@ class HomePage extends ConsumerWidget {
       case 2:
         return const PlayerRanking();
       case 0:
+        return const StartGamePage();
       default:
         return const StartGamePage();
     }
@@ -73,9 +72,13 @@ class HomePage extends ConsumerWidget {
               label: 'Spelare',
             ),
           ],
-          onTap: (index) {
+          onTap: (index) async {
+            if (index == 0) {}
+            if (index == 1) {
+              await ref.watch(matchProvider.notifier).fetchGames();
+            }
             if (index == 2) {
-              ref.watch(playersProvider.notifier).fetchPlayers();
+              await ref.read(playersProvider.notifier).fetchPlayers();
             }
             ref
                 .read(bottomBarIndexProvider.notifier)

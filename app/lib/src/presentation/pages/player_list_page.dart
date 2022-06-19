@@ -14,8 +14,8 @@ class PlayerListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool isLoading = ref.watch(playersLoadingProvider);
-    final players = ref.watch(playersProvider);
+    final isLoading = ref.watch(playersLoadingProvider);
+    print(ref.watch(playersProvider).length);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,7 +30,7 @@ class PlayerListPage extends ConsumerWidget {
               ? const Center(child: CircularProgressIndicator())
               : SelectPlayerList(
                   playerSelectIndex: playerSelectIndex,
-                  players: players,
+                  players: ref.watch(playersProvider),
                 ),
         ],
       ),

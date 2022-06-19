@@ -7,34 +7,61 @@ import '../../core/common/common.dart';
 import '../../domain/use_cases/use_cases.dart';
 
 final matchProvider = StateNotifierProvider<MatchNotifier, List<GameModel>>(
-    (ref) => MatchNotifier(getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>()));
+    (ref) => MatchNotifier(
+        getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>(), ref.read));
+
+final matchesLoadingProvider = StateProvider<bool>((ref) => false);
 
 class MatchNotifier extends StateNotifier<List<GameModel>> {
-  final GetGamesUseCase getGames;
-  final SaveGameUseCase saveGame;
+  final GetGamesUseCase getGamesUseCase;
+  final SaveGameUseCase saveGameUseCase;
+  final Reader read;
 
-  MatchNotifier(this.getGames, this.saveGame) : super([]);
+  MatchNotifier(this.getGamesUseCase, this.saveGameUseCase, this.read)
+      : super([]);
 
-  void addMatch(GameModel match) {
+  void addMatch(GameModel match) async {
+    if (state.isEmpty) {
+      await fetchGames();
+    }
     state = [...state, match];
   }
 
-  Future<DataState<List<GameModel>>> fetchGames() async {
-    final response =
-        await getGames(params: GetGamesParams(offset: 0, limit: 100));
-
-    List<GameModel> games = [];
-
-    if (response is DataSuccess) {
-      games = response.data!;
+  Future<void> fetchGames() async {
+    setMatchesLoading(true);
+    print('INITIATING: ${read(matchesLoadingProvider)}');
+    if (state.isNotEmpty) {
+      setMatchesLoading(false);
+      print(
+          'IS NOT EMPTY: ${read(matchesLoadingProvider)} STATE: ${state.length}');
+      return;
     }
-    state = games;
 
-    return response;
+    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100))
+        .then((value) => {
+              if (value is DataSuccess)
+                {
+                  setMatchesLoading(false),
+                  print('SUCCESS: ${read(matchesLoadingProvider)}'),
+                  print(state.length),
+                  state = value.data!,
+                  print(state.length),
+                }
+              else
+                {
+                  setMatchesLoading(false),
+                  print('FAILED: ${read(matchesLoadingProvider)}'),
+                  print(value.error)
+                }
+            });
   }
 
   Future<DataState<String>> createGame(GameModel game) async {
-    return await saveGame(params: game);
+    return await saveGameUseCase(params: game);
+  }
+
+  void setMatchesLoading(bool loadingState) {
+    read(matchesLoadingProvider.notifier).state = loadingState;
   }
 
   List<GameModel> getMatchesByPlayerId(String id) {

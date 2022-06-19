@@ -16,6 +16,7 @@ class PlayerRanking extends ConsumerWidget {
     bool isLoading = ref.watch(playersLoadingProvider);
     final SortingOptions lastPressed = ref.watch(rankingPressedLastProvider);
     bool highToLow = ref.watch(rankingSortingTypeProvider);
+    print('Rankings: ${ref.watch(playersProvider).length}');
 
     void toggleHighToLow() {
       highToLow
@@ -77,9 +78,9 @@ class PlayerRanking extends ConsumerWidget {
 
     return isLoading
         ? const Padding(
-          padding: EdgeInsets.only(top: 250),
-          child: Center(child: CircularProgressIndicator()),
-        )
+            padding: EdgeInsets.only(top: 250),
+            child: Center(child: CircularProgressIndicator()),
+          )
         : Column(
             children: [
               PlayerRankingListHeader(

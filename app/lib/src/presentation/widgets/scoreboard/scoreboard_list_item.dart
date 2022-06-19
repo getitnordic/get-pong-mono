@@ -29,8 +29,6 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
           .watch(playersProvider.notifier)
           .getPlayerById(match.awayTeamIds[1]);
     }
-    if (homeTeamOne == null || awayTeamOne == null)
-      return const SizedBox.shrink();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomSmallContainer(
@@ -51,9 +49,8 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                       Row(
                         children: [
                           Text(
-                            homeTeamOne.firstName.length > 14
-                                ? homeTeamOne.firstName.substring(0, 14)
-                                : homeTeamOne.firstName,
+                            homeTeamOne.firstName,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 12,
                               color: ColorConstants.textColor,
@@ -73,9 +70,8 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                         Row(
                           children: [
                             Text(
-                              homeTeamTwo.firstName.length > 14
-                                  ? homeTeamTwo.firstName.substring(0, 14)
-                                  : homeTeamTwo.firstName,
+                              homeTeamTwo.firstName,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 12,
                                 color: ColorConstants.textColor,
@@ -146,9 +142,8 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                             ),
                           ),
                           Text(
-                            awayTeamOne.firstName.length > 14
-                                ? awayTeamOne.firstName.substring(0, 14)
-                                : awayTeamOne.firstName,
+                            awayTeamOne.firstName,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 11,
                               color: ColorConstants.textColor,
@@ -168,9 +163,8 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                               ),
                             ),
                             Text(
-                              awayTeamTwo.firstName.length > 14
-                                  ? awayTeamTwo.firstName.substring(0, 14)
-                                  : awayTeamTwo.firstName,
+                              awayTeamTwo.firstName,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                 fontSize: 11,
                                 color: ColorConstants.textColor,
