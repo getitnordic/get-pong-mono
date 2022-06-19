@@ -16,7 +16,6 @@ class PlayerRanking extends ConsumerWidget {
     bool isLoading = ref.watch(playersLoadingProvider);
     final SortingOptions lastPressed = ref.watch(rankingPressedLastProvider);
     bool highToLow = ref.watch(rankingSortingTypeProvider);
-    print('Rankings: ${ref.watch(playersProvider).length}');
 
     void toggleHighToLow() {
       highToLow
