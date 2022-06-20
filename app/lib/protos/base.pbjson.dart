@@ -36,11 +36,12 @@ const PlayerModel$json = const {
     const {'1': 'totalScore', '3': 10, '4': 1, '5': 5, '10': 'totalScore'},
     const {'1': 'azureAdId', '3': 11, '4': 1, '5': 9, '10': 'azureAdId'},
     const {'1': 'streakEnum', '3': 12, '4': 1, '5': 14, '6': '.base.StreakEnum', '10': 'streakEnum'},
+    const {'1': 'lastActivity', '3': 13, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastActivity'},
   ],
 };
 
 /// Descriptor for `PlayerModel`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List playerModelDescriptor = $convert.base64Decode('CgtQbGF5ZXJNb2RlbBIOCgJpZBgBIAEoCVICaWQSHAoJZmlyc3ROYW1lGAIgASgJUglmaXJzdE5hbWUSGgoIbGFzdE5hbWUYAyABKAlSCGxhc3ROYW1lEhoKCG5pY2tuYW1lGAQgASgJUghuaWNrbmFtZRIaCghpbWFnZVVybBgFIAEoCVIIaW1hZ2VVcmwSFAoFZW1haWwYBiABKAlSBWVtYWlsEhYKBnN0cmVhaxgHIAEoBVIGc3RyZWFrEhAKA3dpbhgIIAEoBVIDd2luEhIKBGxvc3MYCSABKAVSBGxvc3MSHgoKdG90YWxTY29yZRgKIAEoBVIKdG90YWxTY29yZRIcCglhenVyZUFkSWQYCyABKAlSCWF6dXJlQWRJZBIwCgpzdHJlYWtFbnVtGAwgASgOMhAuYmFzZS5TdHJlYWtFbnVtUgpzdHJlYWtFbnVt');
+final $typed_data.Uint8List playerModelDescriptor = $convert.base64Decode('CgtQbGF5ZXJNb2RlbBIOCgJpZBgBIAEoCVICaWQSHAoJZmlyc3ROYW1lGAIgASgJUglmaXJzdE5hbWUSGgoIbGFzdE5hbWUYAyABKAlSCGxhc3ROYW1lEhoKCG5pY2tuYW1lGAQgASgJUghuaWNrbmFtZRIaCghpbWFnZVVybBgFIAEoCVIIaW1hZ2VVcmwSFAoFZW1haWwYBiABKAlSBWVtYWlsEhYKBnN0cmVhaxgHIAEoBVIGc3RyZWFrEhAKA3dpbhgIIAEoBVIDd2luEhIKBGxvc3MYCSABKAVSBGxvc3MSHgoKdG90YWxTY29yZRgKIAEoBVIKdG90YWxTY29yZRIcCglhenVyZUFkSWQYCyABKAlSCWF6dXJlQWRJZBIwCgpzdHJlYWtFbnVtGAwgASgOMhAuYmFzZS5TdHJlYWtFbnVtUgpzdHJlYWtFbnVtEj4KDGxhc3RBY3Rpdml0eRgNIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSDGxhc3RBY3Rpdml0eQ==');
 @$core.Deprecated('Use setModelDescriptor instead')
 const SetModel$json = const {
   '1': 'SetModel',

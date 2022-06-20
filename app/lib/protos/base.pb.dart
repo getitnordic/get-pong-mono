@@ -9,6 +9,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'google/protobuf/timestamp.pb.dart' as $0;
+
 import 'base.pbenum.dart';
 
 export 'base.pbenum.dart';
@@ -27,6 +29,7 @@ class PlayerModel extends $pb.GeneratedMessage {
     ..a<$core.int>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalScore', $pb.PbFieldType.O3, protoName: 'totalScore')
     ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'azureAdId', protoName: 'azureAdId')
     ..e<StreakEnum>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streakEnum', $pb.PbFieldType.OE, protoName: 'streakEnum', defaultOrMaker: StreakEnum.NONE, valueOf: StreakEnum.valueOf, enumValues: StreakEnum.values)
+    ..aOM<$0.Timestamp>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastActivity', protoName: 'lastActivity', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -44,6 +47,7 @@ class PlayerModel extends $pb.GeneratedMessage {
     $core.int? totalScore,
     $core.String? azureAdId,
     StreakEnum? streakEnum,
+    $0.Timestamp? lastActivity,
   }) {
     final _result = create();
     if (id != null) {
@@ -81,6 +85,9 @@ class PlayerModel extends $pb.GeneratedMessage {
     }
     if (streakEnum != null) {
       _result.streakEnum = streakEnum;
+    }
+    if (lastActivity != null) {
+      _result.lastActivity = lastActivity;
     }
     return _result;
   }
@@ -212,6 +219,17 @@ class PlayerModel extends $pb.GeneratedMessage {
   $core.bool hasStreakEnum() => $_has(11);
   @$pb.TagNumber(12)
   void clearStreakEnum() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $0.Timestamp get lastActivity => $_getN(12);
+  @$pb.TagNumber(13)
+  set lastActivity($0.Timestamp v) { setField(13, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasLastActivity() => $_has(12);
+  @$pb.TagNumber(13)
+  void clearLastActivity() => clearField(13);
+  @$pb.TagNumber(13)
+  $0.Timestamp ensureLastActivity() => $_ensure(12);
 }
 
 class SetModel extends $pb.GeneratedMessage {
