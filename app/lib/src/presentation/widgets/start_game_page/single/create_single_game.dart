@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:get_pong/config/route/route.dart' as route;
 import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../Presentation/providers/players_notifier.dart';
+import '../../../../Presentation/providers/selected_notifier.dart';
 
 class CreateSingleGame extends ConsumerWidget {
   const CreateSingleGame({
@@ -23,7 +25,6 @@ class CreateSingleGame extends ConsumerWidget {
         selected[0].nickname.isNotEmpty && selected[1].nickname.isNotEmpty;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 10),
@@ -34,6 +35,7 @@ class CreateSingleGame extends ConsumerWidget {
                 height: 50,
                 child: TextButton(
                   onPressed: () {
+                    ref.watch(playersProvider.notifier).fetchPlayers();
                     Navigator.pushNamed(
                       context,
                       route.playerListPage,
@@ -111,7 +113,7 @@ class CreateSingleGame extends ConsumerWidget {
         SizedBox(
           width: 300,
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(top: 30),
             child: ElevatedButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

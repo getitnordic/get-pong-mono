@@ -6,14 +6,12 @@ import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/src/Presentation/providers/match_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
-import 'package:get_pong/src/Presentation/widgets/score_page/my_add_result_form.dart';
-import 'package:get_pong/src/Presentation/widgets/score_page/result_card_container.dart';
-import 'package:get_pong/src/Presentation/widgets/score_page/result_card_double.dart';
-import 'package:get_pong/src/Presentation/widgets/score_page/result_card_single.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../providers/matches_notifier.dart';
+import '../widgets/score_page/scorepage.dart';
 
 class ScorePage extends ConsumerWidget {
   final List<PlayerModel> selectedPlayers;
@@ -25,7 +23,7 @@ class ScorePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final matchesNotifier = ref.watch(matchProvider.notifier);
+    final matchesNotifier = ref.watch(matchesProvider.notifier);
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selectedPlayersNotifier = ref.watch(selectedProvider.notifier);
     final matchType = ref.watch(matchTypeProvider);

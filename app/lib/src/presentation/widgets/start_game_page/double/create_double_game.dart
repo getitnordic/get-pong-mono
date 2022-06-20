@@ -25,7 +25,6 @@ class CreateDoubleGame extends ConsumerWidget {
         selected[3].nickname.isNotEmpty;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 10),
@@ -171,7 +170,7 @@ class CreateDoubleGame extends ConsumerWidget {
         SizedBox(
           width: 300,
           child: Padding(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(top: 10),
             child: ElevatedButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

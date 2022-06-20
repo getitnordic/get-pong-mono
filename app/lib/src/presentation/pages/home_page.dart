@@ -4,9 +4,9 @@ import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/src/Presentation/pages/pages.dart';
 import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
-
-import '../providers/bottom_bar_index_provider.dart';
-import '../providers/players_notifier.dart';
+import '../../Presentation/providers/bottom_bar_index_provider.dart';
+import '../../Presentation/providers/players_notifier.dart';
+import '../providers/matches_notifier.dart';
 import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';
 
@@ -23,6 +23,7 @@ class HomePage extends ConsumerWidget {
       case 2:
         return const PlayerRanking();
       case 0:
+        return const StartGamePage();
       default:
         return const StartGamePage();
     }
@@ -52,8 +53,7 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: Container(
-        // height: 500,
+      body: SingleChildScrollView(
         child: renderContent(
             players: playerList, currentIndex: currentIndex.state),
       ),
@@ -74,7 +74,14 @@ class HomePage extends ConsumerWidget {
               label: 'Spelare',
             ),
           ],
-          onTap: (index) {
+          onTap: (index) async {
+            if (index == 0) {}
+            if (index == 1) {
+              ref.watch(matchesProvider.notifier).fetchGames();
+            }
+            if (index == 2) {
+              ref.read(playersProvider.notifier).fetchPlayers();
+            }
             ref
                 .read(bottomBarIndexProvider.notifier)
                 .update((state) => state = index);

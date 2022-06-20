@@ -7,9 +7,12 @@ import 'package:get_pong/src/core/common/common.dart';
 
 import '../../domain/use_cases/use_cases.dart';
 
-final playersProvider = StateNotifierProvider
-    .autoDispose<PlayersNotifier, List<PlayerModel>>((ref) =>
-        PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>()));
+final playersProvider =
+    StateNotifierProvider<PlayersNotifier, List<PlayerModel>>((ref) =>
+        PlayersNotifier(
+            getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>(), ref.read));
+
+final playersLoadingProvider = StateProvider<bool>((ref) => false);
 
 final rankingSortingTypeProvider =
     StateProvider.autoDispose<bool>((ref) => true);
@@ -21,11 +24,16 @@ final matchTypeProvider =
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final GetPlayersUseCase getPlayersUseCase;
   final AddPlayerUseCase registerNewPlayerUseCase;
+  final Reader read;
 
-  PlayersNotifier(this.getPlayersUseCase, this.registerNewPlayerUseCase)
+  PlayersNotifier(
+      this.getPlayersUseCase, this.registerNewPlayerUseCase, this.read)
       : super([]);
 
-  void addPlayer(PlayerModel player) {
+  void addPlayer(PlayerModel player) async {
+    if (state.isEmpty) {
+      await fetchPlayers();
+    }
     state = [...state, player];
   }
 
@@ -35,21 +43,30 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   Future<void> fetchPlayers() async {
+    setPlayersLoading(true);
+
     if (state.isNotEmpty) {
+      setPlayersLoading(false);
       return;
     }
-    final response = await getPlayersUseCase(params: EmptyParams());
 
-    List<PlayerModel> players = [];
+    await getPlayersUseCase(params: EmptyParams()).then((value) => {
+          if (value is DataSuccess)
+            {
+              setPlayersLoading(false),
+              state = value.data!,
+            }
+          else
+            {setPlayersLoading(false), print(value.error)}
+        });
+  }
 
-    if (response is DataSuccess) {
-      players = response.data!;
-    }
-
-    state = players;
+  void setPlayersLoading(bool loadingState) {
+    read(playersLoadingProvider.notifier).state = loadingState;
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {
+    addPlayer(player);
     return await registerNewPlayerUseCase(params: player);
   }
 
