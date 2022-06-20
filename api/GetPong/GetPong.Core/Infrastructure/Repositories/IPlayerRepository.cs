@@ -13,7 +13,7 @@ namespace GetPong.Core.Infrastructure.Repositories
 
         Task<Player> GetPlayerById(string playerId);
 
-        Task<Player> UpdatePlayer(string playerId, AddPlayerCommand addPlayerCommand);
+        Task<Player> UpdatePlayer(string playerId, UpdatePlayerCommand updatePlayerCommand);
 
         void UpdateScoreOfPlayer(string playerId, bool didPlayerWin);
 

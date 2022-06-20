@@ -6,6 +6,6 @@ namespace GetPong.Core.Handlers.Players
 {
     public interface IUpdatePlayerHandler
     {
-        Task<Player> Handle(string playerId, AddPlayerCommand addPlayerCommand);
+        Task<Player> Handle(string playerId, UpdatePlayerCommand updatePlayerCommand);
     }
 }

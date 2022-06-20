@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "google/protobuf/timestamp.proto";
+
 package base;
 
 service Base {
@@ -24,6 +26,7 @@ message PlayerModel {
   int32 totalScore = 10;
   string azureAdId = 11;
   StreakEnum streakEnum = 12;
+  google.protobuf.Timestamp lastActivity = 13;
 }
 
 message SetModel {

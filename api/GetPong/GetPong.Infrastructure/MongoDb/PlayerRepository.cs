@@ -39,7 +39,8 @@ namespace GetPong.Infrastructure.MongoDb
                 .Add("loss", player.Loss)
                 .Add("total_score", player.TotalScore)
                 .Add("streak_enum", player.StreakEnum)
-                .Add("azure_ad_id", player.AzureAdId);
+                .Add("azure_ad_id", player.AzureAdId)
+                .Add("last_activity", player.LastActivity);
 
             MongoCollection.InsertOne(doc);
             player.Id = doc["_id"].ToString();
@@ -64,7 +65,7 @@ namespace GetPong.Infrastructure.MongoDb
             return new Player(doc);
         }
 
-        public async Task<Player> UpdatePlayer(string playerId, AddPlayerCommand addPlayerCommand)
+        public async Task<Player> UpdatePlayer(string playerId, UpdatePlayerCommand updatePlayerCommand)
         {
             var objectId = ObjectId.Parse(playerId);
             var filter = Builders<BsonDocument>.Filter.Eq(d => d["_id"], objectId);
@@ -72,17 +73,18 @@ namespace GetPong.Infrastructure.MongoDb
 
             var playerDoc = new BsonDocument()
                 .Add("_id", ObjectId.Parse(playerId))
-                .Add("first_name", addPlayerCommand.FirstName)
-                .Add("last_name", addPlayerCommand.LastName)
-                .Add("nickname", addPlayerCommand.Nickname)
-                .Add("email", addPlayerCommand.Email)
+                .Add("first_name", updatePlayerCommand.FirstName)
+                .Add("last_name", updatePlayerCommand.LastName)
+                .Add("nickname", updatePlayerCommand.Nickname)
+                .Add("email", updatePlayerCommand.Email)
                 .Add("image_url", getPlayer.ImageUrl)
                 .Add("streak", getPlayer.Streak)
                 .Add("win", getPlayer.Win)
                 .Add("loss", getPlayer.Loss)
                 .Add("total_score", getPlayer.TotalScore)
                 .Add("streak_enum", getPlayer.StreakEnum)
-                .Add("azure_ad_id", getPlayer.AzureAdId);
+                .Add("azure_ad_id", getPlayer.AzureAdId)
+                .Add("last_activity", updatePlayerCommand.LastActivity);
 
 
             await MongoCollection.ReplaceOneAsync(filter, playerDoc);
@@ -100,7 +102,8 @@ namespace GetPong.Infrastructure.MongoDb
                 Loss = playerDoc.GetValue("loss").ToInt32(),
                 TotalScore = playerDoc.GetValue("total_score").ToInt32(),
                 AzureAdId = playerDoc.GetValue("azure_ad_id").ToString(),
-                StreakEnum = (StreakEnum) playerDoc.GetValue("streak_enum").ToInt32()
+                StreakEnum = (StreakEnum) playerDoc.GetValue("streak_enum").ToInt32(),
+                LastActivity = playerDoc.GetValue("last_activity").ToUniversalTime()
             };
         }
 
@@ -127,7 +130,8 @@ namespace GetPong.Infrastructure.MongoDb
                     .Add("loss", getPlayer.Loss)
                     .Add("total_score", getPlayer.TotalScore+10)
                     .Add("streak_enum", 1)
-                    .Add("azure_ad_id", getPlayer.AzureAdId);
+                    .Add("azure_ad_id", getPlayer.AzureAdId)
+                    .Add("last_activity", getPlayer.LastActivity);
             }
             else
             {
@@ -143,7 +147,8 @@ namespace GetPong.Infrastructure.MongoDb
                     .Add("loss", getPlayer.Loss+1)
                     .Add("total_score", getPlayer.TotalScore-10)
                     .Add("streak_enum", 2)
-                    .Add("azure_ad_id", getPlayer.AzureAdId);
+                    .Add("azure_ad_id", getPlayer.AzureAdId)
+                    .Add("last_activity", getPlayer.LastActivity);
             }
                 
             

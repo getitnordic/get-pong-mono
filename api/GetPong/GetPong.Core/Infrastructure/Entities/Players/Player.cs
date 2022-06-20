@@ -23,6 +23,7 @@ namespace GetPong.Core.Infrastructure.Entities.Players
             TotalScore = doc.GetValue("total_score").AsInt32;
             AzureAdId = doc.GetValue("azure_ad_id", "N/A").AsString;
             StreakEnum = (StreakEnum)doc.GetValue("streak_enum").AsInt32;
+            LastActivity = doc.GetValue("last_activity").ToUniversalTime();
         }
         
         [BsonId]
@@ -40,5 +41,7 @@ namespace GetPong.Core.Infrastructure.Entities.Players
         public int TotalScore { set; get; }
         public string AzureAdId { set; get; }
         public StreakEnum StreakEnum { set; get; }
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
+        public DateTime LastActivity { get; set; }
     }
 }

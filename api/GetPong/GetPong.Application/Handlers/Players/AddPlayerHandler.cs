@@ -29,7 +29,8 @@ namespace GetPong.Application.Handlers.Players
                 Loss = 0,
                 TotalScore = 1000,
                 AzureAdId = "externalPlayer",
-                StreakEnum = StreakEnum.None
+                StreakEnum = StreakEnum.None,
+                LastActivity = DateTime.SpecifyKind(new DateTime(2000, 1, 1), DateTimeKind.Utc)
             };
             ValidatePlayerCommand(addPlayerCommand);
 

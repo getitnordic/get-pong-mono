@@ -40,8 +40,8 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
                 Win = 0,
                 Loss = 0,
                 TotalScore = 1000,
-                StreakEnum = StreakEnum.None
-                
+                StreakEnum = StreakEnum.None,
+                LastActivity = DateTime.SpecifyKind(new DateTime(2000, 1, 1), DateTimeKind.Utc)
             });
         }
 
