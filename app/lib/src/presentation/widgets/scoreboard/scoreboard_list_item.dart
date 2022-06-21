@@ -37,100 +37,123 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 165,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 120,
+                          child: Text(
+                            homeTeamOne.firstName,
+                            textAlign: TextAlign.right,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: ColorConstants.textColor,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: CircleAvatar(
+                            radius: 11.0,
+                            backgroundImage:
+                                NetworkImage(setImage(homeTeamOne.imageUrl)),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (isDouble)
                       Row(
                         children: [
                           Text(
-                            homeTeamOne.firstName,
+                            homeTeamTwo.firstName,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 11,
                               color: ColorConstants.textColor,
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 10),
                             child: CircleAvatar(
-                              radius: 12.0,
+                              radius: 11.0,
                               backgroundImage:
-                                  NetworkImage(setImage(homeTeamOne.imageUrl)),
+                                  NetworkImage(setImage(homeTeamTwo.imageUrl)),
                             ),
                           ),
                         ],
                       ),
-                      if (isDouble)
-                        Row(
-                          children: [
-                            Text(
-                              homeTeamTwo.firstName,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: ColorConstants.textColor,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: CircleAvatar(
-                                radius: 12.0,
-                                backgroundImage: NetworkImage(
-                                    setImage(homeTeamTwo.imageUrl)),
-                              ),
-                            ),
-                          ],
-                        ),
-                    ],
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    match.sets[0].homeTeam.toString(),
+                    style: const TextStyle(
+                        fontSize: 11,
+                        color: ColorConstants.textColor,
+                        fontWeight: FontWeight.bold),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10),
-                    child: Text(
-                      match.sets[0].homeTeam.toString(),
-                      style: const TextStyle(
-                          fontSize: 12,
-                          color: ColorConstants.textColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             const SizedBox(
               width: 5,
               child: Text(
                 ' - ',
                 style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 11,
                     color: ColorConstants.textColor,
                     fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
-              width: 165,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
-                    child: Text(
-                      match.sets[0].awayTeam.toString(),
-                      style: const TextStyle(
-                          fontSize: 12,
-                          color: ColorConstants.textColor,
-                          fontWeight: FontWeight.bold),
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+                  child: Text(
+                    match.sets[0].awayTeam.toString(),
+                    style: const TextStyle(
+                        fontSize: 11,
+                        color: ColorConstants.textColor,
+                        fontWeight: FontWeight.bold),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: CircleAvatar(
+                            radius: 12.0,
+                            backgroundImage:
+                                NetworkImage(setImage(awayTeamOne.imageUrl)),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 120,
+                          child: Text(
+                            awayTeamOne.firstName,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: ColorConstants.textColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (isDouble)
                       Row(
                         children: [
                           Padding(
@@ -138,11 +161,11 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                             child: CircleAvatar(
                               radius: 12.0,
                               backgroundImage:
-                                  NetworkImage(setImage(awayTeamOne.imageUrl)),
+                                  NetworkImage(setImage(awayTeamTwo.imageUrl)),
                             ),
                           ),
                           Text(
-                            awayTeamOne.firstName,
+                            awayTeamTwo.firstName,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 11,
@@ -151,31 +174,9 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                           ),
                         ],
                       ),
-                      if (isDouble)
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: CircleAvatar(
-                                radius: 12.0,
-                                backgroundImage: NetworkImage(
-                                    setImage(awayTeamTwo.imageUrl)),
-                              ),
-                            ),
-                            Text(
-                              awayTeamTwo.firstName,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 11,
-                                color: ColorConstants.textColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),

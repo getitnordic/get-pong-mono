@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 
 import '../../../protos/protos.dart';
 import '../../../register_services.dart';
@@ -24,10 +25,10 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
       : super(state);
 
   void addMatch(GameModel match) async {
-    if (state.isEmpty) {
-      await fetchGames();
-    }
-    state = [...state, match];
+    // if (state.isEmpty) {
+    //   await fetchGames();
+    // }
+    // state = [...state, match];
   }
 
   Future<DataState<String>> createGame(GameModel game) async {
@@ -37,10 +38,11 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
 
   Future<void> fetchGames() async {
     setFetchingMatches(true);
-    if (state.isNotEmpty) {
-      setFetchingMatches(false);
-      return;
-    }
+
+    // if (state.isNotEmpty) {
+    //   setFetchingMatches(false);
+    //   return;
+    // }
 
     await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100))
         .then((value) => {
@@ -54,6 +56,10 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
                   setFetchingMatches(false),
                 }
             });
+    state.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
+            b.timeStamp.toInt() * 1000)
+        .compareTo(
+            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
   }
 
   void setFetchingMatches(bool loadingState) {

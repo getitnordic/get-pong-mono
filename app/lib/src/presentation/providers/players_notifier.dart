@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/sorting_options.dart';
 import 'package:get_pong/protos/base.pb.dart';
+import 'package:get_pong/protos/google/protobuf/timestamp.pb.dart';
 import 'package:get_pong/register_services.dart';
 import 'package:get_pong/src/core/common/common.dart';
 
@@ -31,10 +32,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
       : super([]);
 
   void addPlayer(PlayerModel player) async {
-    if (state.isEmpty) {
-      await fetchPlayers();
-    }
-    state = [...state, player];
+    // if (state.isEmpty) {
+    //   await fetchPlayers();
+    // }
+    // sortByLastActivity();
   }
 
   PlayerModel getPlayerById(String id) {
@@ -45,10 +46,11 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   Future<void> fetchPlayers() async {
     setPlayersLoading(true);
 
-    if (state.isNotEmpty) {
-      setPlayersLoading(false);
-      return;
-    }
+    // if (state.isNotEmpty) {
+    //   setPlayersLoading(false);
+    //   sortByLastActivity();
+    //   return;
+    // }
 
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
@@ -59,6 +61,12 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
           else
             {setPlayersLoading(false), print(value.error)}
         });
+    sortByLastActivity();
+  }
+
+  void sortByLastActivity() {
+    state.sort((a, b) =>
+        b.lastActivity.toDateTime().compareTo(a.lastActivity.toDateTime()));
   }
 
   void setPlayersLoading(bool loadingState) {

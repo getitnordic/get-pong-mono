@@ -16,7 +16,6 @@ class PlayerListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(playersLoadingProvider);
-    print(ref.watch(playersProvider).length);
 
     return Scaffold(
       appBar: AppBar(
