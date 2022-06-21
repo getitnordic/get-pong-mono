@@ -2,7 +2,6 @@ using AutoMapper;
 using Base;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
-using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Player;
 
@@ -33,43 +32,9 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
         List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
-
-        //Mapper refuse to work with protobuf Timestamp
-        //Mapping to new PlayerModel with DateTime. Automapper doesn't work? Fix later?
-        var playerModels = new List<PlayerModel>();
         
-        foreach (var player in players)
-        {
-            StreakEnum newStreakEnum = StreakEnum.None;
-            newStreakEnum = player.StreakEnum switch
-            {
-                Core.Models.Enum.StreakEnum.None => StreakEnum.None,
-                Core.Models.Enum.StreakEnum.Win => StreakEnum.Win,
-                Core.Models.Enum.StreakEnum.Loss => StreakEnum.Loss,
-                _ => newStreakEnum
-            };
+        var playerModels = _mapper.Map<List<PlayerModel>>(players);
 
-            var newPlayer = new PlayerModel
-            {
-                Id = player.Id,
-                FirstName = player.FirstName,
-                LastName = player.LastName,
-                Nickname = player.Nickname,
-                Email = player.Email,
-                ImageUrl = player.ImageUrl,
-                Loss = player.Loss,
-                Win = player.Win,
-                LastActivity = Timestamp.FromDateTime(player.LastActivity),
-                Streak = player.Streak,
-                TotalScore = player.TotalScore,
-                StreakEnum = newStreakEnum,
-                AzureAdId = player.AzureAdId,
-            };
-            
-            playerModels.Add(newPlayer);
-        }
-        //
-        
         return Task.FromResult(new GetPlayersReply() {PlayerModel = {playerModels}});
     }
 
@@ -89,15 +54,8 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         var player =
             _addPlayerHandler.Handle(
                 _mapper.Map<AddPlayerCommand>(request));
-        //Mapper refuse to work with protobuf Timestamp
-        //var externalUser = _mapper.Map<PlayerModel>(player);
-        var externalUser = new PlayerModel
-        {
-            FirstName = request.FirstName,
-            LastName = request.LastName,
-            Nickname = request.Nickname,
-            Email = request.Email
-        };
+        
+        var externalUser = _mapper.Map<PlayerModel>(player);
         
         return Task.FromResult(new RegisterExternalReply() {PlayerModel = externalUser});
     }

@@ -16,7 +16,7 @@ namespace GetPong
                     webBuilder.UseStartup<Startup>();
                 });
         
-        //For running on macOS
+        // //For running on macOS
         // private static IHostBuilder CreateHostBuilder(string[] args) =>
         //     Host.CreateDefaultBuilder(args)
         //         .ConfigureWebHostDefaults(webBuilder =>
