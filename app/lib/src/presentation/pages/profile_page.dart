@@ -12,17 +12,21 @@ import 'package:google_fonts/google_fonts.dart';
 import '../widgets/scoreboard/player_profile_list_item.dart';
 import '../widgets/widgets.dart';
 
-class ProfilePage extends ConsumerWidget
-    with SetProfileImageMixin, ValidationMixin {
+class ProfilePage extends ConsumerStatefulWidget {
   final PlayerModel player;
-
   const ProfilePage({
     Key? key,
     required this.player,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends ConsumerState<ProfilePage>
+    with SetProfileImageMixin, ValidationMixin {
+  @override
+  Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
     TextEditingController contoller = TextEditingController();
 
@@ -35,7 +39,7 @@ class ProfilePage extends ConsumerWidget
           children: [
             const SizedBox(height: 30),
             BigAvatar(
-              imageUrl: setImage(player.imageUrl),
+              imageUrl: setImage(widget.player.imageUrl),
             ),
             const SizedBox(height: 20),
             GestureDetector(
@@ -80,10 +84,12 @@ class ProfilePage extends ConsumerWidget
                                   ColorConstants.primaryColor),
                             ),
                             onPressed: () {
-                              player.nickname = contoller.text;
+                              setState(() {
+                                widget.player.nickname = contoller.text;
+                              });
                               ref
                                   .watch(playersProvider.notifier)
-                                  .updatePlayer(player);
+                                  .updatePlayer(widget.player);
                               Navigator.of(context).pop();
                             },
                             child: Text(
@@ -99,8 +105,9 @@ class ProfilePage extends ConsumerWidget
                     });
               },
               child: NameCard(
-                playerName: player.nickname,
-                fullName: '${player.firstName} ${player.lastName}',
+                playerName: widget.player.nickname,
+                fullName:
+                    '${widget.player.firstName} ${widget.player.lastName}',
               ),
             ),
             const SizedBox(height: 12),
@@ -112,10 +119,10 @@ class ProfilePage extends ConsumerWidget
             ),
             const SizedBox(height: 30),
             GameStats(
-              wins: player.win.toString(),
-              losses: player.loss.toString(),
-              streak: player.streak.toString(),
-              streakEnum: player.streakEnum,
+              wins: widget.player.win.toString(),
+              losses: widget.player.loss.toString(),
+              streak: widget.player.streak.toString(),
+              streakEnum: widget.player.streakEnum,
             ),
             const SizedBox(height: 50),
             const Center(
@@ -128,12 +135,12 @@ class ProfilePage extends ConsumerWidget
             ),
             Consumer(
               builder: (context, ref, child) {
-                final data = ref.watch(playerGamesProvider(player.id));
+                final data = ref.watch(playerGamesProvider(widget.player.id));
 
                 return data.when(
                   error: (error, stackTrace) => Text('Error $error'),
                   loading: () => const CircularProgressIndicator(),
-                  data: (data) => Container(
+                  data: (data) => SizedBox(
                     height: 200,
                     child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),

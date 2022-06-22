@@ -13,7 +13,7 @@ final matchesProvider =
 });
 
 final playerGamesProvider =
-    FutureProvider.family<List<GameModel>, String>((ref, playerId) async {   
+    FutureProvider.family.autoDispose<List<GameModel>, String>((ref, playerId) async {   
   return ref.read(matchesProvider.notifier).getMatchesByPlayerId(playerId);
 });
 
@@ -85,7 +85,7 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
                   setFetchingMatches(false),
                 }
             });
-    state.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
+    matches.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
             b.timeStamp.toInt() * 1000)
         .compareTo(
             DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));

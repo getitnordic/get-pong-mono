@@ -113,7 +113,7 @@ class CreateSingleGame extends ConsumerWidget {
         SizedBox(
           width: 300,
           child: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 10),
             child: ElevatedButton(
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
