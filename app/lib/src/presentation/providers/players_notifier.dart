@@ -10,8 +10,8 @@ import '../../domain/use_cases/use_cases.dart';
 
 final playersProvider =
     StateNotifierProvider<PlayersNotifier, List<PlayerModel>>((ref) =>
-        PlayersNotifier(
-            getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>(), ref.read));
+        PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>(),
+            getIt<UpdatePlayerUseCase>(), ref.read));
 
 final playersLoadingProvider = StateProvider<bool>((ref) => false);
 
@@ -25,11 +25,15 @@ final matchTypeProvider =
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final GetPlayersUseCase getPlayersUseCase;
   final AddPlayerUseCase registerNewPlayerUseCase;
+  final UpdatePlayerUseCase updatePlayerUseCase;
   final Reader read;
 
   PlayersNotifier(
-      this.getPlayersUseCase, this.registerNewPlayerUseCase, this.read)
-      : super([]);
+    this.getPlayersUseCase,
+    this.registerNewPlayerUseCase,
+    this.updatePlayerUseCase,
+    this.read,
+  ) : super([]);
 
   void addPlayer(PlayerModel player) async {
     // if (state.isEmpty) {
@@ -76,6 +80,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   Future<DataState<String>> createPlayer(PlayerModel player) async {
     addPlayer(player);
     return await registerNewPlayerUseCase(params: player);
+  }
+
+  Future<DataState<PlayerModel>> updatePlayer(PlayerModel player) async {
+    return await updatePlayerUseCase(params: player);
   }
 
   void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {

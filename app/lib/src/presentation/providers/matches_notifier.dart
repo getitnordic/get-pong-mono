@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 
 import '../../../protos/protos.dart';
 import '../../../register_services.dart';
@@ -11,6 +10,11 @@ final matchesProvider =
     StateNotifierProvider<MatchesNotifier, List<GameModel>>((ref) {
   return MatchesNotifier(
       [], getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>(), ref.read);
+});
+
+final playerGamesProvider =
+    FutureProvider.family.autoDispose<List<GameModel>, String>((ref, playerId) async {   
+  return ref.read(matchesProvider.notifier).getMatchesByPlayerId(playerId);
 });
 
 final fetchingMatchesProvider = StateProvider<bool>((ref) => false);
@@ -66,16 +70,33 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
     read(fetchingMatchesProvider.notifier).state = loadingState;
   }
 
-  List<GameModel> getMatchesByPlayerId(String id) {
+  Future<List<GameModel>> getMatchesByPlayerId(String id) async {
     List<GameModel> matches = [];
-    for (GameModel match in state) {
+    List<GameModel> playerGames = [];
+    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100))
+        .then((value) => {
+              if (value is DataSuccess)
+                {
+                  setFetchingMatches(false),
+                  matches = value.data!,
+                }
+              else
+                {
+                  setFetchingMatches(false),
+                }
+            });
+    matches.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
+            b.timeStamp.toInt() * 1000)
+        .compareTo(
+            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+    for (GameModel match in matches) {
       if (match.homeTeamIds[0] == id) {
-        matches.add(match);
+        playerGames.add(match);
       }
       if (match.awayTeamIds[0] == id) {
-        matches.add(match);
+        playerGames.add(match);
       }
     }
-    return matches;
+    return playerGames;
   }
 }
