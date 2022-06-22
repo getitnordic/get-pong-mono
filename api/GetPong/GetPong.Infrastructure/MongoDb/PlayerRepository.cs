@@ -77,7 +77,7 @@ namespace GetPong.Infrastructure.MongoDb
                 .Add("last_name", updatePlayerCommand.LastName)
                 .Add("nickname", updatePlayerCommand.Nickname)
                 .Add("email", updatePlayerCommand.Email)
-                .Add("image_url", getPlayer.ImageUrl)
+                .Add("image_url", updatePlayerCommand.ImageUrl)
                 .Add("streak", getPlayer.Streak)
                 .Add("win", getPlayer.Win)
                 .Add("loss", getPlayer.Loss)
