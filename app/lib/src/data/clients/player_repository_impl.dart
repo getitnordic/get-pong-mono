@@ -45,4 +45,19 @@ class PlayerRepositoryImpl implements PlayerRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<PlayerModel>> updatePlayer(PlayerModel player) async {
+    final request = UpdatePlayerRequest(playerModel: player);
+
+    try {
+      final response = await client.updatePlayer(request);
+      return DataSuccess(response.playerModel);
+    } on GrpcError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return DataFailed(e);
+    }
+  }
 }

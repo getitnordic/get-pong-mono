@@ -13,6 +13,7 @@ Future<void> initServices() async {
       () => PlayerServiceClient(GrpcClient.client));
   getIt.registerLazySingleton<GameServiceClient>(
       () => GameServiceClient(GrpcClient.client));
+
   //Repositories
   getIt.registerLazySingleton<PlayerRepository>(
       () => PlayerRepositoryImpl(getIt()));
@@ -25,6 +26,9 @@ Future<void> initServices() async {
       () => GetPlayersUseCase(getIt()));
   getIt
       .registerLazySingleton<AddPlayerUseCase>(() => AddPlayerUseCase(getIt()));
+  getIt.registerLazySingleton<UpdatePlayerUseCase>(
+      () => UpdatePlayerUseCase(getIt()));
+
   //Game
   getIt.registerLazySingleton<GetGamesUseCase>(() => GetGamesUseCase(getIt()));
   getIt.registerLazySingleton<SaveGameUseCase>(() => SaveGameUseCase(getIt()));

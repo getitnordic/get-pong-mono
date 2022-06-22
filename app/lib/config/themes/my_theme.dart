@@ -47,6 +47,16 @@ class Customtheme {
         border: const OutlineInputBorder(),
         errorBorder: myErrorFormBorder(),
         focusedErrorBorder: myErrorFormBorder(),
+        errorStyle: const TextStyle(
+          overflow: TextOverflow.clip
+        ),
+      ),
+      dialogTheme: const DialogTheme(
+        elevation: 1000,
+        backgroundColor: ColorConstants.appBarColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
       ),
     );
   }
