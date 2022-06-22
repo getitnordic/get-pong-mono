@@ -19,14 +19,24 @@ public class GetPongProfile : Profile
         CreateMap(typeof(PlayerModel), typeof(AddPlayerCommand)).ReverseMap();
         CreateMap(typeof(GameModel), typeof(Core.Infrastructure.Entities.Games.Game)).ReverseMap();
         CreateMap(typeof(SetModel), typeof(GameSet)).ReverseMap();
+        CreateMap(typeof(PlayerModel), typeof(UpdatePlayerCommand)).ReverseMap();
         CreateMap<DateTime, Timestamp>().ConvertUsing<TimestampConverter>();
+        CreateMap<Timestamp, DateTime>().ConvertUsing<DateTimeConverter>();
     }
 }
 
+//Put these where?
 public class TimestampConverter : ITypeConverter<DateTime, Timestamp>
 {
     public Timestamp Convert(DateTime source, Timestamp destination, ResolutionContext context)
     {
         return Timestamp.FromDateTime(source);
+    }
+}
+public class DateTimeConverter : ITypeConverter<Timestamp, DateTime>
+{
+    public DateTime Convert(Timestamp source, DateTime destination, ResolutionContext context)
+    {
+        return source.ToDateTime();
     }
 }
