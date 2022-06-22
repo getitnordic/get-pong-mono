@@ -73,6 +73,7 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
   Future<List<GameModel>> getMatchesByPlayerId(String id) async {
     List<GameModel> matches = [];
     List<GameModel> playerGames = [];
+    const amountOfMatchesToGrab = 5;
     await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100))
         .then((value) => {
               if (value is DataSuccess)
@@ -97,6 +98,6 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
         playerGames.add(match);
       }
     }
-    return playerGames;
+    return playerGames.take(amountOfMatchesToGrab).toList();
   }
 }

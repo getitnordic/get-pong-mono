@@ -248,7 +248,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                     height: 200,
                     child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: data.length > 5 ? 5 : data.length,
+                        itemCount: data.length,
                         itemBuilder: (context, index) {
                           return PlayerProfileListItem(match: data[index]);
                         }),
