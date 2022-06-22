@@ -2,12 +2,20 @@
 
 import 'package:flutter/material.dart';
 import 'package:get_pong/constants/color_constants.dart';
+import 'package:get_pong/protos/protos.dart';
 
 class GameStats extends StatelessWidget {
-  const GameStats({Key? key, required this.wins, required this.losses})
-      : super(key: key);
   final String wins;
   final String losses;
+  final String streak;
+  final StreakEnum streakEnum;
+  const GameStats(
+      {Key? key,
+      required this.wins,
+      required this.losses,
+      required this.streak,
+      required this.streakEnum})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +71,7 @@ class GameStats extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '15',
+                  streak,
                   style: TextStyle(
                     color: ColorConstants.textColor,
                   ),

@@ -111,6 +111,8 @@ class ProfilePage extends ConsumerWidget
           GameStats(
             wins: player.win.toString(),
             losses: player.loss.toString(),
+            streak: player.streak.toString(),
+            streakEnum: player.streakEnum,
           ),
           const SizedBox(height: 50),
           const Center(

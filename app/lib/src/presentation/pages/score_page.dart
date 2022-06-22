@@ -74,6 +74,14 @@ class ScorePage extends ConsumerWidget {
       }
     }
 
+    bool playerHasNickname(PlayerModel player) {
+      return player.nickname != 'nickname' && player.nickname != '';
+    }
+
+    String displayName(PlayerModel player) {
+      return playerHasNickname(player) ? player.nickname : player.firstName;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Your Score'),
@@ -90,7 +98,7 @@ class ScorePage extends ConsumerWidget {
                 width: 350,
                 height: 150,
                 child: ResultCardSingle(
-                  name: playerOne.nickname,
+                  name: displayName(playerOne),
                   child: AddResultForm(
                     callback: setScoreOne,
                   ),
@@ -102,8 +110,8 @@ class ScorePage extends ConsumerWidget {
                 height: 200,
                 child: ResultCardDouble(
                   title: 'Team 1',
-                  playerOne: playerOne.nickname,
-                  playerTwo: playerTwo.nickname,
+                  playerOne: displayName(playerOne),
+                  playerTwo: displayName(playerTwo),
                   child: AddResultForm(
                     callback: setScoreOne,
                   ),
@@ -115,7 +123,7 @@ class ScorePage extends ConsumerWidget {
                 width: 350,
                 height: 150,
                 child: ResultCardSingle(
-                  name: playerTwo.nickname,
+                  name: displayName(playerTwo),
                   child: AddResultForm(
                     callback: setScoreTwo,
                   ),
@@ -127,8 +135,8 @@ class ScorePage extends ConsumerWidget {
                 height: 200,
                 child: ResultCardDouble(
                   title: 'Team 2',
-                  playerOne: playerThree.nickname,
-                  playerTwo: playerFour.nickname,
+                  playerOne: displayName(playerThree),
+                  playerTwo: displayName(playerFour),
                   child: AddResultForm(
                     callback: setScoreTwo,
                   ),
