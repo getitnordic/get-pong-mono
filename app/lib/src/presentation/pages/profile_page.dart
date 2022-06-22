@@ -28,7 +28,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    TextEditingController contoller = TextEditingController();
+    TextEditingController imageController = TextEditingController();
+    TextEditingController nicknameController = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -38,8 +39,87 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
         child: Column(
           children: [
             const SizedBox(height: 30),
-            BigAvatar(
-              imageUrl: setImage(widget.player.imageUrl),
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                BigAvatar(
+                  imageUrl: setImage(widget.player.imageUrl),
+                ),
+                Positioned(
+                  top: 120,
+                  right: 80,
+                  child: IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text(
+                              'Set image URL',
+                              style: TextStyle(
+                                fontSize: 14,
+                              ),
+                            ),
+                            content: Form(
+                              key: formKey,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              child: TextFormField(
+                                controller: imageController,
+                                decoration: const InputDecoration(
+                                  labelText: 'Image',
+                                  prefixIcon: Icon(
+                                    Icons.person,
+                                    color: ColorConstants.formColor,
+                                  ),
+                                ),
+                                keyboardType: TextInputType.text,
+                              ),
+                            ),
+                            actions: [
+                              ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                  )),
+                                  minimumSize: MaterialStateProperty.all<Size>(
+                                      const Size(100, 40)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          ColorConstants.primaryColor),
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    widget.player.imageUrl = imageController.text;
+                                  });
+                                  ref
+                                      .watch(playersProvider.notifier)
+                                      .updatePlayer(widget.player);
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  'Submit',
+                                  style: GoogleFonts.goldman(
+                                    fontSize: 14,
+                                    color: ColorConstants.textColor,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.image_outlined,
+                      color: ColorConstants.textColor,
+                      size: 25,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -74,7 +154,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
                                 child: TextFormField(
-                                  controller: contoller,
+                                  controller: nicknameController,
                                   decoration: const InputDecoration(
                                     labelText: 'Nickname',
                                     prefixIcon: Icon(
@@ -104,7 +184,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      widget.player.nickname = contoller.text;
+                                      widget.player.nickname = nicknameController.text;
                                     });
                                     ref
                                         .watch(playersProvider.notifier)
