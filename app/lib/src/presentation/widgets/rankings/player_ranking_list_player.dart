@@ -46,40 +46,41 @@ class PlayerRankingListPlayer extends StatelessWidget {
             ),
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            SizedBox(
-              width: 50,
-              child: Text(
+        SizedBox(
+          width: 200,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
                 '${player.win + player.loss}',
                 style: const TextStyle(
                   fontSize: 15,
                   color: ColorConstants.textColor,
                 ),
               ),
-            ),
-            SizedBox(
-              width: 50,
-              child: Text(
+              Text(
                 player.win.toString(),
                 style: const TextStyle(
                   fontSize: 15,
                   color: ColorConstants.textColor,
                 ),
               ),
-            ),
-            SizedBox(
-              width: 50,
-              child: Text(
+              Text(
                 player.loss.toString(),
                 style: const TextStyle(
                   fontSize: 15,
                   color: ColorConstants.textColor,
                 ),
               ),
-            ),
-          ],
+              Text(
+                player.totalScore.toString(),
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: ColorConstants.textColor,
+                ),
+              ),
+            ],
+          ),
         ),
       ],
     );
