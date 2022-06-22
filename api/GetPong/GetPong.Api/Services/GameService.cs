@@ -42,6 +42,7 @@ public class GameService : global::Game.GameService.GameServiceBase
             Nickname = playerOne.Nickname,
             FirstName = playerOne.FirstName,
             LastName = playerOne.LastName,
+            ImageUrl = playerOne.ImageUrl,
             LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc)
         };
         var playerTwoCommand = new UpdatePlayerCommand()
@@ -50,6 +51,7 @@ public class GameService : global::Game.GameService.GameServiceBase
             Nickname = playerTwo.Nickname,
             FirstName = playerTwo.FirstName,
             LastName = playerTwo.LastName,
+            ImageUrl = playerTwo.ImageUrl,
             LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc)
         };
         var updated1 = _updatePlayerHandler.Handle(playerOne.Id, playerOneCommand);
