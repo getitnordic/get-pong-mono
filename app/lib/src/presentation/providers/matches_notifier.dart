@@ -12,8 +12,8 @@ final matchesProvider =
       [], getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>(), ref.read);
 });
 
-final playerGamesProvider =
-    FutureProvider.family.autoDispose<List<GameModel>, String>((ref, playerId) async {   
+final playerGamesProvider = FutureProvider.family
+    .autoDispose<List<GameModel>, String>((ref, playerId) async {
   return ref.read(matchesProvider.notifier).getMatchesByPlayerId(playerId);
 });
 

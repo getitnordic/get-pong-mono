@@ -63,15 +63,15 @@ class HomePage extends ConsumerWidget {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.sports_tennis),
-              label: 'Spela',
+              label: 'Play',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.scoreboard),
-              label: 'ScoreBoard',
+              label: 'Scoreboard',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.group),
-              label: 'Spelare',
+              label: 'Rankings',
             ),
           ],
           onTap: (index) async {
@@ -79,9 +79,7 @@ class HomePage extends ConsumerWidget {
             if (index == 1) {
               ref.watch(matchesProvider.notifier).fetchGames();
             }
-            if (index == 2) {
-              ref.read(playersProvider.notifier).fetchPlayers();
-            }
+            if (index == 2) {}
             ref
                 .read(bottomBarIndexProvider.notifier)
                 .update((state) => state = index);

@@ -22,6 +22,11 @@ final rankingPressedLastProvider =
 final matchTypeProvider =
     StateProvider.autoDispose<MatchType>((ref) => MatchType.none);
 
+final topRanksProvider =
+    FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
+  return ref.read(playersProvider.notifier).getTopRanks();
+});
+
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final GetPlayersUseCase getPlayersUseCase;
   final AddPlayerUseCase registerNewPlayerUseCase;
@@ -86,54 +91,23 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     return await updatePlayerUseCase(params: player);
   }
 
-  void sortPlayerList(SortingOptions sortingOptions, bool sortHighToLow) {
-    switch (sortingOptions) {
-      case SortingOptions.name:
-        _sortByName(sortHighToLow);
-        break;
-      case SortingOptions.played:
-        _sortByPlayed(sortHighToLow);
-        break;
-      case SortingOptions.wins:
-        _sortByWins(sortHighToLow);
-        break;
-      case SortingOptions.losses:
-        _sortByLosses(sortHighToLow);
-        break;
-      case SortingOptions.none:
-        break;
-    }
-  }
+  Future<List<PlayerModel>> getTopRanks() async {
+    List<PlayerModel> topRanked = [];
+    const amountOfPlayersToGrab = 20;
 
-  void _sortByLosses(bool sortHighToLow) {
-    print('Length: ${state.length}');
-    sortHighToLow
-        ? state.sort((a, b) => (b.loss).compareTo(a.loss))
-        : state.sort((a, b) => (a.loss).compareTo(b.loss));
-    state = [...state];
-  }
-
-  void _sortByWins(bool sortHighToLow) {
-    print('Length: ${state.length}');
-    sortHighToLow
-        ? state.sort((a, b) => (b.win).compareTo(a.win))
-        : state.sort((a, b) => (a.win).compareTo(b.win));
-    state = [...state];
-  }
-
-  void _sortByPlayed(bool sortHighToLow) {
-    print('Length: ${state.length}');
-    sortHighToLow
-        ? state.sort((a, b) => (b.win + b.loss).compareTo(a.win + a.loss))
-        : state.sort((a, b) => (a.win + a.loss).compareTo(b.win + b.loss));
-    state = [...state];
-  }
-
-  void _sortByName(bool sortHighToLow) {
-    print('Length: ${state.length}');
-    sortHighToLow
-        ? state.sort((a, b) => (a.nickname).compareTo(b.nickname))
-        : state.sort((a, b) => (b.nickname).compareTo(a.nickname));
-    state = [...state];
+    await getPlayersUseCase(params: EmptyParams()).then((value) => {
+          if (value is DataSuccess)
+            {
+              setPlayersLoading(false),
+              topRanked = value.data!,
+            }
+          else
+            {print(value.error)}
+        });
+    topRanked.sort((a, b) => b.totalScore.compareTo(a.totalScore));
+    return topRanked
+        .where((p) => p.win + p.loss > 0)
+        .take(amountOfPlayersToGrab)
+        .toList();
   }
 }
