@@ -39,10 +39,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
     );
   }
 
-  Widget buildEmail() => Padding(
-        padding: const EdgeInsets.only(
-          top: 10,
-        ),
+  Widget buildEmail() => SizedBox(
+        height: 90,
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Email',
@@ -54,8 +52,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
         ),
       );
 
-  Widget buildNickname() => Padding(
-        padding: const EdgeInsets.only(top: 10),
+  Widget buildNickname() => SizedBox(
+        height: 90,
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Nickname',
@@ -69,19 +67,22 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
 
   Widget buildFirstName() => Padding(
         padding: const EdgeInsets.only(top: 10),
-        child: TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'First name',
-            prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
+        child: SizedBox(
+          height: 90,
+          child: TextFormField(
+            decoration: const InputDecoration(
+              labelText: 'First name',
+              prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
+            ),
+            keyboardType: TextInputType.text,
+            validator: (value) => validateFirstName(value!),
+            onSaved: (value) => setState(() => firstName = value!),
           ),
-          keyboardType: TextInputType.text,
-          validator: (value) => validateFirstName(value!),
-          onSaved: (value) => setState(() => firstName = value!),
         ),
       );
 
-  Widget buildLastName() => Padding(
-        padding: const EdgeInsets.only(top: 10),
+  Widget buildLastName() => SizedBox(
+        height: 90,
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Last name',

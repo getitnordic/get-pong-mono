@@ -14,7 +14,7 @@ class NameCard extends StatelessWidget {
       children: [
         CustomSmallContainer(
           height: 40,
-          width: MediaQuery.of(context).size.width * 0.6,
+          width: 200,
           child: Text(
             playerName == 'nickname' ? 'Add nickname' : playerName,
             style: const TextStyle(color: ColorConstants.textColor),

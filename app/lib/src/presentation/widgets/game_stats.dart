@@ -22,7 +22,7 @@ class GameStats extends StatelessWidget {
     return Column(
       children: [
         Row(
-          // ignore: prefer_const_literals_to_create_immutables
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(width: 15),
             Column(

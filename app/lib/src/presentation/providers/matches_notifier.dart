@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 
 import '../../../protos/protos.dart';
 import '../../../register_services.dart';

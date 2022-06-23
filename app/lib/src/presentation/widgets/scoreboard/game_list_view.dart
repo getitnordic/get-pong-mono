@@ -15,36 +15,39 @@ class GameListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              'Matches',
-              style: TextStyle(
-                color: ColorConstants.textColor,
-                fontSize: 35,
+    return Center(
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: 400,
+        child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Matches',
+                style: TextStyle(
+                  color: ColorConstants.textColor,
+                  fontSize: 35,
+                ),
               ),
             ),
-          ),
-          Flexible(
-            child: ListView.builder(
-                itemCount: matches.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      route.matchDetailsPage,
-                    ),
-                    child: ScoreboardListItem(
-                      match: matches[index],
-                    ),
-                  );
-                }),
-          ),
-        ],
+            Flexible(
+              child: ListView.builder(
+                  itemCount: matches.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        route.matchDetailsPage,
+                      ),
+                      child: ScoreboardListItem(
+                        match: matches[index],
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }

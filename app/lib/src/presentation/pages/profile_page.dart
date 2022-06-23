@@ -30,6 +30,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
     final formKey = GlobalKey<FormState>();
     TextEditingController imageController = TextEditingController();
     TextEditingController nicknameController = TextEditingController();
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    const iconSize = 30.0;
+    final iconPosition = width * 0.88;
 
     return Scaffold(
       appBar: AppBar(
@@ -39,179 +43,190 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
         child: Column(
           children: [
             const SizedBox(height: 30),
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                BigAvatar(
-                  imageUrl: setImage(widget.player.imageUrl),
-                ),
-                Positioned(
-                  top: 120,
-                  right: 80,
-                  child: IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text(
-                              'Set image URL',
-                              style: TextStyle(
-                                fontSize: 14,
-                              ),
-                            ),
-                            content: Form(
-                              key: formKey,
-                              autovalidateMode:
-                                  AutovalidateMode.onUserInteraction,
-                              child: TextFormField(
-                                controller: imageController,
-                                decoration: const InputDecoration(
-                                  labelText: 'Image',
-                                  prefixIcon: Icon(
-                                    Icons.person,
-                                    color: ColorConstants.formColor,
-                                  ),
-                                ),
-                                keyboardType: TextInputType.text,
-                              ),
-                            ),
-                            actions: [
-                              ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  )),
-                                  minimumSize: MaterialStateProperty.all<Size>(
-                                      const Size(100, 40)),
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          ColorConstants.primaryColor),
-                                ),
-                                onPressed: () {
-                                  setState(() {
-                                    widget.player.imageUrl = imageController.text;
-                                  });
-                                  ref
-                                      .watch(playersProvider.notifier)
-                                      .updatePlayer(widget.player);
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text(
-                                  'Submit',
-                                  style: GoogleFonts.goldman(
-                                    fontSize: 14,
-                                    color: ColorConstants.textColor,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.image_outlined,
-                      color: ColorConstants.textColor,
-                      size: 25,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20),
             SizedBox(
-              width: double.infinity,
+              width: width,
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
-                  Center(
-                    child: NameCard(
-                      playerName: widget.player.nickname,
-                      fullName:
-                          '${widget.player.firstName} ${widget.player.lastName}',
-                    ),
+                  BigAvatar(
+                    imageUrl: setImage(widget.player.imageUrl),
                   ),
                   Positioned(
-                    top: -3,
-                    right: 30,
-                    child: IconButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text(
-                                'Edit nickname',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                ),
-                              ),
-                              content: Form(
-                                key: formKey,
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                child: TextFormField(
-                                  controller: nicknameController,
-                                  decoration: const InputDecoration(
-                                    labelText: 'Nickname',
-                                    prefixIcon: Icon(
-                                      Icons.person,
-                                      color: ColorConstants.formColor,
-                                    ),
-                                  ),
-                                  keyboardType: TextInputType.text,
-                                  validator: (value) =>
-                                      validateNickname(value!),
-                                ),
-                              ),
-                              actions: [
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all<
-                                            RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    )),
-                                    minimumSize:
-                                        MaterialStateProperty.all<Size>(
-                                            const Size(100, 40)),
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            ColorConstants.primaryColor),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      widget.player.nickname = nicknameController.text;
-                                    });
-                                    ref
-                                        .watch(playersProvider.notifier)
-                                        .updatePlayer(widget.player);
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(
-                                    'Submit',
-                                    style: GoogleFonts.goldman(
+                    left: iconPosition,
+                    child: Column(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    'Set image URL',
+                                    style: TextStyle(
                                       fontSize: 14,
-                                      color: ColorConstants.textColor,
                                     ),
                                   ),
-                                ),
-                              ],
+                                  content: SizedBox(
+                                    width: width * 0.80,
+                                    child: Form(
+                                      key: formKey,
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      child: SizedBox(
+                                        height: 90,
+                                        child: TextFormField(
+                                          controller: imageController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Image',
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: ColorConstants.formColor,
+                                            ),
+                                          ),
+                                          keyboardType: TextInputType.text,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        )),
+                                        minimumSize:
+                                            MaterialStateProperty.all<Size>(
+                                                const Size(100, 40)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                ColorConstants.primaryColor),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.player.imageUrl =
+                                              imageController.text;
+                                        });
+                                        ref
+                                            .watch(playersProvider.notifier)
+                                            .updatePlayer(widget.player);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        'Submit',
+                                        style: GoogleFonts.goldman(
+                                          fontSize: 14,
+                                          color: ColorConstants.textColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             );
                           },
-                        );
-                      },
-                      icon: const Icon(
-                        Icons.edit_outlined,
-                        color: ColorConstants.textColor,
-                        size: 25,
-                      ),
+                          icon: const Icon(
+                            Icons.image_outlined,
+                            color: ColorConstants.textColor,
+                            size: iconSize,
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    'Edit nickname',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  content: SizedBox(
+                                    width: width * 0.80,
+                                    child: Form(
+                                      key: formKey,
+                                      autovalidateMode:
+                                          AutovalidateMode.onUserInteraction,
+                                      child: SizedBox(
+                                        height: 90,
+                                        child: TextFormField(
+                                          controller: nicknameController,
+                                          decoration: const InputDecoration(
+                                            labelText: 'Nickname',
+                                            prefixIcon: Icon(
+                                              Icons.person,
+                                              color: ColorConstants.formColor,
+                                            ),
+                                          ),
+                                          keyboardType: TextInputType.text,
+                                          validator: (value) =>
+                                              validateNickname(value!),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  actions: [
+                                    ElevatedButton(
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        )),
+                                        minimumSize:
+                                            MaterialStateProperty.all<Size>(
+                                                const Size(100, 40)),
+                                        backgroundColor:
+                                            MaterialStateProperty.all<Color>(
+                                                ColorConstants.primaryColor),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          widget.player.nickname =
+                                              nicknameController.text;
+                                        });
+                                        ref
+                                            .watch(playersProvider.notifier)
+                                            .updatePlayer(widget.player);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(
+                                        'Submit',
+                                        style: GoogleFonts.goldman(
+                                          fontSize: 14,
+                                          color: ColorConstants.textColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.edit_outlined,
+                            color: ColorConstants.textColor,
+                            size: iconSize,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: NameCard(
+                playerName: widget.player.nickname,
+                fullName:
+                    '${widget.player.firstName} ${widget.player.lastName}',
               ),
             ),
             const SizedBox(height: 12),

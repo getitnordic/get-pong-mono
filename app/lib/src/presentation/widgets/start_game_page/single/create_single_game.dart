@@ -24,11 +24,13 @@ class CreateSingleGame extends ConsumerWidget {
     final isAllSelected =
         selected[0].nickname.isNotEmpty && selected[1].nickname.isNotEmpty;
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Column(
+    double height(BuildContext context) => MediaQuery.of(context).size.height;
+
+    return Padding(
+      padding: EdgeInsets.only(top: height(context) * 0.1),
+      child: Column(
+        children: [
+          Column(
             children: [
               CustomSmallContainer(
                 width: 300,
@@ -109,51 +111,51 @@ class CreateSingleGame extends ConsumerWidget {
               ),
             ],
           ),
-        ),
-        SizedBox(
-          width: 300,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                )),
-                minimumSize:
-                    MaterialStateProperty.all<Size>(const Size(300, 50)),
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
+          SizedBox(
+            width: 300,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 55),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  )),
+                  minimumSize:
+                      MaterialStateProperty.all<Size>(const Size(300, 50)),
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return ColorConstants.primaryColor;
+                      } else if (states.contains(MaterialState.disabled)) {
+                        return ColorConstants.disabledButtonColor;
+                      }
                       return ColorConstants.primaryColor;
-                    } else if (states.contains(MaterialState.disabled)) {
-                      return ColorConstants.disabledButtonColor;
-                    }
-                    return ColorConstants.primaryColor;
-                  },
+                    },
+                  ),
                 ),
-              ),
-              onPressed: isAllSelected
-                  ? () {
-                      matchType.update((state) => MatchType.single);
-                      Navigator.pushNamed(
-                        context,
-                        route.scorePage,
-                        arguments: selected,
-                      );
-                    }
-                  : null,
-              child: Text(
-                'Start Game',
-                style: GoogleFonts.goldman(
-                  fontSize: 20,
-                  color: ColorConstants.textColor,
+                onPressed: isAllSelected
+                    ? () {
+                        matchType.update((state) => MatchType.single);
+                        Navigator.pushNamed(
+                          context,
+                          route.scorePage,
+                          arguments: selected,
+                        );
+                      }
+                    : null,
+                child: Text(
+                  'Start Game',
+                  style: GoogleFonts.goldman(
+                    fontSize: 20,
+                    color: ColorConstants.textColor,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

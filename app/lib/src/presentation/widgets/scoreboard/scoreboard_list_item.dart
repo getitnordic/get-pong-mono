@@ -47,7 +47,7 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                     Row(
                       children: [
                         SizedBox(
-                          width: 120,
+                          width: 110,
                           child: Text(
                             homeTeamOne.firstName,
                             textAlign: TextAlign.right,
@@ -141,7 +141,7 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                           ),
                         ),
                         SizedBox(
-                          width: 120,
+                          width: 110,
                           child: Text(
                             awayTeamOne.firstName,
                             overflow: TextOverflow.ellipsis,
