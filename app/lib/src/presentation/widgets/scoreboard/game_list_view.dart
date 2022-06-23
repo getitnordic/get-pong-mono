@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_pong/src/Presentation/widgets/scoreboard/scoreboard_list_item.dart';
+import 'package:get_pong/src/presentation/widgets/scoreboard/updated_scorecard/scoreboard_card.dart';
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../constants/color_constants.dart';
@@ -40,9 +41,10 @@ class GameListView extends StatelessWidget {
                         context,
                         route.matchDetailsPage,
                       ),
-                      child: ScoreboardListItem(
-                        match: matches[index],
-                      ),
+                      child: ScoreboardCard(match: matches[index]),
+                      //ScoreboardListItem(
+                      //match: matches[index],
+                      //),
                     );
                   }),
             ),

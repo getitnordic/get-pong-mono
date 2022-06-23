@@ -6,6 +6,8 @@ import 'package:get_pong/protos/google/protobuf/timestamp.pb.dart';
 import 'package:get_pong/register_services.dart';
 import 'package:get_pong/src/core/common/common.dart';
 
+import '../../../protos/game.pb.dart';
+import '../../core/models/models.dart';
 import '../../domain/use_cases/use_cases.dart';
 
 final playersProvider =
@@ -109,5 +111,20 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
         .where((p) => p.win + p.loss > 0)
         .take(amountOfPlayersToGrab)
         .toList();
+  }
+
+  ScoreBoardMatch convertMatch(GameModel match) {
+    final checkDouble = match.homeTeamIds.length == 2;
+    return ScoreBoardMatch(
+        homeTeamOne: getPlayerById(match.homeTeamIds[0]),
+        homeTeamTwo: checkDouble
+            ? getPlayerById(match.homeTeamIds[1])
+            : BlankPlayerModel.player,
+        awayTeamOne: getPlayerById(match.awayTeamIds[0]),
+        awayTeamTwo: checkDouble
+            ? getPlayerById(match.awayTeamIds[1])
+            : BlankPlayerModel.player,
+        sets: match.sets,
+        isDouble: checkDouble);
   }
 }
