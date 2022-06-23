@@ -9,7 +9,7 @@ import '../../../../../protos/base.pb.dart';
 import '../../../../Presentation/providers/players_notifier.dart';
 import '../../../../core/common/common.dart';
 
-class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
+class ScoreboardCardAlt extends ConsumerWidget with SetProfileImageMixin {
   final GameModel match;
   const ScoreboardCard({
     Key? key,
@@ -60,14 +60,38 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
 
     return Padding(
       padding: const EdgeInsets.all(2),
-      child: Card(
-        color: ColorConstants.appBarColor,
-        shape: const RoundedRectangleBorder(
-            side: BorderSide(color: ColorConstants.secondaryTextColor),
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: Padding(
-          padding: const EdgeInsets.all(4),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Material(
+          elevation: 3,
+          borderRadius: const BorderRadius.all(
+            Radius.circular(20),
+          ),
           child: Container(
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                  colors: [
+                    Color(0xff142738),
+                    Color(0xff1f3346),
+                    Color(0xff2b4054),
+                    Color(0xff364d62),
+                  ],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  stops: [
+                    0.1,
+                    0.4,
+                    0.6,
+                    0.9,
+                  ]),
+              border: Border.all(
+                width: 1,
+                color: ColorConstants.secondaryTextColor,
+              ),
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
             constraints: const BoxConstraints(maxWidth: 200),
             height: 70,
             child: Column(
@@ -82,8 +106,9 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                             padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: CircleAvatar(
                               radius: fontSize,
-                              backgroundImage:
-                                  NetworkImage(setImage(homeTeamOne.imageUrl)),
+                              backgroundImage: NetworkImage(
+                                setImage(homeTeamOne.imageUrl),
+                              ),
                             ),
                           ),
                           Text(
