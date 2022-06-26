@@ -56,10 +56,13 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
     }
 
     int getAmountOfSets() {
+      print(match.sets.length);
       if (match.sets.length == 3) {
         return 3;
       }
       if (match.sets.length == 5) {
+        print('This has 5 sets!');
+        print(match.sets[3].awayTeam);
         return 5;
       }
       return 1;
@@ -81,7 +84,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
           padding: const EdgeInsets.all(4),
           child: Container(
             constraints: const BoxConstraints(maxWidth: 200),
-            height: 70,
+            height: 55,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -129,7 +132,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                               winner: result.winner,
                               color: ColorConstants.secondaryTextColor,
                             ),
-                            if (amountOfSets == 3)
+                            if (amountOfSets == 3) ...[
                               ScoreboardSetScore(
                                 score: match.sets[1].homeTeam.toString(),
                                 width: setScoreWidth,
@@ -137,7 +140,6 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                            if (amountOfSets == 3)
                               ScoreboardSetScore(
                                 score: match.sets[2].homeTeam.toString(),
                                 width: setScoreWidth,
@@ -145,7 +147,22 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                            if (amountOfSets == 5)
+                            ],
+                            if (amountOfSets == 5) ...[
+                              ScoreboardSetScore(
+                                score: match.sets[1].homeTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                winner: result.winner,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
+                              ScoreboardSetScore(
+                                score: match.sets[2].homeTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                winner: result.winner,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
                               ScoreboardSetScore(
                                 score: match.sets[3].homeTeam.toString(),
                                 width: setScoreWidth,
@@ -153,7 +170,6 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                            if (amountOfSets == 5)
                               ScoreboardSetScore(
                                 score: match.sets[4].homeTeam.toString(),
                                 width: setScoreWidth,
@@ -161,6 +177,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
+                            ],
                           ],
                         ),
                       ),
@@ -210,7 +227,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                               winner: result.winner,
                               color: ColorConstants.secondaryTextColor,
                             ),
-                            if (amountOfSets == 3)
+                            if (amountOfSets == 3) ...[
                               ScoreboardSetScore(
                                 score: match.sets[1].awayTeam.toString(),
                                 width: setScoreWidth,
@@ -218,7 +235,6 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                            if (amountOfSets == 3)
                               ScoreboardSetScore(
                                 score: match.sets[2].awayTeam.toString(),
                                 width: setScoreWidth,
@@ -226,7 +242,22 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                            if (amountOfSets == 5)
+                            ],
+                            if (amountOfSets == 5) ...[
+                              ScoreboardSetScore(
+                                score: match.sets[1].awayTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                winner: result.winner,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
+                              ScoreboardSetScore(
+                                score: match.sets[2].awayTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                winner: result.winner,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
                               ScoreboardSetScore(
                                 score: match.sets[3].awayTeam.toString(),
                                 width: setScoreWidth,
@@ -234,7 +265,6 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                            if (amountOfSets == 5)
                               ScoreboardSetScore(
                                 score: match.sets[4].awayTeam.toString(),
                                 width: setScoreWidth,
@@ -242,6 +272,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 winner: result.winner,
                                 color: ColorConstants.secondaryTextColor,
                               ),
+                            ],
                           ],
                         ),
                       ),
