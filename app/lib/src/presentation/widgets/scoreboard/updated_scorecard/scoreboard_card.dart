@@ -56,13 +56,10 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
     }
 
     int getAmountOfSets() {
-      print(match.sets.length);
       if (match.sets.length == 3) {
         return 3;
       }
       if (match.sets.length == 5) {
-        print('This has 5 sets!');
-        print(match.sets[3].awayTeam);
         return 5;
       }
       return 1;
@@ -84,7 +81,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
           padding: const EdgeInsets.all(4),
           child: Container(
             constraints: const BoxConstraints(maxWidth: 200),
-            height: 55,
+            height: 60,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [

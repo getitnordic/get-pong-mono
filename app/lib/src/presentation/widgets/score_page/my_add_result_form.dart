@@ -20,19 +20,16 @@ class _AddResultFormState extends State<AddResultForm> {
     );
   }
 
-  Widget buildResultSlider() => Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Slider(
-          value: _currentSliderValue,
-          max: 11,
-          divisions: 11,
-          label: _currentSliderValue.round().toString(),
-          onChanged: (double value) {
-            setState(() {
-              _currentSliderValue = value;
-            });
-            widget.callback(_currentSliderValue);
-          },
-        ),
+  Widget buildResultSlider() => Slider(
+        value: _currentSliderValue,
+        max: 11,
+        divisions: 11,
+        label: _currentSliderValue.round().toString(),
+        onChanged: (double value) {
+          setState(() {
+            _currentSliderValue = value;
+          });
+          widget.callback(_currentSliderValue);
+        },
       );
 }

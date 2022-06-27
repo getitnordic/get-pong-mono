@@ -22,24 +22,12 @@ class ResultCardSingle extends StatelessWidget {
               name,
               style: const TextStyle(
                 color: ColorConstants.textColor,
-                fontSize: 25,
+                fontSize: 14,
               ),
             ),
           ),
-          const SizedBox(height: 10),
           Expanded(
-            child: Column(
-              children: <Widget>[
-                const Text(
-                  'Enter Result',
-                  style: TextStyle(
-                    color: ColorConstants.textColor,
-                    fontSize: 15,
-                  ),
-                ),
-                child,
-              ],
-            ),
+            child: child,
           ),
         ],
       ),
