@@ -348,7 +348,13 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                         fontSize: 14,
                       ),
                     ),
-                    Text(' - '),
+                    Text(
+                      ' - ',
+                      style: GoogleFonts.goldman(
+                        color: ColorConstants.textColor,
+                        fontSize: 14,
+                      ),
+                    ),
                     Text(
                       '${set1AwayScore.round()}    Team 2',
                       style: GoogleFonts.goldman(
@@ -429,7 +435,13 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                           fontSize: 14,
                         ),
                       ),
-                      Text(' - '),
+                      Text(
+                        ' - ',
+                        style: GoogleFonts.goldman(
+                          color: ColorConstants.textColor,
+                          fontSize: 14,
+                        ),
+                      ),
                       Text(
                         '${set2AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
@@ -509,7 +521,13 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                           fontSize: 14,
                         ),
                       ),
-                      Text(' - '),
+                      Text(
+                        ' - ',
+                        style: GoogleFonts.goldman(
+                          color: ColorConstants.textColor,
+                          fontSize: 14,
+                        ),
+                      ),
                       Text(
                         '${set3AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
@@ -591,7 +609,13 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                           fontSize: 14,
                         ),
                       ),
-                      Text(' - '),
+                      Text(
+                        ' - ',
+                        style: GoogleFonts.goldman(
+                          color: ColorConstants.textColor,
+                          fontSize: 14,
+                        ),
+                      ),
                       Text(
                         '${set4AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
@@ -671,7 +695,13 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                           fontSize: 14,
                         ),
                       ),
-                      Text(' - '),
+                      Text(
+                        ' - ',
+                        style: GoogleFonts.goldman(
+                          color: ColorConstants.textColor,
+                          fontSize: 14,
+                        ),
+                      ),
                       Text(
                         '${set5AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
