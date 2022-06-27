@@ -9,43 +9,61 @@ class PlayerRankingListHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Player',
-          style: GoogleFonts.goldman(
-              fontSize: 20, color: ColorConstants.primaryColor),
-        ),
-        SizedBox(
-          width: 200,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                'P',
-                style: GoogleFonts.goldman(
-                    fontSize: 20, color: ColorConstants.primaryColor),
-              ),
-              Text(
-                'W',
-                style: GoogleFonts.goldman(
-                    fontSize: 20, color: ColorConstants.primaryColor),
-              ),
-              Text(
-                'L',
-                style: GoogleFonts.goldman(
-                    fontSize: 20, color: ColorConstants.primaryColor),
-              ),
-              Text(
-                'Score',
-                style: GoogleFonts.goldman(
-                    fontSize: 20, color: ColorConstants.primaryColor),
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Player',
+            style: GoogleFonts.goldman(
+                fontSize: 20, color: ColorConstants.primaryColor),
           ),
-        ),
-      ],
+          SizedBox(
+            width: 220,
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    'P',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.goldman(
+                        fontSize: 20, color: ColorConstants.primaryColor),
+                  ),
+                ),
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    'W',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.goldman(
+                        fontSize: 20, color: ColorConstants.primaryColor),
+                  ),
+                ),
+                SizedBox(
+                  width: 50,
+                  child: Text(
+                    'L',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.goldman(
+                        fontSize: 20, color: ColorConstants.primaryColor),
+                  ),
+                ),
+                SizedBox(
+                  width: 70,
+                  child: Text(
+                    'Score',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.goldman(
+                        fontSize: 20, color: ColorConstants.primaryColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
