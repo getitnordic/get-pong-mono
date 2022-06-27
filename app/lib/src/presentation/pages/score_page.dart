@@ -25,74 +25,75 @@ class ScorePage extends ConsumerStatefulWidget {
 }
 
 class _ScorePageState extends ConsumerState<ScorePage> {
-  double score1 = 5;
-  double score2 = 5;
-  double score3 = 5;
-  double score4 = 5;
-  double score5 = 5;
-  double score6 = 5;
-  double score7 = 5;
-  double score8 = 5;
-  double score9 = 5;
-  double score10 = 5;
+  double set1HomeScore = 5;
+  double set1AwayScore = 5;
+  double set2HomeScore = 5;
+  double set2AwayScore = 5;
+  double set3HomeScore = 5;
+  double set3AwayScore = 5;
+  double set4HomeScore = 5;
+  double set4AwayScore = 5;
+  double set5HomeScore = 5;
+  double set5AwayScore = 5;
   int? selectedValue = 0;
 
   void setScore1(double score) {
     setState(() {
-      score1 = score;
+      set1HomeScore = score;
     });
   }
 
   void setScore2(double score) {
     setState(() {
-      score2 = score;
+      set1AwayScore = score;
     });
   }
 
   void setScore3(double score) {
     setState(() {
-      score3 = score;
+      set2HomeScore = score;
     });
   }
 
   void setScore4(double score) {
     setState(() {
-      score4 = score;
+      set2AwayScore = score;
     });
   }
 
   void setScore5(double score) {
     setState(() {
-      score5 = score;
+      set3HomeScore = score;
     });
   }
 
   void setScore6(double score) {
     setState(() {
-      score6 = score;
+      set3AwayScore = score;
     });
   }
+
   void setScore7(double score) {
     setState(() {
-      score7 = score;
+      set4HomeScore = score;
     });
   }
 
   void setScore8(double score) {
     setState(() {
-      score8 = score;
+      set4AwayScore = score;
     });
   }
 
   void setScore9(double score) {
     setState(() {
-      score9 = score;
+      set5HomeScore = score;
     });
   }
 
   void setScore10(double score) {
     setState(() {
-      score10 = score;
+      set5AwayScore = score;
     });
   }
 
@@ -124,18 +125,18 @@ class _ScorePageState extends ConsumerState<ScorePage> {
             sets: [
               SetModel(
                 setNo: 1,
-                homeTeam: score1.toInt(),
-                awayTeam: score2.toInt(),
+                homeTeam: set1HomeScore.toInt(),
+                awayTeam: set1AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 2,
-                homeTeam: score3.toInt(),
-                awayTeam: score4.toInt(),
+                homeTeam: set2HomeScore.toInt(),
+                awayTeam: set2AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 3,
-                homeTeam: score5.toInt(),
-                awayTeam: score6.toInt(),
+                homeTeam: set3HomeScore.toInt(),
+                awayTeam: set3AwayScore.toInt(),
               ),
             ],
           );
@@ -148,25 +149,25 @@ class _ScorePageState extends ConsumerState<ScorePage> {
             sets: [
               SetModel(
                 setNo: 1,
-                homeTeam: score1.toInt(),
-                awayTeam: score2.toInt(),
+                homeTeam: set1HomeScore.toInt(),
+                awayTeam: set1AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 2,
-                homeTeam: score3.toInt(),
-                awayTeam: score4.toInt(),
+                homeTeam: set2HomeScore.toInt(),
+                awayTeam: set2AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 3,
-                homeTeam: score5.toInt(),
-                awayTeam: score6.toInt(),
+                homeTeam: set3HomeScore.toInt(),
+                awayTeam: set3AwayScore.toInt(),
               ),
             ],
           );
           matchesNotifier.createGame(match);
           selectedPlayersNotifier.resetState();
         }
-      } else if (selectedValue == 2){
+      } else if (selectedValue == 2) {
         if (widget.selectedPlayers[2].nickname.isNotEmpty) {
           GameModel match = GameModel(
             homeTeamIds: [playerOne.id, playerTwo.id],
@@ -174,28 +175,28 @@ class _ScorePageState extends ConsumerState<ScorePage> {
             sets: [
               SetModel(
                 setNo: 1,
-                homeTeam: score1.toInt(),
-                awayTeam: score2.toInt(),
+                homeTeam: set1HomeScore.toInt(),
+                awayTeam: set1AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 2,
-                homeTeam: score3.toInt(),
-                awayTeam: score4.toInt(),
+                homeTeam: set2HomeScore.toInt(),
+                awayTeam: set2AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 3,
-                homeTeam: score5.toInt(),
-                awayTeam: score6.toInt(),
+                homeTeam: set3HomeScore.toInt(),
+                awayTeam: set3AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 4,
-                homeTeam: score7.toInt(),
-                awayTeam: score8.toInt(),
+                homeTeam: set4HomeScore.toInt(),
+                awayTeam: set4AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 5,
-                homeTeam: score9.toInt(),
-                awayTeam: score10.toInt(),
+                homeTeam: set5HomeScore.toInt(),
+                awayTeam: set5AwayScore.toInt(),
               ),
             ],
           );
@@ -208,28 +209,28 @@ class _ScorePageState extends ConsumerState<ScorePage> {
             sets: [
               SetModel(
                 setNo: 1,
-                homeTeam: score1.toInt(),
-                awayTeam: score2.toInt(),
+                homeTeam: set1HomeScore.toInt(),
+                awayTeam: set1AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 2,
-                homeTeam: score3.toInt(),
-                awayTeam: score4.toInt(),
+                homeTeam: set2HomeScore.toInt(),
+                awayTeam: set2AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 3,
-                homeTeam: score5.toInt(),
-                awayTeam: score6.toInt(),
+                homeTeam: set3HomeScore.toInt(),
+                awayTeam: set3AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 4,
-                homeTeam: score7.toInt(),
-                awayTeam: score8.toInt(),
+                homeTeam: set4HomeScore.toInt(),
+                awayTeam: set4AwayScore.toInt(),
               ),
               SetModel(
                 setNo: 5,
-                homeTeam: score9.toInt(),
-                awayTeam: score10.toInt(),
+                homeTeam: set5HomeScore.toInt(),
+                awayTeam: set5AwayScore.toInt(),
               ),
             ],
           );
@@ -244,8 +245,8 @@ class _ScorePageState extends ConsumerState<ScorePage> {
             sets: [
               SetModel(
                 setNo: 1,
-                homeTeam: score1.toInt(),
-                awayTeam: score2.toInt(),
+                homeTeam: set1HomeScore.toInt(),
+                awayTeam: set1AwayScore.toInt(),
               ),
             ],
           );
@@ -258,8 +259,8 @@ class _ScorePageState extends ConsumerState<ScorePage> {
             sets: [
               SetModel(
                 setNo: 1,
-                homeTeam: score1.toInt(),
-                awayTeam: score2.toInt(),
+                homeTeam: set1HomeScore.toInt(),
+                awayTeam: set1AwayScore.toInt(),
               ),
             ],
           );
@@ -341,7 +342,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Team 1    ${score1.round()}',
+                      'Team 1    ${set1HomeScore.round()}',
                       style: GoogleFonts.goldman(
                         color: ColorConstants.textColor,
                         fontSize: 14,
@@ -349,7 +350,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                     ),
                     Text(' - '),
                     Text(
-                      '${score2.round()}    Team 2',
+                      '${set1AwayScore.round()}    Team 2',
                       style: GoogleFonts.goldman(
                         color: ColorConstants.textColor,
                         fontSize: 14,
@@ -422,7 +423,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Team 1    ${score3.round()}',
+                        'Team 1    ${set2HomeScore.round()}',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -430,7 +431,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                       ),
                       Text(' - '),
                       Text(
-                        '${score4.round()}    Team 2',
+                        '${set2AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -502,7 +503,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Team 1    ${score5.round()}',
+                        'Team 1    ${set3HomeScore.round()}',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -510,7 +511,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                       ),
                       Text(' - '),
                       Text(
-                        '${score6.round()}    Team 2',
+                        '${set3AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -584,7 +585,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Team 1    ${score7.round()}',
+                        'Team 1    ${set4HomeScore.round()}',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -592,7 +593,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                       ),
                       Text(' - '),
                       Text(
-                        '${score8.round()}    Team 2',
+                        '${set4AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -664,7 +665,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Team 1    ${score9.round()}',
+                        'Team 1    ${set5HomeScore.round()}',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -672,7 +673,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                       ),
                       Text(' - '),
                       Text(
-                        '${score10.round()}    Team 2',
+                        '${set5AwayScore.round()}    Team 2',
                         style: GoogleFonts.goldman(
                           color: ColorConstants.textColor,
                           fontSize: 14,
@@ -796,8 +797,8 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                                   behavior: SnackBarBehavior.floating,
                                 ),
                               );
-                              score1 = 5;
-                              score2 = 5;
+                              set1HomeScore = 5;
+                              set1AwayScore = 5;
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
