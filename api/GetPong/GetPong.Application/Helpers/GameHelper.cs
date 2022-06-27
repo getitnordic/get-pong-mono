@@ -22,16 +22,31 @@ public class GameHelper : IGameHelper
     public bool SaveSingleMatchScoreToDb(Game game)
     {
         // Stupid solution but might kinda work?
-        string player1Id = game.HomeTeamIds[0];
-        string player2Id = game.AwayTeamIds[0];
+        var player1Id = game.HomeTeamIds[0];
+        var player2Id = game.AwayTeamIds[0];
 
         var player1FromDb =_playerRepository.GetPlayerById(player1Id);
         var player2FromDb =_playerRepository.GetPlayerById(player2Id);
 
-        bool player1Win = false;
-        bool player2Win = false;
+        var player1Win = false;
+        var player2Win = false;
 
-        if (game.Sets[0].HomeTeam > game.Sets[0].AwayTeam)
+        var player1Score = 0;
+        var player2Score = 0;
+        
+        foreach (var gameSet in game.Sets)
+        {
+            if (gameSet.HomeTeam > gameSet.AwayTeam)
+            {
+                player1Score++;
+            }
+            else
+            {
+                player2Score++;
+            }
+        }
+        
+        if (player1Score > player2Score)
         {
             player1Win = true;
             player2Win = false;
