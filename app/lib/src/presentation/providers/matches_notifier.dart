@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/core/models/Scoreboard_match.dart';
 import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 
 import '../../../protos/protos.dart';
@@ -101,4 +102,5 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
     }
     return playerGames.take(amountOfMatchesToGrab).toList();
   }
+  
 }

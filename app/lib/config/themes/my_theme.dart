@@ -47,9 +47,7 @@ class Customtheme {
         border: const OutlineInputBorder(),
         errorBorder: myErrorFormBorder(),
         focusedErrorBorder: myErrorFormBorder(),
-        errorStyle: const TextStyle(
-          overflow: TextOverflow.clip
-        ),
+        errorStyle: const TextStyle(overflow: TextOverflow.clip),
       ),
       dialogTheme: const DialogTheme(
         elevation: 1000,

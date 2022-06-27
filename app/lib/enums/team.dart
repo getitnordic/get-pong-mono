@@ -1,0 +1,3 @@
+enum Team {
+  homeTeam, awayTeam
+}
