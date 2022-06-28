@@ -278,7 +278,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
         child: SingleChildScrollView(
           child: Container(
             width: double.infinity,
-            constraints: BoxConstraints(minHeight: 20, maxHeight: 1500),
+            constraints: BoxConstraints(minHeight: 20, maxHeight: 2600),
             child: Column(
               children: [
                 SizedBox(height: 35),

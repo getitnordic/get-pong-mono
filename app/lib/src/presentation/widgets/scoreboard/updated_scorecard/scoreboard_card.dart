@@ -42,46 +42,82 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
     final result = controller.getMatchScore();
     final amountOfSets = controller.getAmountOfSets();
     const fontSize = 12.0;
+    const imageSize = 10.0;
     const setScoreWidth = 20.0;
 
-    return Padding(
-      padding: const EdgeInsets.all(2),
-      child: Card(
-        color: ColorConstants.appBarColor,
-        shape: const RoundedRectangleBorder(
-            side: BorderSide(color: ColorConstants.secondaryTextColor),
-            borderRadius: BorderRadius.all(Radius.circular(15))),
-        child: Padding(
-          padding: const EdgeInsets.all(4),
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 200),
-            height: 60,
+    return Card(
+      color: ColorConstants.appBarColor,
+      shape: const RoundedRectangleBorder(
+          side: BorderSide(color: ColorConstants.secondaryTextColor),
+          borderRadius: BorderRadius.all(Radius.circular(15))),
+      child: Padding(
+        padding: const EdgeInsets.all(3),
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 200),
+          height: isDouble ? 120 : 70,
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
+                      Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: CircleAvatar(
-                              radius: fontSize,
-                              backgroundImage: NetworkImage(
-                                  setImage(controller.homeTeamOne.imageUrl)),
+                          SizedBox(
+                            width: 200,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                                  child: CircleAvatar(
+                                    radius: imageSize,
+                                    backgroundImage: NetworkImage(setImage(
+                                        controller.homeTeamOne.imageUrl)),
+                                  ),
+                                ),
+                                Text(
+                                  controller.homeTeamOne.firstName,
+                                  style: TextStyle(
+                                    fontSize: fontSize,
+                                    color: ColorConstants.textColor,
+                                    fontWeight: result.winner == Team.homeTeam
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            controller.homeTeamOne.firstName,
-                            style: TextStyle(
-                              fontSize: fontSize,
-                              color: ColorConstants.textColor,
-                              fontWeight: result.winner == Team.homeTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+                          if (isDouble)
+                            SizedBox(
+                              width: 200,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: CircleAvatar(
+                                      radius: imageSize,
+                                      backgroundImage: NetworkImage(setImage(
+                                          controller.homeTeamTwo.imageUrl)),
+                                    ),
+                                  ),
+                                  Text(
+                                    controller.homeTeamTwo.firstName,
+                                    style: TextStyle(
+                                      fontSize: fontSize,
+                                      color: ColorConstants.textColor,
+                                      fontWeight: result.winner == Team.homeTeam
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
                         ],
                       ),
                       Padding(
@@ -174,29 +210,68 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                       ),
                     ],
                   ),
+                  const Divider(
+                    indent: 10,
+                    endIndent: 10,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
+                      Column(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: CircleAvatar(
-                              radius: fontSize,
-                              backgroundImage: NetworkImage(
-                                  setImage(controller.awayTeamOne.imageUrl)),
+                          SizedBox(
+                            width: 200,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                                  child: CircleAvatar(
+                                    radius: imageSize,
+                                    backgroundImage: NetworkImage(setImage(
+                                        controller.awayTeamOne.imageUrl)),
+                                  ),
+                                ),
+                                Text(
+                                  controller.awayTeamOne.firstName,
+                                  style: TextStyle(
+                                    fontSize: fontSize,
+                                    color: ColorConstants.textColor,
+                                    fontWeight: result.winner == Team.awayTeam
+                                        ? FontWeight.bold
+                                        : FontWeight.normal,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Text(
-                            controller.awayTeamOne.firstName,
-                            style: TextStyle(
-                              fontSize: fontSize,
-                              color: ColorConstants.textColor,
-                              fontWeight: result.winner == Team.awayTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+                          if (isDouble)
+                            SizedBox(
+                              width: 200,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: CircleAvatar(
+                                      radius: imageSize,
+                                      backgroundImage: NetworkImage(setImage(
+                                          controller.awayTeamTwo.imageUrl)),
+                                    ),
+                                  ),
+                                  Text(
+                                    controller.awayTeamTwo.firstName,
+                                    style: TextStyle(
+                                      fontSize: fontSize,
+                                      color: ColorConstants.textColor,
+                                      fontWeight: result.winner == Team.awayTeam
+                                          ? FontWeight.bold
+                                          : FontWeight.normal,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
                         ],
                       ),
                       Padding(
