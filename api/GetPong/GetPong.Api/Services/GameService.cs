@@ -38,6 +38,8 @@ public class GameService : global::Game.GameService.GameServiceBase
         var playerTwo = _getPlayerByIdHandler.Handle(game.AwayTeamIds[0]).Result;
         var playerOneCommand = _mapper.Map<UpdatePlayerCommand>(playerOne);
         var playerTwoCommand = _mapper.Map<UpdatePlayerCommand>(playerTwo);
+        playerOneCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+        playerTwoCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         var updated1 = _updatePlayerHandler.Handle(playerOne.Id, playerOneCommand);
         var updated2 = _updatePlayerHandler.Handle(playerTwo.Id, playerTwoCommand);
         
@@ -48,6 +50,8 @@ public class GameService : global::Game.GameService.GameServiceBase
         var playerFour = _getPlayerByIdHandler.Handle(game.AwayTeamIds[1]).Result;
         var playerThreeCommand = _mapper.Map<UpdatePlayerCommand>(playerThree);
         var playerFourCommand = _mapper.Map<UpdatePlayerCommand>(playerFour);
+        playerThreeCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
+        playerFourCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         var updated3 = _updatePlayerHandler.Handle(playerThree.Id, playerThreeCommand);
         var updated4 = _updatePlayerHandler.Handle(playerFour.Id, playerFourCommand);
         //
