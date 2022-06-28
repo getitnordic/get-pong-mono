@@ -23,6 +23,16 @@ class CreateDoubleGame extends ConsumerWidget {
         selected[1].nickname.isNotEmpty &&
         selected[2].nickname.isNotEmpty &&
         selected[3].nickname.isNotEmpty;
+    bool duplicatesDoesNotExist() {
+      final players = selected;
+      final newPlayers = selected.toSet().toList();
+      if (players.length == newPlayers.length) {
+        return true;
+      }
+      return false;
+    }
+
+    duplicatesDoesNotExist();
 
     return Column(
       children: [
@@ -190,7 +200,7 @@ class CreateDoubleGame extends ConsumerWidget {
                   },
                 ),
               ),
-              onPressed: isAllSelected
+              onPressed: isAllSelected && duplicatesDoesNotExist()
                   ? () {
                       matchType.update((state) => MatchType.double);
                       Navigator.pushNamed(
