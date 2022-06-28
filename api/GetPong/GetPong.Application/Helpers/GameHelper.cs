@@ -24,9 +24,8 @@ public class GameHelper : IGameHelper
         // Stupid solution but might kinda work?
         var player1Id = game.HomeTeamIds[0];
         var player2Id = game.AwayTeamIds[0];
-
-        var player1FromDb =_playerRepository.GetPlayerById(player1Id);
-        var player2FromDb =_playerRepository.GetPlayerById(player2Id);
+        var player3Id = game.HomeTeamIds[1];
+        var player4Id = game.AwayTeamIds[1];
 
         var player1Win = false;
         var player2Win = false;
@@ -58,7 +57,9 @@ public class GameHelper : IGameHelper
         }
         
         _playerRepository.UpdateScoreOfPlayer(player1Id, player1Win);
+        _playerRepository.UpdateScoreOfPlayer(player3Id, player1Win);
         _playerRepository.UpdateScoreOfPlayer(player2Id, player2Win);
+        _playerRepository.UpdateScoreOfPlayer(player4Id, player2Win);
 
         // TODO: make it return true if successfully updated, else false
         return true;
