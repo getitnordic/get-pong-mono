@@ -23,7 +23,7 @@ class CreateSingleGame extends ConsumerWidget {
     final matchType = ref.watch(matchTypeProvider.notifier);
     final isAllSelected = selected[0].nickname.isNotEmpty &&
         selected[1].nickname.isNotEmpty &&
-        selected[0].firstName != selected[1].firstName;
+        selected[0].id != selected[1].id;
 
     double height(BuildContext context) => MediaQuery.of(context).size.height;
 

@@ -32,8 +32,6 @@ class CreateDoubleGame extends ConsumerWidget {
       return false;
     }
 
-    duplicatesDoesNotExist();
-
     return Column(
       children: [
         Padding(
