@@ -77,6 +77,7 @@ class HomePage extends ConsumerWidget {
           onTap: (index) async {
             if (index == 0) {}
             if (index == 1) {
+              ref.watch(playersProvider.notifier).fetchPlayers();
               ref.watch(matchesProvider.notifier).fetchGames();
             }
             if (index == 2) {}
