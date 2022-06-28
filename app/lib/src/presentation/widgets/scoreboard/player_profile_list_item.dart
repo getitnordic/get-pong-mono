@@ -5,8 +5,8 @@ import 'package:get_pong/protos/game.pbgrpc.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
-import '../../../../protos/base.pb.dart';
 import '../../../core/common/blank_player_model.dart';
+import 'updated_scorecard/scoreboard_controller.dart';
 
 class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   const PlayerProfileListItem({Key? key, required this.match})
@@ -16,166 +16,121 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDouble = match.homeTeamIds.length == 2;
-    final homeTeamOne =
-        ref.watch(playersProvider.notifier).getPlayerById(match.homeTeamIds[0]);
-    final awayTeamOne =
-        ref.watch(playersProvider.notifier).getPlayerById(match.awayTeamIds[0]);
-    PlayerModel homeTeamTwo = BlankPlayerModel.player;
-    PlayerModel awayTeamTwo = BlankPlayerModel.player;
-    if (isDouble) {
-      homeTeamTwo = ref
+    final controller = ScoreboardController(
+      homeTeamOne: ref
           .watch(playersProvider.notifier)
-          .getPlayerById(match.homeTeamIds[1]);
-      awayTeamTwo = ref
+          .getPlayerById(match.homeTeamIds[0]),
+      awayTeamOne: ref
           .watch(playersProvider.notifier)
-          .getPlayerById(match.awayTeamIds[1]);
-    }
+          .getPlayerById(match.awayTeamIds[0]),
+      homeTeamTwo: isDouble
+          ? ref
+              .watch(playersProvider.notifier)
+              .getPlayerById(match.homeTeamIds[1])
+          : BlankPlayerModel.player,
+      awayTeamTwo: isDouble
+          ? ref
+              .watch(playersProvider.notifier)
+              .getPlayerById(match.awayTeamIds[1])
+          : BlankPlayerModel.player,
+      match: match,
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 3),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          Column(
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 120,
-                        child: Text(
-                          homeTeamOne.firstName,
-                          textAlign: TextAlign.right,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: ColorConstants.textColor,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10),
-                        child: CircleAvatar(
-                          radius: 11.0,
-                          backgroundImage:
-                              NetworkImage(setImage(homeTeamOne.imageUrl)),
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (isDouble)
-                    Row(
-                      children: [
-                        Text(
-                          homeTeamTwo.firstName,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: ColorConstants.textColor,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: CircleAvatar(
-                            radius: 11.0,
-                            backgroundImage:
-                                NetworkImage(setImage(homeTeamTwo.imageUrl)),
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10),
+              SizedBox(
+                width: 200,
                 child: Text(
-                  match.sets[0].homeTeam.toString(),
+                  controller.homeTeamOne.firstName,
+                  textAlign: TextAlign.right,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                      fontSize: 11,
+                    fontSize: 14,
+                    color: ColorConstants.textColor,
+                  ),
+                ),
+              ),
+              if (isDouble)
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    controller.homeTeamTwo.firstName,
+                    textAlign: TextAlign.right,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          SizedBox(
+            width: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  controller.getMatchScore().homeTeamScore.toString(),
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(
+                      fontSize: 14,
                       color: ColorConstants.textColor,
                       fontWeight: FontWeight.bold),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            width: 5,
-            child: Text(
-              ' - ',
-              style: TextStyle(
-                  fontSize: 11,
-                  color: ColorConstants.textColor,
-                  fontWeight: FontWeight.bold),
+                const SizedBox(
+                  width: 15,
+                  child: Text(
+                    '-',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 14,
+                        color: ColorConstants.textColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Text(
+                  controller.getMatchScore().awayTeamScore.toString(),
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      color: ColorConstants.textColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
+              SizedBox(
+                width: 200,
                 child: Text(
-                  match.sets[0].awayTeam.toString(),
+                  controller.awayTeamOne.firstName,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                      fontSize: 11,
-                      color: ColorConstants.textColor,
-                      fontWeight: FontWeight.bold),
+                    fontSize: 14,
+                    color: ColorConstants.textColor,
+                  ),
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: CircleAvatar(
-                          radius: 12.0,
-                          backgroundImage:
-                              NetworkImage(setImage(awayTeamOne.imageUrl)),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 120,
-                        child: Text(
-                          awayTeamOne.firstName,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: ColorConstants.textColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  if (isDouble)
-                    Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: CircleAvatar(
-                            radius: 12.0,
-                            backgroundImage:
-                                NetworkImage(setImage(awayTeamTwo.imageUrl)),
-                          ),
-                        ),
-                        Text(
-                          awayTeamTwo.firstName,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: ColorConstants.textColor,
-                          ),
-                        ),
-                      ],
+              if (isDouble)
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    controller.awayTeamTwo.firstName,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: ColorConstants.textColor,
                     ),
-                ],
-              ),
+                  ),
+                ),
             ],
-          ),
+          )
         ],
       ),
     );

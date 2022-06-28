@@ -6,7 +6,7 @@ class ScoreboardSetScore extends StatelessWidget {
   final String score;
   final double width;
   final double fontSize;
-  final Team winner;
+  final FontWeight fontWeight;
   final Color color;
 
   const ScoreboardSetScore(
@@ -14,7 +14,7 @@ class ScoreboardSetScore extends StatelessWidget {
       required this.score,
       required this.width,
       required this.fontSize,
-      required this.winner,
+      required this.fontWeight,
       required this.color})
       : super(key: key);
 
@@ -28,8 +28,7 @@ class ScoreboardSetScore extends StatelessWidget {
           style: TextStyle(
             fontSize: fontSize,
             color: color,
-            fontWeight:
-                winner == Team.homeTeam ? FontWeight.bold : FontWeight.normal,
+            fontWeight: fontWeight,
           ),
         ),
       ),

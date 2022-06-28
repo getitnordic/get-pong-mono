@@ -2,7 +2,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/sorting_options.dart';
 import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/protos/google/protobuf/timestamp.pb.dart';
 import 'package:get_pong/register_services.dart';
 import 'package:get_pong/src/core/common/common.dart';
 
@@ -34,6 +33,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final AddPlayerUseCase registerNewPlayerUseCase;
   final UpdatePlayerUseCase updatePlayerUseCase;
   final Reader read;
+  bool isLoading = false;
 
   PlayersNotifier(
     this.getPlayersUseCase,
