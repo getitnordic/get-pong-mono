@@ -20,6 +20,7 @@ public class GetPongProfile : Profile
         CreateMap(typeof(GameModel), typeof(Core.Infrastructure.Entities.Games.Game)).ReverseMap();
         CreateMap(typeof(SetModel), typeof(GameSet)).ReverseMap();
         CreateMap(typeof(PlayerModel), typeof(UpdatePlayerCommand)).ReverseMap();
+        CreateMap(typeof(Core.Infrastructure.Entities.Players.Player), typeof(UpdatePlayerCommand)).ReverseMap();
         CreateMap<DateTime, Timestamp>().ConvertUsing<TimestampConverter>();
         CreateMap<Timestamp, DateTime>().ConvertUsing<DateTimeConverter>();
     }

@@ -36,30 +36,22 @@ public class GameService : global::Game.GameService.GameServiceBase
         //Update lastActivity on players in the game. Add functionality for doubles and make it cleaner later.
         var playerOne = _getPlayerByIdHandler.Handle(game.HomeTeamIds[0]).Result;
         var playerTwo = _getPlayerByIdHandler.Handle(game.AwayTeamIds[0]).Result;
-        var playerOneCommand = new UpdatePlayerCommand()
-        {
-            Email = playerOne.Email,
-            Nickname = playerOne.Nickname,
-            FirstName = playerOne.FirstName,
-            LastName = playerOne.LastName,
-            ImageUrl = playerOne.ImageUrl,
-            LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc)
-        };
-        var playerTwoCommand = new UpdatePlayerCommand()
-        {
-            Email = playerTwo.Email,
-            Nickname = playerTwo.Nickname,
-            FirstName = playerTwo.FirstName,
-            LastName = playerTwo.LastName,
-            ImageUrl = playerTwo.ImageUrl,
-            LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc)
-        };
+        var playerOneCommand = _mapper.Map<UpdatePlayerCommand>(playerOne);
+        var playerTwoCommand = _mapper.Map<UpdatePlayerCommand>(playerTwo);
         var updated1 = _updatePlayerHandler.Handle(playerOne.Id, playerOneCommand);
         var updated2 = _updatePlayerHandler.Handle(playerTwo.Id, playerTwoCommand);
+        
+        //For doubles
+        if (game.HomeTeamIds.Count != 2) return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
+        
+        var playerThree = _getPlayerByIdHandler.Handle(game.HomeTeamIds[1]).Result;
+        var playerFour = _getPlayerByIdHandler.Handle(game.AwayTeamIds[1]).Result;
+        var playerThreeCommand = _mapper.Map<UpdatePlayerCommand>(playerThree);
+        var playerFourCommand = _mapper.Map<UpdatePlayerCommand>(playerFour);
+        var updated3 = _updatePlayerHandler.Handle(playerThree.Id, playerThreeCommand);
+        var updated4 = _updatePlayerHandler.Handle(playerFour.Id, playerFourCommand);
         //
         
-     
-
         return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
     }
 

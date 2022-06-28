@@ -5,4 +5,5 @@ namespace GetPong.Core.Core.Helpers;
 public interface IGameHelper
 {
     bool SaveSingleMatchScoreToDb(Game game);
+    bool SaveDoubleMatchScoreToDb(Game game);
 }
