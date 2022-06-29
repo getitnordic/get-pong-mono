@@ -70,7 +70,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
           height: 90,
           child: TextFormField(
             decoration: const InputDecoration(
-              labelText: 'First name',
+              labelText: 'Name',
               prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
             ),
             keyboardType: TextInputType.text,
