@@ -15,18 +15,17 @@ enum StreakEnum {
 
 message PlayerModel {
   string id = 1;
-  string firstName = 2;
-  string lastName = 3;
-  string nickname = 4;
-  string imageUrl = 5;
-  string email = 6;
-  int32 streak = 7;
-  int32 win = 8;
-  int32 loss = 9;
-  int32 totalScore = 10;
-  string azureAdId = 11;
-  StreakEnum streakEnum = 12;
-  google.protobuf.Timestamp lastActivity = 13;
+  string fullName = 2;
+  string nickname = 3;
+  string imageUrl = 4;
+  string email = 5;
+  int32 streak = 6;
+  int32 win = 7;
+  int32 loss = 8;
+  int32 totalScore = 9;
+  string azureAdId = 10;
+  StreakEnum streakEnum = 11;
+  google.protobuf.Timestamp lastActivity = 12;
 }
 
 message SetModel {
