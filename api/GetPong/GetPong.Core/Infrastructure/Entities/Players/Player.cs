@@ -12,8 +12,7 @@ namespace GetPong.Core.Infrastructure.Entities.Players
         public Player(BsonDocument doc)
         {
             Id = doc.GetValue("_id", "").ToString();
-            FirstName = doc.GetValue("first_name").AsString;
-            LastName = doc.GetValue("last_name").AsString;
+            FullName = doc.GetValue("full_name").AsString;
             Nickname = doc.GetValue("nickname").AsString;
             ImageUrl = doc.GetValue("image_url").AsString;
             Email = doc.GetValue("email").AsString;
@@ -30,8 +29,7 @@ namespace GetPong.Core.Infrastructure.Entities.Players
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { set; get; }
 
-        public string FirstName { set; get; }
-        public string LastName { set; get; }
+        public string FullName { set; get; }
         public string Nickname { set; get; }
         public string ImageUrl { set; get; }
         public string Email { set; get; }
