@@ -226,7 +226,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               child: NameCard(
                 playerName: widget.player.nickname,
                 fullName:
-                    '${widget.player.firstName} ${widget.player.lastName}',
+                    widget.player.fullName,
               ),
             ),
             const SizedBox(height: 12),

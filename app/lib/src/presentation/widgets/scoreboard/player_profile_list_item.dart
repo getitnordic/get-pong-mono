@@ -49,7 +49,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
               SizedBox(
                 width: rowWidth,
                 child: Text(
-                  controller.homeTeamOne.firstName,
+                  controller.homeTeamOne.fullName,
                   textAlign: TextAlign.right,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -62,7 +62,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
                 SizedBox(
                   width: rowWidth,
                   child: Text(
-                    controller.homeTeamTwo.firstName,
+                    controller.homeTeamTwo.fullName,
                     textAlign: TextAlign.right,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -113,7 +113,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
               SizedBox(
                 width: rowWidth,
                 child: Text(
-                  controller.awayTeamOne.firstName,
+                  controller.awayTeamOne.fullName,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 14,
@@ -125,7 +125,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
                 SizedBox(
                   width: rowWidth,
                   child: Text(
-                    controller.awayTeamTwo.firstName,
+                    controller.awayTeamTwo.fullName,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 14,

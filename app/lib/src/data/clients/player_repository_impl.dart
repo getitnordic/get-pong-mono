@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:get_pong/protos/base.pbgrpc.dart';
-import 'package:get_pong/protos/player.pbgrpc.dart';
+
+import 'package:get_pong/protos/protos.dart';
 import 'package:get_pong/src/core/common/data_state.dart';
 import 'package:grpc/grpc.dart';
 
@@ -14,8 +14,7 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<DataState<String>> addPlayer(PlayerModel player) async {
     final request = RegisterExternalRequest(
-      firstName: player.firstName,
-      lastName: player.lastName,
+      fullName: player.fullName,
       nickname: player.nickname,
       email: player.email,
     );

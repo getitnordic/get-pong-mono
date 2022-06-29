@@ -25,23 +25,22 @@ const PlayerModel$json = const {
   '1': 'PlayerModel',
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    const {'1': 'firstName', '3': 2, '4': 1, '5': 9, '10': 'firstName'},
-    const {'1': 'lastName', '3': 3, '4': 1, '5': 9, '10': 'lastName'},
-    const {'1': 'nickname', '3': 4, '4': 1, '5': 9, '10': 'nickname'},
-    const {'1': 'imageUrl', '3': 5, '4': 1, '5': 9, '10': 'imageUrl'},
-    const {'1': 'email', '3': 6, '4': 1, '5': 9, '10': 'email'},
-    const {'1': 'streak', '3': 7, '4': 1, '5': 5, '10': 'streak'},
-    const {'1': 'win', '3': 8, '4': 1, '5': 5, '10': 'win'},
-    const {'1': 'loss', '3': 9, '4': 1, '5': 5, '10': 'loss'},
-    const {'1': 'totalScore', '3': 10, '4': 1, '5': 5, '10': 'totalScore'},
-    const {'1': 'azureAdId', '3': 11, '4': 1, '5': 9, '10': 'azureAdId'},
-    const {'1': 'streakEnum', '3': 12, '4': 1, '5': 14, '6': '.base.StreakEnum', '10': 'streakEnum'},
-    const {'1': 'lastActivity', '3': 13, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastActivity'},
+    const {'1': 'fullName', '3': 2, '4': 1, '5': 9, '10': 'fullName'},
+    const {'1': 'nickname', '3': 3, '4': 1, '5': 9, '10': 'nickname'},
+    const {'1': 'imageUrl', '3': 4, '4': 1, '5': 9, '10': 'imageUrl'},
+    const {'1': 'email', '3': 5, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'streak', '3': 6, '4': 1, '5': 5, '10': 'streak'},
+    const {'1': 'win', '3': 7, '4': 1, '5': 5, '10': 'win'},
+    const {'1': 'loss', '3': 8, '4': 1, '5': 5, '10': 'loss'},
+    const {'1': 'totalScore', '3': 9, '4': 1, '5': 5, '10': 'totalScore'},
+    const {'1': 'azureAdId', '3': 10, '4': 1, '5': 9, '10': 'azureAdId'},
+    const {'1': 'streakEnum', '3': 11, '4': 1, '5': 14, '6': '.base.StreakEnum', '10': 'streakEnum'},
+    const {'1': 'lastActivity', '3': 12, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'lastActivity'},
   ],
 };
 
 /// Descriptor for `PlayerModel`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List playerModelDescriptor = $convert.base64Decode('CgtQbGF5ZXJNb2RlbBIOCgJpZBgBIAEoCVICaWQSHAoJZmlyc3ROYW1lGAIgASgJUglmaXJzdE5hbWUSGgoIbGFzdE5hbWUYAyABKAlSCGxhc3ROYW1lEhoKCG5pY2tuYW1lGAQgASgJUghuaWNrbmFtZRIaCghpbWFnZVVybBgFIAEoCVIIaW1hZ2VVcmwSFAoFZW1haWwYBiABKAlSBWVtYWlsEhYKBnN0cmVhaxgHIAEoBVIGc3RyZWFrEhAKA3dpbhgIIAEoBVIDd2luEhIKBGxvc3MYCSABKAVSBGxvc3MSHgoKdG90YWxTY29yZRgKIAEoBVIKdG90YWxTY29yZRIcCglhenVyZUFkSWQYCyABKAlSCWF6dXJlQWRJZBIwCgpzdHJlYWtFbnVtGAwgASgOMhAuYmFzZS5TdHJlYWtFbnVtUgpzdHJlYWtFbnVtEj4KDGxhc3RBY3Rpdml0eRgNIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSDGxhc3RBY3Rpdml0eQ==');
+final $typed_data.Uint8List playerModelDescriptor = $convert.base64Decode('CgtQbGF5ZXJNb2RlbBIOCgJpZBgBIAEoCVICaWQSGgoIZnVsbE5hbWUYAiABKAlSCGZ1bGxOYW1lEhoKCG5pY2tuYW1lGAMgASgJUghuaWNrbmFtZRIaCghpbWFnZVVybBgEIAEoCVIIaW1hZ2VVcmwSFAoFZW1haWwYBSABKAlSBWVtYWlsEhYKBnN0cmVhaxgGIAEoBVIGc3RyZWFrEhAKA3dpbhgHIAEoBVIDd2luEhIKBGxvc3MYCCABKAVSBGxvc3MSHgoKdG90YWxTY29yZRgJIAEoBVIKdG90YWxTY29yZRIcCglhenVyZUFkSWQYCiABKAlSCWF6dXJlQWRJZBIwCgpzdHJlYWtFbnVtGAsgASgOMhAuYmFzZS5TdHJlYWtFbnVtUgpzdHJlYWtFbnVtEj4KDGxhc3RBY3Rpdml0eRgMIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSDGxhc3RBY3Rpdml0eQ==');
 @$core.Deprecated('Use setModelDescriptor instead')
 const SetModel$json = const {
   '1': 'SetModel',

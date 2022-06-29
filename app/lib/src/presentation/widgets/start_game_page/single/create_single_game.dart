@@ -45,7 +45,7 @@ class CreateSingleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerOne,
                     );
                   },
-                  child: selected[0].firstName.isEmpty
+                  child: selected[0].fullName.isEmpty
                       ? Text(
                           'Select player 1',
                           style: GoogleFonts.goldman(
@@ -54,7 +54,7 @@ class CreateSingleGame extends ConsumerWidget {
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[0].id)
-                              .firstName,
+                              .fullName,
                           style: GoogleFonts.goldman(
                               fontSize: 18, color: ColorConstants.textColor),
                         ),
@@ -95,7 +95,7 @@ class CreateSingleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerTwo,
                     );
                   },
-                  child: selected[1].firstName.isEmpty
+                  child: selected[1].fullName.isEmpty
                       ? Text(
                           'Select player 2',
                           style: GoogleFonts.goldman(
@@ -104,7 +104,7 @@ class CreateSingleGame extends ConsumerWidget {
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[1].id)
-                              .firstName,
+                              .fullName,
                           style: GoogleFonts.goldman(
                               fontSize: 18, color: ColorConstants.textColor),
                         ),

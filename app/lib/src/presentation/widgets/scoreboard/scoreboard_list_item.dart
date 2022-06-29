@@ -49,7 +49,7 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                         SizedBox(
                           width: 110,
                           child: Text(
-                            homeTeamOne.firstName,
+                            homeTeamOne.fullName,
                             textAlign: TextAlign.right,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -72,7 +72,7 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                       Row(
                         children: [
                           Text(
-                            homeTeamTwo.firstName,
+                            homeTeamTwo.fullName,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 11,
@@ -143,7 +143,7 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                         SizedBox(
                           width: 110,
                           child: Text(
-                            awayTeamOne.firstName,
+                            awayTeamOne.fullName,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 11,
@@ -165,7 +165,7 @@ class ScoreboardListItem extends ConsumerWidget with SetProfileImageMixin {
                             ),
                           ),
                           Text(
-                            awayTeamTwo.firstName,
+                            awayTeamTwo.fullName,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 11,

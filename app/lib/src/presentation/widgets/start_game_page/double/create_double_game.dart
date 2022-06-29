@@ -51,7 +51,7 @@ class CreateDoubleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerOne,
                     );
                   },
-                  child: selected[0].firstName.isEmpty
+                  child: selected[0].fullName.isEmpty
                       ? Text(
                           'Select player 1',
                           style: GoogleFonts.goldman(
@@ -60,7 +60,7 @@ class CreateDoubleGame extends ConsumerWidget {
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[0].id)
-                              .firstName,
+                              .fullName,
                           style: GoogleFonts.goldman(
                               fontSize: 18, color: ColorConstants.textColor),
                         ),
@@ -79,7 +79,7 @@ class CreateDoubleGame extends ConsumerWidget {
                         arguments: PlayerSelectChoice.playerTwo,
                       );
                     },
-                    child: selected[1].firstName.isEmpty
+                    child: selected[1].fullName.isEmpty
                         ? Text(
                             'Select player 2',
                             style: GoogleFonts.goldman(
@@ -88,7 +88,7 @@ class CreateDoubleGame extends ConsumerWidget {
                         : Text(
                             playersNotifier
                                 .getPlayerById(selected[1].id)
-                                .firstName,
+                                .fullName,
                             style: GoogleFonts.goldman(
                                 fontSize: 18, color: ColorConstants.textColor),
                           ),
@@ -130,7 +130,7 @@ class CreateDoubleGame extends ConsumerWidget {
                       arguments: PlayerSelectChoice.playerThree,
                     );
                   },
-                  child: selected[2].firstName.isEmpty
+                  child: selected[2].fullName.isEmpty
                       ? Text(
                           'Select player 3',
                           style: GoogleFonts.goldman(
@@ -139,7 +139,7 @@ class CreateDoubleGame extends ConsumerWidget {
                       : Text(
                           playersNotifier
                               .getPlayerById(selected[2].id)
-                              .firstName,
+                              .fullName,
                           style: GoogleFonts.goldman(
                               fontSize: 18, color: ColorConstants.textColor),
                         ),
@@ -158,7 +158,7 @@ class CreateDoubleGame extends ConsumerWidget {
                         arguments: PlayerSelectChoice.playerFour,
                       );
                     },
-                    child: selected[3].firstName.isEmpty
+                    child: selected[3].fullName.isEmpty
                         ? Text(
                             'Select player 4',
                             style: GoogleFonts.goldman(
@@ -167,7 +167,7 @@ class CreateDoubleGame extends ConsumerWidget {
                         : Text(
                             playersNotifier
                                 .getPlayerById(selected[3].id)
-                                .firstName,
+                                .fullName,
                             style: GoogleFonts.goldman(
                                 fontSize: 18, color: ColorConstants.textColor),
                           ),
