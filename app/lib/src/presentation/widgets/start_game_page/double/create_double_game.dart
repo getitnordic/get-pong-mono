@@ -32,10 +32,12 @@ class CreateDoubleGame extends ConsumerWidget {
       return false;
     }
 
+    double height(BuildContext context) => MediaQuery.of(context).size.height;
+
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 10),
+          padding: EdgeInsets.only(top: height(context) * 0.1),
           child: Column(
             children: [
               CustomSmallContainer(

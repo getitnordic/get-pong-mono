@@ -35,15 +35,19 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
           : BlankPlayerModel.player,
       match: match,
     );
+
+    double width(BuildContext context) => MediaQuery.of(context).size.width;
+    double rowWidth = width(context) * 0.40;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.only(top: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [
               SizedBox(
-                width: 200,
+                width: rowWidth,
                 child: Text(
                   controller.homeTeamOne.firstName,
                   textAlign: TextAlign.right,
@@ -56,7 +60,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
               ),
               if (isDouble)
                 SizedBox(
-                  width: 200,
+                  width: rowWidth,
                   child: Text(
                     controller.homeTeamTwo.firstName,
                     textAlign: TextAlign.right,
@@ -107,7 +111,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
           Column(
             children: [
               SizedBox(
-                width: 200,
+                width: rowWidth,
                 child: Text(
                   controller.awayTeamOne.firstName,
                   overflow: TextOverflow.ellipsis,
@@ -119,7 +123,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
               ),
               if (isDouble)
                 SizedBox(
-                  width: 200,
+                  width: rowWidth,
                   child: Text(
                     controller.awayTeamTwo.firstName,
                     overflow: TextOverflow.ellipsis,
