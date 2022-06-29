@@ -19,8 +19,7 @@ namespace GetPong.Application.Handlers.Players
         {
             var player = new Player
             {
-                FirstName = addPlayerCommand.FirstName,
-                LastName = addPlayerCommand.LastName,
+                FullName = addPlayerCommand.FullName,
                 Nickname = addPlayerCommand.Nickname,
                 Email = addPlayerCommand.Email,
                 ImageUrl = "",
@@ -41,9 +40,9 @@ namespace GetPong.Application.Handlers.Players
 
         private static void ValidatePlayerCommand(AddPlayerCommand playerCommand)
         {
-            if (string.IsNullOrEmpty(playerCommand.FirstName))
+            if (string.IsNullOrEmpty(playerCommand.FullName))
             {
-                throw new Exception("firstname is mandatory");
+                throw new Exception("full name is mandatory");
             }
         }
     }

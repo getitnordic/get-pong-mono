@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 using GetPong.Core.Models.Commands.Players;
@@ -29,8 +24,7 @@ namespace GetPong.Infrastructure.MongoDb
         public Player RegisterPlayer(Player player)
         {
             var doc = new BsonDocument()
-                .Add("first_name", player.FirstName)
-                .Add("last_name", player.LastName)
+                .Add("full_name", player.FullName)
                 .Add("nickname", player.Nickname)
                 .Add("image_url", player.ImageUrl)
                 .Add("email", player.Email)
@@ -73,8 +67,7 @@ namespace GetPong.Infrastructure.MongoDb
 
             var playerDoc = new BsonDocument()
                 .Add("_id", ObjectId.Parse(playerId))
-                .Add("first_name", updatePlayerCommand.FirstName)
-                .Add("last_name", updatePlayerCommand.LastName)
+                .Add("full_name", updatePlayerCommand.FullName)
                 .Add("nickname", updatePlayerCommand.Nickname)
                 .Add("email", updatePlayerCommand.Email)
                 .Add("image_url", updatePlayerCommand.ImageUrl)
@@ -92,8 +85,7 @@ namespace GetPong.Infrastructure.MongoDb
             return new Player
             {
                 Id = playerId,
-                FirstName = playerDoc.GetValue("first_name").ToString(),
-                LastName = playerDoc.GetValue("last_name").ToString(),
+                FullName = playerDoc.GetValue("full_name").ToString(),
                 Nickname = playerDoc.GetValue("nickname").ToString(),
                 ImageUrl = playerDoc.GetValue("image_url").ToString(),
                 Email = playerDoc.GetValue("email").ToString(),
@@ -120,8 +112,7 @@ namespace GetPong.Infrastructure.MongoDb
             {
                 playerDoc = new BsonDocument()
                     .Add("_id", ObjectId.Parse(playerId))
-                    .Add("first_name", getPlayer.FirstName)
-                    .Add("last_name", getPlayer.LastName)
+                    .Add("full_name", getPlayer.FullName)
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)
@@ -137,8 +128,7 @@ namespace GetPong.Infrastructure.MongoDb
             {
                 playerDoc = new BsonDocument()
                     .Add("_id", ObjectId.Parse(playerId))
-                    .Add("first_name", getPlayer.FirstName)
-                    .Add("last_name", getPlayer.LastName)
+                    .Add("full_name", getPlayer.FullName)
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)

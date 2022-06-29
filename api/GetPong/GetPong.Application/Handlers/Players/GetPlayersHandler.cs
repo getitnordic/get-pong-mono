@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
