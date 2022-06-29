@@ -12,15 +12,14 @@ import 'dart:typed_data' as $typed_data;
 const RegisterExternalRequest$json = const {
   '1': 'RegisterExternalRequest',
   '2': const [
-    const {'1': 'firstName', '3': 1, '4': 1, '5': 9, '10': 'firstName'},
-    const {'1': 'lastName', '3': 2, '4': 1, '5': 9, '10': 'lastName'},
-    const {'1': 'nickname', '3': 3, '4': 1, '5': 9, '10': 'nickname'},
-    const {'1': 'email', '3': 4, '4': 1, '5': 9, '10': 'email'},
+    const {'1': 'fullName', '3': 1, '4': 1, '5': 9, '10': 'fullName'},
+    const {'1': 'nickname', '3': 2, '4': 1, '5': 9, '10': 'nickname'},
+    const {'1': 'email', '3': 3, '4': 1, '5': 9, '10': 'email'},
   ],
 };
 
 /// Descriptor for `RegisterExternalRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List registerExternalRequestDescriptor = $convert.base64Decode('ChdSZWdpc3RlckV4dGVybmFsUmVxdWVzdBIcCglmaXJzdE5hbWUYASABKAlSCWZpcnN0TmFtZRIaCghsYXN0TmFtZRgCIAEoCVIIbGFzdE5hbWUSGgoIbmlja25hbWUYAyABKAlSCG5pY2tuYW1lEhQKBWVtYWlsGAQgASgJUgVlbWFpbA==');
+final $typed_data.Uint8List registerExternalRequestDescriptor = $convert.base64Decode('ChdSZWdpc3RlckV4dGVybmFsUmVxdWVzdBIaCghmdWxsTmFtZRgBIAEoCVIIZnVsbE5hbWUSGgoIbmlja25hbWUYAiABKAlSCG5pY2tuYW1lEhQKBWVtYWlsGAMgASgJUgVlbWFpbA==');
 @$core.Deprecated('Use registerExternalReplyDescriptor instead')
 const RegisterExternalReply$json = const {
   '1': 'RegisterExternalReply',

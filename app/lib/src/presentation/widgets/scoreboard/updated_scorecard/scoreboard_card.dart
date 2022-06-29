@@ -79,7 +79,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                   ),
                                 ),
                                 Text(
-                                  controller.homeTeamOne.firstName,
+                                  controller.homeTeamOne.fullName,
                                   style: TextStyle(
                                     fontSize: fontSize,
                                     color: ColorConstants.textColor,
@@ -106,7 +106,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                     ),
                                   ),
                                   Text(
-                                    controller.homeTeamTwo.firstName,
+                                    controller.homeTeamTwo.fullName,
                                     style: TextStyle(
                                       fontSize: fontSize,
                                       color: ColorConstants.textColor,
@@ -233,7 +233,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                   ),
                                 ),
                                 Text(
-                                  controller.awayTeamOne.firstName,
+                                  controller.awayTeamOne.fullName,
                                   style: TextStyle(
                                     fontSize: fontSize,
                                     color: ColorConstants.textColor,
@@ -260,7 +260,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                     ),
                                   ),
                                   Text(
-                                    controller.awayTeamTwo.firstName,
+                                    controller.awayTeamTwo.fullName,
                                     style: TextStyle(
                                       fontSize: fontSize,
                                       color: ColorConstants.textColor,

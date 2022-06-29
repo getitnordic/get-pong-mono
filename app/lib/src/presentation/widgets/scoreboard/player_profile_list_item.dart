@@ -35,17 +35,21 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
           : BlankPlayerModel.player,
       match: match,
     );
+
+    double width(BuildContext context) => MediaQuery.of(context).size.width;
+    double rowWidth = width(context) * 0.40;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.only(top: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [
               SizedBox(
-                width: 200,
+                width: rowWidth,
                 child: Text(
-                  controller.homeTeamOne.firstName,
+                  controller.homeTeamOne.fullName,
                   textAlign: TextAlign.right,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -56,9 +60,9 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
               ),
               if (isDouble)
                 SizedBox(
-                  width: 200,
+                  width: rowWidth,
                   child: Text(
-                    controller.homeTeamTwo.firstName,
+                    controller.homeTeamTwo.fullName,
                     textAlign: TextAlign.right,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -107,9 +111,9 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
           Column(
             children: [
               SizedBox(
-                width: 200,
+                width: rowWidth,
                 child: Text(
-                  controller.awayTeamOne.firstName,
+                  controller.awayTeamOne.fullName,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 14,
@@ -119,9 +123,9 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
               ),
               if (isDouble)
                 SizedBox(
-                  width: 200,
+                  width: rowWidth,
                   child: Text(
-                    controller.awayTeamTwo.firstName,
+                    controller.awayTeamTwo.fullName,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
                       fontSize: 14,

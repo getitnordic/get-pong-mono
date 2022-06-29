@@ -102,7 +102,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
   }
 
   String displayName(PlayerModel player) {
-    return playerHasNickname(player) ? player.nickname : player.firstName;
+    return playerHasNickname(player) ? player.nickname : player.fullName;
   }
 
   @override

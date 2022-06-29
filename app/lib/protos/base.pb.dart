@@ -18,26 +18,24 @@ export 'base.pbenum.dart';
 class PlayerModel extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'PlayerModel', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'base'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firstName', protoName: 'firstName')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastName', protoName: 'lastName')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nickname')
-    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'imageUrl', protoName: 'imageUrl')
-    ..aOS(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
-    ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streak', $pb.PbFieldType.O3)
-    ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'win', $pb.PbFieldType.O3)
-    ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'loss', $pb.PbFieldType.O3)
-    ..a<$core.int>(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalScore', $pb.PbFieldType.O3, protoName: 'totalScore')
-    ..aOS(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'azureAdId', protoName: 'azureAdId')
-    ..e<StreakEnum>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streakEnum', $pb.PbFieldType.OE, protoName: 'streakEnum', defaultOrMaker: StreakEnum.NONE, valueOf: StreakEnum.valueOf, enumValues: StreakEnum.values)
-    ..aOM<$0.Timestamp>(13, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastActivity', protoName: 'lastActivity', subBuilder: $0.Timestamp.create)
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fullName', protoName: 'fullName')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nickname')
+    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'imageUrl', protoName: 'imageUrl')
+    ..aOS(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..a<$core.int>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streak', $pb.PbFieldType.O3)
+    ..a<$core.int>(7, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'win', $pb.PbFieldType.O3)
+    ..a<$core.int>(8, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'loss', $pb.PbFieldType.O3)
+    ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalScore', $pb.PbFieldType.O3, protoName: 'totalScore')
+    ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'azureAdId', protoName: 'azureAdId')
+    ..e<StreakEnum>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streakEnum', $pb.PbFieldType.OE, protoName: 'streakEnum', defaultOrMaker: StreakEnum.NONE, valueOf: StreakEnum.valueOf, enumValues: StreakEnum.values)
+    ..aOM<$0.Timestamp>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastActivity', protoName: 'lastActivity', subBuilder: $0.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
   PlayerModel._() : super();
   factory PlayerModel({
     $core.String? id,
-    $core.String? firstName,
-    $core.String? lastName,
+    $core.String? fullName,
     $core.String? nickname,
     $core.String? imageUrl,
     $core.String? email,
@@ -53,11 +51,8 @@ class PlayerModel extends $pb.GeneratedMessage {
     if (id != null) {
       _result.id = id;
     }
-    if (firstName != null) {
-      _result.firstName = firstName;
-    }
-    if (lastName != null) {
-      _result.lastName = lastName;
+    if (fullName != null) {
+      _result.fullName = fullName;
     }
     if (nickname != null) {
       _result.nickname = nickname;
@@ -122,114 +117,105 @@ class PlayerModel extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get firstName => $_getSZ(1);
+  $core.String get fullName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set firstName($core.String v) { $_setString(1, v); }
+  set fullName($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasFirstName() => $_has(1);
+  $core.bool hasFullName() => $_has(1);
   @$pb.TagNumber(2)
-  void clearFirstName() => clearField(2);
+  void clearFullName() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get lastName => $_getSZ(2);
+  $core.String get nickname => $_getSZ(2);
   @$pb.TagNumber(3)
-  set lastName($core.String v) { $_setString(2, v); }
+  set nickname($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasLastName() => $_has(2);
+  $core.bool hasNickname() => $_has(2);
   @$pb.TagNumber(3)
-  void clearLastName() => clearField(3);
+  void clearNickname() => clearField(3);
 
   @$pb.TagNumber(4)
-  $core.String get nickname => $_getSZ(3);
+  $core.String get imageUrl => $_getSZ(3);
   @$pb.TagNumber(4)
-  set nickname($core.String v) { $_setString(3, v); }
+  set imageUrl($core.String v) { $_setString(3, v); }
   @$pb.TagNumber(4)
-  $core.bool hasNickname() => $_has(3);
+  $core.bool hasImageUrl() => $_has(3);
   @$pb.TagNumber(4)
-  void clearNickname() => clearField(4);
+  void clearImageUrl() => clearField(4);
 
   @$pb.TagNumber(5)
-  $core.String get imageUrl => $_getSZ(4);
+  $core.String get email => $_getSZ(4);
   @$pb.TagNumber(5)
-  set imageUrl($core.String v) { $_setString(4, v); }
+  set email($core.String v) { $_setString(4, v); }
   @$pb.TagNumber(5)
-  $core.bool hasImageUrl() => $_has(4);
+  $core.bool hasEmail() => $_has(4);
   @$pb.TagNumber(5)
-  void clearImageUrl() => clearField(5);
+  void clearEmail() => clearField(5);
 
   @$pb.TagNumber(6)
-  $core.String get email => $_getSZ(5);
+  $core.int get streak => $_getIZ(5);
   @$pb.TagNumber(6)
-  set email($core.String v) { $_setString(5, v); }
+  set streak($core.int v) { $_setSignedInt32(5, v); }
   @$pb.TagNumber(6)
-  $core.bool hasEmail() => $_has(5);
+  $core.bool hasStreak() => $_has(5);
   @$pb.TagNumber(6)
-  void clearEmail() => clearField(6);
+  void clearStreak() => clearField(6);
 
   @$pb.TagNumber(7)
-  $core.int get streak => $_getIZ(6);
+  $core.int get win => $_getIZ(6);
   @$pb.TagNumber(7)
-  set streak($core.int v) { $_setSignedInt32(6, v); }
+  set win($core.int v) { $_setSignedInt32(6, v); }
   @$pb.TagNumber(7)
-  $core.bool hasStreak() => $_has(6);
+  $core.bool hasWin() => $_has(6);
   @$pb.TagNumber(7)
-  void clearStreak() => clearField(7);
+  void clearWin() => clearField(7);
 
   @$pb.TagNumber(8)
-  $core.int get win => $_getIZ(7);
+  $core.int get loss => $_getIZ(7);
   @$pb.TagNumber(8)
-  set win($core.int v) { $_setSignedInt32(7, v); }
+  set loss($core.int v) { $_setSignedInt32(7, v); }
   @$pb.TagNumber(8)
-  $core.bool hasWin() => $_has(7);
+  $core.bool hasLoss() => $_has(7);
   @$pb.TagNumber(8)
-  void clearWin() => clearField(8);
+  void clearLoss() => clearField(8);
 
   @$pb.TagNumber(9)
-  $core.int get loss => $_getIZ(8);
+  $core.int get totalScore => $_getIZ(8);
   @$pb.TagNumber(9)
-  set loss($core.int v) { $_setSignedInt32(8, v); }
+  set totalScore($core.int v) { $_setSignedInt32(8, v); }
   @$pb.TagNumber(9)
-  $core.bool hasLoss() => $_has(8);
+  $core.bool hasTotalScore() => $_has(8);
   @$pb.TagNumber(9)
-  void clearLoss() => clearField(9);
+  void clearTotalScore() => clearField(9);
 
   @$pb.TagNumber(10)
-  $core.int get totalScore => $_getIZ(9);
+  $core.String get azureAdId => $_getSZ(9);
   @$pb.TagNumber(10)
-  set totalScore($core.int v) { $_setSignedInt32(9, v); }
+  set azureAdId($core.String v) { $_setString(9, v); }
   @$pb.TagNumber(10)
-  $core.bool hasTotalScore() => $_has(9);
+  $core.bool hasAzureAdId() => $_has(9);
   @$pb.TagNumber(10)
-  void clearTotalScore() => clearField(10);
+  void clearAzureAdId() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.String get azureAdId => $_getSZ(10);
+  StreakEnum get streakEnum => $_getN(10);
   @$pb.TagNumber(11)
-  set azureAdId($core.String v) { $_setString(10, v); }
+  set streakEnum(StreakEnum v) { setField(11, v); }
   @$pb.TagNumber(11)
-  $core.bool hasAzureAdId() => $_has(10);
+  $core.bool hasStreakEnum() => $_has(10);
   @$pb.TagNumber(11)
-  void clearAzureAdId() => clearField(11);
+  void clearStreakEnum() => clearField(11);
 
   @$pb.TagNumber(12)
-  StreakEnum get streakEnum => $_getN(11);
+  $0.Timestamp get lastActivity => $_getN(11);
   @$pb.TagNumber(12)
-  set streakEnum(StreakEnum v) { setField(12, v); }
+  set lastActivity($0.Timestamp v) { setField(12, v); }
   @$pb.TagNumber(12)
-  $core.bool hasStreakEnum() => $_has(11);
+  $core.bool hasLastActivity() => $_has(11);
   @$pb.TagNumber(12)
-  void clearStreakEnum() => clearField(12);
-
-  @$pb.TagNumber(13)
-  $0.Timestamp get lastActivity => $_getN(12);
-  @$pb.TagNumber(13)
-  set lastActivity($0.Timestamp v) { setField(13, v); }
-  @$pb.TagNumber(13)
-  $core.bool hasLastActivity() => $_has(12);
-  @$pb.TagNumber(13)
-  void clearLastActivity() => clearField(13);
-  @$pb.TagNumber(13)
-  $0.Timestamp ensureLastActivity() => $_ensure(12);
+  void clearLastActivity() => clearField(12);
+  @$pb.TagNumber(12)
+  $0.Timestamp ensureLastActivity() => $_ensure(11);
 }
 
 class SetModel extends $pb.GeneratedMessage {

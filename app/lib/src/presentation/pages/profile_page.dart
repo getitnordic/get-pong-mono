@@ -226,7 +226,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               child: NameCard(
                 playerName: widget.player.nickname,
                 fullName:
-                    '${widget.player.firstName} ${widget.player.lastName}',
+                    widget.player.fullName,
               ),
             ),
             const SizedBox(height: 12),
@@ -252,27 +252,24 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                 ),
               ),
             ),
-            Container(
-              width: 500,
-              child: Consumer(
-                builder: (context, ref, child) {
-                  final data = ref.watch(playerGamesProvider(widget.player.id));
+            Consumer(
+              builder: (context, ref, child) {
+                final data = ref.watch(playerGamesProvider(widget.player.id));
 
-                  return data.when(
-                    error: (error, stackTrace) => Text('Error $error'),
-                    loading: () => const CircularProgressIndicator(),
-                    data: (data) => SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            return PlayerProfileListItem(match: data[index]);
-                          }),
-                    ),
-                  );
-                },
-              ),
+                return data.when(
+                  error: (error, stackTrace) => Text('Error $error'),
+                  loading: () => const CircularProgressIndicator(),
+                  data: (data) => SizedBox(
+                    height: 200,
+                    child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return PlayerProfileListItem(match: data[index]);
+                        }),
+                  ),
+                );
+              },
             ),
           ],
         ),

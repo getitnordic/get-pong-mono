@@ -13,26 +13,21 @@ import 'base.pb.dart' as $1;
 
 class RegisterExternalRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RegisterExternalRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
-    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'firstName', protoName: 'firstName')
-    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastName', protoName: 'lastName')
-    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nickname')
-    ..aOS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'fullName', protoName: 'fullName')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nickname')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'email')
     ..hasRequiredFields = false
   ;
 
   RegisterExternalRequest._() : super();
   factory RegisterExternalRequest({
-    $core.String? firstName,
-    $core.String? lastName,
+    $core.String? fullName,
     $core.String? nickname,
     $core.String? email,
   }) {
     final _result = create();
-    if (firstName != null) {
-      _result.firstName = firstName;
-    }
-    if (lastName != null) {
-      _result.lastName = lastName;
+    if (fullName != null) {
+      _result.fullName = fullName;
     }
     if (nickname != null) {
       _result.nickname = nickname;
@@ -64,40 +59,31 @@ class RegisterExternalRequest extends $pb.GeneratedMessage {
   static RegisterExternalRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get firstName => $_getSZ(0);
+  $core.String get fullName => $_getSZ(0);
   @$pb.TagNumber(1)
-  set firstName($core.String v) { $_setString(0, v); }
+  set fullName($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasFirstName() => $_has(0);
+  $core.bool hasFullName() => $_has(0);
   @$pb.TagNumber(1)
-  void clearFirstName() => clearField(1);
+  void clearFullName() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get lastName => $_getSZ(1);
+  $core.String get nickname => $_getSZ(1);
   @$pb.TagNumber(2)
-  set lastName($core.String v) { $_setString(1, v); }
+  set nickname($core.String v) { $_setString(1, v); }
   @$pb.TagNumber(2)
-  $core.bool hasLastName() => $_has(1);
+  $core.bool hasNickname() => $_has(1);
   @$pb.TagNumber(2)
-  void clearLastName() => clearField(2);
+  void clearNickname() => clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get nickname => $_getSZ(2);
+  $core.String get email => $_getSZ(2);
   @$pb.TagNumber(3)
-  set nickname($core.String v) { $_setString(2, v); }
+  set email($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
-  $core.bool hasNickname() => $_has(2);
+  $core.bool hasEmail() => $_has(2);
   @$pb.TagNumber(3)
-  void clearNickname() => clearField(3);
-
-  @$pb.TagNumber(4)
-  $core.String get email => $_getSZ(3);
-  @$pb.TagNumber(4)
-  set email($core.String v) { $_setString(3, v); }
-  @$pb.TagNumber(4)
-  $core.bool hasEmail() => $_has(3);
-  @$pb.TagNumber(4)
-  void clearEmail() => clearField(4);
+  void clearEmail() => clearField(3);
 }
 
 class RegisterExternalReply extends $pb.GeneratedMessage {

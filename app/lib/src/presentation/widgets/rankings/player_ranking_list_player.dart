@@ -34,7 +34,7 @@ class PlayerRankingListPlayer extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
-                          player.firstName,
+                          player.fullName,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 14,

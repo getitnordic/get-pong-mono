@@ -17,8 +17,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
   final formKey = GlobalKey<FormState>();
   String email = '';
   String userName = '';
-  String firstName = '';
-  String lastName = '';
+  String fullName = '';
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -29,8 +29,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              buildFirstName(),
-              buildLastName(),
+              buildFullName(),
               buildNickname(),
               buildEmail(),
               buildSubmitButton(),
@@ -65,7 +64,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
         ),
       );
 
-  Widget buildFirstName() => Padding(
+  Widget buildFullName() => Padding(
         padding: const EdgeInsets.only(top: 10),
         child: SizedBox(
           height: 90,
@@ -76,21 +75,8 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
             ),
             keyboardType: TextInputType.text,
             validator: (value) => validateFirstName(value!),
-            onSaved: (value) => setState(() => firstName = value!),
+            onSaved: (value) => setState(() => fullName = value!),
           ),
-        ),
-      );
-
-  Widget buildLastName() => SizedBox(
-        height: 90,
-        child: TextFormField(
-          decoration: const InputDecoration(
-            labelText: 'Last name',
-            prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
-          ),
-          keyboardType: TextInputType.text,
-          validator: (value) => validateLastName(value!),
-          onSaved: (value) => setState(() => lastName = value!),
         ),
       );
 
@@ -103,8 +89,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
               formKey.currentState!.save();
 
               ref.read(playersProvider.notifier).createPlayer(PlayerModel(
-                    firstName: firstName,
-                    lastName: lastName,
+                    fullName: fullName,
                     nickname: userName,
                     email: email,
                   ));

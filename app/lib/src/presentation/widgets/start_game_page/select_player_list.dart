@@ -30,7 +30,7 @@ class _SelectPlayerListState extends State<SelectPlayerList> {
   void filterPlayers(String query) {
     if (query.isNotEmpty) {
       players = players
-          .where((p) => p.firstName.toLowerCase().contains(query.toLowerCase()))
+          .where((p) => p.fullName.toLowerCase().contains(query.toLowerCase()))
           .toList();
     } else {
       players = widget.players;
