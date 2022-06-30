@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/Presentation/widgets/scoreboard/scoreboard_list_item.dart';
 import 'package:get_pong/src/presentation/widgets/scoreboard/updated_scorecard/scoreboard_card.dart';
 
 import '../../../../config/route/route.dart' as route;
@@ -16,9 +15,14 @@ class GameListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + kToolbarHeight) -
+        kBottomNavigationBarHeight -
+        (MediaQuery.of(context).size.height * 0.04);
+
     return Center(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height,
+        height: screenHeight,
         width: 400,
         child: Column(
           children: [

@@ -12,6 +12,11 @@ class PlayerRanking extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + kToolbarHeight) -
+        kBottomNavigationBarHeight -
+        (MediaQuery.of(context).size.height * 0.12);
+
     return Consumer(
       builder: (context, ref, child) {
         final data = ref.watch(topRanksProvider);
@@ -33,7 +38,7 @@ class PlayerRanking extends ConsumerWidget {
                 color: ColorConstants.dividerColor,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height - 195,
+                height: screenHeight,
                 child: ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {
