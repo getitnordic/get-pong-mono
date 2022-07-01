@@ -89,6 +89,7 @@ class CreateSingleGame extends ConsumerWidget {
                 height: 50,
                 child: TextButton(
                   onPressed: () {
+                    ref.watch(playersProvider.notifier).fetchPlayers();
                     Navigator.pushNamed(
                       context,
                       route.playerListPage,

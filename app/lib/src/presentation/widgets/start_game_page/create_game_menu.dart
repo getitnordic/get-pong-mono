@@ -35,6 +35,10 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height -
+        (MediaQuery.of(context).padding.top + kToolbarHeight) -
+        kBottomNavigationBarHeight -
+        (MediaQuery.of(context).size.height * 0.12);
     return Column(
       children: [
         const Padding(
@@ -48,10 +52,7 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
           ),
         ),
         SizedBox(
-          height: MediaQuery.of(context).size.height,
-
-          // AppBar().preferredSize.height -
-          // kBottomNavigationBarHeight,
+          height: screenHeight,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
