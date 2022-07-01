@@ -53,20 +53,7 @@ class ResultCardDouble extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 10),
-          Expanded(
-            child: Column(
-              children: <Widget>[
-                const Text(
-                  'Enter Result',
-                  style: TextStyle(
-                    color: ColorConstants.textColor,
-                    fontSize: 15,
-                  ),
-                ),
-                child,
-              ],
-            ),
-          ),
+          child,
         ],
       ),
     );
