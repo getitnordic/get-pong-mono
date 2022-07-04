@@ -20,20 +20,22 @@ class SelectPlayerList extends StatefulWidget {
 
 class _SelectPlayerListState extends State<SelectPlayerList> {
   List<PlayerModel> players = [];
+  List<PlayerModel> originalPlayers = [];
 
   @override
   void initState() {
     players = widget.players;
+    originalPlayers = widget.players;
     super.initState();
   }
 
   void filterPlayers(String query) {
     if (query.isNotEmpty) {
-      players = players
+      players = originalPlayers
           .where((p) => p.fullName.toLowerCase().contains(query.toLowerCase()))
           .toList();
     } else {
-      players = widget.players;
+      players = originalPlayers;
     }
   }
 
