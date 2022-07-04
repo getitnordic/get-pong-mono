@@ -37,9 +37,9 @@ class PlayerRanking extends ConsumerWidget {
                 height: 3,
                 color: ColorConstants.dividerColor,
               ),
-              SizedBox(
-                height: screenHeight,
+              Expanded(
                 child: ListView.builder(
+                    shrinkWrap: true,
                     itemCount: data.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(

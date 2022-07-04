@@ -34,42 +34,14 @@ class CreateDoubleGame extends ConsumerWidget {
 
     double height(BuildContext context) => MediaQuery.of(context).size.height;
 
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: height(context) * 0.1),
-          child: Column(
-            children: [
-              CustomSmallContainer(
-                width: 300,
-                height: 50,
-                child: TextButton(
-                  onPressed: () {
-                    ref.watch(playersProvider.notifier).fetchPlayers();
-                    Navigator.pushNamed(
-                      context,
-                      route.playerListPage,
-                      arguments: PlayerSelectChoice.playerOne,
-                    );
-                  },
-                  child: selected[0].fullName.isEmpty
-                      ? Text(
-                          'Select player 1',
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        )
-                      : Text(
-                          playersNotifier
-                              .getPlayerById(selected[0].id)
-                              .fullName,
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: CustomSmallContainer(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: height(context) * 0.1),
+            child: Column(
+              children: [
+                CustomSmallContainer(
                   width: 300,
                   height: 50,
                   child: TextButton(
@@ -78,79 +50,81 @@ class CreateDoubleGame extends ConsumerWidget {
                       Navigator.pushNamed(
                         context,
                         route.playerListPage,
-                        arguments: PlayerSelectChoice.playerTwo,
+                        arguments: PlayerSelectChoice.playerOne,
                       );
                     },
-                    child: selected[1].fullName.isEmpty
+                    child: selected[0].fullName.isEmpty
                         ? Text(
-                            'Select player 2',
+                            'Select player 1',
                             style: GoogleFonts.goldman(
                                 fontSize: 18, color: ColorConstants.textColor),
                           )
                         : Text(
                             playersNotifier
-                                .getPlayerById(selected[1].id)
+                                .getPlayerById(selected[0].id)
                                 .fullName,
                             style: GoogleFonts.goldman(
                                 fontSize: 18, color: ColorConstants.textColor),
                           ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SizedBox(
-                    width: 150,
-                    child: Divider(
-                      height: 5,
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: CustomSmallContainer(
+                    width: 300,
+                    height: 50,
+                    child: TextButton(
+                      onPressed: () {
+                        ref.watch(playersProvider.notifier).fetchPlayers();
+                        Navigator.pushNamed(
+                          context,
+                          route.playerListPage,
+                          arguments: PlayerSelectChoice.playerTwo,
+                        );
+                      },
+                      child: selected[1].fullName.isEmpty
+                          ? Text(
+                              'Select player 2',
+                              style: GoogleFonts.goldman(
+                                  fontSize: 18,
+                                  color: ColorConstants.textColor),
+                            )
+                          : Text(
+                              playersNotifier
+                                  .getPlayerById(selected[1].id)
+                                  .fullName,
+                              style: GoogleFonts.goldman(
+                                  fontSize: 18,
+                                  color: ColorConstants.textColor),
+                            ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 20,
-                    ),
-                    child: Text('VS'),
-                  ),
-                  SizedBox(
-                    width: 150,
-                    child: Divider(
-                      height: 5,
-                    ),
-                  ),
-                ],
-              ),
-              CustomSmallContainer(
-                width: 300,
-                height: 50,
-                child: TextButton(
-                  onPressed: () {
-                    ref.watch(playersProvider.notifier).fetchPlayers();
-                    Navigator.pushNamed(
-                      context,
-                      route.playerListPage,
-                      arguments: PlayerSelectChoice.playerThree,
-                    );
-                  },
-                  child: selected[2].fullName.isEmpty
-                      ? Text(
-                          'Select player 3',
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        )
-                      : Text(
-                          playersNotifier
-                              .getPlayerById(selected[2].id)
-                              .fullName,
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: CustomSmallContainer(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    SizedBox(
+                      width: 150,
+                      child: Divider(
+                        height: 5,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 20,
+                      ),
+                      child: Text('VS'),
+                    ),
+                    SizedBox(
+                      width: 150,
+                      child: Divider(
+                        height: 5,
+                      ),
+                    ),
+                  ],
+                ),
+                CustomSmallContainer(
                   width: 300,
                   height: 50,
                   child: TextButton(
@@ -159,72 +133,104 @@ class CreateDoubleGame extends ConsumerWidget {
                       Navigator.pushNamed(
                         context,
                         route.playerListPage,
-                        arguments: PlayerSelectChoice.playerFour,
+                        arguments: PlayerSelectChoice.playerThree,
                       );
                     },
-                    child: selected[3].fullName.isEmpty
+                    child: selected[2].fullName.isEmpty
                         ? Text(
-                            'Select player 4',
+                            'Select player 3',
                             style: GoogleFonts.goldman(
                                 fontSize: 18, color: ColorConstants.textColor),
                           )
                         : Text(
                             playersNotifier
-                                .getPlayerById(selected[3].id)
+                                .getPlayerById(selected[2].id)
                                 .fullName,
                             style: GoogleFonts.goldman(
                                 fontSize: 18, color: ColorConstants.textColor),
                           ),
                   ),
                 ),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: CustomSmallContainer(
+                    width: 300,
+                    height: 50,
+                    child: TextButton(
+                      onPressed: () {
+                        ref.watch(playersProvider.notifier).fetchPlayers();
+                        Navigator.pushNamed(
+                          context,
+                          route.playerListPage,
+                          arguments: PlayerSelectChoice.playerFour,
+                        );
+                      },
+                      child: selected[3].fullName.isEmpty
+                          ? Text(
+                              'Select player 4',
+                              style: GoogleFonts.goldman(
+                                  fontSize: 18,
+                                  color: ColorConstants.textColor),
+                            )
+                          : Text(
+                              playersNotifier
+                                  .getPlayerById(selected[3].id)
+                                  .fullName,
+                              style: GoogleFonts.goldman(
+                                  fontSize: 18,
+                                  color: ColorConstants.textColor),
+                            ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-        SizedBox(
-          width: 300,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: ElevatedButton(
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
-                )),
-                minimumSize:
-                    MaterialStateProperty.all<Size>(const Size(300, 50)),
-                backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed)) {
+          SizedBox(
+            width: 300,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  )),
+                  minimumSize:
+                      MaterialStateProperty.all<Size>(const Size(300, 50)),
+                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                    (Set<MaterialState> states) {
+                      if (states.contains(MaterialState.pressed)) {
+                        return ColorConstants.primaryColor;
+                      } else if (states.contains(MaterialState.disabled)) {
+                        return ColorConstants.disabledButtonColor;
+                      }
                       return ColorConstants.primaryColor;
-                    } else if (states.contains(MaterialState.disabled)) {
-                      return ColorConstants.disabledButtonColor;
-                    }
-                    return ColorConstants.primaryColor;
-                  },
+                    },
+                  ),
                 ),
-              ),
-              onPressed: isAllSelected && duplicatesDoesNotExist()
-                  ? () {
-                      matchType.update((state) => MatchType.double);
-                      Navigator.pushNamed(
-                        context,
-                        route.scorePage,
-                        arguments: selected,
-                      );
-                    }
-                  : null,
-              child: Text(
-                'Start Game',
-                style: GoogleFonts.goldman(
-                  fontSize: 20,
-                  color: ColorConstants.textColor,
+                onPressed: isAllSelected && duplicatesDoesNotExist()
+                    ? () {
+                        matchType.update((state) => MatchType.double);
+                        Navigator.pushNamed(
+                          context,
+                          route.scorePage,
+                          arguments: selected,
+                        );
+                      }
+                    : null,
+                child: Text(
+                  'Start Game',
+                  style: GoogleFonts.goldman(
+                    fontSize: 20,
+                    color: ColorConstants.textColor,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

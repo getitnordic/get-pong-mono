@@ -10,10 +10,7 @@ class Scoreboard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(fetchingMatchesProvider)
-        ? const Padding(
-            padding: EdgeInsets.only(top: 300),
-            child: Center(child: CircularProgressIndicator()),
-          )
+        ? const Center(child: CircularProgressIndicator())
         : GameListView(matches: ref.watch(matchesProvider));
   }
 }

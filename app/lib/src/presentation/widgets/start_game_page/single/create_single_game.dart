@@ -27,136 +27,139 @@ class CreateSingleGame extends ConsumerWidget {
 
     double height(BuildContext context) => MediaQuery.of(context).size.height;
 
-    return Padding(
-      padding: EdgeInsets.only(top: height(context) * 0.1),
-      child: Column(
-        children: [
-          Column(
-            children: [
-              CustomSmallContainer(
-                width: 300,
-                height: 50,
-                child: TextButton(
-                  onPressed: () {
-                    ref.watch(playersProvider.notifier).fetchPlayers();
-                    Navigator.pushNamed(
-                      context,
-                      route.playerListPage,
-                      arguments: PlayerSelectChoice.playerOne,
-                    );
-                  },
-                  child: selected[0].fullName.isEmpty
-                      ? Text(
-                          'Select player 1',
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        )
-                      : Text(
-                          playersNotifier
-                              .getPlayerById(selected[0].id)
-                              .fullName,
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SizedBox(
-                    width: 150,
-                    child: Divider(
-                      height: 5,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 20,
-                    ),
-                    child: Text('VS'),
-                  ),
-                  SizedBox(
-                    width: 150,
-                    child: Divider(
-                      height: 5,
-                    ),
-                  ),
-                ],
-              ),
-              CustomSmallContainer(
-                width: 300,
-                height: 50,
-                child: TextButton(
-                  onPressed: () {
-                    ref.watch(playersProvider.notifier).fetchPlayers();
-                    Navigator.pushNamed(
-                      context,
-                      route.playerListPage,
-                      arguments: PlayerSelectChoice.playerTwo,
-                    );
-                  },
-                  child: selected[1].fullName.isEmpty
-                      ? Text(
-                          'Select player 2',
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        )
-                      : Text(
-                          playersNotifier
-                              .getPlayerById(selected[1].id)
-                              .fullName,
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            width: 300,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 55),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  )),
-                  minimumSize:
-                      MaterialStateProperty.all<Size>(const Size(300, 50)),
-                  backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                    (Set<MaterialState> states) {
-                      if (states.contains(MaterialState.pressed)) {
-                        return ColorConstants.primaryColor;
-                      } else if (states.contains(MaterialState.disabled)) {
-                        return ColorConstants.disabledButtonColor;
-                      }
-                      return ColorConstants.primaryColor;
+    return SingleChildScrollView(
+      child: Padding(
+        padding: EdgeInsets.only(top: height(context) * 0.1),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              children: [
+                CustomSmallContainer(
+                  width: 300,
+                  height: 50,
+                  child: TextButton(
+                    onPressed: () {
+                      ref.watch(playersProvider.notifier).fetchPlayers();
+                      Navigator.pushNamed(
+                        context,
+                        route.playerListPage,
+                        arguments: PlayerSelectChoice.playerOne,
+                      );
                     },
+                    child: selected[0].fullName.isEmpty
+                        ? Text(
+                            'Select player 1',
+                            style: GoogleFonts.goldman(
+                                fontSize: 18, color: ColorConstants.textColor),
+                          )
+                        : Text(
+                            playersNotifier
+                                .getPlayerById(selected[0].id)
+                                .fullName,
+                            style: GoogleFonts.goldman(
+                                fontSize: 18, color: ColorConstants.textColor),
+                          ),
                   ),
                 ),
-                onPressed: isAllSelected
-                    ? () {
-                        matchType.update((state) => MatchType.single);
-                        Navigator.pushNamed(
-                          context,
-                          route.scorePage,
-                          arguments: selected,
-                        );
-                      }
-                    : null,
-                child: Text(
-                  'Start Game',
-                  style: GoogleFonts.goldman(
-                    fontSize: 20,
-                    color: ColorConstants.textColor,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    SizedBox(
+                      width: 150,
+                      child: Divider(
+                        height: 5,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15,
+                        vertical: 20,
+                      ),
+                      child: Text('VS'),
+                    ),
+                    SizedBox(
+                      width: 150,
+                      child: Divider(
+                        height: 5,
+                      ),
+                    ),
+                  ],
+                ),
+                CustomSmallContainer(
+                  width: 300,
+                  height: 50,
+                  child: TextButton(
+                    onPressed: () {
+                      ref.watch(playersProvider.notifier).fetchPlayers();
+                      Navigator.pushNamed(
+                        context,
+                        route.playerListPage,
+                        arguments: PlayerSelectChoice.playerTwo,
+                      );
+                    },
+                    child: selected[1].fullName.isEmpty
+                        ? Text(
+                            'Select player 2',
+                            style: GoogleFonts.goldman(
+                                fontSize: 18, color: ColorConstants.textColor),
+                          )
+                        : Text(
+                            playersNotifier
+                                .getPlayerById(selected[1].id)
+                                .fullName,
+                            style: GoogleFonts.goldman(
+                                fontSize: 18, color: ColorConstants.textColor),
+                          ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              width: 300,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 55),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    )),
+                    minimumSize:
+                        MaterialStateProperty.all<Size>(const Size(300, 50)),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return ColorConstants.primaryColor;
+                        } else if (states.contains(MaterialState.disabled)) {
+                          return ColorConstants.disabledButtonColor;
+                        }
+                        return ColorConstants.primaryColor;
+                      },
+                    ),
+                  ),
+                  onPressed: isAllSelected
+                      ? () {
+                          matchType.update((state) => MatchType.single);
+                          Navigator.pushNamed(
+                            context,
+                            route.scorePage,
+                            arguments: selected,
+                          );
+                        }
+                      : null,
+                  child: Text(
+                    'Start Game',
+                    style: GoogleFonts.goldman(
+                      fontSize: 20,
+                      color: ColorConstants.textColor,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

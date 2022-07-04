@@ -53,9 +53,9 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: renderContent(
-            players: playerList, currentIndex: currentIndex.state),
+      body: renderContent(
+        players: playerList,
+        currentIndex: currentIndex.state,
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex.state,

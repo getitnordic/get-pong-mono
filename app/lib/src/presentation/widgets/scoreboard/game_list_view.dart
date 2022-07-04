@@ -20,52 +20,50 @@ class GameListView extends StatelessWidget {
         kBottomNavigationBarHeight -
         (MediaQuery.of(context).size.height * 0.04);
 
+    print(screenHeight);
+
     return Center(
-      child: SizedBox(
-        height: screenHeight,
-        width: 400,
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Matches',
-                style: TextStyle(
-                  color: ColorConstants.textColor,
-                  fontSize: 35,
-                ),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              'Matches',
+              style: TextStyle(
+                color: ColorConstants.textColor,
+                fontSize: 35,
               ),
             ),
-            Flexible(
-              child: NotificationListener(
-                onNotification: (ScrollNotification scrollInfo) {
-                  if (scrollInfo is ScrollEndNotification) {
-                    if (scrollInfo.metrics.pixels > 0 &&
-                        scrollInfo.metrics.atEdge) {
-                      debugPrint(
-                          'IM AT BOTTOM GET MORE MATCHES WITH PAGINATION');
-                    }
+          ),
+          Flexible(
+            child: NotificationListener(
+              onNotification: (ScrollNotification scrollInfo) {
+                if (scrollInfo is ScrollEndNotification) {
+                  if (scrollInfo.metrics.pixels > 0 &&
+                      scrollInfo.metrics.atEdge) {
+                    debugPrint('IM AT BOTTOM GET MORE MATCHES WITH PAGINATION');
                   }
-                  return false;
-                },
-                child: ListView.builder(
-                    itemCount: matches.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          route.matchDetailsPage,
-                        ),
-                        child: ScoreboardCard(match: matches[index]),
-                        //ScoreboardListItem(
-                        //match: matches[index],
-                        //),
-                      );
-                    }),
-              ),
+                }
+                return false;
+              },
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: matches.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        route.matchDetailsPage,
+                      ),
+                      child: ScoreboardCard(match: matches[index]),
+                      //ScoreboardListItem(
+                      //match: matches[index],
+                      //),
+                    );
+                  }),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
