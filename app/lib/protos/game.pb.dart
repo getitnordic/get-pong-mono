@@ -10,7 +10,7 @@ import 'dart:core' as $core;
 import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'base.pb.dart' as $1;
+import 'base.pb.dart' as $3;
 
 class GetGamesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetGamesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
@@ -218,7 +218,7 @@ class GameModel extends $pb.GeneratedMessage {
     ..aInt64(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeStamp', protoName: 'timeStamp')
     ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeTeamIds', protoName: 'homeTeamIds')
     ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'awayTeamIds', protoName: 'awayTeamIds')
-    ..pc<$1.SetModel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sets', $pb.PbFieldType.PM, subBuilder: $1.SetModel.create)
+    ..pc<$3.SetModel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sets', $pb.PbFieldType.PM, subBuilder: $3.SetModel.create)
     ..hasRequiredFields = false
   ;
 
@@ -228,7 +228,7 @@ class GameModel extends $pb.GeneratedMessage {
     $fixnum.Int64? timeStamp,
     $core.Iterable<$core.String>? homeTeamIds,
     $core.Iterable<$core.String>? awayTeamIds,
-    $core.Iterable<$1.SetModel>? sets,
+    $core.Iterable<$3.SetModel>? sets,
   }) {
     final _result = create();
     if (id != null) {
@@ -294,6 +294,6 @@ class GameModel extends $pb.GeneratedMessage {
   $core.List<$core.String> get awayTeamIds => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<$1.SetModel> get sets => $_getList(4);
+  $core.List<$3.SetModel> get sets => $_getList(4);
 }
 

@@ -37,20 +37,32 @@ class GameListView extends StatelessWidget {
               ),
             ),
             Flexible(
-              child: ListView.builder(
-                  itemCount: matches.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        route.matchDetailsPage,
-                      ),
-                      child: ScoreboardCard(match: matches[index]),
-                      //ScoreboardListItem(
-                      //match: matches[index],
-                      //),
-                    );
-                  }),
+              child: NotificationListener(
+                onNotification: (ScrollNotification scrollInfo) {
+                  if (scrollInfo is ScrollEndNotification) {
+                    if (scrollInfo.metrics.pixels > 0 &&
+                        scrollInfo.metrics.atEdge) {
+                      debugPrint(
+                          'IM AT BOTTOM GET MORE MATCHES WITH PAGINATION');
+                    }
+                  }
+                  return false;
+                },
+                child: ListView.builder(
+                    itemCount: matches.length,
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () => Navigator.pushNamed(
+                          context,
+                          route.matchDetailsPage,
+                        ),
+                        child: ScoreboardCard(match: matches[index]),
+                        //ScoreboardListItem(
+                        //match: matches[index],
+                        //),
+                      );
+                    }),
+              ),
             ),
           ],
         ),
