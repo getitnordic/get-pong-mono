@@ -21,7 +21,6 @@ class CreateSingleGame extends ConsumerWidget {
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selected = ref.watch(selectedProvider);
     final selectedNotifier = ref.watch(selectedProvider.notifier);
-    final matchType = ref.watch(matchTypeProvider.notifier);
     final isAllSelected = selected[0].nickname.isNotEmpty &&
         selected[1].nickname.isNotEmpty &&
         selected[0].id != selected[1].id;

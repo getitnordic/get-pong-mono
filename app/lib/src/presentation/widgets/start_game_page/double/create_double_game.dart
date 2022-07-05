@@ -9,6 +9,8 @@ import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/models/score_page_arguments.dart';
+
 class CreateDoubleGame extends ConsumerWidget {
   const CreateDoubleGame({
     Key? key,
@@ -18,7 +20,6 @@ class CreateDoubleGame extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selected = ref.watch(selectedProvider);
-    final matchType = ref.watch(matchTypeProvider.notifier);
     final isAllSelected = selected[0].nickname.isNotEmpty &&
         selected[1].nickname.isNotEmpty &&
         selected[2].nickname.isNotEmpty &&
@@ -211,11 +212,14 @@ class CreateDoubleGame extends ConsumerWidget {
                 ),
                 onPressed: isAllSelected && duplicatesDoesNotExist()
                     ? () {
-                        matchType.update((state) => MatchType.double);
+                        final arguments = ScorePageArguments(
+                          players: selected,
+                          matchType: MatchType.double,
+                        );
                         Navigator.pushNamed(
                           context,
                           route.scorePage,
-                          arguments: selected,
+                          arguments: arguments,
                         );
                       }
                     : null,

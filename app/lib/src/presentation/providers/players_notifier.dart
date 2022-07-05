@@ -20,7 +20,6 @@ final rankingSortingTypeProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 final rankingPressedLastProvider =
     StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
-final matchTypeProvider = StateProvider<MatchType>((ref) => MatchType.none);
 
 final topRanksProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
