@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/core/models/score_page_arguments.dart';
+import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:get_pong/config/route/route.dart' as route;
@@ -11,7 +12,7 @@ import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
 import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 import '../../../../Presentation/providers/selected_notifier.dart';
 
-class CreateSingleGame extends ConsumerWidget {
+class CreateSingleGame extends ConsumerWidget with SetProfileImageMixin {
   const CreateSingleGame({
     Key? key,
   }) : super(key: key);
@@ -177,37 +178,49 @@ class CreateSingleGame extends ConsumerWidget {
                     padding: EdgeInsets.only(top: 40),
                     child: CircularProgressIndicator(),
                   ),
-                  data: (data) => SizedBox(
-                    height: 750,
+                  data: (data) => CustomSmallContainer(
+                    height: 880,
                     width: 400,
                     child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: data.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: CustomSmallContainer(
-                              height: 35,
-                              width: 400,
-                              child: Row(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: data.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 5),
+                          child: Column(
+                            children: [
+                              Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   SizedBox(
-                                    width: 200,
-                                    child: Text(
-                                      data[index].fullName,
-                                      style: GoogleFonts.goldman(
-                                        fontSize: 14,
-                                        color: ColorConstants.textColor,
-                                      ),
+                                    width: 220,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: CircleAvatar(
+                                            backgroundImage: NetworkImage(
+                                                setImage(data[index].imageUrl)),
+                                            radius: 14,
+                                          ),
+                                        ),
+                                        Text(
+                                          data[index].fullName,
+                                          style: GoogleFonts.goldman(
+                                            fontSize: 14,
+                                            color: ColorConstants.textColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   Row(
                                     children: [
                                       TextButton(
                                         style: TextButton.styleFrom(
-                                          primary: ColorConstants.primaryColor,
+                                          primary: ColorConstants.textColor,
                                           textStyle: GoogleFonts.goldman(
                                             fontSize: 20,
                                           ),
@@ -218,19 +231,16 @@ class CreateSingleGame extends ConsumerWidget {
                                               playerSelectChoice:
                                                   PlayerSelectChoice.playerOne);
                                         },
-                                        child: Row(
-                                          children: const [
-                                            Icon(
-                                              Icons.numbers,
-                                              size: 20,
-                                            ),
-                                            Text('1'),
-                                          ],
+                                        child: Text(
+                                          '# 1',
+                                          style: GoogleFonts.goldman(
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ),
                                       TextButton(
                                         style: TextButton.styleFrom(
-                                          primary: ColorConstants.primaryColor,
+                                          primary: ColorConstants.textColor,
                                           textStyle: GoogleFonts.goldman(
                                             fontSize: 20,
                                           ),
@@ -241,23 +251,28 @@ class CreateSingleGame extends ConsumerWidget {
                                               playerSelectChoice:
                                                   PlayerSelectChoice.playerTwo);
                                         },
-                                        child: Row(
-                                          children: const [
-                                            Icon(
-                                              Icons.numbers,
-                                              size: 20,
-                                            ),
-                                            Text('2'),
-                                          ],
+                                        child: Text(
+                                          '# 2',
+                                          style: GoogleFonts.goldman(
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
-                            ),
-                          );
-                        }),
+                              if (index != data.length - 1)
+                                const Divider(
+                                  height: 1,
+                                  indent: 13,
+                                  endIndent: 13,
+                                ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 );
               },
