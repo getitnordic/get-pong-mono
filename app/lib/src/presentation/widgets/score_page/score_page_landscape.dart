@@ -15,9 +15,11 @@ import '../../../Presentation/widgets/widgets.dart';
 
 class ScorePageLandscape extends ConsumerStatefulWidget {
   final List<PlayerModel> selectedPlayers;
+  final MatchType matchType;
   const ScorePageLandscape({
     Key? key,
     required this.selectedPlayers,
+    required this.matchType,
   }) : super(key: key);
 
   @override
@@ -260,7 +262,7 @@ class _ScorePageState extends ConsumerState<ScorePageLandscape> {
     final matchesNotifier = ref.watch(matchesProvider.notifier);
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selectedPlayersNotifier = ref.watch(selectedProvider.notifier);
-    final matchType = ref.watch(matchTypeProvider);
+    final matchType = widget.matchType;
     final playerOne = widget.selectedPlayers[0];
     final playerTwo = widget.selectedPlayers[1];
     final playerThree = widget.selectedPlayers[2];

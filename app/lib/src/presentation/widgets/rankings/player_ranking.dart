@@ -12,10 +12,6 @@ class PlayerRanking extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final screenHeight = MediaQuery.of(context).size.height -
-        (MediaQuery.of(context).padding.top + kToolbarHeight) -
-        kBottomNavigationBarHeight -
-        (MediaQuery.of(context).size.height * 0.12);
 
     return Consumer(
       builder: (context, ref, child) {

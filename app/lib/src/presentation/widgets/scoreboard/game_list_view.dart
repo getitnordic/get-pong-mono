@@ -15,13 +15,6 @@ class GameListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height -
-        (MediaQuery.of(context).padding.top + kToolbarHeight) -
-        kBottomNavigationBarHeight -
-        (MediaQuery.of(context).size.height * 0.04);
-
-    print(screenHeight);
-
     return Center(
       child: Column(
         children: [

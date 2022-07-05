@@ -20,12 +20,21 @@ final rankingSortingTypeProvider =
     StateProvider.autoDispose<bool>((ref) => true);
 final rankingPressedLastProvider =
     StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
-final matchTypeProvider =
-    StateProvider.autoDispose<MatchType>((ref) => MatchType.none);
+final matchTypeProvider = StateProvider<MatchType>((ref) => MatchType.none);
 
 final topRanksProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
   return ref.read(playersProvider.notifier).getTopRanks();
+});
+
+final latestPlayersProvider =
+    FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
+  return ref.read(playersProvider.notifier).getLatestPlayers();
+});
+
+final allPlayersProvider =
+    FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
+  return ref.read(playersProvider.notifier).getAllPlayers();
 });
 
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
@@ -111,6 +120,34 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
         .where((p) => p.win + p.loss > 0)
         .take(amountOfPlayersToGrab)
         .toList();
+  }
+
+  Future<List<PlayerModel>> getLatestPlayers() async {
+    await getPlayersUseCase(params: EmptyParams()).then((value) => {
+          if (value is DataSuccess)
+            {
+              setPlayersLoading(false),
+              state = value.data!,
+            }
+          else
+            {setPlayersLoading(false), print(value.error)}
+        });
+    sortByLastActivity();
+    return state.take(15).toList();
+  }
+
+  Future<List<PlayerModel>> getAllPlayers() async {
+    await getPlayersUseCase(params: EmptyParams()).then((value) => {
+          if (value is DataSuccess)
+            {
+              setPlayersLoading(false),
+              state = value.data!,
+            }
+          else
+            {setPlayersLoading(false), print(value.error)}
+        });
+    sortByLastActivity();
+    return state.toList();
   }
 
   ScoreBoardMatch convertMatch(GameModel match) {

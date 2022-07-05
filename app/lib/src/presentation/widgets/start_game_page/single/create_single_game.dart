@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/core/models/score_page_arguments.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:get_pong/config/route/route.dart' as route;
 import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../../../../Presentation/providers/players_notifier.dart';
+import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 import '../../../../Presentation/providers/selected_notifier.dart';
 
 class CreateSingleGame extends ConsumerWidget {
@@ -20,6 +20,7 @@ class CreateSingleGame extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selected = ref.watch(selectedProvider);
+    final selectedNotifier = ref.watch(selectedProvider.notifier);
     final matchType = ref.watch(matchTypeProvider.notifier);
     final isAllSelected = selected[0].nickname.isNotEmpty &&
         selected[1].nickname.isNotEmpty &&
@@ -102,7 +103,9 @@ class CreateSingleGame extends ConsumerWidget {
                         ? Text(
                             'Select player 2',
                             style: GoogleFonts.goldman(
-                                fontSize: 18, color: ColorConstants.textColor),
+                              fontSize: 18,
+                              color: ColorConstants.textColor,
+                            ),
                           )
                         : Text(
                             playersNotifier
@@ -140,11 +143,14 @@ class CreateSingleGame extends ConsumerWidget {
                   ),
                   onPressed: isAllSelected
                       ? () {
-                          matchType.update((state) => MatchType.single);
+                          final arguments = ScorePageArguments(
+                            players: selected,
+                            matchType: MatchType.single,
+                          );
                           Navigator.pushNamed(
                             context,
                             route.scorePage,
-                            arguments: selected,
+                            arguments: arguments,
                           );
                         }
                       : null,
@@ -157,6 +163,105 @@ class CreateSingleGame extends ConsumerWidget {
                   ),
                 ),
               ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 40),
+              child: Text('Latest Players'),
+            ),
+            Consumer(
+              builder: (context, ref, child) {
+                final data = ref.watch(latestPlayersProvider);
+
+                return data.when(
+                  error: (error, stackTrace) => Text('Error $error'),
+                  loading: () => const Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: CircularProgressIndicator(),
+                  ),
+                  data: (data) => SizedBox(
+                    height: 750,
+                    width: 400,
+                    child: ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: CustomSmallContainer(
+                              height: 35,
+                              width: 400,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                    width: 200,
+                                    child: Text(
+                                      data[index].fullName,
+                                      style: GoogleFonts.goldman(
+                                        fontSize: 14,
+                                        color: ColorConstants.textColor,
+                                      ),
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: ColorConstants.primaryColor,
+                                          textStyle: GoogleFonts.goldman(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          selectedNotifier.setPlayer(
+                                              player: data[index],
+                                              playerSelectChoice:
+                                                  PlayerSelectChoice.playerOne);
+                                        },
+                                        child: Row(
+                                          children: const [
+                                            Icon(
+                                              Icons.numbers,
+                                              size: 20,
+                                            ),
+                                            Text('1'),
+                                          ],
+                                        ),
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: ColorConstants.primaryColor,
+                                          textStyle: GoogleFonts.goldman(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          selectedNotifier.setPlayer(
+                                              player: data[index],
+                                              playerSelectChoice:
+                                                  PlayerSelectChoice.playerTwo);
+                                        },
+                                        child: Row(
+                                          children: const [
+                                            Icon(
+                                              Icons.numbers,
+                                              size: 20,
+                                            ),
+                                            Text('2'),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                );
+              },
             ),
           ],
         ),
