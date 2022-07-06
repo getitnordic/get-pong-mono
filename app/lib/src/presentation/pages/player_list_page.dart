@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/enums/player_select_choice.dart';
 import 'package:get_pong/src/Presentation/widgets/start_game_page/select_player_list.dart';
-
-import '../../Presentation/providers/players_notifier.dart';
+import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 
 class PlayerListPage extends ConsumerWidget {
   final PlayerSelectChoice playerSelectIndex;

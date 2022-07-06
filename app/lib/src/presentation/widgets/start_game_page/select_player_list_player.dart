@@ -19,7 +19,7 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var selectedNotifier = ref.watch(selectedProvider.notifier);
+    final selectedNotifier = ref.watch(selectedProvider.notifier);
 
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -50,7 +50,9 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
             TextButton(
                 onPressed: () {
                   selectedNotifier.setPlayer(
-                      player: player, playerSelectChoice: playerSelectIndex);
+                    player: player,
+                    playerSelectChoice: playerSelectIndex,
+                  );
                   Navigator.of(context).pop();
                 },
                 child: const Icon(

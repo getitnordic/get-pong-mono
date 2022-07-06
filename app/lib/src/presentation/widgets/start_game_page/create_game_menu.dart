@@ -35,10 +35,6 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height -
-        (MediaQuery.of(context).padding.top + kToolbarHeight) -
-        kBottomNavigationBarHeight -
-        (MediaQuery.of(context).size.height * 0.12);
     return Column(
       children: [
         const Padding(
@@ -51,8 +47,7 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
             ),
           ),
         ),
-        SizedBox(
-          height: screenHeight,
+        Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -73,11 +68,14 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
                 indicatorColor: ColorConstants.primaryColor,
               ),
               Expanded(
-                child: TabBarView(controller: tabController, children: const [
-                  CreateSingleGame(),
-                  CreateDoubleGame(),
-                  CreateRoundhouseGame(),
-                ]),
+                child: TabBarView(
+                  controller: tabController,
+                  children: const [
+                    CreateSingleGame(),
+                    CreateDoubleGame(),
+                    CreateRoundhouseGame(),
+                  ],
+                ),
               ),
             ],
           ),

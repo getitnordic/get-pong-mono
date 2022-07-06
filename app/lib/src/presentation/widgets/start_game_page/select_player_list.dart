@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get_pong/config/route/route.dart' as route;
 import 'package:get_pong/enums/player_select_choice.dart';
