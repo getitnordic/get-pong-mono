@@ -4,33 +4,27 @@ import '../../../../enums/sorting_options.dart';
 
 class RankingSorter {
   List<PlayerModel> players;
+  RankingSorter(
+    this.players,
+  );
 
-  RankingSorter(this.players);
-
-  late bool highToLow = true;
-
-  void toogleHighToLow() {
-    highToLow ? false : true;
-  }
-
-  List<PlayerModel> sortPlayerList(SortingOptions sortingOptions) {
+  List<PlayerModel> sortPlayerList(
+      SortingOptions sortingOptions, bool highToLow) {
     switch (sortingOptions) {
       case SortingOptions.name:
         _sortByName(highToLow);
-        toogleHighToLow();
-        print(highToLow);
         return players;
       case SortingOptions.played:
         _sortByPlayed(highToLow);
-        toogleHighToLow();
         return players;
       case SortingOptions.wins:
         _sortByWins(highToLow);
-        toogleHighToLow();
         return players;
       case SortingOptions.losses:
         _sortByLosses(highToLow);
-        toogleHighToLow();
+        return players;
+      case SortingOptions.score:
+        _sortByScore(highToLow);
         return players;
       case SortingOptions.none:
         return players;
@@ -41,7 +35,6 @@ class RankingSorter {
     sortHighToLow
         ? players.sort((a, b) => (b.loss).compareTo(a.loss))
         : players.sort((a, b) => (a.loss).compareTo(b.loss));
-    print(players[0].fullName);
   }
 
   void _sortByWins(bool sortHighToLow) {
@@ -60,5 +53,11 @@ class RankingSorter {
     sortHighToLow
         ? players.sort((a, b) => (a.fullName).compareTo(b.fullName))
         : players.sort((a, b) => (b.fullName).compareTo(a.fullName));
+  }
+
+  void _sortByScore(bool sortHighToLow) {
+    sortHighToLow
+        ? players.sort((a, b) => (b.totalScore).compareTo(a.totalScore))
+        : players.sort((a, b) => (a.totalScore).compareTo(b.totalScore));
   }
 }
