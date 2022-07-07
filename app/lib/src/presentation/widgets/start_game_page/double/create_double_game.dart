@@ -263,207 +263,251 @@ class CreateDoubleGame extends ConsumerWidget with SetProfileImageMixin {
                   ),
                   Column(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(top: 40),
-                        child: Text('Latest Players'),
-                      ),
-                      Consumer(
-                        builder: (context, ref, child) {
-                          final data = ref.watch(latestPlayersProvider);
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Consumer(
+                          builder: (context, ref, child) {
+                            final data = ref.watch(latestPlayersProvider);
 
-                          return data.when(
-                            error: (error, stackTrace) => Text('Error $error'),
-                            loading: () => const Padding(
-                              padding: EdgeInsets.only(top: 40),
-                              child: CircularProgressIndicator(),
-                            ),
-                            data: (data) => CustomSmallContainer(
-                              height: height(context) * 0.65,
-                              width: 400,
-                              child: ListView.builder(
-                                itemCount: data.length,
-                                itemBuilder: (context, index) {
-                                  return GestureDetector(
-                                    onTap: () => Navigator.pushNamed(
-                                      context,
-                                      route.profilePage,
-                                      arguments: data[index],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              SizedBox(
-                                                width: 220,
-                                                child: Row(
+                            return data.when(
+                              error: (error, stackTrace) =>
+                                  Text('Error $error'),
+                              loading: () => const Padding(
+                                padding: EdgeInsets.only(top: 40),
+                                child: CircularProgressIndicator(),
+                              ),
+                              data: (data) => CustomSmallContainer(
+                                height: height(context) * 0.65,
+                                width: 400,
+                                child: ListView.builder(
+                                  itemCount: data.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () => Navigator.pushNamed(
+                                        context,
+                                        route.profilePage,
+                                        arguments: data[index],
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 5),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                SizedBox(
+                                                  width: 220,
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                right: 10),
+                                                        child: CircleAvatar(
+                                                          backgroundImage:
+                                                              NetworkImage(
+                                                                  setImage(data[
+                                                                          index]
+                                                                      .imageUrl)),
+                                                          radius: 14,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        data[index].fullName,
+                                                        style:
+                                                            GoogleFonts.goldman(
+                                                          fontSize: 14,
+                                                          color: ColorConstants
+                                                              .textColor,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Column(
                                                   children: [
+                                                    Row(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8),
+                                                          child:
+                                                              CustomSmallContainer(
+                                                            height: 30,
+                                                            width: 50,
+                                                            child: TextButton(
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                primary:
+                                                                    ColorConstants
+                                                                        .textColor,
+                                                                textStyle:
+                                                                    GoogleFonts
+                                                                        .goldman(
+                                                                  fontSize: 20,
+                                                                ),
+                                                              ),
+                                                              onPressed: () {
+                                                                selectedNotifier.setPlayer(
+                                                                    player: data[
+                                                                        index],
+                                                                    playerSelectChoice:
+                                                                        PlayerSelectChoice
+                                                                            .playerOne);
+                                                              },
+                                                              child: Text(
+                                                                '# 1',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .goldman(
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        CustomSmallContainer(
+                                                          height: 30,
+                                                          width: 50,
+                                                          child: TextButton(
+                                                            style: TextButton
+                                                                .styleFrom(
+                                                              primary:
+                                                                  ColorConstants
+                                                                      .textColor,
+                                                              textStyle:
+                                                                  GoogleFonts
+                                                                      .goldman(
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              selectedNotifier.setPlayer(
+                                                                  player: data[
+                                                                      index],
+                                                                  playerSelectChoice:
+                                                                      PlayerSelectChoice
+                                                                          .playerTwo);
+                                                            },
+                                                            child: Text(
+                                                              '# 2',
+                                                              style: GoogleFonts
+                                                                  .goldman(
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              right: 10),
-                                                      child: CircleAvatar(
-                                                        backgroundImage:
-                                                            NetworkImage(
-                                                                setImage(data[
-                                                                        index]
-                                                                    .imageUrl)),
-                                                        radius: 14,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      data[index].fullName,
-                                                      style:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 14,
-                                                        color: ColorConstants
-                                                            .textColor,
+                                                              bottom: 8),
+                                                      child: Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        8),
+                                                            child:
+                                                                CustomSmallContainer(
+                                                              height: 30,
+                                                              width: 50,
+                                                              child: TextButton(
+                                                                style: TextButton
+                                                                    .styleFrom(
+                                                                  primary:
+                                                                      ColorConstants
+                                                                          .textColor,
+                                                                  textStyle:
+                                                                      GoogleFonts
+                                                                          .goldman(
+                                                                    fontSize:
+                                                                        20,
+                                                                  ),
+                                                                ),
+                                                                onPressed: () {
+                                                                  selectedNotifier.setPlayer(
+                                                                      player: data[
+                                                                          index],
+                                                                      playerSelectChoice:
+                                                                          PlayerSelectChoice
+                                                                              .playerThree);
+                                                                },
+                                                                child: Text(
+                                                                  '# 3',
+                                                                  style: GoogleFonts
+                                                                      .goldman(
+                                                                    fontSize:
+                                                                        14,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          CustomSmallContainer(
+                                                            height: 30,
+                                                            width: 50,
+                                                            child: TextButton(
+                                                              style: TextButton
+                                                                  .styleFrom(
+                                                                primary:
+                                                                    ColorConstants
+                                                                        .textColor,
+                                                                textStyle:
+                                                                    GoogleFonts
+                                                                        .goldman(
+                                                                  fontSize: 20,
+                                                                ),
+                                                              ),
+                                                              onPressed: () {
+                                                                selectedNotifier.setPlayer(
+                                                                    player: data[
+                                                                        index],
+                                                                    playerSelectChoice:
+                                                                        PlayerSelectChoice
+                                                                            .playerFour);
+                                                              },
+                                                              child: Text(
+                                                                '# 4',
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .goldman(
+                                                                  fontSize: 14,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                              Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      TextButton(
-                                                        style: TextButton
-                                                            .styleFrom(
-                                                          primary:
-                                                              ColorConstants
-                                                                  .textColor,
-                                                          textStyle: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 20,
-                                                          ),
-                                                        ),
-                                                        onPressed: () {
-                                                          selectedNotifier.setPlayer(
-                                                              player:
-                                                                  data[index],
-                                                              playerSelectChoice:
-                                                                  PlayerSelectChoice
-                                                                      .playerOne);
-                                                        },
-                                                        child: Text(
-                                                          '# 1',
-                                                          style: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      TextButton(
-                                                        style: TextButton
-                                                            .styleFrom(
-                                                          primary:
-                                                              ColorConstants
-                                                                  .textColor,
-                                                          textStyle: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 20,
-                                                          ),
-                                                        ),
-                                                        onPressed: () {
-                                                          selectedNotifier.setPlayer(
-                                                              player:
-                                                                  data[index],
-                                                              playerSelectChoice:
-                                                                  PlayerSelectChoice
-                                                                      .playerTwo);
-                                                        },
-                                                        child: Text(
-                                                          '# 2',
-                                                          style: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      TextButton(
-                                                        style: TextButton
-                                                            .styleFrom(
-                                                          primary:
-                                                              ColorConstants
-                                                                  .textColor,
-                                                          textStyle: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 20,
-                                                          ),
-                                                        ),
-                                                        onPressed: () {
-                                                          selectedNotifier.setPlayer(
-                                                              player:
-                                                                  data[index],
-                                                              playerSelectChoice:
-                                                                  PlayerSelectChoice
-                                                                      .playerThree);
-                                                        },
-                                                        child: Text(
-                                                          '# 3',
-                                                          style: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      TextButton(
-                                                        style: TextButton
-                                                            .styleFrom(
-                                                          primary:
-                                                              ColorConstants
-                                                                  .textColor,
-                                                          textStyle: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 20,
-                                                          ),
-                                                        ),
-                                                        onPressed: () {
-                                                          selectedNotifier.setPlayer(
-                                                              player:
-                                                                  data[index],
-                                                              playerSelectChoice:
-                                                                  PlayerSelectChoice
-                                                                      .playerFour);
-                                                        },
-                                                        child: Text(
-                                                          '# 4',
-                                                          style: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 14,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          if (index != data.length - 1)
-                                            const Divider(
-                                              height: 1,
-                                              indent: 13,
-                                              endIndent: 13,
+                                              ],
                                             ),
-                                        ],
+                                            if (index != data.length - 1)
+                                              const Divider(
+                                                height: 1,
+                                                indent: 13,
+                                                endIndent: 13,
+                                              ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -685,194 +729,242 @@ class CreateDoubleGame extends ConsumerWidget with SetProfileImageMixin {
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 40),
-                    child: Text('Latest Players'),
-                  ),
-                  Consumer(
-                    builder: (context, ref, child) {
-                      final data = ref.watch(latestPlayersProvider);
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        final data = ref.watch(latestPlayersProvider);
 
-                      return data.when(
-                        error: (error, stackTrace) => Text('Error $error'),
-                        loading: () => const Padding(
-                          padding: EdgeInsets.only(top: 40),
-                          child: CircularProgressIndicator(),
-                        ),
-                        data: (data) => CustomSmallContainer(
-                          height: 1600,
-                          width: 400,
-                          child: ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: data.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () => Navigator.pushNamed(
-                                  context,
-                                  route.profilePage,
-                                  arguments: data[index],
-                                ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: [
-                                          SizedBox(
-                                            width: 220,
-                                            child: Row(
+                        return data.when(
+                          error: (error, stackTrace) => Text('Error $error'),
+                          loading: () => const Padding(
+                            padding: EdgeInsets.only(top: 40),
+                            child: CircularProgressIndicator(),
+                          ),
+                          data: (data) => CustomSmallContainer(
+                            height: 1600,
+                            width: 400,
+                            child: ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: data.length,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () => Navigator.pushNamed(
+                                    context,
+                                    route.profilePage,
+                                    arguments: data[index],
+                                  ),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
+                                    child: Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            SizedBox(
+                                              width: 220,
+                                              child: Row(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 10),
+                                                    child: CircleAvatar(
+                                                      backgroundImage:
+                                                          NetworkImage(setImage(
+                                                              data[index]
+                                                                  .imageUrl)),
+                                                      radius: 14,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    data[index].fullName,
+                                                    style: GoogleFonts.goldman(
+                                                      fontSize: 14,
+                                                      color: ColorConstants
+                                                          .textColor,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Column(
                                               children: [
+                                                Row(
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child:
+                                                          CustomSmallContainer(
+                                                        height: 30,
+                                                        width: 50,
+                                                        child: TextButton(
+                                                          style: TextButton
+                                                              .styleFrom(
+                                                            primary:
+                                                                ColorConstants
+                                                                    .textColor,
+                                                            textStyle:
+                                                                GoogleFonts
+                                                                    .goldman(
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                          onPressed: () {
+                                                            selectedNotifier.setPlayer(
+                                                                player:
+                                                                    data[index],
+                                                                playerSelectChoice:
+                                                                    PlayerSelectChoice
+                                                                        .playerOne);
+                                                          },
+                                                          child: Text(
+                                                            '# 1',
+                                                            style: GoogleFonts
+                                                                .goldman(
+                                                              fontSize: 14,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    CustomSmallContainer(
+                                                      height: 30,
+                                                      width: 50,
+                                                      child: TextButton(
+                                                        style: TextButton
+                                                            .styleFrom(
+                                                          primary:
+                                                              ColorConstants
+                                                                  .textColor,
+                                                          textStyle: GoogleFonts
+                                                              .goldman(
+                                                            fontSize: 20,
+                                                          ),
+                                                        ),
+                                                        onPressed: () {
+                                                          selectedNotifier.setPlayer(
+                                                              player:
+                                                                  data[index],
+                                                              playerSelectChoice:
+                                                                  PlayerSelectChoice
+                                                                      .playerTwo);
+                                                        },
+                                                        child: Text(
+                                                          '# 2',
+                                                          style: GoogleFonts
+                                                              .goldman(
+                                                            fontSize: 14,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.only(
-                                                          right: 10),
-                                                  child: CircleAvatar(
-                                                    backgroundImage:
-                                                        NetworkImage(setImage(
-                                                            data[index]
-                                                                .imageUrl)),
-                                                    radius: 14,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  data[index].fullName,
-                                                  style: GoogleFonts.goldman(
-                                                    fontSize: 14,
-                                                    color: ColorConstants
-                                                        .textColor,
+                                                          bottom: 8),
+                                                  child: Row(
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 8),
+                                                        child:
+                                                            CustomSmallContainer(
+                                                          height: 30,
+                                                          width: 50,
+                                                          child: TextButton(
+                                                            style: TextButton
+                                                                .styleFrom(
+                                                              primary:
+                                                                  ColorConstants
+                                                                      .textColor,
+                                                              textStyle:
+                                                                  GoogleFonts
+                                                                      .goldman(
+                                                                fontSize: 20,
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              selectedNotifier.setPlayer(
+                                                                  player: data[
+                                                                      index],
+                                                                  playerSelectChoice:
+                                                                      PlayerSelectChoice
+                                                                          .playerThree);
+                                                            },
+                                                            child: Text(
+                                                              '# 3',
+                                                              style: GoogleFonts
+                                                                  .goldman(
+                                                                fontSize: 14,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      CustomSmallContainer(
+                                                        height: 30,
+                                                        width: 50,
+                                                        child: TextButton(
+                                                          style: TextButton
+                                                              .styleFrom(
+                                                            primary:
+                                                                ColorConstants
+                                                                    .textColor,
+                                                            textStyle:
+                                                                GoogleFonts
+                                                                    .goldman(
+                                                              fontSize: 20,
+                                                            ),
+                                                          ),
+                                                          onPressed: () {
+                                                            selectedNotifier.setPlayer(
+                                                                player:
+                                                                    data[index],
+                                                                playerSelectChoice:
+                                                                    PlayerSelectChoice
+                                                                        .playerFour);
+                                                          },
+                                                          child: Text(
+                                                            '# 4',
+                                                            style: GoogleFonts
+                                                                .goldman(
+                                                              fontSize: 14,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          Column(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  TextButton(
-                                                    style: TextButton.styleFrom(
-                                                      primary: ColorConstants
-                                                          .textColor,
-                                                      textStyle:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 20,
-                                                      ),
-                                                    ),
-                                                    onPressed: () {
-                                                      selectedNotifier.setPlayer(
-                                                          player: data[index],
-                                                          playerSelectChoice:
-                                                              PlayerSelectChoice
-                                                                  .playerOne);
-                                                    },
-                                                    child: Text(
-                                                      '# 1',
-                                                      style:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  TextButton(
-                                                    style: TextButton.styleFrom(
-                                                      primary: ColorConstants
-                                                          .textColor,
-                                                      textStyle:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 20,
-                                                      ),
-                                                    ),
-                                                    onPressed: () {
-                                                      selectedNotifier.setPlayer(
-                                                          player: data[index],
-                                                          playerSelectChoice:
-                                                              PlayerSelectChoice
-                                                                  .playerTwo);
-                                                    },
-                                                    child: Text(
-                                                      '# 2',
-                                                      style:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                children: [
-                                                  TextButton(
-                                                    style: TextButton.styleFrom(
-                                                      primary: ColorConstants
-                                                          .textColor,
-                                                      textStyle:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 20,
-                                                      ),
-                                                    ),
-                                                    onPressed: () {
-                                                      selectedNotifier.setPlayer(
-                                                          player: data[index],
-                                                          playerSelectChoice:
-                                                              PlayerSelectChoice
-                                                                  .playerThree);
-                                                    },
-                                                    child: Text(
-                                                      '# 3',
-                                                      style:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  TextButton(
-                                                    style: TextButton.styleFrom(
-                                                      primary: ColorConstants
-                                                          .textColor,
-                                                      textStyle:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 20,
-                                                      ),
-                                                    ),
-                                                    onPressed: () {
-                                                      selectedNotifier.setPlayer(
-                                                          player: data[index],
-                                                          playerSelectChoice:
-                                                              PlayerSelectChoice
-                                                                  .playerFour);
-                                                    },
-                                                    child: Text(
-                                                      '# 4',
-                                                      style:
-                                                          GoogleFonts.goldman(
-                                                        fontSize: 14,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      if (index != data.length - 1)
-                                        const Divider(
-                                          height: 1,
-                                          indent: 13,
-                                          endIndent: 13,
+                                          ],
                                         ),
-                                    ],
+                                        if (index != data.length - 1)
+                                          const Divider(
+                                            height: 1,
+                                            indent: 13,
+                                            endIndent: 13,
+                                          ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

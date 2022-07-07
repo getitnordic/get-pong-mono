@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/enums/sorting_options.dart';
 import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/register_services.dart';
 import 'package:get_pong/src/core/common/common.dart';
@@ -14,11 +13,6 @@ final playersProvider =
             getIt<UpdatePlayerUseCase>(), ref.read));
 
 final playersLoadingProvider = StateProvider<bool>((ref) => false);
-
-final rankingSortingTypeProvider =
-    StateProvider.autoDispose<bool>((ref) => true);
-final rankingPressedLastProvider =
-    StateProvider.autoDispose<SortingOptions>((ref) => SortingOptions.none);
 
 final topRanksProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {

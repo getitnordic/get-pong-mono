@@ -49,7 +49,7 @@ class PlayerRankingListPlayer extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 220,
+            width: 230,
             child: Row(
               children: [
                 SizedBox(
