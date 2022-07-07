@@ -31,6 +31,12 @@ class GameListView extends StatelessWidget {
           Flexible(
             child: NotificationListener(
               onNotification: (ScrollNotification scrollInfo) {
+                if (scrollInfo is ScrollStartNotification) {
+                  if (scrollInfo.metrics.pixels == 0 &&
+                      scrollInfo.metrics.atEdge) {
+                    debugPrint('IM AT THE TOP RELOAD MATCHES');
+                  }
+                }
                 if (scrollInfo is ScrollEndNotification) {
                   if (scrollInfo.metrics.pixels > 0 &&
                       scrollInfo.metrics.atEdge) {

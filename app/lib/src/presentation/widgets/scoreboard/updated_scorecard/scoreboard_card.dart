@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/constants/constants.dart';
 import 'package:get_pong/enums/team.dart';
 import 'package:get_pong/protos/game.pbgrpc.dart';
+import 'package:get_pong/src/presentation/widgets/custom_small_container.dart';
 import 'package:get_pong/src/presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
 import 'package:get_pong/src/presentation/widgets/scoreboard/updated_scorecard/scoreboard_set_score.dart';
 import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
@@ -44,42 +45,66 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
     const fontSize = 12.0;
     const imageSize = 10.0;
     const setScoreWidth = 20.0;
-
-    return Card(
-      color: ColorConstants.appBarColor,
-      shape: const RoundedRectangleBorder(
-          side: BorderSide(color: ColorConstants.secondaryTextColor),
-          borderRadius: BorderRadius.all(Radius.circular(15))),
-      child: Padding(
-        padding: const EdgeInsets.all(3),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 200),
-          height: isDouble ? 120 : 70,
-          child: Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
+    final sidePadding = MediaQuery.of(context).size.width > 800
+        ? MediaQuery.of(context).size.width * 0.2
+        : 0.0;
+    return Padding(
+      padding: EdgeInsets.fromLTRB(sidePadding, 0, sidePadding, 10),
+      child: CustomSmallContainer(
+        height: isDouble ? 130 : 80,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                                child: CircleAvatar(
+                                  radius: imageSize,
+                                  backgroundImage: NetworkImage(setImage(
+                                      controller.homeTeamOne.imageUrl)),
+                                ),
+                              ),
+                              Text(
+                                controller.homeTeamOne.fullName,
+                                style: TextStyle(
+                                  fontSize: fontSize,
+                                  color: ColorConstants.textColor,
+                                  fontWeight: result.winner == Team.homeTeam
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (isDouble)
                           SizedBox(
                             width: 200,
                             child: Row(
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                   child: CircleAvatar(
                                     radius: imageSize,
                                     backgroundImage: NetworkImage(setImage(
-                                        controller.homeTeamOne.imageUrl)),
+                                        controller.homeTeamTwo.imageUrl)),
                                   ),
                                 ),
                                 Text(
-                                  controller.homeTeamOne.fullName,
+                                  controller.homeTeamTwo.fullName,
                                   style: TextStyle(
                                     fontSize: fontSize,
                                     color: ColorConstants.textColor,
@@ -91,51 +116,34 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                               ],
                             ),
                           ),
-                          if (isDouble)
-                            SizedBox(
-                              width: 200,
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: CircleAvatar(
-                                      radius: imageSize,
-                                      backgroundImage: NetworkImage(setImage(
-                                          controller.homeTeamTwo.imageUrl)),
-                                    ),
-                                  ),
-                                  Text(
-                                    controller.homeTeamTwo.fullName,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      color: ColorConstants.textColor,
-                                      fontWeight: result.winner == Team.homeTeam
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ScoreboardSetScore(
+                            score: result.homeTeamScore.toString(),
+                            width: setScoreWidth,
+                            fontSize: fontSize,
+                            fontWeight: result.winner == Team.homeTeam
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: ColorConstants.textColor,
+                          ),
+                          ScoreboardSetScore(
+                            score: match.sets[0].homeTeam.toString(),
+                            width: setScoreWidth,
+                            fontSize: fontSize,
+                            fontWeight: result.winner == Team.homeTeam
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: ColorConstants.secondaryTextColor,
+                          ),
+                          if (amountOfSets == 3) ...[
                             ScoreboardSetScore(
-                              score: result.homeTeamScore.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.homeTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.textColor,
-                            ),
-                            ScoreboardSetScore(
-                              score: match.sets[0].homeTeam.toString(),
+                              score: match.sets[1].homeTeam.toString(),
                               width: setScoreWidth,
                               fontSize: fontSize,
                               fontWeight: result.winner == Team.homeTeam
@@ -143,37 +151,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                   : FontWeight.normal,
                               color: ColorConstants.secondaryTextColor,
                             ),
-                            if (amountOfSets == 3) ...[
-                              ScoreboardSetScore(
-                                score: match.sets[1].homeTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.homeTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                              if (controller.setsNeededToWin() == 3)
-                                ScoreboardSetScore(
-                                  score: match.sets[2].homeTeam.toString(),
-                                  width: setScoreWidth,
-                                  fontSize: fontSize,
-                                  fontWeight: result.winner == Team.homeTeam
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: ColorConstants.secondaryTextColor,
-                                ),
-                            ],
-                            if (amountOfSets == 5) ...[
-                              ScoreboardSetScore(
-                                score: match.sets[1].homeTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.homeTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
+                            if (controller.setsNeededToWin() == 3)
                               ScoreboardSetScore(
                                 score: match.sets[2].homeTeam.toString(),
                                 width: setScoreWidth,
@@ -183,57 +161,104 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                     : FontWeight.normal,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                              if (controller.setsNeededToWin() == 4 ||
-                                  controller.setsNeededToWin() == 5)
-                                ScoreboardSetScore(
-                                  score: match.sets[3].homeTeam.toString(),
-                                  width: setScoreWidth,
-                                  fontSize: fontSize,
-                                  fontWeight: result.winner == Team.homeTeam
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: ColorConstants.secondaryTextColor,
-                                ),
-                              if (controller.setsNeededToWin() == 5)
-                                ScoreboardSetScore(
-                                  score: match.sets[4].homeTeam.toString(),
-                                  width: setScoreWidth,
-                                  fontSize: fontSize,
-                                  fontWeight: result.winner == Team.homeTeam
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: ColorConstants.secondaryTextColor,
-                                ),
-                            ],
                           ],
-                        ),
+                          if (amountOfSets == 5) ...[
+                            ScoreboardSetScore(
+                              score: match.sets[1].homeTeam.toString(),
+                              width: setScoreWidth,
+                              fontSize: fontSize,
+                              fontWeight: result.winner == Team.homeTeam
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: ColorConstants.secondaryTextColor,
+                            ),
+                            ScoreboardSetScore(
+                              score: match.sets[2].homeTeam.toString(),
+                              width: setScoreWidth,
+                              fontSize: fontSize,
+                              fontWeight: result.winner == Team.homeTeam
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: ColorConstants.secondaryTextColor,
+                            ),
+                            if (controller.setsNeededToWin() == 4 ||
+                                controller.setsNeededToWin() == 5)
+                              ScoreboardSetScore(
+                                score: match.sets[3].homeTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                fontWeight: result.winner == Team.homeTeam
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
+                            if (controller.setsNeededToWin() == 5)
+                              ScoreboardSetScore(
+                                score: match.sets[4].homeTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                fontWeight: result.winner == Team.homeTeam
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
+                          ],
+                        ],
                       ),
-                    ],
-                  ),
-                  const Divider(
-                    indent: 10,
-                    endIndent: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
+                    ),
+                  ],
+                ),
+                const Divider(
+                  indent: 10,
+                  endIndent: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                                child: CircleAvatar(
+                                  radius: imageSize,
+                                  backgroundImage: NetworkImage(setImage(
+                                      controller.awayTeamOne.imageUrl)),
+                                ),
+                              ),
+                              Text(
+                                controller.awayTeamOne.fullName,
+                                style: TextStyle(
+                                  fontSize: fontSize,
+                                  color: ColorConstants.textColor,
+                                  fontWeight: result.winner == Team.awayTeam
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        if (isDouble)
                           SizedBox(
                             width: 200,
                             child: Row(
                               children: [
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(10, 0, 10, 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                   child: CircleAvatar(
                                     radius: imageSize,
                                     backgroundImage: NetworkImage(setImage(
-                                        controller.awayTeamOne.imageUrl)),
+                                        controller.awayTeamTwo.imageUrl)),
                                   ),
                                 ),
                                 Text(
-                                  controller.awayTeamOne.fullName,
+                                  controller.awayTeamTwo.fullName,
                                   style: TextStyle(
                                     fontSize: fontSize,
                                     color: ColorConstants.textColor,
@@ -245,51 +270,34 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                               ],
                             ),
                           ),
-                          if (isDouble)
-                            SizedBox(
-                              width: 200,
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: CircleAvatar(
-                                      radius: imageSize,
-                                      backgroundImage: NetworkImage(setImage(
-                                          controller.awayTeamTwo.imageUrl)),
-                                    ),
-                                  ),
-                                  Text(
-                                    controller.awayTeamTwo.fullName,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      color: ColorConstants.textColor,
-                                      fontWeight: result.winner == Team.awayTeam
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ScoreboardSetScore(
+                            score: result.awayTeamScore.toString(),
+                            width: setScoreWidth,
+                            fontSize: fontSize,
+                            fontWeight: result.winner == Team.awayTeam
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: ColorConstants.textColor,
+                          ),
+                          ScoreboardSetScore(
+                            score: match.sets[0].awayTeam.toString(),
+                            width: setScoreWidth,
+                            fontSize: fontSize,
+                            fontWeight: result.winner == Team.awayTeam
+                                ? FontWeight.bold
+                                : FontWeight.normal,
+                            color: ColorConstants.secondaryTextColor,
+                          ),
+                          if (amountOfSets == 3) ...[
                             ScoreboardSetScore(
-                              score: result.awayTeamScore.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.awayTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.textColor,
-                            ),
-                            ScoreboardSetScore(
-                              score: match.sets[0].awayTeam.toString(),
+                              score: match.sets[1].awayTeam.toString(),
                               width: setScoreWidth,
                               fontSize: fontSize,
                               fontWeight: result.winner == Team.awayTeam
@@ -297,37 +305,7 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                   : FontWeight.normal,
                               color: ColorConstants.secondaryTextColor,
                             ),
-                            if (amountOfSets == 3) ...[
-                              ScoreboardSetScore(
-                                score: match.sets[1].awayTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.awayTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                              if (controller.setsNeededToWin() == 3)
-                                ScoreboardSetScore(
-                                  score: match.sets[2].awayTeam.toString(),
-                                  width: setScoreWidth,
-                                  fontSize: fontSize,
-                                  fontWeight: result.winner == Team.awayTeam
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: ColorConstants.secondaryTextColor,
-                                ),
-                            ],
-                            if (amountOfSets == 5) ...[
-                              ScoreboardSetScore(
-                                score: match.sets[1].awayTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.awayTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
+                            if (controller.setsNeededToWin() == 3)
                               ScoreboardSetScore(
                                 score: match.sets[2].awayTeam.toString(),
                                 width: setScoreWidth,
@@ -337,35 +315,54 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                     : FontWeight.normal,
                                 color: ColorConstants.secondaryTextColor,
                               ),
-                              if (controller.setsNeededToWin() == 4 ||
-                                  controller.setsNeededToWin() == 5)
-                                ScoreboardSetScore(
-                                  score: match.sets[3].awayTeam.toString(),
-                                  width: setScoreWidth,
-                                  fontSize: fontSize,
-                                  fontWeight: result.winner == Team.awayTeam
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: ColorConstants.secondaryTextColor,
-                                ),
-                              if (controller.setsNeededToWin() == 5)
-                                ScoreboardSetScore(
-                                  score: match.sets[4].awayTeam.toString(),
-                                  width: setScoreWidth,
-                                  fontSize: fontSize,
-                                  fontWeight: result.winner == Team.awayTeam
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: ColorConstants.secondaryTextColor,
-                                ),
-                            ],
                           ],
-                        ),
+                          if (amountOfSets == 5) ...[
+                            ScoreboardSetScore(
+                              score: match.sets[1].awayTeam.toString(),
+                              width: setScoreWidth,
+                              fontSize: fontSize,
+                              fontWeight: result.winner == Team.awayTeam
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: ColorConstants.secondaryTextColor,
+                            ),
+                            ScoreboardSetScore(
+                              score: match.sets[2].awayTeam.toString(),
+                              width: setScoreWidth,
+                              fontSize: fontSize,
+                              fontWeight: result.winner == Team.awayTeam
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: ColorConstants.secondaryTextColor,
+                            ),
+                            if (controller.setsNeededToWin() == 4 ||
+                                controller.setsNeededToWin() == 5)
+                              ScoreboardSetScore(
+                                score: match.sets[3].awayTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                fontWeight: result.winner == Team.awayTeam
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
+                            if (controller.setsNeededToWin() == 5)
+                              ScoreboardSetScore(
+                                score: match.sets[4].awayTeam.toString(),
+                                width: setScoreWidth,
+                                fontSize: fontSize,
+                                fontWeight: result.winner == Team.awayTeam
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: ColorConstants.secondaryTextColor,
+                              ),
+                          ],
+                        ],
                       ),
-                    ],
-                  ),
-                ]),
-          ),
+                    ),
+                  ],
+                ),
+              ]),
         ),
       ),
     );
