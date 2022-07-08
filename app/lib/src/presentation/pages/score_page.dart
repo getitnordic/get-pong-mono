@@ -252,19 +252,23 @@ class _ScorePageState extends ConsumerState<ScorePage>
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            setCounter++;
-            sets.add(
-              ScorePageSet(
-                homeScore: 5,
-                awayScore: 5,
-                setId: setCounter,
-              ),
-            );
-          });
-        },
-        backgroundColor: ColorConstants.primaryColor,
+        onPressed: sets.length < 11
+            ? () {
+                setState(() {
+                  setCounter++;
+                  sets.add(
+                    ScorePageSet(
+                      homeScore: 5,
+                      awayScore: 5,
+                      setId: setCounter,
+                    ),
+                  );
+                });
+              }
+            : null,
+        backgroundColor: sets.length < 11
+            ? ColorConstants.primaryColor
+            : ColorConstants.disabledButtonColor,
         child: Icon(Icons.add),
       ),
     );

@@ -66,48 +66,11 @@ class ScoreboardController {
     int homeTeamScore = 0;
     int awayTeamScore = 0;
 
-    if (match.sets.length == 1) {
-      for (final set in match.sets) {
-        if (set.homeTeam > set.awayTeam) {
-          homeTeamScore++;
-        } else {
-          awayTeamScore++;
-        }
-      }
-    }
-
-    if (match.sets.length == 3) {
-      for (final set in match.sets) {
-        if (set.homeTeam > set.awayTeam) {
-          homeTeamScore++;
-        } else {
-          awayTeamScore++;
-        }
-        if (homeTeamScore == 2 || awayTeamScore == 2) {
-          return MatchResult(
-              homeTeamScore: homeTeamScore,
-              awayTeamScore: awayTeamScore,
-              winner: homeTeamScore > awayTeamScore
-                  ? Team.homeTeam
-                  : Team.awayTeam);
-        }
-      }
-    }
-    if (match.sets.length == 5) {
-      for (final set in match.sets) {
-        if (set.homeTeam > set.awayTeam) {
-          homeTeamScore++;
-        } else {
-          awayTeamScore++;
-        }
-        if (homeTeamScore == 3 || awayTeamScore == 3) {
-          return MatchResult(
-              homeTeamScore: homeTeamScore,
-              awayTeamScore: awayTeamScore,
-              winner: homeTeamScore > awayTeamScore
-                  ? Team.homeTeam
-                  : Team.awayTeam);
-        }
+    for (final set in match.sets) {
+      if (set.homeTeam > set.awayTeam) {
+        homeTeamScore++;
+      } else {
+        awayTeamScore++;
       }
     }
     return MatchResult(
