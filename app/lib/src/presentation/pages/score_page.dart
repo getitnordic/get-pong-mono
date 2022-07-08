@@ -8,10 +8,10 @@ import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/protos/game.pbgrpc.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
+import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../Presentation/providers/matches_notifier.dart';
-import '../../Presentation/widgets/widgets.dart';
 import '../../core/models/score_page_set.dart';
 
 class ScorePage extends ConsumerStatefulWidget {
@@ -28,7 +28,16 @@ class ScorePage extends ConsumerStatefulWidget {
 }
 
 class _ScorePageState extends ConsumerState<ScorePage> {
-  
+  int setCounter = 1;
+  int currentSetId = 0;
+  List<ScorePageSet> sets = [
+    ScorePageSet(
+      homeScore: 5,
+      awayScore: 5,
+      setId: 1,
+    )
+  ];
+
   double set1HomeScore = 5;
   double set1AwayScore = 5;
   double set2HomeScore = 5;
@@ -40,6 +49,36 @@ class _ScorePageState extends ConsumerState<ScorePage> {
   double set5HomeScore = 5;
   double set5AwayScore = 5;
   int? setOption = 0;
+
+  void addSet(ScorePageSet set) {
+    setState(() {
+      sets.add(set);
+    });
+  }
+
+  void removeSet() {
+    setState(
+      () {
+        sets.removeLast();
+      },
+    );
+  }
+
+  void setHomeScore(double score) {
+    setState(() {
+      sets[currentSetId].homeScore = score;
+    });
+  }
+
+  void setAwayScore(double score) {
+    setState(() {
+      sets[currentSetId].awayScore = score;
+    });
+  }
+
+  void setCurrentSetId(int setId) {
+    currentSetId = setId;
+  }
 
   void setScore1(double score) {
     setState(() {
@@ -172,86 +211,12 @@ class _ScorePageState extends ConsumerState<ScorePage> {
   }
 
   bool checkIfScoresAreSet() {
-    bool set1Complete = false;
-    bool set2Complete = false;
-    bool set3Complete = false;
-    bool set4Complete = false;
-    bool set5Complete = false;
-
-    if (set1HomeScore == 11 || set1AwayScore == 11) {
-      if (set1HomeScore != set1AwayScore) {
-        set1Complete = true;
-      }
-    }
-    if (set2HomeScore == 11 || set2AwayScore == 11) {
-      if (set2HomeScore != set2AwayScore) {
-        set2Complete = true;
-      }
-    }
-    if (set3HomeScore == 11 || set3AwayScore == 11) {
-      if (set3HomeScore != set3AwayScore) {
-        set3Complete = true;
-      }
-    }
-    if (set4HomeScore == 11 || set4AwayScore == 11) {
-      if (set4HomeScore != set4AwayScore) {
-        set4Complete = true;
-      }
-    }
-    if (set5HomeScore == 11 || set5AwayScore == 11) {
-      if (set5HomeScore != set5AwayScore) {
-        set5Complete = true;
-      }
-    }
-
-    if (setOption == 0) {
-      return set1Complete;
-    }
-    if (setOption == 1) {
-      if (set3HomeScore == 11 && set3AwayScore == 11) {
+    for (final ScorePageSet set in sets) {
+      if (!set.isScoreSet()) {
         return false;
       }
-      if (threeSetWinnerExists()) {
-        return set1Complete && set2Complete;
-      }
-      return set1Complete && set2Complete && set3Complete;
     }
-    if (setOption == 2) {
-      if (set5Complete) {
-        if (fiveSetWinnerExists()) {
-          return set1Complete &&
-              set2Complete &&
-              set3Complete &&
-              set4Complete &&
-              set5Complete;
-        }
-      }
-
-      if (set4Complete) {
-        if (set5HomeScore == 11 && set5AwayScore == 11) {
-          return false;
-        }
-        if (fiveSetWinnerExists()) {
-          return set1Complete && set2Complete && set3Complete && set4Complete;
-        }
-      }
-
-      if (set3Complete) {
-        if (set4HomeScore == 11 && set4AwayScore == 11) {
-          return false;
-        }
-        if (fiveSetWinnerExists()) {
-          return set1Complete && set2Complete && set3Complete;
-        }
-      }
-
-      return set1Complete &&
-          set2Complete &&
-          set3Complete &&
-          set4Complete &&
-          set5Complete;
-    }
-    return false;
+    return true;
   }
 
   bool fiveSetWinnerExists() =>
@@ -434,528 +399,29 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                   MediaQuery.of(context).size.height > 500
               ? Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: SizedBox(
-                        width: 350,
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              color: ColorConstants.appBarColor,
-                              border: Border.all(
-                                  color: ColorConstants.secondaryTextColor),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                dropdownColor: ColorConstants.appBarColor,
-                                borderRadius: BorderRadius.circular(10),
-                                value: setOption,
-                                items: const [
-                                  DropdownMenuItem(
-                                    value: 0,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text('Best of 1'),
-                                    ),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 1,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text('Best of 3'),
-                                    ),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 2,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Text('Best of 5'),
-                                    ),
-                                  ),
-                                ],
-                                onChanged: (int? value) {
-                                  setState(() {
-                                    setOption = value;
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
                     Center(
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    width: 350,
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text('Set 1'),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Team 1    ${set1HomeScore.round()}',
-                                        style: GoogleFonts.goldman(
-                                          color: ColorConstants.textColor,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      Text(
-                                        ' - ',
-                                        style: GoogleFonts.goldman(
-                                          color: ColorConstants.textColor,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      Text(
-                                        '${set1AwayScore.round()}    Team 2',
-                                        style: GoogleFonts.goldman(
-                                          color: ColorConstants.textColor,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  if (matchType == MatchType.single)
-                                    ResultCardContainer(
-                                      width: 350,
-                                      height: 80,
-                                      child: ResultCardSingle(
-                                        name: displayName(playerOne),
-                                        child: AddResultForm(
-                                          callback: setScore1,
-                                        ),
-                                      ),
-                                    ),
-                                  if (matchType == MatchType.double)
-                                    ResultCardContainer(
-                                      width: 350,
-                                      height: 200,
-                                      child: ResultCardDouble(
-                                        title: 'Team 1',
-                                        playerOne: displayName(playerOne),
-                                        playerTwo: displayName(playerTwo),
-                                        child: AddResultForm(
-                                          callback: setScore1,
-                                        ),
-                                      ),
-                                    ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  if (matchType == MatchType.single)
-                                    ResultCardContainer(
-                                      width: 350,
-                                      height: 80,
-                                      child: ResultCardSingle(
-                                        name: displayName(playerTwo),
-                                        child: AddResultForm(
-                                          callback: setScore2,
-                                        ),
-                                      ),
-                                    ),
-                                  if (matchType == MatchType.double)
-                                    ResultCardContainer(
-                                      width: 350,
-                                      height: 200,
-                                      child: ResultCardDouble(
-                                        title: 'Team 2',
-                                        playerOne: displayName(playerThree),
-                                        playerTwo: displayName(playerFour),
-                                        child: AddResultForm(
-                                          callback: setScore2,
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                            if (setOption == 1 || setOption == 2) ...[
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 350,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text('Set 2'),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Team 1    ${set2HomeScore.round()}',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          ' - ',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${set2AwayScore.round()}    Team 2',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerOne),
-                                          child: AddResultForm(
-                                            callback: setScore3,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 1',
-                                          playerOne: displayName(playerOne),
-                                          playerTwo: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore3,
-                                          ),
-                                        ),
-                                      ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore4,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 2',
-                                          playerOne: displayName(playerThree),
-                                          playerTwo: displayName(playerFour),
-                                          child: AddResultForm(
-                                            callback: setScore4,
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 350,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text('Set 3'),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Team 1    ${set3HomeScore.round()}',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          ' - ',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${set3AwayScore.round()}    Team 2',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerOne),
-                                          child: AddResultForm(
-                                            callback: setScore5,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 1',
-                                          playerOne: displayName(playerOne),
-                                          playerTwo: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore5,
-                                          ),
-                                        ),
-                                      ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore6,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 2',
-                                          playerOne: displayName(playerThree),
-                                          playerTwo: displayName(playerFour),
-                                          child: AddResultForm(
-                                            callback: setScore6,
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                            if (setOption == 2) ...[
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 350,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text('Set 4'),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Team 1    ${set4HomeScore.round()}',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          ' - ',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${set4AwayScore.round()}    Team 2',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerOne),
-                                          child: AddResultForm(
-                                            callback: setScore7,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 1',
-                                          playerOne: displayName(playerOne),
-                                          playerTwo: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore7,
-                                          ),
-                                        ),
-                                      ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore8,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 2',
-                                          playerOne: displayName(playerThree),
-                                          playerTwo: displayName(playerFour),
-                                          child: AddResultForm(
-                                            callback: setScore8,
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      width: 350,
-                                      child: Align(
-                                        alignment: Alignment.center,
-                                        child: Text('Set 5'),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Team 1    ${set5HomeScore.round()}',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          ' - ',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        Text(
-                                          '${set5AwayScore.round()}    Team 2',
-                                          style: GoogleFonts.goldman(
-                                            color: ColorConstants.textColor,
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerOne),
-                                          child: AddResultForm(
-                                            callback: setScore9,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 1',
-                                          playerOne: displayName(playerOne),
-                                          playerTwo: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore9,
-                                          ),
-                                        ),
-                                      ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    if (matchType == MatchType.single)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 80,
-                                        child: ResultCardSingle(
-                                          name: displayName(playerTwo),
-                                          child: AddResultForm(
-                                            callback: setScore10,
-                                          ),
-                                        ),
-                                      ),
-                                    if (matchType == MatchType.double)
-                                      ResultCardContainer(
-                                        width: 350,
-                                        height: 200,
-                                        child: ResultCardDouble(
-                                          title: 'Team 2',
-                                          playerOne: displayName(playerThree),
-                                          playerTwo: displayName(playerFour),
-                                          child: AddResultForm(
-                                            callback: setScore10,
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ],
+                      child: Container(
+                        height: 600,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: sets.length,
+                          itemBuilder: (context, index) {
+                            return SetContainer(
+                              setId: index,
+                              homeScore: sets[index].homeScore,
+                              awayScore: sets[index].awayScore,
+                              matchType: matchType,
+                              playerOneName: displayName(playerOne),
+                              playerTwoName: displayName(playerTwo),
+                              playerThreeName: displayName(playerThree),
+                              playerFourName: displayName(playerFour),
+                              setHomeScore: setHomeScore,
+                              setAwayScore: setAwayScore,
+                              getSetId: setCurrentSetId,
+                              removeSet: removeSet,
+                            );
+                          },
                         ),
                       ),
                     ),
@@ -1011,549 +477,25 @@ class _ScorePageState extends ConsumerState<ScorePage> {
               : Center(
                   child: SingleChildScrollView(
                     child: Column(
-                      children: [
-                        SizedBox(height: 35),
-                        SizedBox(
-                          width: 350,
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: ColorConstants.appBarColor,
-                                border: Border.all(
-                                    color: ColorConstants.secondaryTextColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  dropdownColor: ColorConstants.appBarColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                  value: setOption,
-                                  items: const [
-                                    DropdownMenuItem(
-                                      value: 0,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Best of 1'),
-                                      ),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 1,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Best of 3'),
-                                      ),
-                                    ),
-                                    DropdownMenuItem(
-                                      value: 2,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text('Best of 5'),
-                                      ),
-                                    ),
-                                  ],
-                                  onChanged: (int? value) {
-                                    setState(() {
-                                      setOption = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 350,
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text('Set 1'),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Team 1    ${set1HomeScore.round()}',
-                              style: GoogleFonts.goldman(
-                                color: ColorConstants.textColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              ' - ',
-                              style: GoogleFonts.goldman(
-                                color: ColorConstants.textColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              '${set1AwayScore.round()}    Team 2',
-                              style: GoogleFonts.goldman(
-                                color: ColorConstants.textColor,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10),
-                        if (matchType == MatchType.single)
-                          ResultCardContainer(
-                            width: 350,
-                            height: 80,
-                            child: ResultCardSingle(
-                              name: displayName(playerOne),
-                              child: AddResultForm(
-                                callback: setScore1,
-                              ),
-                            ),
-                          ),
-                        if (matchType == MatchType.double)
-                          ResultCardContainer(
-                            width: 350,
-                            height: 200,
-                            child: ResultCardDouble(
-                              title: 'Team 1',
-                              playerOne: displayName(playerOne),
-                              playerTwo: displayName(playerTwo),
-                              child: AddResultForm(
-                                callback: setScore1,
-                              ),
-                            ),
-                          ),
-                        SizedBox(height: 10),
-                        if (matchType == MatchType.single)
-                          ResultCardContainer(
-                            width: 350,
-                            height: 80,
-                            child: ResultCardSingle(
-                              name: displayName(playerTwo),
-                              child: AddResultForm(
-                                callback: setScore2,
-                              ),
-                            ),
-                          ),
-                        if (matchType == MatchType.double)
-                          ResultCardContainer(
-                            width: 350,
-                            height: 200,
-                            child: ResultCardDouble(
-                              title: 'Team 2',
-                              playerOne: displayName(playerThree),
-                              playerTwo: displayName(playerFour),
-                              child: AddResultForm(
-                                callback: setScore2,
-                              ),
-                            ),
-                          ),
-                        if (setOption == 1 || setOption == 2) ...[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: SizedBox(
-                              width: 350,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text('Set 2'),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Team 1    ${set2HomeScore.round()}',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                ' - ',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                '${set2AwayScore.round()}    Team 2',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerOne),
-                                child: AddResultForm(
-                                  callback: setScore3,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 1',
-                                playerOne: displayName(playerOne),
-                                playerTwo: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore3,
-                                ),
-                              ),
-                            ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore4,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 2',
-                                playerOne: displayName(playerThree),
-                                playerTwo: displayName(playerFour),
-                                child: AddResultForm(
-                                  callback: setScore4,
-                                ),
-                              ),
-                            ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: SizedBox(
-                              width: 350,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text('Set 3'),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Team 1    ${set3HomeScore.round()}',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                ' - ',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                '${set3AwayScore.round()}    Team 2',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerOne),
-                                child: AddResultForm(
-                                  callback: setScore5,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 1',
-                                playerOne: displayName(playerOne),
-                                playerTwo: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore5,
-                                ),
-                              ),
-                            ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore6,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 2',
-                                playerOne: displayName(playerThree),
-                                playerTwo: displayName(playerFour),
-                                child: AddResultForm(
-                                  callback: setScore6,
-                                ),
-                              ),
-                            ),
-                        ],
-                        if (setOption == 2) ...[
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: SizedBox(
-                              width: 350,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text('Set 4'),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Team 1    ${set4HomeScore.round()}',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                ' - ',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                '${set4AwayScore.round()}    Team 2',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerOne),
-                                child: AddResultForm(
-                                  callback: setScore7,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 1',
-                                playerOne: displayName(playerOne),
-                                playerTwo: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore7,
-                                ),
-                              ),
-                            ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore8,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 2',
-                                playerOne: displayName(playerThree),
-                                playerTwo: displayName(playerFour),
-                                child: AddResultForm(
-                                  callback: setScore8,
-                                ),
-                              ),
-                            ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: SizedBox(
-                              width: 350,
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: Text('Set 5'),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Team 1    ${set5HomeScore.round()}',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                ' - ',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Text(
-                                '${set5AwayScore.round()}    Team 2',
-                                style: GoogleFonts.goldman(
-                                  color: ColorConstants.textColor,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerOne),
-                                child: AddResultForm(
-                                  callback: setScore9,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 1',
-                                playerOne: displayName(playerOne),
-                                playerTwo: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore9,
-                                ),
-                              ),
-                            ),
-                          SizedBox(height: 10),
-                          if (matchType == MatchType.single)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 80,
-                              child: ResultCardSingle(
-                                name: displayName(playerTwo),
-                                child: AddResultForm(
-                                  callback: setScore10,
-                                ),
-                              ),
-                            ),
-                          if (matchType == MatchType.double)
-                            ResultCardContainer(
-                              width: 350,
-                              height: 200,
-                              child: ResultCardDouble(
-                                title: 'Team 2',
-                                playerOne: displayName(playerThree),
-                                playerTwo: displayName(playerFour),
-                                child: AddResultForm(
-                                  callback: setScore10,
-                                ),
-                              ),
-                            ),
-                        ],
-                        SizedBox(height: 15),
-                        Center(
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: 300,
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 30),
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                          RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      )),
-                                      minimumSize:
-                                          MaterialStateProperty.all<Size>(
-                                              const Size(300, 50)),
-                                      backgroundColor: MaterialStateProperty
-                                          .resolveWith<Color>(
-                                        (Set<MaterialState> states) {
-                                          if (states.contains(
-                                              MaterialState.pressed)) {
-                                            return ColorConstants.primaryColor;
-                                          } else if (states.contains(
-                                              MaterialState.disabled)) {
-                                            return ColorConstants
-                                                .disabledButtonColor;
-                                          }
-                                          return ColorConstants.primaryColor;
-                                        },
-                                      ),
-                                    ),
-                                    onPressed: checkIfScoresAreSet()
-                                        ? () {
-                                            saveNewMatch();
-                                            Navigator.pop(context);
-                                          }
-                                        : null,
-                                    child: Text(
-                                      'Save Result',
-                                      style: GoogleFonts.goldman(
-                                        fontSize: 20,
-                                        color: ColorConstants.textColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                      children: [],
                     ),
                   ),
                 );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            setCounter++;
+            sets.add(
+              ScorePageSet(
+                homeScore: 5,
+                awayScore: 5,
+                setId: setCounter,
+              ),
+            );
+          });
+        },
         backgroundColor: ColorConstants.primaryColor,
         child: Icon(Icons.add),
       ),

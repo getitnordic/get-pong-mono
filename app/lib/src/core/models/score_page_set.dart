@@ -1,54 +1,29 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
 
 class ScorePageSet {
-  int homeScore;
-  int awayScore;
+  int setId;
+  double homeScore;
+  double awayScore;
   ScorePageSet({
     required this.homeScore,
     required this.awayScore,
-  });  
+    required this.setId,
+  });
 
-  ScorePageSet copyWith({
-    int? homeScore,
-    int? awayScore,
-  }) {
-    return ScorePageSet(
-      homeScore: homeScore ?? this.homeScore,
-      awayScore: awayScore ?? this.awayScore,
-    );
+  void setHomeScore(double score) {
+    homeScore = score;
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'homeScore': homeScore,
-      'awayScore': awayScore,
-    };
+  void setAwayScore(double score) {
+    awayScore = score;
   }
 
-  factory ScorePageSet.fromMap(Map<String, dynamic> map) {
-    return ScorePageSet(
-      homeScore: map['homeScore'] as int,
-      awayScore: map['awayScore'] as int,
-    );
+  bool isScoreSet() {
+    if (homeScore == 11 || awayScore == 11) {
+      if (homeScore != awayScore) {
+        return true;
+      }
+    }
+    return false;
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory ScorePageSet.fromJson(String source) => ScorePageSet.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() => 'ScorePageSet(homeScore: $homeScore, awayScore: $awayScore)';
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-  
-    return other is ScorePageSet &&
-      other.homeScore == homeScore &&
-      other.awayScore == awayScore;
-  }
-
-  @override
-  int get hashCode => homeScore.hashCode ^ awayScore.hashCode;
 }
