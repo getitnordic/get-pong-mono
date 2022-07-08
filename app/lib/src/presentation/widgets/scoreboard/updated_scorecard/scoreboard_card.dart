@@ -45,9 +45,9 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
     const fontSize = 12.0;
     const imageSize = 10.0;
     const setScoreWidth = 20.0;
-    final sidePadding = MediaQuery.of(context).size.width > 800
-        ? MediaQuery.of(context).size.width * 0.2
-        : 0.0;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final sidePadding = screenWidth > 800 ? screenWidth * 0.2 : 0.0;
+
     return Padding(
       padding: EdgeInsets.fromLTRB(sidePadding, 0, sidePadding, 10),
       child: CustomSmallContainer(
@@ -132,77 +132,30 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 : FontWeight.normal,
                             color: ColorConstants.textColor,
                           ),
-                          ScoreboardSetScore(
-                            score: match.sets[0].homeTeam.toString(),
-                            width: setScoreWidth,
-                            fontSize: fontSize,
-                            fontWeight: result.winner == Team.homeTeam
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color: ColorConstants.secondaryTextColor,
+                          SizedBox(
+                            height: 15,
+                            width: screenWidth < 400
+                                ? match.sets.length > 5
+                                    ? 125
+                                    : null
+                                : null,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: match.sets.length,
+                              itemBuilder: (context, index) {
+                                return ScoreboardSetScore(
+                                  score: match.sets[index].homeTeam.toString(),
+                                  width: setScoreWidth,
+                                  fontSize: fontSize,
+                                  fontWeight: result.winner == Team.homeTeam
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: ColorConstants.secondaryTextColor,
+                                );
+                              },
+                            ),
                           ),
-                          if (amountOfSets == 3) ...[
-                            ScoreboardSetScore(
-                              score: match.sets[1].homeTeam.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.homeTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.secondaryTextColor,
-                            ),
-                            if (controller.setsNeededToWin() == 3)
-                              ScoreboardSetScore(
-                                score: match.sets[2].homeTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.homeTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                          ],
-                          if (amountOfSets == 5) ...[
-                            ScoreboardSetScore(
-                              score: match.sets[1].homeTeam.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.homeTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.secondaryTextColor,
-                            ),
-                            ScoreboardSetScore(
-                              score: match.sets[2].homeTeam.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.homeTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.secondaryTextColor,
-                            ),
-                            if (controller.setsNeededToWin() == 4 ||
-                                controller.setsNeededToWin() == 5)
-                              ScoreboardSetScore(
-                                score: match.sets[3].homeTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.homeTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                            if (controller.setsNeededToWin() == 5)
-                              ScoreboardSetScore(
-                                score: match.sets[4].homeTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.homeTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                          ],
                         ],
                       ),
                     ),
@@ -286,77 +239,30 @@ class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
                                 : FontWeight.normal,
                             color: ColorConstants.textColor,
                           ),
-                          ScoreboardSetScore(
-                            score: match.sets[0].awayTeam.toString(),
-                            width: setScoreWidth,
-                            fontSize: fontSize,
-                            fontWeight: result.winner == Team.awayTeam
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color: ColorConstants.secondaryTextColor,
+                          SizedBox(
+                            height: 15,
+                            width: screenWidth < 400
+                                ? match.sets.length > 5
+                                    ? 125
+                                    : null
+                                : null,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: match.sets.length,
+                              itemBuilder: (context, index) {
+                                return ScoreboardSetScore(
+                                  score: match.sets[index].awayTeam.toString(),
+                                  width: setScoreWidth,
+                                  fontSize: fontSize,
+                                  fontWeight: result.winner == Team.awayTeam
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: ColorConstants.secondaryTextColor,
+                                );
+                              },
+                            ),
                           ),
-                          if (amountOfSets == 3) ...[
-                            ScoreboardSetScore(
-                              score: match.sets[1].awayTeam.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.awayTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.secondaryTextColor,
-                            ),
-                            if (controller.setsNeededToWin() == 3)
-                              ScoreboardSetScore(
-                                score: match.sets[2].awayTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.awayTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                          ],
-                          if (amountOfSets == 5) ...[
-                            ScoreboardSetScore(
-                              score: match.sets[1].awayTeam.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.awayTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.secondaryTextColor,
-                            ),
-                            ScoreboardSetScore(
-                              score: match.sets[2].awayTeam.toString(),
-                              width: setScoreWidth,
-                              fontSize: fontSize,
-                              fontWeight: result.winner == Team.awayTeam
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              color: ColorConstants.secondaryTextColor,
-                            ),
-                            if (controller.setsNeededToWin() == 4 ||
-                                controller.setsNeededToWin() == 5)
-                              ScoreboardSetScore(
-                                score: match.sets[3].awayTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.awayTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                            if (controller.setsNeededToWin() == 5)
-                              ScoreboardSetScore(
-                                score: match.sets[4].awayTeam.toString(),
-                                width: setScoreWidth,
-                                fontSize: fontSize,
-                                fontWeight: result.winner == Team.awayTeam
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: ColorConstants.secondaryTextColor,
-                              ),
-                          ],
                         ],
                       ),
                     ),

@@ -5,3 +5,4 @@ export 'my_player_avatar.dart';
 export 'namecard.dart';
 export 'scoreboard/scoreboard.dart';
 export 'score_page/scorepage.dart';
+export 'custom_small_container.dart';
