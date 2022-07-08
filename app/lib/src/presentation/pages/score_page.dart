@@ -41,18 +41,6 @@ class _ScorePageState extends ConsumerState<ScorePage>
     )
   ];
 
-  double set1HomeScore = 5;
-  double set1AwayScore = 5;
-  double set2HomeScore = 5;
-  double set2AwayScore = 5;
-  double set3HomeScore = 5;
-  double set3AwayScore = 5;
-  double set4HomeScore = 5;
-  double set4AwayScore = 5;
-  double set5HomeScore = 5;
-  double set5AwayScore = 5;
-  int? setOption = 0;
-
   void addSet(ScorePageSet set) {
     setState(() {
       sets.add(set);
@@ -135,11 +123,12 @@ class _ScorePageState extends ConsumerState<ScorePage>
     final playerTwo = widget.selectedPlayers[1];
     final playerThree = widget.selectedPlayers[2];
     final playerFour = widget.selectedPlayers[3];
+    bool isDouble() => widget.selectedPlayers[2].nickname.isNotEmpty;
 
     void saveNewMatch() {
       List<SetModel> newSets = setModelMapper();
 
-      if (widget.selectedPlayers[2].nickname.isNotEmpty) {
+      if (isDouble()) {
         GameModel match = GameModel(
             homeTeamIds: [playerOne.id, playerTwo.id],
             awayTeamIds: [playerThree.id, playerFour.id],
@@ -156,6 +145,8 @@ class _ScorePageState extends ConsumerState<ScorePage>
       }
     }
 
+    double height(BuildContext context) => MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Your Score'),
@@ -164,13 +155,90 @@ class _ScorePageState extends ConsumerState<ScorePage>
         builder: (context, orientation) {
           return orientation == Orientation.landscape &&
                   MediaQuery.of(context).size.height > 500
-              ? Column(
+              ? Padding(
+                  padding: EdgeInsets.only(
+                    top: isDouble() ? 0 : height(context) * 0.2,
+                  ),
+                  child: Column(
+                    children: [
+                      Center(
+                        child: SizedBox(
+                          height: isDouble() ? 550 : 300,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemCount: sets.length,
+                            itemBuilder: (context, index) {
+                              return SetContainer(
+                                setId: index,
+                                homeScore: sets[index].homeScore,
+                                awayScore: sets[index].awayScore,
+                                matchType: matchType,
+                                playerOneName: displayName(playerOne),
+                                playerTwoName: displayName(playerTwo),
+                                playerThreeName: displayName(playerThree),
+                                playerFourName: displayName(playerFour),
+                                setHomeScore: setHomeScore,
+                                setAwayScore: setAwayScore,
+                                getSetId: setCurrentSetId,
+                                removeSet: removeSet,
+                                setCount: sets.length,
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 300,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 30),
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              )),
+                              minimumSize: MaterialStateProperty.all<Size>(
+                                  const Size(300, 50)),
+                              backgroundColor:
+                                  MaterialStateProperty.resolveWith<Color>(
+                                (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return ColorConstants.primaryColor;
+                                  } else if (states
+                                      .contains(MaterialState.disabled)) {
+                                    return ColorConstants.disabledButtonColor;
+                                  }
+                                  return ColorConstants.primaryColor;
+                                },
+                              ),
+                            ),
+                            onPressed: checkIfScoresAreSet()
+                                ? () {
+                                    saveNewMatch();
+                                    Navigator.pop(context);
+                                  }
+                                : null,
+                            child: Text(
+                              'Save Result',
+                              style: GoogleFonts.goldman(
+                                fontSize: 20,
+                                color: ColorConstants.textColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : Column(
                   children: [
                     Center(
-                      child: Container(
-                        height: 600,
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height - 200,
                         child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
                           itemCount: sets.length,
                           itemBuilder: (context, index) {
@@ -241,13 +309,6 @@ class _ScorePageState extends ConsumerState<ScorePage>
                       ],
                     ),
                   ],
-                )
-              : Center(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [],
-                    ),
-                  ),
                 );
         },
       ),
