@@ -18,6 +18,7 @@ class SetContainer extends StatelessWidget {
   final Function(double) setAwayScore;
   final Function(int) getSetId;
   final Function removeSet;
+  final int setCount;
   const SetContainer({
     Key? key,
     required this.setId,
@@ -32,6 +33,7 @@ class SetContainer extends StatelessWidget {
     required this.setAwayScore,
     required this.getSetId,
     required this.removeSet,
+    required this.setCount,
   }) : super(key: key);
 
   @override
@@ -47,15 +49,19 @@ class SetContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Set ${setId + 1}'),
-                if (setId != 0)
-                  IconButton(
-                    onPressed: () {
-                      removeSet();
-                    },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.red,
-                      size: 25,
+                if (setId == setCount - 1 && setId != 0)
+                  CustomSmallContainer(
+                    height: 50,
+                    width: 50,
+                    child: IconButton(
+                      onPressed: () {
+                        removeSet();
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                        size: 25,
+                      ),
                     ),
                   )
               ],

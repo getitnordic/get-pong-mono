@@ -27,7 +27,10 @@ class ScorePage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _ScorePageState();
 }
 
-class _ScorePageState extends ConsumerState<ScorePage> {
+class _ScorePageState extends ConsumerState<ScorePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   int setCounter = 1;
   int currentSetId = 0;
   List<ScorePageSet> sets = [
@@ -80,66 +83,6 @@ class _ScorePageState extends ConsumerState<ScorePage> {
     currentSetId = setId;
   }
 
-  void setScore1(double score) {
-    setState(() {
-      set1HomeScore = score;
-    });
-  }
-
-  void setScore2(double score) {
-    setState(() {
-      set1AwayScore = score;
-    });
-  }
-
-  void setScore3(double score) {
-    setState(() {
-      set2HomeScore = score;
-    });
-  }
-
-  void setScore4(double score) {
-    setState(() {
-      set2AwayScore = score;
-    });
-  }
-
-  void setScore5(double score) {
-    setState(() {
-      set3HomeScore = score;
-    });
-  }
-
-  void setScore6(double score) {
-    setState(() {
-      set3AwayScore = score;
-    });
-  }
-
-  void setScore7(double score) {
-    setState(() {
-      set4HomeScore = score;
-    });
-  }
-
-  void setScore8(double score) {
-    setState(() {
-      set4AwayScore = score;
-    });
-  }
-
-  void setScore9(double score) {
-    setState(() {
-      set5HomeScore = score;
-    });
-  }
-
-  void setScore10(double score) {
-    setState(() {
-      set5AwayScore = score;
-    });
-  }
-
   bool playerHasNickname(PlayerModel player) {
     return player.nickname != 'nickname' && player.nickname != '';
   }
@@ -148,81 +91,39 @@ class _ScorePageState extends ConsumerState<ScorePage> {
     return playerHasNickname(player) ? player.nickname : player.fullName;
   }
 
-  int checkHomeTeamScore() {
-    int setPoints = 0;
-    if (set1HomeScore == 11) {
-      setPoints++;
-    }
-    if (set2HomeScore == 11) {
-      setPoints++;
-    }
-    if (setOption == 1) {
-      if (setPoints > 1) {
-        return setPoints;
-      }
-    }
-    if (set3HomeScore == 11) {
-      setPoints++;
-    }
-    if (setPoints > 2) {
-      return setPoints;
-    }
-    if (set4HomeScore == 11) {
-      setPoints++;
-    }
-    if (setPoints > 2) {
-      return setPoints;
-    }
-    if (set5HomeScore == 11) {
-      setPoints++;
-    }
-    return setPoints;
-  }
-
-  int checkAwayTeamScore() {
-    int setPoints = 0;
-    if (set1AwayScore == 11) {
-      setPoints++;
-    }
-    if (set2AwayScore == 11) {
-      setPoints++;
-    }
-    if (setOption == 1) {
-      if (setPoints > 1) {
-        return setPoints;
-      }
-    }
-    if (set3AwayScore == 11) {
-      setPoints++;
-    }
-    if (setPoints > 2) {
-      return setPoints;
-    }
-    if (set4AwayScore == 11) {
-      setPoints++;
-    }
-    if (setPoints > 2) {
-      return setPoints;
-    }
-    if (set5AwayScore == 11) {
-      setPoints++;
-    }
-    return setPoints;
-  }
-
   bool checkIfScoresAreSet() {
+    int homeTeamScore = 0;
+    int awayTeamSCore = 0;
     for (final ScorePageSet set in sets) {
+      if (set.homeScore > set.awayScore) {
+        homeTeamScore++;
+      } else {
+        awayTeamSCore++;
+      }
       if (!set.isScoreSet()) {
         return false;
       }
     }
+    if (homeTeamScore == awayTeamSCore) {
+      return false;
+    }
     return true;
   }
 
-  bool fiveSetWinnerExists() =>
-      checkHomeTeamScore() == 3 || checkAwayTeamScore() == 3;
-  bool threeSetWinnerExists() =>
-      checkHomeTeamScore() == 2 || checkAwayTeamScore() == 2;
+  List<SetModel> setModelMapper() {
+    List<SetModel> newSets = [];
+    int counter = 1;
+    for (ScorePageSet set in sets) {
+      newSets.add(
+        SetModel(
+          setNo: counter,
+          homeTeam: set.homeScore.toInt(),
+          awayTeam: set.awayScore.toInt(),
+        ),
+      );
+    }
+    return newSets;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -236,156 +137,22 @@ class _ScorePageState extends ConsumerState<ScorePage> {
     final playerFour = widget.selectedPlayers[3];
 
     void saveNewMatch() {
-      if (setOption == 1) {
-        if (widget.selectedPlayers[2].nickname.isNotEmpty) {
-          GameModel match = GameModel(
+      List<SetModel> newSets = setModelMapper();
+
+      if (widget.selectedPlayers[2].nickname.isNotEmpty) {
+        GameModel match = GameModel(
             homeTeamIds: [playerOne.id, playerTwo.id],
             awayTeamIds: [playerThree.id, playerFour.id],
-            sets: [
-              SetModel(
-                setNo: 1,
-                homeTeam: set1HomeScore.toInt(),
-                awayTeam: set1AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 2,
-                homeTeam: set2HomeScore.toInt(),
-                awayTeam: set2AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 3,
-                homeTeam: set3HomeScore.toInt(),
-                awayTeam: set3AwayScore.toInt(),
-              ),
-            ],
-          );
-          matchesNotifier.createGame(match);
-          selectedPlayersNotifier.resetState();
-        } else {
-          GameModel match = GameModel(
-            homeTeamIds: [playerOne.id],
-            awayTeamIds: [playerTwo.id],
-            sets: [
-              SetModel(
-                setNo: 1,
-                homeTeam: set1HomeScore.toInt(),
-                awayTeam: set1AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 2,
-                homeTeam: set2HomeScore.toInt(),
-                awayTeam: set2AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 3,
-                homeTeam: set3HomeScore.toInt(),
-                awayTeam: set3AwayScore.toInt(),
-              ),
-            ],
-          );
-          matchesNotifier.createGame(match);
-          selectedPlayersNotifier.resetState();
-        }
-      } else if (setOption == 2) {
-        if (widget.selectedPlayers[2].nickname.isNotEmpty) {
-          GameModel match = GameModel(
-            homeTeamIds: [playerOne.id, playerTwo.id],
-            awayTeamIds: [playerThree.id, playerFour.id],
-            sets: [
-              SetModel(
-                setNo: 1,
-                homeTeam: set1HomeScore.toInt(),
-                awayTeam: set1AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 2,
-                homeTeam: set2HomeScore.toInt(),
-                awayTeam: set2AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 3,
-                homeTeam: set3HomeScore.toInt(),
-                awayTeam: set3AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 4,
-                homeTeam: set4HomeScore.toInt(),
-                awayTeam: set4AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 5,
-                homeTeam: set5HomeScore.toInt(),
-                awayTeam: set5AwayScore.toInt(),
-              ),
-            ],
-          );
-          matchesNotifier.createGame(match);
-          selectedPlayersNotifier.resetState();
-        } else {
-          GameModel match = GameModel(
-            homeTeamIds: [playerOne.id],
-            awayTeamIds: [playerTwo.id],
-            sets: [
-              SetModel(
-                setNo: 1,
-                homeTeam: set1HomeScore.toInt(),
-                awayTeam: set1AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 2,
-                homeTeam: set2HomeScore.toInt(),
-                awayTeam: set2AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 3,
-                homeTeam: set3HomeScore.toInt(),
-                awayTeam: set3AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 4,
-                homeTeam: set4HomeScore.toInt(),
-                awayTeam: set4AwayScore.toInt(),
-              ),
-              SetModel(
-                setNo: 5,
-                homeTeam: set5HomeScore.toInt(),
-                awayTeam: set5AwayScore.toInt(),
-              ),
-            ],
-          );
-          matchesNotifier.createGame(match);
-          selectedPlayersNotifier.resetState();
-        }
+            sets: newSets);
+        matchesNotifier.createGame(match);
+        selectedPlayersNotifier.resetState();
       } else {
-        if (widget.selectedPlayers[2].nickname.isNotEmpty) {
-          GameModel match = GameModel(
-            homeTeamIds: [playerOne.id, playerTwo.id],
-            awayTeamIds: [playerThree.id, playerFour.id],
-            sets: [
-              SetModel(
-                setNo: 1,
-                homeTeam: set1HomeScore.toInt(),
-                awayTeam: set1AwayScore.toInt(),
-              ),
-            ],
-          );
-          matchesNotifier.createGame(match);
-          selectedPlayersNotifier.resetState();
-        } else {
-          GameModel match = GameModel(
+        GameModel match = GameModel(
             homeTeamIds: [playerOne.id],
             awayTeamIds: [playerTwo.id],
-            sets: [
-              SetModel(
-                setNo: 1,
-                homeTeam: set1HomeScore.toInt(),
-                awayTeam: set1AwayScore.toInt(),
-              ),
-            ],
-          );
-          matchesNotifier.createGame(match);
-          selectedPlayersNotifier.resetState();
-        }
+            sets: newSets);
+        matchesNotifier.createGame(match);
+        selectedPlayersNotifier.resetState();
       }
     }
 
@@ -420,6 +187,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
                               setAwayScore: setAwayScore,
                               getSetId: setCurrentSetId,
                               removeSet: removeSet,
+                              setCount: sets.length,
                             );
                           },
                         ),

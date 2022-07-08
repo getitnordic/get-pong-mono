@@ -16,7 +16,10 @@ class AddResultForm extends StatefulWidget {
   State<AddResultForm> createState() => _AddResultFormState();
 }
 
-class _AddResultFormState extends State<AddResultForm> {
+class _AddResultFormState extends State<AddResultForm>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   final formKey = GlobalKey<FormState>();
   double _currentSliderValue = 5;
 
