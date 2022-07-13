@@ -49,7 +49,7 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
     //   return;
     // }
     await read(playersProvider.notifier).fetchPlayers();
-    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100))
+    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 10))
         .then((value) => {
               if (value is DataSuccess)
                 {
@@ -100,5 +100,23 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
       }
     }
     return playerGames.take(amountOfMatchesToGrab).toList();
+  }
+
+  Future<List<GameModel>> getNextTenMatches(int offset) async {
+    List<GameModel> matches = [];
+    await getGamesUseCase(params: GetGamesParams(offset: offset, limit: 10))
+        .then((value) => {
+              if (value is DataSuccess)
+                {
+                  matches = value.data!,
+                }
+              else
+                {print(value.error)}
+            });
+    matches.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
+            b.timeStamp.toInt() * 1000)
+        .compareTo(
+            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+    return matches;
   }
 }
