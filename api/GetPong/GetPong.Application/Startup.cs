@@ -8,6 +8,7 @@ using GetPong.Core.Handlers.Games;
 using GetPong.Core.Handlers.Players;
 using GetPong.Infrastructure.Clients;
 using Microsoft.Extensions.DependencyInjection;
+using NLog;
 
 
 namespace GetPong.Application
@@ -32,6 +33,9 @@ namespace GetPong.Application
             
             //Clients
             services.AddScoped<IAzureClient, AzureClient>();
+            
+
+
         }
     }
 }

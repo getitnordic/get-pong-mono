@@ -1,4 +1,6 @@
 using GetPong.Services;
+using NLog;
+using ILogger = NLog.ILogger;
 
 namespace GetPong.Api;
 
@@ -17,6 +19,7 @@ public class Startup
     {
         services.AddGrpc();
         services.AddAutoMapper(typeof(Startup));
+        
         
         Infrastructure.Startup.ConfigureServices(services); 
         Application.Startup.ConfigureServices(services);
