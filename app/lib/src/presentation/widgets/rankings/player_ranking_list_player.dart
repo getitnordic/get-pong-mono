@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/constants/color_constants.dart';
 
+import '../../../../constants/color_constants.dart';
 import '../../../../protos/base.pbgrpc.dart';
 
 class PlayerRankingListPlayer extends StatelessWidget {

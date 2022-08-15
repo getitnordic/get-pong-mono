@@ -1,4 +1,4 @@
-import 'package:get_pong/protos/base.pb.dart';
+import '../../../protos/base.pb.dart';
 
 abstract class BlankPlayerModel {
   static PlayerModel player = PlayerModel(

@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/core/common/common.dart';
+
+import '../../../enums/player_select_choice.dart';
+import '../../../protos/base.pb.dart';
+import '../../core/common/common.dart';
 
 class SelectedNotifier extends StateNotifier<List<PlayerModel>> {
   SelectedNotifier()

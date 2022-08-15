@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/route/route.dart' as route;
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/enums/match_type.dart';
-import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
-import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
-import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../config/route/route.dart' as route;
+import '../../../../../constants/color_constants.dart';
+import '../../../../../enums/match_type.dart';
+import '../../../../../enums/player_select_choice.dart';
+import '../../../../../utils/mixins/set_profile_image_mixin.dart';
+import '../../../../Presentation/providers/players_notifier.dart';
+import '../../../../Presentation/providers/selected_notifier.dart';
+import '../../../../Presentation/widgets/custom_small_container.dart';
 import '../../../../core/models/score_page_arguments.dart';
 
 class CreateDoubleGame extends ConsumerWidget with SetProfileImageMixin {

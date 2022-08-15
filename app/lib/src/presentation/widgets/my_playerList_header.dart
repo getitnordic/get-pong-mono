@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/constants/color_constants.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 import '../../../config/route/route.dart' as route;
+import '../../../constants/color_constants.dart';
 
 class PlayerListHeader extends StatelessWidget {
   const PlayerListHeader({Key? key, required this.title, this.addButton})

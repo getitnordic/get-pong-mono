@@ -1,7 +1,7 @@
-import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/src/core/common/common.dart';
-import 'package:get_pong/src/core/models/get_games_params.dart';
-import 'package:get_pong/src/domain/clients/game_repository.dart';
+import '../../../../protos/game.pbgrpc.dart';
+import '../../../core/common/common.dart';
+import '../../../core/models/get_games_params.dart';
+import '../../clients/game_repository.dart';
 
 class GetGamesUseCase
     implements UseCase<DataState<List<GameModel>>, GetGamesParams> {

@@ -1,6 +1,6 @@
-import 'package:get_pong/protos/base.pbgrpc.dart';
-import 'package:get_pong/src/core/common/common.dart';
-import 'package:get_pong/src/domain/clients/clients.dart';
+import '../../../../protos/base.pbgrpc.dart';
+import '../../../core/common/common.dart';
+import '../../clients/clients.dart';
 
 class GetPlayersUseCase
     implements UseCase<DataState<List<PlayerModel>>, EmptyParams> {

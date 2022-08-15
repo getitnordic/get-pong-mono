@@ -1,6 +1,6 @@
-import 'package:get_pong/protos/protos.dart';
-import 'package:get_pong/src/core/common/common.dart';
-import 'package:get_pong/src/domain/clients/clients.dart';
+import '../../../../protos/protos.dart';
+import '../../../core/common/common.dart';
+import '../../clients/clients.dart';
 
 class UpdatePlayerUseCase
     implements UseCase<DataState<PlayerModel>, PlayerModel> {

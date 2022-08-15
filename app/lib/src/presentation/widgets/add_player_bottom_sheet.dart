@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/constants/color_constants.dart';
 
+import '../../../constants/color_constants.dart';
 import '../../presentation/widgets/my_add_player_form.dart';
 
 class AddPlayerBottomSheet extends StatelessWidget {

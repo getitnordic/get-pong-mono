@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/Presentation/widgets/big_avatar.dart';
-import 'package:get_pong/src/presentation/providers/matches_notifier.dart';
-import 'package:get_pong/src/presentation/providers/players_notifier.dart';
-import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
-import 'package:get_pong/utils/mixins/validation_mixin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../constants/color_constants.dart';
+import '../../../protos/base.pb.dart';
+import '../../../utils/mixins/set_profile_image_mixin.dart';
+import '../../../utils/mixins/validation_mixin.dart';
+import '../../Presentation/widgets/big_avatar.dart';
+import '../providers/matches_notifier.dart';
+import '../providers/players_notifier.dart';
 import '../widgets/scoreboard/player_profile_list_item.dart';
 import '../widgets/widgets.dart';
 

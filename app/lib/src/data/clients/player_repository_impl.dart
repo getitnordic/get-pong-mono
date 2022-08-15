@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
-
-import 'package:get_pong/protos/protos.dart';
-import 'package:get_pong/src/core/common/data_state.dart';
 import 'package:grpc/grpc.dart';
 
+import '../../../protos/protos.dart';
+import '../../core/common/data_state.dart';
 import '../../domain/clients/clients.dart';
 
 class PlayerRepositoryImpl implements PlayerRepository {

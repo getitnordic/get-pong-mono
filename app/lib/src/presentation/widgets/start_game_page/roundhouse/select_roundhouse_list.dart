@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/config/route/route.dart' as route;
-import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import 'package:get_pong/src/Presentation/widgets/start_game_page/roundhouse/select_roundhouse_list_player.dart';
+
+import '../../../../../config/route/route.dart' as route;
+import '../../../../Presentation/providers/players_notifier.dart';
+import '../../../../Presentation/widgets/start_game_page/roundhouse/select_roundhouse_list_player.dart';
 
 class SelectRoundhouseList extends ConsumerStatefulWidget {
   const SelectRoundhouseList({

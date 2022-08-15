@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/enums/sorting_options.dart';
-import 'package:get_pong/protos/protos.dart';
-import 'package:get_pong/src/presentation/widgets/rankings/player_ranking_list_player.dart';
-import 'package:get_pong/src/presentation/widgets/rankings/ranking_sorter.dart';
 
-import '../../../../constants/constants.dart';
-import '../../../Presentation/widgets/rankings/player_ranking_list_header.dart';
 import '../../../../config/route/route.dart' as route;
+import '../../../../constants/constants.dart';
+import '../../../../enums/sorting_options.dart';
+import '../../../../protos/protos.dart';
+import '../../../Presentation/widgets/rankings/player_ranking_list_header.dart';
 import '../../providers/ranking_provider.dart';
+import 'player_ranking_list_player.dart';
+import 'ranking_sorter.dart';
 
 class PlayerRankingList extends ConsumerStatefulWidget {
   final List<PlayerModel> players;

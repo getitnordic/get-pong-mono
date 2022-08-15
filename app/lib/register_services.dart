@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+
 import 'protos/protos.dart';
 import 'src/data/clients/clients.dart';
 import 'src/domain/clients/clients.dart';

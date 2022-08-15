@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/providers/matches_notifier.dart';
-import 'package:get_pong/src/presentation/widgets/scoreboard/updated_scorecard/scoreboard_card.dart';
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pb.dart';
+import '../../providers/matches_notifier.dart';
+import 'updated_scorecard/scoreboard_card.dart';
 
 class GameListView extends ConsumerStatefulWidget {
   final List<GameModel> matches;
@@ -39,7 +39,6 @@ class _GameListViewState extends ConsumerState<GameListView> {
 
     final newMatches =
         await ref.watch(matchesProvider.notifier).getNextTenMatches(offset);
-
     if (newMatches.isNotEmpty) {
       setState(() {
         offset += offset;

@@ -1,6 +1,6 @@
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/core/common/common.dart';
-import 'package:get_pong/src/domain/clients/clients.dart';
+import '../../../../protos/base.pb.dart';
+import '../../../core/common/common.dart';
+import '../../clients/clients.dart';
 
 class AddPlayerUseCase implements UseCase<DataState<String>, PlayerModel> {
   final PlayerRepository service;

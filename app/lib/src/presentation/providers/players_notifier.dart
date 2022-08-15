@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/register_services.dart';
-import 'package:get_pong/src/core/common/common.dart';
 
+import '../../../protos/base.pb.dart';
 import '../../../protos/game.pb.dart';
+import '../../../register_services.dart';
+import '../../core/common/common.dart';
 import '../../core/models/models.dart';
 import '../../domain/use_cases/use_cases.dart';
 

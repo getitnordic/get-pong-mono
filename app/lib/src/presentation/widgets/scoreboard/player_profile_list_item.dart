@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
 
+import '../../../../constants/color_constants.dart';
+import '../../../../protos/game.pbgrpc.dart';
+import '../../../../utils/mixins/set_profile_image_mixin.dart';
+import '../../../Presentation/providers/players_notifier.dart';
 import '../../../core/common/blank_player_model.dart';
 import 'updated_scorecard/scoreboard_controller.dart';
 

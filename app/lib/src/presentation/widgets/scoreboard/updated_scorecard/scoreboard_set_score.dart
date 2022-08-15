@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../enums/team.dart';
-
 class ScoreboardSetScore extends StatelessWidget {
   final String score;
   final double width;

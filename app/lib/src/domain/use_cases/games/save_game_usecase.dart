@@ -1,6 +1,5 @@
-import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/src/core/common/common.dart';
-
+import '../../../../protos/game.pbgrpc.dart';
+import '../../../core/common/common.dart';
 import '../../clients/game_repository.dart';
 
 class SaveGameUseCase implements UseCase<DataState<String>, GameModel> {

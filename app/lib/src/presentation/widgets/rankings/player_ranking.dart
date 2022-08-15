@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/widgets/rankings/player_ranking_list.dart';
 
 import '../../providers/players_notifier.dart';
+import 'player_ranking_list.dart';
 
 class PlayerRanking extends ConsumerWidget {
   const PlayerRanking({Key? key}) : super(key: key);

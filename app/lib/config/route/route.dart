@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/src/Presentation/pages/match_details_page.dart';
-import 'package:get_pong/src/core/models/score_page_arguments.dart';
 
+import '../../enums/player_select_choice.dart';
 import '../../protos/base.pb.dart';
+import '../../src/Presentation/pages/match_details_page.dart';
 import '../../src/Presentation/pages/pages.dart';
+import '../../src/core/models/score_page_arguments.dart';
 
 const String homePage = 'homePage';
 const String startGamePage = 'startgamepage';

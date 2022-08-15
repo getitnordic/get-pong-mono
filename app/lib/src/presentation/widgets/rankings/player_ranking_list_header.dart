@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/constants/color_constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../constants/color_constants.dart';
 
 class PlayerRankingListHeader extends StatelessWidget {
   final VoidCallback onPressedPlayer;

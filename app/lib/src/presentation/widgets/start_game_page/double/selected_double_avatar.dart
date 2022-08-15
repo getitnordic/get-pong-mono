@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
+
+import '../../../../../constants/color_constants.dart';
+import '../../../../../protos/base.pb.dart';
+import '../../../../Presentation/widgets/custom_small_container.dart';
 
 class SelectedDoubleAvatar extends StatelessWidget {
   final PlayerModel player;

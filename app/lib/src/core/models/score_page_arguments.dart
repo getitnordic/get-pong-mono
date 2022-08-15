@@ -1,5 +1,5 @@
-import 'package:get_pong/enums/match_type.dart';
-import 'package:get_pong/protos/protos.dart';
+import '../../../enums/match_type.dart';
+import '../../../protos/protos.dart';
 
 class ScorePageArguments {
   final List<PlayerModel> players;

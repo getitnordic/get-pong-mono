@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/Presentation/widgets/start_game_page/create_game_menu.dart';
+
+import '../../Presentation/widgets/start_game_page/create_game_menu.dart';
 
 class StartGamePage extends StatelessWidget {
   final Object? arguments;

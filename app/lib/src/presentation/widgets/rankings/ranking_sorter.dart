@@ -1,6 +1,5 @@
-import 'package:get_pong/protos/protos.dart';
-
 import '../../../../enums/sorting_options.dart';
+import '../../../../protos/protos.dart';
 
 class RankingSorter {
   List<PlayerModel> players;

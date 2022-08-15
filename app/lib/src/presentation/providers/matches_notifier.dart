@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/providers/players_notifier.dart';
 
 import '../../../protos/protos.dart';
 import '../../../register_services.dart';
 import '../../core/common/common.dart';
 import '../../core/models/models.dart';
 import '../../domain/use_cases/use_cases.dart';
+import 'players_notifier.dart';
 
 final matchesProvider =
     StateNotifierProvider<MatchesNotifier, List<GameModel>>((ref) {
@@ -117,6 +117,7 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
             b.timeStamp.toInt() * 1000)
         .compareTo(
             DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+
     return matches;
   }
 }

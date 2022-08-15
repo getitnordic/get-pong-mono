@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/Presentation/pages/pages.dart';
-import 'package:get_pong/src/Presentation/widgets/rankings/player_ranking.dart';
+
+import '../../../constants/color_constants.dart';
+import '../../../protos/base.pb.dart';
+import '../../Presentation/pages/pages.dart';
 import '../../Presentation/providers/bottom_bar_index_provider.dart';
 import '../../Presentation/providers/players_notifier.dart';
+import '../../Presentation/widgets/rankings/player_ranking.dart';
 import '../providers/matches_notifier.dart';
 import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import 'package:get_pong/utils/mixins/validation_mixin.dart';
+
+import '../../../constants/color_constants.dart';
+import '../../../protos/base.pb.dart';
+import '../../../utils/mixins/validation_mixin.dart';
+import '../../Presentation/providers/players_notifier.dart';
 
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);

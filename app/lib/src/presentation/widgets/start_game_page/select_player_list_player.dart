@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/enums/player_select_choice.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
-import 'package:get_pong/src/Presentation/widgets/custom_small_container.dart';
-import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
+
+import '../../../../constants/color_constants.dart';
+import '../../../../enums/player_select_choice.dart';
+import '../../../../protos/base.pb.dart';
+import '../../../../utils/mixins/set_profile_image_mixin.dart';
+import '../../../Presentation/providers/selected_notifier.dart';
+import '../../../Presentation/widgets/custom_small_container.dart';
 
 class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
   final PlayerModel player;

@@ -1,4 +1,4 @@
-import 'package:get_pong/protos/protos.dart';
+import '../../../protos/protos.dart';
 
 class ScoreBoardMatch {
   final PlayerModel homeTeamOne;

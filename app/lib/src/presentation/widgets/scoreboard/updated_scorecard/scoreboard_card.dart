@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/constants/constants.dart';
-import 'package:get_pong/enums/team.dart';
-import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/src/presentation/widgets/custom_small_container.dart';
-import 'package:get_pong/src/presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
-import 'package:get_pong/src/presentation/widgets/scoreboard/updated_scorecard/scoreboard_set_score.dart';
-import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
+
+import '../../../../../constants/constants.dart';
+import '../../../../../enums/team.dart';
+import '../../../../../protos/game.pbgrpc.dart';
+import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/players_notifier.dart';
 import '../../../../core/common/common.dart';
+import '../../custom_small_container.dart';
+import 'scoreboard_controller.dart';
+import 'scoreboard_set_score.dart';
 
 class ScoreboardCard extends ConsumerWidget with SetProfileImageMixin {
   final GameModel match;
