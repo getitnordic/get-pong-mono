@@ -20,7 +20,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly ISyncAzureAdToDb _syncAzureAdToDb;
     private readonly IMapper _mapper;
     
-    private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); //TODO: dependency injection
+   // private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); //TODO: dependency injection
     
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
         IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb)
@@ -42,7 +42,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         
         var playerModels = _mapper.Map<List<PlayerModel>>(players);
 
-        Logger.Info("Someone requested all players");
+        // Logger.Info("Someone requested all players");
 
         return Task.FromResult(new GetPlayersReply() {PlayerModel = {playerModels}});
     }
