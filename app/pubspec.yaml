@@ -4,7 +4,7 @@ description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
-version: 1.0.1+2
+version: 1.0.1+2flutter 
 
 environment:
   sdk: ">=2.16.2 <3.0.0"
@@ -20,6 +20,7 @@ dependencies:
   protobuf: ^2.0.1
   grpc: ^3.0.2
   get_it: ^7.2.0
+  date_time_format: ^2.0.1
       
 
 dev_dependencies:      
