@@ -110,13 +110,18 @@ namespace GetPong.Infrastructure.MongoDb
 
             if (didPlayerWin)
             {
+                if (getPlayer.StreakEnum == StreakEnum.Loss)
+                {
+                    getPlayer.StreakEnum = StreakEnum.Win;
+                    getPlayer.Streak = 0;
+                }
                 playerDoc = new BsonDocument()
                     .Add("_id", ObjectId.Parse(playerId))
                     .Add("full_name", getPlayer.FullName)
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)
-                    .Add("streak", getPlayer.Streak)
+                    .Add("streak", getPlayer.Streak+1)
                     .Add("win", getPlayer.Win+1)
                     .Add("loss", getPlayer.Loss)
                     .Add("total_score", getPlayer.TotalScore+10)
@@ -126,13 +131,19 @@ namespace GetPong.Infrastructure.MongoDb
             }
             else
             {
+                
+                if (getPlayer.StreakEnum == StreakEnum.Win) 
+                {
+                    getPlayer.StreakEnum = StreakEnum.Loss;
+                    getPlayer.Streak = 0;
+                }
                 playerDoc = new BsonDocument()
                     .Add("_id", ObjectId.Parse(playerId))
                     .Add("full_name", getPlayer.FullName)
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)
-                    .Add("streak", getPlayer.Streak)
+                    .Add("streak", getPlayer.Streak+1)
                     .Add("win", getPlayer.Win)
                     .Add("loss", getPlayer.Loss+1)
                     .Add("total_score", getPlayer.TotalScore-10)
