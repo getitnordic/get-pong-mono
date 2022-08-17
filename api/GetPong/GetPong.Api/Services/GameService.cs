@@ -2,10 +2,8 @@
 using Game;
 using GetPong.Core.Handlers.Games;
 using GetPong.Core.Handlers.Players;
-using GetPong.Core.Infrastructure.Entities.Games;
 using GetPong.Core.Models.Commands.Players;
 using Grpc.Core;
-using Game = GetPong.Core.Infrastructure.Entities.Games.Game;
 
 namespace GetPong.Services;
 
@@ -17,9 +15,9 @@ public class GameService : global::Game.GameService.GameServiceBase
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly IMapper _mapper;
 
-
     public GameService(IAddGameHandler addGameHandler, IMapper mapper, IGetGamesHandler getGamesHandler,
-        IGetPlayersHandler getPlayersHandler, IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler)
+        IGetPlayerByIdHandler getPlayerByIdHandler,
+        IUpdatePlayerHandler updatePlayerHandler)
     {
         _addGameHandler = addGameHandler;
         _mapper = mapper;
@@ -32,7 +30,7 @@ public class GameService : global::Game.GameService.GameServiceBase
     {
         var game = _addGameHandler.Handle(_mapper.Map<Core.Infrastructure.Entities.Games.Game>(request.GameModel));
         var gameModel = _mapper.Map<GameModel>(game);
-        
+
         //Update lastActivity on players in the game. Add functionality for doubles and make it cleaner later.
         var playerOne = _getPlayerByIdHandler.Handle(game.HomeTeamIds[0]).Result;
         var playerTwo = _getPlayerByIdHandler.Handle(game.AwayTeamIds[0]).Result;
@@ -42,10 +40,10 @@ public class GameService : global::Game.GameService.GameServiceBase
         playerTwoCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         var updated1 = _updatePlayerHandler.Handle(playerOne.Id, playerOneCommand);
         var updated2 = _updatePlayerHandler.Handle(playerTwo.Id, playerTwoCommand);
-        
+
         //For doubles
-        if (game.HomeTeamIds.Count != 2) return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
-        
+        if (game.HomeTeamIds.Count != 2) return Task.FromResult(new SaveGameReply() { GameModel = gameModel });
+
         var playerThree = _getPlayerByIdHandler.Handle(game.HomeTeamIds[1]).Result;
         var playerFour = _getPlayerByIdHandler.Handle(game.AwayTeamIds[1]).Result;
         var playerThreeCommand = _mapper.Map<UpdatePlayerCommand>(playerThree);
@@ -55,17 +53,15 @@ public class GameService : global::Game.GameService.GameServiceBase
         var updated3 = _updatePlayerHandler.Handle(playerThree.Id, playerThreeCommand);
         var updated4 = _updatePlayerHandler.Handle(playerFour.Id, playerFourCommand);
         //
-        
-        return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
+
+        return Task.FromResult(new SaveGameReply() { GameModel = gameModel });
     }
 
     public override Task<GetGamesReply> GetGames(GetGamesRequest request, ServerCallContext context)
     {
         var games = _getGamesHandler.Handle(request.Limit, request.Offset);
         var gameModel = _mapper.Map<List<GameModel>>(games);
-        
-        return Task.FromResult(new GetGamesReply() {GameModel = {gameModel}});
+
+        return Task.FromResult(new GetGamesReply() { GameModel = { gameModel } });
     }
-    
-    
 }

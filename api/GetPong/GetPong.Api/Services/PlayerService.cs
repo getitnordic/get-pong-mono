@@ -20,8 +20,6 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly ISyncAzureAdToDb _syncAzureAdToDb;
     private readonly IMapper _mapper;
     
-   // private static readonly Logger Logger = LogManager.GetCurrentClassLogger(); //TODO: dependency injection
-    
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
         IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb)
 
@@ -32,18 +30,13 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         _updatePlayerHandler = updatePlayerHandler;
         _mapper = mapper;
         _syncAzureAdToDb = syncAzureAdToDb;
-        
     }
 
     // Get all players
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
         List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
-        
         var playerModels = _mapper.Map<List<PlayerModel>>(players);
-
-        // Logger.Info("Someone requested all players");
-
         return Task.FromResult(new GetPlayersReply() {PlayerModel = {playerModels}});
     }
 
@@ -65,7 +58,6 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
                 _mapper.Map<AddPlayerCommand>(request));
         
         var externalUser = _mapper.Map<PlayerModel>(player);
-        
         return Task.FromResult(new RegisterExternalReply() {PlayerModel = externalUser});
     }
 

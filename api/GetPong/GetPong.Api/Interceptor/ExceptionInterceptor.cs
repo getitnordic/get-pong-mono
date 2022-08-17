@@ -12,21 +12,19 @@ public class ExceptionInterceptor : Grpc.Core.Interceptors.Interceptor
         _logger = logger;
     }
 
-    public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request, ServerCallContext context,
+    public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request,
+        ServerCallContext context,
         UnaryServerMethod<TRequest, TResponse> continuation)
     {
         try
         {
             return await base.UnaryServerHandler(request, context, continuation);
-
         }
-        catch(Exception e)
+
+        catch (Exception e)
         {
-           _logger.LogError(e, $"Error thrown by {context.Method}. - Exception type: {e.GetType()} - Trace: {e.StackTrace} ");
-           
-            throw;
-            return await base.UnaryServerHandler(request, context, continuation);
+            _logger.LogError(e, $"Error thrown by {context.Method}.");
+            throw new RpcException(new Status(StatusCode.Internal, "Something went wrong"));
         }
     }
-   
 }
