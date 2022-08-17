@@ -35,8 +35,8 @@ class _ScorePageState extends ConsumerState<ScorePage>
   int currentSetId = 0;
   List<ScorePageSet> sets = [
     ScorePageSet(
-      homeScore: 5,
-      awayScore: 5,
+      homeScore: 0,
+      awayScore: 0,
       setId: 1,
     )
   ];
@@ -130,16 +130,18 @@ class _ScorePageState extends ConsumerState<ScorePage>
 
       if (isDouble()) {
         GameModel match = GameModel(
-            homeTeamIds: [playerOne.id, playerTwo.id],
-            awayTeamIds: [playerThree.id, playerFour.id],
-            sets: newSets);
+          homeTeamIds: [playerOne.id, playerTwo.id],
+          awayTeamIds: [playerThree.id, playerFour.id],
+          sets: newSets,
+        );
         matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       } else {
         GameModel match = GameModel(
-            homeTeamIds: [playerOne.id],
-            awayTeamIds: [playerTwo.id],
-            sets: newSets);
+          homeTeamIds: [playerOne.id],
+          awayTeamIds: [playerTwo.id],
+          sets: newSets,
+        );
         matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       }
@@ -151,166 +153,78 @@ class _ScorePageState extends ConsumerState<ScorePage>
       appBar: AppBar(
         title: const Text('Add Your Score'),
       ),
-      body: OrientationBuilder(
-        builder: (context, orientation) {
-          return orientation == Orientation.landscape &&
-                  MediaQuery.of(context).size.height > 500
-              ? Padding(
-                  padding: EdgeInsets.only(
-                    top: isDouble() ? 0 : height(context) * 0.2,
-                  ),
-                  child: Column(
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          height: isDouble() ? 550 : 300,
-                          child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemCount: sets.length,
-                            itemBuilder: (context, index) {
-                              return SetContainer(
-                                setId: index,
-                                homeScore: sets[index].homeScore,
-                                awayScore: sets[index].awayScore,
-                                matchType: matchType,
-                                playerOneName: displayName(playerOne),
-                                playerTwoName: displayName(playerTwo),
-                                playerThreeName: displayName(playerThree),
-                                playerFourName: displayName(playerFour),
-                                setHomeScore: setHomeScore,
-                                setAwayScore: setAwayScore,
-                                getSetId: setCurrentSetId,
-                                removeSet: removeSet,
-                                setCount: sets.length,
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 300,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 30),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              )),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                  const Size(300, 50)),
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.pressed)) {
-                                    return ColorConstants.primaryColor;
-                                  } else if (states
-                                      .contains(MaterialState.disabled)) {
-                                    return ColorConstants.disabledButtonColor;
-                                  }
-                                  return ColorConstants.primaryColor;
-                                },
-                              ),
-                            ),
-                            onPressed: checkIfScoresAreSet()
-                                ? () {
-                                    saveNewMatch();
-                                    Navigator.pop(context);
-                                  }
-                                : null,
-                            child: Text(
-                              'Save Result',
-                              style: GoogleFonts.goldman(
-                                fontSize: 20,
-                                color: ColorConstants.textColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              : Column(
-                  children: [
-                    Center(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height - 200,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: sets.length,
-                          itemBuilder: (context, index) {
-                            return SetContainer(
-                              setId: index,
-                              homeScore: sets[index].homeScore,
-                              awayScore: sets[index].awayScore,
-                              matchType: matchType,
-                              playerOneName: displayName(playerOne),
-                              playerTwoName: displayName(playerTwo),
-                              playerThreeName: displayName(playerThree),
-                              playerFourName: displayName(playerFour),
-                              setHomeScore: setHomeScore,
-                              setAwayScore: setAwayScore,
-                              getSetId: setCurrentSetId,
-                              removeSet: removeSet,
-                              setCount: sets.length,
-                            );
-                          },
-                        ),
+      body: Column(
+        children: [
+          Center(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height - 200,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: sets.length,
+                itemBuilder: (context, index) {
+                  return SetContainer(
+                    setId: index,
+                    homeScore: sets[index].homeScore,
+                    awayScore: sets[index].awayScore,
+                    matchType: matchType,
+                    playerOneName: displayName(playerOne),
+                    playerTwoName: displayName(playerTwo),
+                    playerThreeName: displayName(playerThree),
+                    playerFourName: displayName(playerFour),
+                    setHomeScore: setHomeScore,
+                    setAwayScore: setAwayScore,
+                    getSetId: setCurrentSetId,
+                    removeSet: removeSet,
+                    setCount: sets.length,
+                  );
+                },
+              ),
+            ),
+          ),
+          Column(
+            children: [
+              SizedBox(
+                width: 300,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
+                      )),
+                      minimumSize:
+                          MaterialStateProperty.all<Size>(const Size(300, 50)),
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return ColorConstants.primaryColor;
+                          } else if (states.contains(MaterialState.disabled)) {
+                            return ColorConstants.disabledButtonColor;
+                          }
+                          return ColorConstants.primaryColor;
+                        },
                       ),
                     ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          width: 300,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 30),
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                )),
-                                minimumSize: MaterialStateProperty.all<Size>(
-                                    const Size(300, 50)),
-                                backgroundColor:
-                                    MaterialStateProperty.resolveWith<Color>(
-                                  (Set<MaterialState> states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      return ColorConstants.primaryColor;
-                                    } else if (states
-                                        .contains(MaterialState.disabled)) {
-                                      return ColorConstants.disabledButtonColor;
-                                    }
-                                    return ColorConstants.primaryColor;
-                                  },
-                                ),
-                              ),
-                              onPressed: checkIfScoresAreSet()
-                                  ? () {
-                                      saveNewMatch();
-                                      Navigator.pop(context);
-                                    }
-                                  : null,
-                              child: Text(
-                                'Save Result',
-                                style: GoogleFonts.goldman(
-                                  fontSize: 20,
-                                  color: ColorConstants.textColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    onPressed: checkIfScoresAreSet()
+                        ? () {
+                            saveNewMatch();
+                            Navigator.pop(context);
+                          }
+                        : null,
+                    child: Text(
+                      'Save Result',
+                      style: GoogleFonts.goldman(
+                        fontSize: 20,
+                        color: ColorConstants.textColor,
+                      ),
                     ),
-                  ],
-                );
-        },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: sets.length < 11
@@ -319,8 +233,8 @@ class _ScorePageState extends ConsumerState<ScorePage>
                   setCounter++;
                   sets.add(
                     ScorePageSet(
-                      homeScore: 5,
-                      awayScore: 5,
+                      homeScore: 0,
+                      awayScore: 0,
                       setId: setCounter,
                     ),
                   );

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../constants/constants.dart';
+import '../../../../constants/color_constants.dart';
 import '../../../../enums/match_type.dart';
 import '../widgets.dart';
+import 'score_counter_add.dart';
+import 'score_counter_remove.dart';
 
 class SetContainer extends StatelessWidget {
   final int setId;
@@ -43,8 +44,8 @@ class SetContainer extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            width: 350,
-            height: 40,
+            width: 550,
+            height: 80,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -67,91 +68,115 @@ class SetContainer extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Team 1    ${homeScore.round()}',
-                style: GoogleFonts.goldman(
-                  color: ColorConstants.textColor,
-                  fontSize: 14,
+          ResultCardContainer(
+            height: matchType == MatchType.double ? 140 : 100,
+            width: 550,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ScoreCounterRemove(
+                  setId: setId,
+                  setScore: setHomeScore,
+                  getSetId: getSetId,
+                  score: homeScore,
                 ),
-              ),
-              Text(
-                ' - ',
-                style: GoogleFonts.goldman(
-                  color: ColorConstants.textColor,
-                  fontSize: 14,
+                if (matchType == MatchType.single)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: SizedBox(
+                      width: 200,
+                      child: ResultCardSingle(
+                        name: playerOneName,
+                        child: Text(
+                          homeScore.floor().toString(),
+                          style: const TextStyle(
+                            color: ColorConstants.textColor,
+                            fontSize: 38,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                if (matchType == MatchType.double)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: SizedBox(
+                      width: 200,
+                      child: ResultCardDouble(
+                        playerOne: playerOneName,
+                        playerTwo: playerTwoName,
+                        child: Text(
+                          homeScore.floor().toString(),
+                          style: const TextStyle(
+                            color: ColorConstants.textColor,
+                            fontSize: 38,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ScoreCounterAdd(
+                  setId: setId,
+                  setScore: setHomeScore,
+                  getSetId: getSetId,
+                  score: homeScore,
                 ),
-              ),
-              Text(
-                '${awayScore.round()}    Team 2',
-                style: GoogleFonts.goldman(
-                  color: ColorConstants.textColor,
-                  fontSize: 14,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-          if (matchType == MatchType.single)
-            ResultCardContainer(
-              width: 350,
-              height: 80,
-              child: ResultCardSingle(
-                name: playerOneName,
-                child: AddResultForm(
-                  callback: setHomeScore,
-                  setId: setId,
-                  getSetId: getSetId,
-                ),
-              ),
-            ),
-          if (matchType == MatchType.double)
-            ResultCardContainer(
-              width: 350,
-              height: 200,
-              child: ResultCardDouble(
-                title: 'Team 1',
-                playerOne: playerOneName,
-                playerTwo: playerTwoName,
-                child: AddResultForm(
-                  callback: setHomeScore,
-                  setId: setId,
-                  getSetId: getSetId,
-                ),
-              ),
-            ),
           const SizedBox(
             height: 10,
           ),
-          if (matchType == MatchType.single)
-            ResultCardContainer(
-              width: 350,
-              height: 80,
-              child: ResultCardSingle(
-                name: playerTwoName,
-                child: AddResultForm(
-                  callback: setAwayScore,
+          ResultCardContainer(
+            height: matchType == MatchType.double ? 140 : 100,
+            width: 550,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ScoreCounterRemove(
                   setId: setId,
+                  setScore: setAwayScore,
                   getSetId: getSetId,
+                  score: awayScore,
                 ),
-              ),
-            ),
-          if (matchType == MatchType.double)
-            ResultCardContainer(
-              width: 350,
-              height: 200,
-              child: ResultCardDouble(
-                title: 'Team 2',
-                playerOne: playerThreeName,
-                playerTwo: playerFourName,
-                child: AddResultForm(
-                  callback: setAwayScore,
+                if (matchType == MatchType.single)
+                  SizedBox(
+                    width: 200,
+                    child: ResultCardSingle(
+                      name: playerTwoName,
+                      child: Text(
+                        awayScore.floor().toString(),
+                        style: const TextStyle(
+                          color: ColorConstants.textColor,
+                          fontSize: 38,
+                        ),
+                      ),
+                    ),
+                  ),
+                if (matchType == MatchType.double)
+                  SizedBox(
+                    width: 200,
+                    child: ResultCardDouble(
+                      playerOne: playerThreeName,
+                      playerTwo: playerFourName,
+                      child: Text(
+                        awayScore.floor().toString(),
+                        style: const TextStyle(
+                          color: ColorConstants.textColor,
+                          fontSize: 38,
+                        ),
+                      ),
+                    ),
+                  ),
+                ScoreCounterAdd(
                   setId: setId,
+                  setScore: setAwayScore,
                   getSetId: getSetId,
+                  score: awayScore,
                 ),
-              ),
+              ],
             ),
+          ),
         ],
       ),
     );

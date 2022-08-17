@@ -19,7 +19,7 @@ class ScorePageSet {
   }
 
   bool isScoreSet() {
-    if (homeScore == 11 || awayScore == 11) {
+    if (homeScore >= 11 || awayScore >= 11) {
       if (homeScore != awayScore) {
         return true;
       }
