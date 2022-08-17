@@ -29,7 +29,7 @@ class ResultPage extends ConsumerWidget {
         Center(
           child: ElevatedButton(
             child: const Text('Go back to startGamePage'),
-            onPressed: () => Navigator.pushNamed(context, route.startGamePage,
+            onPressed: () => Navigator.pushNamed(context, route.homePage,
                 arguments: 1337),
           ),
         ),

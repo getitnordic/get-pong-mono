@@ -7,7 +7,6 @@ import '../../src/Presentation/pages/pages.dart';
 import '../../src/core/models/score_page_arguments.dart';
 
 const String homePage = 'homePage';
-const String startGamePage = 'startgamepage';
 const String playerListPage = 'playerListPage';
 const String scorePage = 'scorepage';
 const String profilePage = 'profilepage';
@@ -18,13 +17,6 @@ Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
     case homePage:
       return MaterialPageRoute(builder: (context) => const HomePage());
-    case startGamePage:
-      {
-        return MaterialPageRoute(
-            builder: (context) => StartGamePage(
-                  arguments: settings.arguments!,
-                ));
-      }
     case playerListPage:
       {
         final playerSelectIndex = settings.arguments as PlayerSelectChoice;

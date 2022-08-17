@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/utils/mixins/format_date_mixin.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../config/route/route.dart' as route;
@@ -12,7 +13,8 @@ import '../../../../Presentation/widgets/custom_small_container.dart';
 import '../../../../core/models/score_page_arguments.dart';
 import '../../../providers/players_notifier.dart';
 
-class CreateSingleGame extends ConsumerWidget with SetProfileImageMixin {
+class CreateSingleGame extends ConsumerWidget
+    with SetProfileImageMixin, FormatDateMixin {
   const CreateSingleGame({
     Key? key,
   }) : super(key: key);
@@ -240,15 +242,35 @@ class CreateSingleGame extends ConsumerWidget with SetProfileImageMixin {
                                                             radius: 14,
                                                           ),
                                                         ),
-                                                        Text(
-                                                          data[index].fullName,
-                                                          style: GoogleFonts
-                                                              .goldman(
-                                                            fontSize: 14,
-                                                            color:
-                                                                ColorConstants
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              data[index]
+                                                                  .fullName,
+                                                              style: GoogleFonts
+                                                                  .goldman(
+                                                                fontSize: 14,
+                                                                color: ColorConstants
                                                                     .textColor,
-                                                          ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              formatDate(
+                                                                data[index]
+                                                                    .lastActivity
+                                                                    .toDateTime(),
+                                                              ),
+                                                              style: GoogleFonts
+                                                                  .goldman(
+                                                                fontSize: 11,
+                                                                color: ColorConstants
+                                                                    .secondaryTextColor,
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
@@ -557,16 +579,37 @@ class CreateSingleGame extends ConsumerWidget with SetProfileImageMixin {
                                                               radius: 14,
                                                             ),
                                                           ),
-                                                          Text(
-                                                            data[index]
-                                                                .fullName,
-                                                            style: GoogleFonts
-                                                                .goldman(
-                                                              fontSize: 14,
-                                                              color:
-                                                                  ColorConstants
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Text(
+                                                                data[index]
+                                                                    .fullName,
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .goldman(
+                                                                  fontSize: 14,
+                                                                  color: ColorConstants
                                                                       .textColor,
-                                                            ),
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                formatDate(
+                                                                  data[index]
+                                                                      .lastActivity
+                                                                      .toDateTime(),
+                                                                ),
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .goldman(
+                                                                  fontSize: 11,
+                                                                  color: ColorConstants
+                                                                      .secondaryTextColor,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
