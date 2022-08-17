@@ -1,4 +1,7 @@
+using GetPong.Interceptor;
 using GetPong.Services;
+using NLog;
+using ILogger = NLog.ILogger;
 
 namespace GetPong.Api;
 
@@ -15,8 +18,9 @@ public class Startup
 
     public static void ConfigureServices(IServiceCollection services)
     {
-        services.AddGrpc();
+        services.AddGrpc(c=>c.Interceptors.Add<ExceptionInterceptor>());
         services.AddAutoMapper(typeof(Startup));
+        
         
         Infrastructure.Startup.ConfigureServices(services); 
         Application.Startup.ConfigureServices(services);
