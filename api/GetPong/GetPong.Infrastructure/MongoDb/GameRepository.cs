@@ -29,7 +29,7 @@ namespace GetPong.Infrastructure.MongoDb
         public Game AddGame(Game game)
         {
             var doc = new BsonDocument()
-                .Add("time_stamp", DateTime.UtcNow.Ticks)
+                .Add("time_stamp", DateTime.UtcNow)
                 .Add("home_team_ids", new BsonArray(game.HomeTeamIds))
                 .Add("away_team_ids", new BsonArray(game.AwayTeamIds))
                 .Add("sets", new BsonArray(game.Sets.Select(i => i.ToBsonDocument())));
@@ -37,18 +37,18 @@ namespace GetPong.Infrastructure.MongoDb
             MongoCollection.InsertOne(doc);
 
             game.Id = doc["_id"].ToString();
-            game.TimeStamp = doc["time_stamp"].ToInt64();
+            game.TimeStamp = doc["time_stamp"].ToUniversalTime();
             return game;
         }
 
         public List<Game> GetGames(int offset, int limit)
         {
             var allGamesBson = MongoCollection.Find(new BsonDocument()).Sort("{time_stamp: -1}").Skip(offset).Limit(limit).ToList();
-
+            
             return allGamesBson.Select(doc => new Game()
             {
                 Id = doc.GetValue("_id").ToString(),
-                TimeStamp = _helper.getLongValue(doc, "time_stamp"),
+                TimeStamp = doc["time_stamp"].ToUniversalTime(),//_helper.getLongValue(doc, "time_stamp"),
                 HomeTeamIds = doc.GetValue("home_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
                 AwayTeamIds = doc.GetValue("away_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
                 Sets = doc.GetValue("sets").AsBsonArray.Select(x => new GameSet()
