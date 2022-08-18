@@ -20,6 +20,8 @@
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
       <PackageReference Include="Microsoft.Graph" Version="4.30.0" />
       <PackageReference Include="MongoDB.Bson" Version="2.15.1" />
+      <PackageReference Include="NLog" Version="5.0.1" />
+      <PackageReference Include="NLog.Mongo" Version="4.6.0.191" />
     </ItemGroup>
 
 </Project>

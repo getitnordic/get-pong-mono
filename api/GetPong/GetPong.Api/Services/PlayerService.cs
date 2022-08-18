@@ -3,19 +3,23 @@ using Base;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
 using Grpc.Core;
+using NLog;
+using NLog.Fluent;
 using Player;
+using ILogger = NLog.ILogger;
 
 namespace GetPong.Services;
 
 public class PlayerService : global::Player.PlayerService.PlayerServiceBase
 {
+    
     private readonly IAddPlayerHandler _addPlayerHandler;
     private readonly IGetPlayersHandler _getPlayersHandler;
     private readonly IGetPlayerByIdHandler _getPlayerByIdHandler;
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly ISyncAzureAdToDb _syncAzureAdToDb;
     private readonly IMapper _mapper;
-
+    
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
         IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb)
 
@@ -32,9 +36,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
         List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
-        
         var playerModels = _mapper.Map<List<PlayerModel>>(players);
-
         return Task.FromResult(new GetPlayersReply() {PlayerModel = {playerModels}});
     }
 
@@ -56,7 +58,6 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
                 _mapper.Map<AddPlayerCommand>(request));
         
         var externalUser = _mapper.Map<PlayerModel>(player);
-        
         return Task.FromResult(new RegisterExternalReply() {PlayerModel = externalUser});
     }
 
