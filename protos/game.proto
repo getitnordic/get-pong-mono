@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "base.proto";
+import "google/protobuf/timestamp.proto";
 
 package game;
 
@@ -32,7 +33,7 @@ message SaveGameReply {
 // Models
 message GameModel {
   string id = 1;
-  int64 timeStamp = 2;
+  google.protobuf.Timestamp timeStamp = 2;
   repeated string homeTeamIds = 3;
   repeated string awayTeamIds = 4;
   repeated base.SetModel sets = 5;
