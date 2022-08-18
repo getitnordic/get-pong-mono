@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/src/presentation/pages/stats_page.dart';
 
 import '../../enums/player_select_choice.dart';
 import '../../protos/base.pb.dart';
@@ -12,6 +13,7 @@ const String scorePage = 'scorepage';
 const String profilePage = 'profilepage';
 const String matchDetailsPage = 'matchdetails';
 const String addNewPlayerPage = 'addplayer';
+const String statsPage = 'statspage';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -44,7 +46,9 @@ Route<dynamic> controller(RouteSettings settings) {
                 ));
       }
     case matchDetailsPage:
-      return MaterialPageRoute(builder: (context) => MatchDetailsPage());
+      return MaterialPageRoute(builder: (context) => const MatchDetailsPage());
+    case statsPage:
+      return MaterialPageRoute(builder: (context) => const StatsPage());
     default:
       throw ("This route name don't exist");
   }
