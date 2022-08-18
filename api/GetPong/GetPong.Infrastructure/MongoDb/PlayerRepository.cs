@@ -94,65 +94,54 @@ namespace GetPong.Infrastructure.MongoDb
                 Loss = playerDoc.GetValue("loss").ToInt32(),
                 TotalScore = playerDoc.GetValue("total_score").ToInt32(),
                 AzureAdId = playerDoc.GetValue("azure_ad_id").ToString(),
-                StreakEnum = (StreakEnum) playerDoc.GetValue("streak_enum").ToInt32(),
+                StreakEnum = (StreakEnum)playerDoc.GetValue("streak_enum").ToInt32(),
                 LastActivity = playerDoc.GetValue("last_activity").ToUniversalTime()
             };
         }
 
         public async void UpdateScoreOfPlayer(string playerId, bool didPlayerWin)
         {
-            
+
             var objectId = ObjectId.Parse(playerId);
             var filter = Builders<BsonDocument>.Filter.Eq(d => d["_id"], objectId);
             var getPlayer = await GetPlayerById(playerId);
 
-            BsonDocument playerDoc; 
+            BsonDocument playerDoc;
 
             if (didPlayerWin)
             {
-                if (getPlayer.StreakEnum == StreakEnum.Loss)
-                {
-                    getPlayer.StreakEnum = StreakEnum.Win;
-                    getPlayer.Streak = 0;
-                }
                 playerDoc = new BsonDocument()
                     .Add("_id", ObjectId.Parse(playerId))
                     .Add("full_name", getPlayer.FullName)
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)
-                    .Add("streak", getPlayer.Streak+1)
-                    .Add("win", getPlayer.Win+1)
+                    .Add("streak", getPlayer.Streak)
+                    .Add("win", getPlayer.Win + 1)
                     .Add("loss", getPlayer.Loss)
-                    .Add("total_score", getPlayer.TotalScore+10)
+                    .Add("total_score", getPlayer.TotalScore + 10)
                     .Add("streak_enum", 1)
                     .Add("azure_ad_id", getPlayer.AzureAdId)
                     .Add("last_activity", getPlayer.LastActivity);
             }
             else
             {
-                
-                if (getPlayer.StreakEnum == StreakEnum.Win) 
-                {
-                    getPlayer.StreakEnum = StreakEnum.Loss;
-                    getPlayer.Streak = 0;
-                }
                 playerDoc = new BsonDocument()
                     .Add("_id", ObjectId.Parse(playerId))
                     .Add("full_name", getPlayer.FullName)
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)
-                    .Add("streak", getPlayer.Streak+1)
+                    .Add("streak", getPlayer.Streak)
                     .Add("win", getPlayer.Win)
-                    .Add("loss", getPlayer.Loss+1)
-                    .Add("total_score", getPlayer.TotalScore-10)
+                    .Add("loss", getPlayer.Loss + 1)
+                    .Add("total_score", getPlayer.TotalScore - 10)
                     .Add("streak_enum", 2)
                     .Add("azure_ad_id", getPlayer.AzureAdId)
                     .Add("last_activity", getPlayer.LastActivity);
             }
-                
-            
+
+
             await MongoCollection.ReplaceOneAsync(filter, playerDoc);
         }
     }

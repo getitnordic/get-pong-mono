@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace GetPong.Core.Infrastructure.Entities.Games
@@ -16,6 +15,6 @@ namespace GetPong.Core.Infrastructure.Entities.Games
         public List<string> AwayTeamIds { set; get; }
         public List<GameSet> Sets { set; get; }
 
-      
+
     }
 }

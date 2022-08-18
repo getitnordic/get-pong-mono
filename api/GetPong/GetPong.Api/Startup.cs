@@ -1,7 +1,4 @@
-using GetPong.Interceptor;
 using GetPong.Services;
-using NLog;
-using ILogger = NLog.ILogger;
 
 namespace GetPong.Api;
 
@@ -18,11 +15,10 @@ public class Startup
 
     public static void ConfigureServices(IServiceCollection services)
     {
-        services.AddGrpc(c=>c.Interceptors.Add<ExceptionInterceptor>());
+        services.AddGrpc();
         services.AddAutoMapper(typeof(Startup));
-        
-        
-        Infrastructure.Startup.ConfigureServices(services); 
+
+        Infrastructure.Startup.ConfigureServices(services);
         Application.Startup.ConfigureServices(services);
     }
 
@@ -43,7 +39,7 @@ public class Startup
         {
             endpoints.MapGrpcService<PlayerService>();
             endpoints.MapGrpcService<GameService>();
-            
+
             endpoints.MapGet("/", async context =>
             {
                 await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client.");

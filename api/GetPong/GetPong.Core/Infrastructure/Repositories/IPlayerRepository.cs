@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Models.Commands.Players;
 

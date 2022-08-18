@@ -16,7 +16,7 @@ public class Helper : IHelper
             return "";
         }
     }
-        
+
     public int getIntValue(BsonDocument doc, string key)
     {
         try
@@ -28,7 +28,7 @@ public class Helper : IHelper
             return 0;
         }
     }
-        
+
     public long getLongValue(BsonDocument doc, string key)
     {
         try

@@ -1,12 +1,8 @@
-﻿using System.Net.Sockets;
-using System.Net.WebSockets;
-using System.Threading.Tasks;
-using GetPong.Core.Core.Helpers;
+﻿using GetPong.Core.Core.Helpers;
 using GetPong.Core.Infrastructure.Entities.Games;
 using GetPong.Core.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace GetPong.Infrastructure.MongoDb

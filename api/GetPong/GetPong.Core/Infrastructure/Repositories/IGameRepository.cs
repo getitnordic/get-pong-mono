@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using GetPong.Core.Infrastructure.Entities.Games;
+﻿using GetPong.Core.Infrastructure.Entities.Games;
 
 namespace GetPong.Core.Infrastructure.Repositories
 {

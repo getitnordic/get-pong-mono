@@ -7,6 +7,6 @@ namespace GetPong.Core.Models.Commands.Players
         public string FullName { set; get; }
         public string Nickname { set; get; }
         public string Email { set; get; }
-        
+
     }
 }
