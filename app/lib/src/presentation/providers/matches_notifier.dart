@@ -61,10 +61,8 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
                   setFetchingMatches(false),
                 }
             });
-    state.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            b.timeStamp.toInt() * 1000)
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+    state.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
   }
 
   void setFetchingMatches(bool loadingState) {
@@ -87,10 +85,8 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
                   setFetchingMatches(false),
                 }
             });
-    matches.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            b.timeStamp.toInt() * 1000)
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+    matches.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
     for (GameModel match in matches) {
       if (match.homeTeamIds[0] == id) {
         playerGames.add(match);
@@ -113,10 +109,8 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
               else
                 {print(value.error)}
             });
-    matches.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            b.timeStamp.toInt() * 1000)
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+    matches.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
 
     return matches;
   }

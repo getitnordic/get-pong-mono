@@ -54,7 +54,7 @@ const GameModel$json = const {
   '1': 'GameModel',
   '2': const [
     const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
-    const {'1': 'timeStamp', '3': 2, '4': 1, '5': 3, '10': 'timeStamp'},
+    const {'1': 'timeStamp', '3': 2, '4': 1, '5': 11, '6': '.google.protobuf.Timestamp', '10': 'timeStamp'},
     const {'1': 'homeTeamIds', '3': 3, '4': 3, '5': 9, '10': 'homeTeamIds'},
     const {'1': 'awayTeamIds', '3': 4, '4': 3, '5': 9, '10': 'awayTeamIds'},
     const {'1': 'sets', '3': 5, '4': 3, '5': 11, '6': '.base.SetModel', '10': 'sets'},
@@ -62,4 +62,4 @@ const GameModel$json = const {
 };
 
 /// Descriptor for `GameModel`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List gameModelDescriptor = $convert.base64Decode('CglHYW1lTW9kZWwSDgoCaWQYASABKAlSAmlkEhwKCXRpbWVTdGFtcBgCIAEoA1IJdGltZVN0YW1wEiAKC2hvbWVUZWFtSWRzGAMgAygJUgtob21lVGVhbUlkcxIgCgthd2F5VGVhbUlkcxgEIAMoCVILYXdheVRlYW1JZHMSIgoEc2V0cxgFIAMoCzIOLmJhc2UuU2V0TW9kZWxSBHNldHM=');
+final $typed_data.Uint8List gameModelDescriptor = $convert.base64Decode('CglHYW1lTW9kZWwSDgoCaWQYASABKAlSAmlkEjgKCXRpbWVTdGFtcBgCIAEoCzIaLmdvb2dsZS5wcm90b2J1Zi5UaW1lc3RhbXBSCXRpbWVTdGFtcBIgCgtob21lVGVhbUlkcxgDIAMoCVILaG9tZVRlYW1JZHMSIAoLYXdheVRlYW1JZHMYBCADKAlSC2F3YXlUZWFtSWRzEiIKBHNldHMYBSADKAsyDi5iYXNlLlNldE1vZGVsUgRzZXRz');

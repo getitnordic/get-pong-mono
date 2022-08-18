@@ -65,8 +65,7 @@ class ScoreboardCard extends ConsumerWidget
                   children: [
                     Text(
                       formatDate(
-                        DateTime.fromMicrosecondsSinceEpoch(
-                            match.timeStamp.toInt() * 10000),
+                        match.timeStamp.toDateTime(),
                       ),
                       style: GoogleFonts.goldman(
                         fontSize: 11,

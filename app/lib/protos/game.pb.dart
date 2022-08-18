@@ -7,9 +7,9 @@
 
 import 'dart:core' as $core;
 
-import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'google/protobuf/timestamp.pb.dart' as $2;
 import 'base.pb.dart' as $3;
 
 class GetGamesRequest extends $pb.GeneratedMessage {
@@ -215,7 +215,7 @@ class SaveGameReply extends $pb.GeneratedMessage {
 class GameModel extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GameModel', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aInt64(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeStamp', protoName: 'timeStamp')
+    ..aOM<$2.Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeStamp', protoName: 'timeStamp', subBuilder: $2.Timestamp.create)
     ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeTeamIds', protoName: 'homeTeamIds')
     ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'awayTeamIds', protoName: 'awayTeamIds')
     ..pc<$3.SetModel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sets', $pb.PbFieldType.PM, subBuilder: $3.SetModel.create)
@@ -225,7 +225,7 @@ class GameModel extends $pb.GeneratedMessage {
   GameModel._() : super();
   factory GameModel({
     $core.String? id,
-    $fixnum.Int64? timeStamp,
+    $2.Timestamp? timeStamp,
     $core.Iterable<$core.String>? homeTeamIds,
     $core.Iterable<$core.String>? awayTeamIds,
     $core.Iterable<$3.SetModel>? sets,
@@ -279,13 +279,15 @@ class GameModel extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $fixnum.Int64 get timeStamp => $_getI64(1);
+  $2.Timestamp get timeStamp => $_getN(1);
   @$pb.TagNumber(2)
-  set timeStamp($fixnum.Int64 v) { $_setInt64(1, v); }
+  set timeStamp($2.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasTimeStamp() => $_has(1);
   @$pb.TagNumber(2)
   void clearTimeStamp() => clearField(2);
+  @$pb.TagNumber(2)
+  $2.Timestamp ensureTimeStamp() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $core.List<$core.String> get homeTeamIds => $_getList(2);

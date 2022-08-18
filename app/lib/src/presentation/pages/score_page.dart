@@ -6,6 +6,7 @@ import 'package:get_pong/constants/color_constants.dart';
 import 'package:get_pong/enums/match_type.dart';
 import 'package:get_pong/protos/base.pb.dart';
 import 'package:get_pong/protos/game.pbgrpc.dart';
+import 'package:get_pong/protos/google/protobuf/timestamp.pb.dart';
 import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
 import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
 import 'package:get_pong/src/presentation/widgets/widgets.dart';
@@ -133,6 +134,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
           homeTeamIds: [playerOne.id, playerTwo.id],
           awayTeamIds: [playerThree.id, playerFour.id],
           sets: newSets,
+          timeStamp: Timestamp.create().createEmptyInstance()
         );
         matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
@@ -141,6 +143,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
           homeTeamIds: [playerOne.id],
           awayTeamIds: [playerTwo.id],
           sets: newSets,
+          timeStamp: Timestamp.create().createEmptyInstance()
         );
         matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
