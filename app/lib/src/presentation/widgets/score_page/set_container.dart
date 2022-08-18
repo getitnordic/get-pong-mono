@@ -39,12 +39,14 @@ class SetContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPhone = MediaQuery.of(context).size.width < 500;
+
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           SizedBox(
-            width: 550,
+            width: isPhone ? 400 : 550,
             height: 80,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -70,7 +72,7 @@ class SetContainer extends StatelessWidget {
           ),
           ResultCardContainer(
             height: matchType == MatchType.double ? 140 : 100,
-            width: 550,
+            width: isPhone ? 400 : 550,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -81,36 +83,30 @@ class SetContainer extends StatelessWidget {
                   score: homeScore,
                 ),
                 if (matchType == MatchType.single)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: SizedBox(
-                      width: 200,
-                      child: ResultCardSingle(
-                        name: playerOneName,
-                        child: Text(
-                          homeScore.floor().toString(),
-                          style: const TextStyle(
-                            color: ColorConstants.textColor,
-                            fontSize: 38,
-                          ),
+                  SizedBox(
+                    width: isPhone ? 100 : 200,
+                    child: ResultCardSingle(
+                      name: playerOneName,
+                      child: Text(
+                        homeScore.floor().toString(),
+                        style: const TextStyle(
+                          color: ColorConstants.textColor,
+                          fontSize: 38,
                         ),
                       ),
                     ),
                   ),
                 if (matchType == MatchType.double)
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: SizedBox(
-                      width: 200,
-                      child: ResultCardDouble(
-                        playerOne: playerOneName,
-                        playerTwo: playerTwoName,
-                        child: Text(
-                          homeScore.floor().toString(),
-                          style: const TextStyle(
-                            color: ColorConstants.textColor,
-                            fontSize: 38,
-                          ),
+                  SizedBox(
+                    width: isPhone ? 100 : 200,
+                    child: ResultCardDouble(
+                      playerOne: playerOneName,
+                      playerTwo: playerTwoName,
+                      child: Text(
+                        homeScore.floor().toString(),
+                        style: const TextStyle(
+                          color: ColorConstants.textColor,
+                          fontSize: 38,
                         ),
                       ),
                     ),
@@ -129,7 +125,7 @@ class SetContainer extends StatelessWidget {
           ),
           ResultCardContainer(
             height: matchType == MatchType.double ? 140 : 100,
-            width: 550,
+            width: isPhone ? 400 : 550,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -141,7 +137,7 @@ class SetContainer extends StatelessWidget {
                 ),
                 if (matchType == MatchType.single)
                   SizedBox(
-                    width: 200,
+                    width: isPhone ? 100 : 200,
                     child: ResultCardSingle(
                       name: playerTwoName,
                       child: Text(
@@ -155,7 +151,7 @@ class SetContainer extends StatelessWidget {
                   ),
                 if (matchType == MatchType.double)
                   SizedBox(
-                    width: 200,
+                    width: isPhone ? 100 : 200,
                     child: ResultCardDouble(
                       playerOne: playerThreeName,
                       playerTwo: playerFourName,

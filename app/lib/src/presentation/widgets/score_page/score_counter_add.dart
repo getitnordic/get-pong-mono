@@ -23,29 +23,34 @@ class ScoreCounterAdd extends StatefulWidget {
 class _ScoreCounterAddState extends State<ScoreCounterAdd> {
   @override
   Widget build(BuildContext context) {
+    bool isPhone = MediaQuery.of(context).size.width < 500;
     double counter = widget.score;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TextButton(
-          onPressed: () {
-            setState(() {
-              counter = 11;
-            });
-            widget.getSetId(widget.setId);
-            widget.setScore(counter);
-          },
-          child: const Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Text(
-              '11',
-              style: TextStyle(
-                color: ColorConstants.textColor,
-                fontSize: 24,
+        if (!isPhone)
+          TextButton(
+            onPressed: () {
+              setState(() {
+                counter = 11;
+              });
+              widget.getSetId(widget.setId);
+              widget.setScore(counter);
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Text(
+                '11',
+                style: TextStyle(
+                  color: ColorConstants.secondaryTextColor,
+                  fontSize: 24,
+                ),
               ),
             ),
           ),
+        const SizedBox(
+          width: 15,
         ),
         CustomSmallContainer(
           height: 60,

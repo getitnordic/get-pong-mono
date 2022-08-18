@@ -23,6 +23,7 @@ class ScoreCounterRemove extends StatefulWidget {
 class _ScoreCounterRemoveState extends State<ScoreCounterRemove> {
   @override
   Widget build(BuildContext context) {
+    bool isPhone = MediaQuery.of(context).size.width < 500;
     double counter = widget.score;
 
     return Row(
@@ -50,24 +51,28 @@ class _ScoreCounterRemoveState extends State<ScoreCounterRemove> {
             ),
           ),
         ),
-        TextButton(
-          onPressed: () {
-            if (counter > 0) {
-              setState(() {
-                counter = 0;
-              });
-              widget.getSetId(widget.setId);
-              widget.setScore(counter);
-            }
-          },
-          child: const Text(
-            '0',
-            style: TextStyle(
-              color: ColorConstants.textColor,
-              fontSize: 24,
+        const SizedBox(
+          width: 15,
+        ),
+        if (!isPhone)
+          TextButton(
+            onPressed: () {
+              if (counter > 0) {
+                setState(() {
+                  counter = 0;
+                });
+                widget.getSetId(widget.setId);
+                widget.setScore(counter);
+              }
+            },
+            child: const Text(
+              '0',
+              style: TextStyle(
+                color: ColorConstants.secondaryTextColor,
+                fontSize: 24,
+              ),
             ),
           ),
-        ),
       ],
     );
   }

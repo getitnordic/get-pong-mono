@@ -16,6 +16,7 @@ class ResultCardDouble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPhone = MediaQuery.of(context).size.width < 500;
     return Card(
       elevation: 0,
       color: Colors.transparent,
@@ -27,9 +28,9 @@ class ResultCardDouble extends StatelessWidget {
             children: [
               Text(
                 playerOne,
-                style: const TextStyle(
+                style: TextStyle(
                   color: ColorConstants.textColor,
-                  fontSize: 16,
+                  fontSize: isPhone ? 11 : 14,
                 ),
               ),
               const SizedBox(
@@ -37,9 +38,9 @@ class ResultCardDouble extends StatelessWidget {
               ),
               Text(
                 playerTwo,
-                style: const TextStyle(
+                style: TextStyle(
                   color: ColorConstants.textColor,
-                  fontSize: 16,
+                  fontSize: isPhone ? 11 : 14,
                 ),
               ),
             ],
