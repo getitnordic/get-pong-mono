@@ -15,9 +15,9 @@ public class GameService : global::Game.GameService.GameServiceBase
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly IMapper _mapper;
 
+
     public GameService(IAddGameHandler addGameHandler, IMapper mapper, IGetGamesHandler getGamesHandler,
-        IGetPlayerByIdHandler getPlayerByIdHandler,
-        IUpdatePlayerHandler updatePlayerHandler)
+        IGetPlayersHandler getPlayersHandler, IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler)
     {
         _addGameHandler = addGameHandler;
         _mapper = mapper;
@@ -64,4 +64,6 @@ public class GameService : global::Game.GameService.GameServiceBase
 
         return Task.FromResult(new GetGamesReply() { GameModel = { gameModel } });
     }
+
+
 }

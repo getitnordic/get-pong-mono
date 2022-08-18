@@ -3,6 +3,7 @@ using GetPong.Core.Handlers.Players;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 using GetPong.Core.Models.Enum;
+using Microsoft.Graph;
 
 namespace GetPong.Application.Handlers.Players;
 
@@ -10,8 +11,8 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
 {
     private readonly IPlayerRepository _playerRepository;
     private readonly IAzureClient _azureClient;
-    
-    
+
+
     public SyncAzureAdToDb(IPlayerRepository playerRepository, IAzureClient azureClient)
     {
         _playerRepository = playerRepository;
@@ -22,10 +23,20 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
     {
         var users = _azureClient.getAzureClient();
 
-        List<Player> listOfUsers = new List<Player>();
-        foreach (var user in users)
-        {
-            listOfUsers.Add(new Player()
+        var listOfUsers = (from user in users
+            where !user.DisplayName.Contains("admin", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("getit", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("test", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("db24", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("faktura", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("d b", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("system", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("account", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("you.sr", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("workbuddy", StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains('(', StringComparison.CurrentCultureIgnoreCase) &&
+                  !user.DisplayName.Contains("scanner", StringComparison.CurrentCultureIgnoreCase)
+            select new Player()
             {
                 FullName = user.DisplayName,
                 Email = "mailen",
@@ -38,20 +49,18 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
                 TotalScore = 1000,
                 StreakEnum = StreakEnum.None,
                 LastActivity = DateTime.SpecifyKind(new DateTime(2000, 1, 1), DateTimeKind.Utc)
-            });
-        }
+            }).DistinctBy(i => i.FullName).ToList();
 
-        var PlayersInMongoDb = _playerRepository.GetPlayers();
-        bool isAdUserAlreadyInDb = false;
+        
+
+        var playersInMongoDb = _playerRepository.GetPlayers();
+        var isAdUserAlreadyInDb = false;
 
         foreach (var player in listOfUsers)
         {
-            foreach (var playerInMongoDb in PlayersInMongoDb)
+            foreach (var playerInMongoDb in playersInMongoDb.Where(playerInMongoDb => playerInMongoDb.AzureAdId.Equals(player.AzureAdId)))
             {
-                if (playerInMongoDb.AzureAdId.Equals(player.AzureAdId))
-                {
-                    isAdUserAlreadyInDb = true;
-                }
+                isAdUserAlreadyInDb = true;
             }
 
             if (!isAdUserAlreadyInDb)
@@ -67,7 +76,7 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
 
             isAdUserAlreadyInDb = false;
         }
-        
+
         return listOfUsers;
     }
 }

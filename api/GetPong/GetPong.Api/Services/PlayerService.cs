@@ -3,23 +3,19 @@ using Base;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
 using Grpc.Core;
-using NLog;
-using NLog.Fluent;
 using Player;
-using ILogger = NLog.ILogger;
 
 namespace GetPong.Services;
 
 public class PlayerService : global::Player.PlayerService.PlayerServiceBase
 {
-    
     private readonly IAddPlayerHandler _addPlayerHandler;
     private readonly IGetPlayersHandler _getPlayersHandler;
     private readonly IGetPlayerByIdHandler _getPlayerByIdHandler;
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly ISyncAzureAdToDb _syncAzureAdToDb;
     private readonly IMapper _mapper;
-    
+
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
         IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb)
 
@@ -36,8 +32,10 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
         List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
+
         var playerModels = _mapper.Map<List<PlayerModel>>(players);
-        return Task.FromResult(new GetPlayersReply() {PlayerModel = {playerModels}});
+
+        return Task.FromResult(new GetPlayersReply() { PlayerModel = { playerModels } });
     }
 
     // Get player by ID
@@ -46,7 +44,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     {
         var player = await _getPlayerByIdHandler.Handle(request.PlayerId);
         var playerModel = _mapper.Map<PlayerModel>(player);
-        return new GetPlayerByIdReply() {PlayerModel = playerModel};
+        return new GetPlayerByIdReply() { PlayerModel = playerModel };
     }
 
     // Register external player
@@ -56,9 +54,10 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         var player =
             _addPlayerHandler.Handle(
                 _mapper.Map<AddPlayerCommand>(request));
-        
+
         var externalUser = _mapper.Map<PlayerModel>(player);
-        return Task.FromResult(new RegisterExternalReply() {PlayerModel = externalUser});
+
+        return Task.FromResult(new RegisterExternalReply() { PlayerModel = externalUser });
     }
 
 
@@ -70,7 +69,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
                 _mapper.Map<UpdatePlayerCommand>(request.PlayerModel));
 
         var updatedPlayerModel = _mapper.Map<PlayerModel>(updatedPlayer);
-        return await Task.FromResult(new UpdatePlayerReply() {PlayerModel = updatedPlayerModel});
+        return await Task.FromResult(new UpdatePlayerReply() { PlayerModel = updatedPlayerModel });
     }
 
     //Sync ad to db
@@ -79,6 +78,6 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     {
 
         var test = _syncAzureAdToDb.Handle();
-        return Task.FromResult(new SyncAzureAdToDbReply() {Message = "return a message of success/failure"});
+        return Task.FromResult(new SyncAzureAdToDbReply() { Message = "return a message of success/failure" });
     }
 }

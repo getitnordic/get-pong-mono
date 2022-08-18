@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using GetPong.Core.Core.Helpers;
+﻿using GetPong.Core.Core.Helpers;
 using GetPong.Core.Handlers.Games;
 using GetPong.Core.Infrastructure.Entities.Games;
 using GetPong.Core.Infrastructure.Repositories;
@@ -17,7 +16,7 @@ namespace GetPong.Application.Handlers.Games
             _gameHelper = gameHelper;
         }
 
-        public  Game Handle(Game game)
+        public Game Handle(Game game)
         {
             var gameInDb = _gameRepository.AddGame(game);
             if (game.HomeTeamIds.Count == 2)
@@ -28,7 +27,7 @@ namespace GetPong.Application.Handlers.Games
             {
                 var wasSuccessfullySaved = _gameHelper.SaveSingleMatchScoreToDb(gameInDb);
             }
-            
+
             return gameInDb;
         }
     }

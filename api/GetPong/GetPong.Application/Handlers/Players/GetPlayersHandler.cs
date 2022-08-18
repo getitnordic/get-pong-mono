@@ -18,6 +18,6 @@ namespace GetPong.Application.old.Handlers.Players
             return _playerRepository.GetPlayers();
 
         }
-        
+
     }
 }
