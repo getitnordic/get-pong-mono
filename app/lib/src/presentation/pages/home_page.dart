@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/color_constants.dart';
 import '../../../protos/base.pb.dart';
-import '../../Presentation/pages/pages.dart';
 import '../../Presentation/providers/bottom_bar_index_provider.dart';
 import '../../Presentation/providers/players_notifier.dart';
 import '../../Presentation/widgets/rankings/player_ranking.dart';
+import '../../Presentation/widgets/start_game_page/create_game_menu.dart';
 import '../providers/matches_notifier.dart';
 import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';
@@ -24,9 +24,9 @@ class HomePage extends ConsumerWidget {
       case 2:
         return const PlayerRanking();
       case 0:
-        return const StartGamePage();
+        return const CreateGameMenu();
       default:
-        return const StartGamePage();
+        return const CreateGameMenu();
     }
   }
 

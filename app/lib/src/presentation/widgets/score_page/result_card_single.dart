@@ -11,6 +11,7 @@ class ResultCardSingle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isPhone = MediaQuery.of(context).size.width < 500;
     return Card(
       elevation: 0,
       color: Colors.transparent,
@@ -21,9 +22,9 @@ class ResultCardSingle extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10),
             child: Text(
               name,
-              style: const TextStyle(
+              style: TextStyle(
                 color: ColorConstants.textColor,
-                fontSize: 14,
+                fontSize: isPhone ? 11 : 14,
               ),
             ),
           ),
