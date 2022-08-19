@@ -106,9 +106,16 @@ namespace GetPong.Infrastructure.MongoDb
             var filter = Builders<BsonDocument>.Filter.Eq(d => d["_id"], objectId);
             var getPlayer = await GetPlayerById(playerId);
 
+            bool isPlayerOnWinStreak = false;
+
+            if (getPlayer.StreakEnum == StreakEnum.Win)
+            {
+                isPlayerOnWinStreak = true;
+            }
+
             BsonDocument playerDoc;
 
-            if (didPlayerWin)
+            if (didPlayerWin && isPlayerOnWinStreak)
             {
                 playerDoc = new BsonDocument()
                     .Add("_id", ObjectId.Parse(playerId))
@@ -116,13 +123,46 @@ namespace GetPong.Infrastructure.MongoDb
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)
-                    .Add("streak", getPlayer.Streak)
+                    .Add("streak", getPlayer.Streak + 1)
                     .Add("win", getPlayer.Win + 1)
                     .Add("loss", getPlayer.Loss)
                     .Add("total_score", getPlayer.TotalScore + 10)
                     .Add("streak_enum", 1)
                     .Add("azure_ad_id", getPlayer.AzureAdId)
                     .Add("last_activity", getPlayer.LastActivity);
+            }
+            else if (didPlayerWin && !isPlayerOnWinStreak)
+            {
+                playerDoc = new BsonDocument()
+                        .Add("_id", ObjectId.Parse(playerId))
+                        .Add("full_name", getPlayer.FullName)
+                        .Add("nickname", getPlayer.Nickname)
+                        .Add("email", getPlayer.Email)
+                        .Add("image_url", getPlayer.ImageUrl)
+                        .Add("streak", 1)
+                        .Add("win", getPlayer.Win + 1)
+                        .Add("loss", getPlayer.Loss)
+                        .Add("total_score", getPlayer.TotalScore + 10)
+                        .Add("streak_enum", 1)
+                        .Add("azure_ad_id", getPlayer.AzureAdId)
+                        .Add("last_activity", getPlayer.LastActivity);
+                
+            }
+            else if (!didPlayerWin && isPlayerOnWinStreak)
+            {
+                playerDoc = new BsonDocument()
+                        .Add("_id", ObjectId.Parse(playerId))
+                        .Add("full_name", getPlayer.FullName)
+                        .Add("nickname", getPlayer.Nickname)
+                        .Add("email", getPlayer.Email)
+                        .Add("image_url", getPlayer.ImageUrl)
+                        .Add("streak", 1)
+                        .Add("win", getPlayer.Win)
+                        .Add("loss", getPlayer.Loss + 1)
+                        .Add("total_score", getPlayer.TotalScore + 10)
+                        .Add("streak_enum", 2)
+                        .Add("azure_ad_id", getPlayer.AzureAdId)
+                        .Add("last_activity", getPlayer.LastActivity);
             }
             else
             {
@@ -132,7 +172,7 @@ namespace GetPong.Infrastructure.MongoDb
                     .Add("nickname", getPlayer.Nickname)
                     .Add("email", getPlayer.Email)
                     .Add("image_url", getPlayer.ImageUrl)
-                    .Add("streak", getPlayer.Streak)
+                    .Add("streak", getPlayer.Streak + 1)
                     .Add("win", getPlayer.Win)
                     .Add("loss", getPlayer.Loss + 1)
                     .Add("total_score", getPlayer.TotalScore - 10)
