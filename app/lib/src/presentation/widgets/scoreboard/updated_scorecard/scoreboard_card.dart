@@ -63,15 +63,15 @@ class ScoreboardCard extends ConsumerWidget
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      formatDate(
-                        match.timeStamp.toDateTime(),
-                      ),
-                      style: GoogleFonts.goldman(
-                        fontSize: 11,
-                        color: ColorConstants.secondaryTextColor,
-                      ),
-                    ),
+                    // Text(
+                    //   formatDate(
+                    //     match.timeStamp.toDateTime(),
+                    //   ),
+                    //   style: GoogleFonts.goldman(
+                    //     fontSize: 11,
+                    //     color: ColorConstants.secondaryTextColor,
+                    //   ),
+                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

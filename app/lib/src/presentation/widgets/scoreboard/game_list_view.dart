@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/widgets/widgets.dart';
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pb.dart';
+import '../../../../utils/mixins/format_date_mixin.dart';
 import '../../providers/matches_notifier.dart';
 import 'updated_scorecard/scoreboard_card.dart';
+import '../../../../utils/extensions/compare_date.dart';
 
 class GameListView extends ConsumerStatefulWidget {
   final List<GameModel> matches;
@@ -18,11 +21,13 @@ class GameListView extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _GameListViewState();
 }
 
-class _GameListViewState extends ConsumerState<GameListView> {
+class _GameListViewState extends ConsumerState<GameListView>
+    with FormatDateMixin {
   List<GameModel> matches = [];
   bool isLoadingMore = false;
   bool allIsLoaded = false;
   int offset = 10;
+  DateTime date = DateTime.fromMicrosecondsSinceEpoch(0);
 
   @override
   void initState() {
@@ -30,27 +35,7 @@ class _GameListViewState extends ConsumerState<GameListView> {
     setState(() {
       matches = widget.matches;
     });
-  }
-
-  void loadMoreGames() async {
-    setState(() {
-      isLoadingMore = true;
-    });
-
-    final newMatches =
-        await ref.watch(matchesProvider.notifier).getNextTenMatches(offset);
-    if (newMatches.isNotEmpty) {
-      setState(() {
-        offset += offset;
-        matches.addAll(newMatches);
-        isLoadingMore = false;
-      });
-    } else {
-      setState(() {
-        isLoadingMore = false;
-        allIsLoaded = true;
-      });
-    }
+    date = matches[0].timeStamp.toDateTime();
   }
 
   @override
@@ -80,7 +65,7 @@ class _GameListViewState extends ConsumerState<GameListView> {
                     if (scrollInfo is ScrollEndNotification && !allIsLoaded) {
                       if (scrollInfo.metrics.pixels > 0 &&
                           scrollInfo.metrics.atEdge) {
-                        loadMoreGames();
+                        _loadMoreGames();
                       }
                     }
                     return false;
@@ -89,16 +74,17 @@ class _GameListViewState extends ConsumerState<GameListView> {
                     shrinkWrap: true,
                     itemCount: matches.length,
                     itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          route.matchDetailsPage,
-                        ),
-                        child: ScoreboardCard(match: matches[index]),
-                        //ScoreboardListItem(
-                        //match: matches[index],
-                        //),
-                      );
+                      if (index == 0) {
+                        return _scoreboardCardWithDate(matches[index]);
+                      }
+                      if (matches[index]
+                          .timeStamp
+                          .toDateTime()
+                          .hasSameDate(date)) {
+                        return _scoreboardCardWithoutDate(matches[index]);
+                      }
+                      date = matches[index].timeStamp.toDateTime();
+                      return _scoreboardCardWithDate(matches[index]);
                     },
                   ),
                 ),
@@ -118,4 +104,70 @@ class _GameListViewState extends ConsumerState<GameListView> {
       ],
     );
   }
+
+  void _loadMoreGames() async {
+    setState(() {
+      isLoadingMore = true;
+    });
+
+    final newMatches =
+        await ref.watch(matchesProvider.notifier).getNextTenMatches(offset);
+    if (newMatches.isNotEmpty) {
+      setState(() {
+        offset += offset;
+        matches.addAll(newMatches);
+        isLoadingMore = false;
+      });
+    } else {
+      setState(() {
+        isLoadingMore = false;
+        allIsLoaded = true;
+      });
+    }
+  }
+
+  Widget _scoreboardCardWithDate(GameModel match) => Column(
+        children: [
+          CustomSmallContainer(
+            height: 40,
+            width: 200,
+            child: Text(
+              formatDate(
+                match.timeStamp.toDateTime(),
+              ),
+              style: const TextStyle(
+                color: ColorConstants.textColor,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(
+              context,
+              route.matchDetailsPage,
+            ),
+            child: ScoreboardCard(match: match),
+            //ScoreboardListItem(
+            //match: matches[index],
+            //),
+          ),
+        ],
+      );
+
+  Widget _scoreboardCardWithoutDate(GameModel match) => Column(
+        children: [
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(
+              context,
+              route.matchDetailsPage,
+            ),
+            child: ScoreboardCard(match: match),
+            //ScoreboardListItem(
+            //match: matches[index],
+            //),
+          ),
+        ],
+      );
 }
