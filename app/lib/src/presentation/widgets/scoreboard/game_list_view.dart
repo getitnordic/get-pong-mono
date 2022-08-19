@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/widgets/widgets.dart';
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pb.dart';
+import '../../../../utils/extensions/compare_date.dart';
 import '../../../../utils/mixins/format_date_mixin.dart';
 import '../../providers/matches_notifier.dart';
+import '../widgets.dart';
 import 'updated_scorecard/scoreboard_card.dart';
-import '../../../../utils/extensions/compare_date.dart';
 
 class GameListView extends ConsumerStatefulWidget {
   final List<GameModel> matches;
@@ -35,7 +35,6 @@ class _GameListViewState extends ConsumerState<GameListView>
     setState(() {
       matches = widget.matches;
     });
-    date = matches[0].timeStamp.toDateTime();
   }
 
   @override
@@ -71,20 +70,26 @@ class _GameListViewState extends ConsumerState<GameListView>
                     return false;
                   },
                   child: ListView.builder(
+                    addAutomaticKeepAlives: true,
                     shrinkWrap: true,
                     itemCount: matches.length,
                     itemBuilder: (context, index) {
+                      bool isSameDate = true;
+                      final currentMatch = matches[index];
+                      final currentDate = matches[index].timeStamp.toDateTime();
+
                       if (index == 0) {
-                        return _scoreboardCardWithDate(matches[index]);
+                        isSameDate = false;
+                      } else {
+                        final previousDate =
+                            matches[index - 1].timeStamp.toDateTime();
+                        isSameDate = currentDate.hasSameDate(previousDate);
                       }
-                      if (matches[index]
-                          .timeStamp
-                          .toDateTime()
-                          .hasSameDate(date)) {
-                        return _scoreboardCardWithoutDate(matches[index]);
+                      if (index == 0 || !isSameDate) {
+                        return _scoreboardCardWithDate(currentMatch);
+                      } else {
+                        return _scoreboardCardWithoutDate(currentMatch);
                       }
-                      date = matches[index].timeStamp.toDateTime();
-                      return _scoreboardCardWithDate(matches[index]);
                     },
                   ),
                 ),
@@ -128,17 +133,39 @@ class _GameListViewState extends ConsumerState<GameListView>
 
   Widget _scoreboardCardWithDate(GameModel match) => Column(
         children: [
-          CustomSmallContainer(
-            height: 40,
-            width: 200,
-            child: Text(
-              formatDate(
-                match.timeStamp.toDateTime(),
+          const SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                width: 150,
+                child: Divider(
+                  indent: 10,
+                  endIndent: 10,
+                ),
               ),
-              style: const TextStyle(
-                color: ColorConstants.textColor,
+              CustomSmallContainer(
+                height: 40,
+                width: 200,
+                child: Text(
+                  formatDate(
+                    match.timeStamp.toDateTime(),
+                  ),
+                  style: const TextStyle(
+                    color: ColorConstants.textColor,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(
+                width: 150,
+                child: Divider(
+                  indent: 10,
+                  endIndent: 10,
+                ),
+              ),
+            ],
           ),
           const SizedBox(
             height: 10,
