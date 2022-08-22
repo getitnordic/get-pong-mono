@@ -42,4 +42,19 @@ class GameRepositoryImpl implements GameRepository {
       return DataFailed(e);
     }
   }
+
+  @override
+  Future<DataState<List<GameModel>>> getGamesByPlayerId(String id) async {
+    final request = GetGamesByPlayerIdRequest(id: id);
+
+    try {
+      final response = await client.getGamesById(request);
+      return DataSuccess(response.gameModel);
+    } on GrpcError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return DataFailed(e);
+    }
+  }
 }

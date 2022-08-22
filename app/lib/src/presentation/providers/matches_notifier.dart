@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
 
 import '../../../protos/protos.dart';
 import '../../../register_services.dart';
@@ -9,8 +10,8 @@ import 'players_notifier.dart';
 
 final matchesProvider =
     StateNotifierProvider<MatchesNotifier, List<GameModel>>((ref) {
-  return MatchesNotifier(
-      [], getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>(), ref.read);
+  return MatchesNotifier([], getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>(),
+      getIt<GetGamesByPlayerIdUseCase>(), ref.read);
 });
 
 final playerGamesProvider = FutureProvider.family
@@ -23,11 +24,16 @@ final fetchingMatchesProvider = StateProvider<bool>((ref) => false);
 class MatchesNotifier extends StateNotifier<List<GameModel>> {
   final GetGamesUseCase getGamesUseCase;
   final SaveGameUseCase saveGameUseCase;
+  final GetGamesByPlayerIdUseCase getGamesByPlayerIdUseCase;
   final Reader read;
 
-  MatchesNotifier(List<GameModel> state, this.getGamesUseCase,
-      this.saveGameUseCase, this.read)
-      : super(state);
+  MatchesNotifier(
+    List<GameModel> state,
+    this.getGamesUseCase,
+    this.saveGameUseCase,
+    this.getGamesByPlayerIdUseCase,
+    this.read,
+  ) : super(state);
 
   void addMatch(GameModel match) async {
     // if (state.isEmpty) {
@@ -71,31 +77,22 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
 
   Future<List<GameModel>> getMatchesByPlayerId(String id) async {
     List<GameModel> matches = [];
-    List<GameModel> playerGames = [];
     const amountOfMatchesToGrab = 5;
-    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100))
-        .then((value) => {
-              if (value is DataSuccess)
-                {
-                  setFetchingMatches(false),
-                  matches = value.data!,
-                }
-              else
-                {
-                  setFetchingMatches(false),
-                }
-            });
+    await getGamesByPlayerIdUseCase(params: id).then((value) => {
+          if (value is DataSuccess)
+            {
+              setFetchingMatches(false),
+              matches = value.data!,
+            }
+          else
+            {
+              setFetchingMatches(false),
+            }
+        });
     matches.sort(
         (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
-    for (GameModel match in matches) {
-      if (match.homeTeamIds[0] == id) {
-        playerGames.add(match);
-      }
-      if (match.awayTeamIds[0] == id) {
-        playerGames.add(match);
-      }
-    }
-    return playerGames.take(amountOfMatchesToGrab).toList();
+
+    return matches.take(amountOfMatchesToGrab).toList();
   }
 
   Future<List<GameModel>> getNextTenMatches(int offset) async {
