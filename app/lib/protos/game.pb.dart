@@ -114,6 +114,94 @@ class GetGamesReply extends $pb.GeneratedMessage {
   $core.List<GameModel> get gameModel => $_getList(0);
 }
 
+class GetGamesByPlayerIdRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetGamesByPlayerIdRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..hasRequiredFields = false
+  ;
+
+  GetGamesByPlayerIdRequest._() : super();
+  factory GetGamesByPlayerIdRequest({
+    $core.String? id,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    return _result;
+  }
+  factory GetGamesByPlayerIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetGamesByPlayerIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdRequest clone() => GetGamesByPlayerIdRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdRequest copyWith(void Function(GetGamesByPlayerIdRequest) updates) => super.copyWith((message) => updates(message as GetGamesByPlayerIdRequest)) as GetGamesByPlayerIdRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdRequest create() => GetGamesByPlayerIdRequest._();
+  GetGamesByPlayerIdRequest createEmptyInstance() => create();
+  static $pb.PbList<GetGamesByPlayerIdRequest> createRepeated() => $pb.PbList<GetGamesByPlayerIdRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetGamesByPlayerIdRequest>(create);
+  static GetGamesByPlayerIdRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetGamesByPlayerIdReply extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetGamesByPlayerIdReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
+    ..pc<GameModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gameModel', $pb.PbFieldType.PM, protoName: 'gameModel', subBuilder: GameModel.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetGamesByPlayerIdReply._() : super();
+  factory GetGamesByPlayerIdReply({
+    $core.Iterable<GameModel>? gameModel,
+  }) {
+    final _result = create();
+    if (gameModel != null) {
+      _result.gameModel.addAll(gameModel);
+    }
+    return _result;
+  }
+  factory GetGamesByPlayerIdReply.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetGamesByPlayerIdReply.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdReply clone() => GetGamesByPlayerIdReply()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdReply copyWith(void Function(GetGamesByPlayerIdReply) updates) => super.copyWith((message) => updates(message as GetGamesByPlayerIdReply)) as GetGamesByPlayerIdReply; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdReply create() => GetGamesByPlayerIdReply._();
+  GetGamesByPlayerIdReply createEmptyInstance() => create();
+  static $pb.PbList<GetGamesByPlayerIdReply> createRepeated() => $pb.PbList<GetGamesByPlayerIdReply>();
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetGamesByPlayerIdReply>(create);
+  static GetGamesByPlayerIdReply? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<GameModel> get gameModel => $_getList(0);
+}
+
 class SaveGameRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'SaveGameRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
     ..aOM<GameModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gameModel', protoName: 'gameModel', subBuilder: GameModel.create)

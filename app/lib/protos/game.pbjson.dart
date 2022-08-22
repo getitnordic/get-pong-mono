@@ -29,6 +29,26 @@ const GetGamesReply$json = const {
 
 /// Descriptor for `GetGamesReply`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getGamesReplyDescriptor = $convert.base64Decode('Cg1HZXRHYW1lc1JlcGx5Ei0KCWdhbWVNb2RlbBgBIAMoCzIPLmdhbWUuR2FtZU1vZGVsUglnYW1lTW9kZWw=');
+@$core.Deprecated('Use getGamesByPlayerIdRequestDescriptor instead')
+const GetGamesByPlayerIdRequest$json = const {
+  '1': 'GetGamesByPlayerIdRequest',
+  '2': const [
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+  ],
+};
+
+/// Descriptor for `GetGamesByPlayerIdRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getGamesByPlayerIdRequestDescriptor = $convert.base64Decode('ChlHZXRHYW1lc0J5UGxheWVySWRSZXF1ZXN0Eg4KAmlkGAEgASgJUgJpZA==');
+@$core.Deprecated('Use getGamesByPlayerIdReplyDescriptor instead')
+const GetGamesByPlayerIdReply$json = const {
+  '1': 'GetGamesByPlayerIdReply',
+  '2': const [
+    const {'1': 'gameModel', '3': 1, '4': 3, '5': 11, '6': '.game.GameModel', '10': 'gameModel'},
+  ],
+};
+
+/// Descriptor for `GetGamesByPlayerIdReply`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getGamesByPlayerIdReplyDescriptor = $convert.base64Decode('ChdHZXRHYW1lc0J5UGxheWVySWRSZXBseRItCglnYW1lTW9kZWwYASADKAsyDy5nYW1lLkdhbWVNb2RlbFIJZ2FtZU1vZGVs');
 @$core.Deprecated('Use saveGameRequestDescriptor instead')
 const SaveGameRequest$json = const {
   '1': 'SaveGameRequest',

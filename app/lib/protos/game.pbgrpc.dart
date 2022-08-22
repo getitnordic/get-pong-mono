@@ -24,6 +24,12 @@ class GameServiceClient extends $grpc.Client {
           '/game.GameService/SaveGame',
           ($1.SaveGameRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.SaveGameReply.fromBuffer(value));
+  static final _$getGamesById = $grpc.ClientMethod<$1.GetGamesByPlayerIdRequest,
+          $1.GetGamesByPlayerIdReply>(
+      '/game.GameService/GetGamesById',
+      ($1.GetGamesByPlayerIdRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $1.GetGamesByPlayerIdReply.fromBuffer(value));
 
   GameServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -38,6 +44,12 @@ class GameServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$1.SaveGameReply> saveGame($1.SaveGameRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$saveGame, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.GetGamesByPlayerIdReply> getGamesById(
+      $1.GetGamesByPlayerIdRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getGamesById, request, options: options);
   }
 }
 
@@ -59,6 +71,15 @@ abstract class GameServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.SaveGameRequest.fromBuffer(value),
         ($1.SaveGameReply value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.GetGamesByPlayerIdRequest,
+            $1.GetGamesByPlayerIdReply>(
+        'GetGamesById',
+        getGamesById_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $1.GetGamesByPlayerIdRequest.fromBuffer(value),
+        ($1.GetGamesByPlayerIdReply value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.GetGamesReply> getGames_Pre(
@@ -71,8 +92,16 @@ abstract class GameServiceBase extends $grpc.Service {
     return saveGame(call, await request);
   }
 
+  $async.Future<$1.GetGamesByPlayerIdReply> getGamesById_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.GetGamesByPlayerIdRequest> request) async {
+    return getGamesById(call, await request);
+  }
+
   $async.Future<$1.GetGamesReply> getGames(
       $grpc.ServiceCall call, $1.GetGamesRequest request);
   $async.Future<$1.SaveGameReply> saveGame(
       $grpc.ServiceCall call, $1.SaveGameRequest request);
+  $async.Future<$1.GetGamesByPlayerIdReply> getGamesById(
+      $grpc.ServiceCall call, $1.GetGamesByPlayerIdRequest request);
 }
