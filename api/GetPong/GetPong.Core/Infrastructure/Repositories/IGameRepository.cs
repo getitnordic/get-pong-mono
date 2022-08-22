@@ -6,5 +6,6 @@ namespace GetPong.Core.Infrastructure.Repositories
     {
         Game AddGame(Game game);
         List<Game> GetGames(int offset, int limit);
+        List<Game> GetGamesByPlayerId(string id);
     }
 }
