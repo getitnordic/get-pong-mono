@@ -13,7 +13,7 @@ namespace GetPong.Core.Infrastructure.Entities.Games
             Id = doc.GetValue("_id", "").ToString();
             TimeStamp = doc.GetValue("time_stamp").ToUniversalTime();
             HomeTeamIds = doc.GetValue("home_team_ids").AsBsonArray.Select(x => x.AsString).ToList();
-            AwayTeamIds = doc.GetValue("home_team_ids").AsBsonArray.Select(x => x.AsString).ToList();
+            AwayTeamIds = doc.GetValue("away_team_ids").AsBsonArray.Select(x => x.AsString).ToList();
             Sets = doc.GetValue("sets").AsBsonArray.Select(x => new GameSet()
             {
                 AwayTeam = x.AsBsonDocument.GetValue("AwayTeam").AsInt32,
