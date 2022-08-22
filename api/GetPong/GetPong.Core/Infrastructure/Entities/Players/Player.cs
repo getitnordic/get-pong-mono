@@ -1,5 +1,4 @@
 using GetPong.Core.Models.Enum;
-using Microsoft.Graph;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -7,8 +6,8 @@ namespace GetPong.Core.Infrastructure.Entities.Players
 {
     public class Player
     {
-        public Player() {}
-        
+        public Player() { }
+
         public Player(BsonDocument doc)
         {
             Id = doc.GetValue("_id", "").ToString();
@@ -24,7 +23,7 @@ namespace GetPong.Core.Infrastructure.Entities.Players
             StreakEnum = (StreakEnum)doc.GetValue("streak_enum").AsInt32;
             LastActivity = doc.GetValue("last_activity").ToUniversalTime();
         }
-        
+
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { set; get; }

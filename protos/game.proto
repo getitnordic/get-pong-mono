@@ -9,6 +9,7 @@ package game;
 service GameService {
   rpc GetGames(GetGamesRequest) returns (GetGamesReply){}
   rpc SaveGame(SaveGameRequest) returns (SaveGameReply){}
+  rpc GetGamesById(GetGamesByPlayerIdRequest) returns (GetGamesByPlayerIdReply) {}
 }
 
 // Get Games
@@ -18,6 +19,13 @@ message GetGamesRequest {
 }
 
 message GetGamesReply {
+  repeated GameModel gameModel = 1;
+}
+
+message GetGamesByPlayerIdRequest {
+  string id = 1;
+}
+message GetGamesByPlayerIdReply {
   repeated GameModel gameModel = 1;
 }
 

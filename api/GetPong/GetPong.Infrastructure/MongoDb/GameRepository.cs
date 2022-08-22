@@ -1,12 +1,9 @@
-﻿using System.Net.Sockets;
-using System.Net.WebSockets;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using GetPong.Core.Core.Helpers;
 using GetPong.Core.Infrastructure.Entities.Games;
 using GetPong.Core.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 
 namespace GetPong.Infrastructure.MongoDb
@@ -58,6 +55,22 @@ namespace GetPong.Infrastructure.MongoDb
                     SetNo = doc.GetValue("", x.AsBsonDocument.GetValue("SetNo")).AsInt32
                 }).ToList()
             }).ToList();
+        }
+
+        public  List<Game> GetGamesByPlayerId(string playerId)
+        {
+            var builder = Builders<BsonDocument>.Filter;
+            var filter = builder.Eq("home_team_ids", playerId) | builder.Eq("away_team_ids", playerId);
+            var allGamesBson = MongoCollection.Find(filter).ToList();
+            var baj = new List<Game>();
+           
+
+            return allGamesBson.Select(i=> new Game(i)).ToList();
+            Console.WriteLine(allGamesBson);
+            return null;
+            
+            
+            
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using Base;
 using Game;
 using GetPong.Core.Handlers.Games;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
 using Grpc.Core;
+using Player;
 
 namespace GetPong.Services;
 
@@ -13,17 +15,20 @@ public class GameService : global::Game.GameService.GameServiceBase
     private readonly IGetGamesHandler _getGamesHandler;
     private readonly IGetPlayerByIdHandler _getPlayerByIdHandler;
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
+    private readonly IGetGamesByPlayerIdHandler _getGamesByPlayerIdHandler;
     private readonly IMapper _mapper;
 
+
     public GameService(IAddGameHandler addGameHandler, IMapper mapper, IGetGamesHandler getGamesHandler,
-        IGetPlayerByIdHandler getPlayerByIdHandler,
-        IUpdatePlayerHandler updatePlayerHandler)
+        IGetPlayersHandler getPlayersHandler, IGetPlayerByIdHandler getPlayerByIdHandler,
+        IUpdatePlayerHandler updatePlayerHandler, IGetGamesByPlayerIdHandler getGamesByPlayerIdHandler)
     {
         _addGameHandler = addGameHandler;
         _mapper = mapper;
         _getGamesHandler = getGamesHandler;
         _getPlayerByIdHandler = getPlayerByIdHandler;
         _updatePlayerHandler = updatePlayerHandler;
+        _getGamesByPlayerIdHandler = getGamesByPlayerIdHandler;
     }
 
     public override Task<SaveGameReply> SaveGame(SaveGameRequest request, ServerCallContext context)
@@ -42,7 +47,7 @@ public class GameService : global::Game.GameService.GameServiceBase
         var updated2 = _updatePlayerHandler.Handle(playerTwo.Id, playerTwoCommand);
 
         //For doubles
-        if (game.HomeTeamIds.Count != 2) return Task.FromResult(new SaveGameReply() { GameModel = gameModel });
+        if (game.HomeTeamIds.Count != 2) return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
 
         var playerThree = _getPlayerByIdHandler.Handle(game.HomeTeamIds[1]).Result;
         var playerFour = _getPlayerByIdHandler.Handle(game.AwayTeamIds[1]).Result;
@@ -54,7 +59,7 @@ public class GameService : global::Game.GameService.GameServiceBase
         var updated4 = _updatePlayerHandler.Handle(playerFour.Id, playerFourCommand);
         //
 
-        return Task.FromResult(new SaveGameReply() { GameModel = gameModel });
+        return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
     }
 
     public override Task<GetGamesReply> GetGames(GetGamesRequest request, ServerCallContext context)
@@ -62,6 +67,14 @@ public class GameService : global::Game.GameService.GameServiceBase
         var games = _getGamesHandler.Handle(request.Limit, request.Offset);
         var gameModel = _mapper.Map<List<GameModel>>(games);
 
-        return Task.FromResult(new GetGamesReply() { GameModel = { gameModel } });
+        return Task.FromResult(new GetGamesReply() {GameModel = {gameModel}});
+    }
+
+    public override async Task<GetGamesByPlayerIdReply> GetGamesById(GetGamesByPlayerIdRequest request,
+        ServerCallContext context)
+    {
+        var player = await _getGamesByPlayerIdHandler.Handle(request.Id);
+        var gameModel = _mapper.Map<List<GameModel>>(player);
+        return new GetGamesByPlayerIdReply() {GameModel = {gameModel}};
     }
 }

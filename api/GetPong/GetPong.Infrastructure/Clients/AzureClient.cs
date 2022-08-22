@@ -1,7 +1,7 @@
 ﻿using Azure.Identity;
 using GetPong.Core.Clients;
-using Microsoft.Graph;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Graph;
 
 namespace GetPong.Infrastructure.Clients;
 
@@ -24,7 +24,7 @@ public class AzureClient : IAzureClient
         var graphServiceClient = new GraphServiceClient(clientSecretCredential);
 
         IGraphServiceUsersCollectionPage? users = graphServiceClient.Users.Request().Top(999)
-            .Select(x => new { x.DisplayName, x.Mail, x.GivenName, x.Id }).GetAsync().Result;
+            .Select(x => new { x.DisplayName, x.Mail, x.GivenName, x.Id, x.AssignedLicenses, x.AssignedPlans}).GetAsync().Result;
 
         return users;
     }
