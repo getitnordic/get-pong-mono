@@ -62,15 +62,8 @@ namespace GetPong.Infrastructure.MongoDb
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Eq("home_team_ids", playerId) | builder.Eq("away_team_ids", playerId);
             var allGamesBson = MongoCollection.Find(filter).ToList();
-            var baj = new List<Game>();
-           
 
-            return allGamesBson.Select(i=> new Game(i)).ToList();
-            Console.WriteLine(allGamesBson);
-            return null;
-            
-            
-            
+            return allGamesBson.Select(i=> new Game(i)).ToList(); 
         }
     }
 }
