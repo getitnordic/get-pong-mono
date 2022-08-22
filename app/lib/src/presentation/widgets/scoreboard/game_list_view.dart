@@ -76,13 +76,13 @@ class _GameListViewState extends ConsumerState<GameListView>
                     itemBuilder: (context, index) {
                       bool isSameDate = true;
                       final currentMatch = matches[index];
-                      final currentDate = matches[index].timeStamp.toDateTime();
-
                       if (index == 0) {
                         isSameDate = false;
                       } else {
                         final previousDate =
                             matches[index - 1].timeStamp.toDateTime();
+                        final currentDate =
+                            matches[index].timeStamp.toDateTime();
                         isSameDate = currentDate.hasSameDate(previousDate);
                       }
                       if (index == 0 || !isSameDate) {
@@ -154,8 +154,7 @@ class _GameListViewState extends ConsumerState<GameListView>
                     match.timeStamp.toDateTime(),
                   ),
                   style: const TextStyle(
-                    color: ColorConstants.textColor,
-                  ),
+                      color: ColorConstants.textColor, fontSize: 14),
                 ),
               ),
               const SizedBox(

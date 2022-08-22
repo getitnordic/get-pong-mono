@@ -17,7 +17,6 @@ class GameRepositoryImpl implements GameRepository {
       limit: params.limit,
       offset: params.offset,
     );
-
     try {
       final response = await client.getGames(request);
       return DataSuccess(response.gameModel);
