@@ -1,16 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/core/models/update_profile_picture_params.dart';
 
 import '../../../protos/base.pb.dart';
 import '../../../protos/game.pb.dart';
 import '../../../register_services.dart';
 import '../../core/common/common.dart';
 import '../../core/models/models.dart';
+import '../../domain/use_cases/players/update_profile_picture_usecase.dart';
 import '../../domain/use_cases/use_cases.dart';
 
 final playersProvider =
     StateNotifierProvider<PlayersNotifier, List<PlayerModel>>((ref) =>
-        PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>(),
-            getIt<UpdatePlayerUseCase>(), ref.read));
+        PlayersNotifier(
+            getIt<GetPlayersUseCase>(),
+            getIt<AddPlayerUseCase>(),
+            getIt<UpdatePlayerUseCase>(),
+            getIt<UpdateProfilePictureUseCase>(),
+            ref.read));
 
 final playersLoadingProvider = StateProvider<bool>((ref) => false);
 
@@ -33,6 +39,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final GetPlayersUseCase getPlayersUseCase;
   final AddPlayerUseCase registerNewPlayerUseCase;
   final UpdatePlayerUseCase updatePlayerUseCase;
+  final UpdateProfilePictureUseCase updateProfilePictureUseCase;
   final Reader read;
   bool isLoading = false;
 
@@ -40,6 +47,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     this.getPlayersUseCase,
     this.registerNewPlayerUseCase,
     this.updatePlayerUseCase,
+    this.updateProfilePictureUseCase,
     this.read,
   ) : super([]);
 
@@ -155,5 +163,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
             : BlankPlayerModel.player,
         sets: match.sets,
         isDouble: checkDouble);
+  }
+
+  Future<DataState<String>> updateProfilePicture(
+      UpdateProfilePictureParams params) async {
+    return await updateProfilePictureUseCase(params: params);
   }
 }

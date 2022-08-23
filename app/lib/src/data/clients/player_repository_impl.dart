@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:get_pong/src/core/models/update_profile_picture_params.dart';
 import 'package:grpc/grpc.dart';
 
 import '../../../protos/protos.dart';
@@ -57,5 +58,12 @@ class PlayerRepositoryImpl implements PlayerRepository {
       }
       return DataFailed(e);
     }
+  }
+
+  @override
+  Future<DataState<String>> updateProfilePicture(
+      UpdateProfilePictureParams params) async {
+    print('Sending... User id: ${params.id} - Data: ${params.data}');
+    return const DataSuccess('SUCCESS');
   }
 }

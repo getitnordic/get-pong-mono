@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
+import 'package:get_pong/src/domain/use_cases/players/update_profile_picture_usecase.dart';
 
 import 'protos/protos.dart';
 import 'src/data/clients/clients.dart';
@@ -30,6 +31,8 @@ Future<void> initServices() async {
       .registerLazySingleton<AddPlayerUseCase>(() => AddPlayerUseCase(getIt()));
   getIt.registerLazySingleton<UpdatePlayerUseCase>(
       () => UpdatePlayerUseCase(getIt()));
+  getIt.registerLazySingleton<UpdateProfilePictureUseCase>(
+      () => UpdateProfilePictureUseCase(getIt()));
 
   //Game
   getIt.registerLazySingleton<GetGamesUseCase>(() => GetGamesUseCase(getIt()));
