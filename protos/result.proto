@@ -5,6 +5,7 @@ import "google/protobuf/timestamp.proto";
 service ResultService{
   rpc GetResultByGameId(GetResultByGameIdRequest) returns (GetResultByGameIdReply) {}
   rpc GetResultsByPlayerId(GetResultsByPlayerIdRequest) returns (GetResultsByPlayerIdReply) {}
+  rpc SaveResult(SaveResultRequest) returns (SaveResultReply) {}
 }
 
 
@@ -25,6 +26,16 @@ message GetResultsByPlayerIdRequest {
 
 message GetResultsByPlayerIdReply {
   repeated ResultModel resultModels = 1;
+}
+
+
+
+message SaveResultRequest {
+  ResultModel resultModel= 1;
+}
+
+message SaveResultReply {
+  ResultModel resultModel= 1;
 }
 
 // Model

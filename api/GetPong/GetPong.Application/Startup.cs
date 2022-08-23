@@ -28,6 +28,7 @@ namespace GetPong.Application
             services.AddScoped<IAddGameHandler, AddGameHandler>();
             services.AddScoped<IGetGamesHandler, GetGamesHandler>();
             services.AddScoped<IGetGamesByPlayerIdHandler, GetGamesByPlayerIdHandler>();
+            services.AddScoped<ISaveResultHandler, SaveResultHandler>();
 
             services.AddScoped<IGetResultByGameIdHandler, GetResultByGameIdHandler>();
             

@@ -28,6 +28,7 @@ namespace GetPong.Application.Handlers.Games
                 var wasSuccessfullySaved = _gameHelper.SaveSingleMatchScoreToDb(gameInDb);
             }
             
+            
 
             return gameInDb;
         }
