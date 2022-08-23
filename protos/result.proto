@@ -1,0 +1,37 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+service ResultService{
+  rpc GetResultByGameId(GetResultByGameIdRequest) returns (GetResultByGameIdReply) {}
+  rpc GetResultsByPlayerId(GetResultsByPlayerIdRequest) returns (GetResultsByPlayerIdReply) {}
+}
+
+
+message GetResultByGameIdRequest {
+  string gameId = 1;
+}
+message GetResultByGameIdReply {
+  ResultModel resultModel = 1;
+}
+
+
+
+message GetResultsByPlayerIdRequest {
+  string playerId = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message GetResultsByPlayerIdReply {
+  repeated ResultModel resultModels = 1;
+}
+
+// Model
+message ResultModel {
+  int32 eloDiff = 1;
+  int32 newElo = 2;
+  bool gameWon = 3;
+  google.protobuf.Timestamp timeStamp = 4;
+  string gameId = 5;
+}

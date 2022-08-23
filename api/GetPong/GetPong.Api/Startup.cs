@@ -39,6 +39,7 @@ public class Startup
         {
             endpoints.MapGrpcService<PlayerService>();
             endpoints.MapGrpcService<GameService>();
+            
 
             endpoints.MapGet("/", async context =>
             {
