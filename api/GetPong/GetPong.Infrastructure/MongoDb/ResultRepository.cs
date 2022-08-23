@@ -9,7 +9,6 @@ namespace GetPong.Infrastructure.MongoDb;
 
 public class ResultRepository : IResultRepository
 {
-
     private readonly IMongoCollection<BsonDocument> _mongoCollection;
     private readonly IConfiguration _configuration;
     private readonly IPlayerRepository _playerRepository;
@@ -34,68 +33,64 @@ public class ResultRepository : IResultRepository
 
     public Task<Result> SaveResult(Game game)
     {
-
         //Check which team won
+        //TODO make code more silky smooth
+        var homeTeamScore = 0;
+        var awayTeamScore = 0;
+        var didHomeTeamWin = false;
 
-        int homeTeamScore = 0;
-        int awayTeamScore = 0;
-        bool didHomeTeamWin = false;
-
-        for (int i = 0; i < game.Sets.Count; i++)
+        foreach (var gameSet in game.Sets)
         {
-            homeTeamScore += game.Sets[i].HomeTeam;
-            awayTeamScore += game.Sets[i].AwayTeam;
+            homeTeamScore += gameSet.HomeTeam;
+            awayTeamScore += gameSet.AwayTeam;
         }
 
-        if (homeTeamScore > awayTeamScore)
-        {
-            didHomeTeamWin = true;
-        }
-        
+        if (homeTeamScore > awayTeamScore) didHomeTeamWin = true;
+
         // singles match
         if (game.AwayTeamIds.Count == 1)
         {
-
             var player1 = _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
             var player2 = _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
+            var player1Doc = new BsonDocument();
+            var player2Doc = new BsonDocument();
 
             if (didHomeTeamWin)
             {
-                var player1Doc = new BsonDocument()
-                    .Add("elo_diff", player1.Result.TotalScore - player2.Result.TotalScore)
-                    .Add("new_elo", player1.Result.TotalScore + 10)
+                player1Doc
+                    .Add("elo_diff", player1.Result.TotalScore - player2.Result.TotalScore) //fix values
+                    .Add("new_elo", player1.Result.TotalScore + 10) //fix values
                     .Add("game_won", true)
                     .Add("time_stamp", game.TimeStamp);
-                
-                var player2Doc = new BsonDocument()
-                    .Add("elo_diff", player2.Result.TotalScore - player1.Result.TotalScore)
-                    .Add("new_elo", player2.Result.TotalScore - 10)
+
+                player2Doc
+                    .Add("elo_diff", player2.Result.TotalScore - player1.Result.TotalScore) //fix values
+                    .Add("new_elo", player2.Result.TotalScore - 10) //fix values
                     .Add("game_won", false)
                     .Add("time_stamp", game.TimeStamp);
-                _mongoCollection.InsertOne(player1Doc);  
-                _mongoCollection.InsertOne(player2Doc);   
+                _mongoCollection.InsertOne(player1Doc);
+                _mongoCollection.InsertOne(player2Doc);
             }
             else
             {
-                var player1Doc = new BsonDocument()
-                    .Add("elo_diff", player2.Result.TotalScore - player1.Result.TotalScore)
-                    .Add("new_elo", player1.Result.TotalScore - 10)
+                player1Doc
+                    .Add("elo_diff", player2.Result.TotalScore - player1.Result.TotalScore) //fix values
+                    .Add("new_elo", player1.Result.TotalScore - 10) //fix values
                     .Add("game_won", false)
                     .Add("time_stamp", game.TimeStamp);
-                
-                var player2Doc = new BsonDocument()
-                    .Add("elo_diff", player1.Result.TotalScore - player2.Result.TotalScore)
-                    .Add("new_elo", player2.Result.TotalScore + 10)
+
+                player2Doc
+                    .Add("elo_diff", player1.Result.TotalScore - player2.Result.TotalScore) //fix values
+                    .Add("new_elo", player2.Result.TotalScore + 10) //fix values
                     .Add("game_won", true)
                     .Add("time_stamp", game.TimeStamp);
-                _mongoCollection.InsertOne(player1Doc);  
-                _mongoCollection.InsertOne(player2Doc); 
+                _mongoCollection.InsertOne(player1Doc);
+                _mongoCollection.InsertOne(player2Doc);
             }
         }
         // doubles match
         else if (game.AwayTeamIds.Count == 2)
         {
-            
         }
 
         return null;
