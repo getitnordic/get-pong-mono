@@ -38,15 +38,17 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
       source: ImageSource.camera,
       imageQuality: 90,
     );
-    setState(() {
-      profilePicture = File(photo!.path);
-    });
+    if (photo != null) {
+      setState(() {
+        profilePicture = File(photo.path);
+      });
 
-    final imageBytes = await profilePicture!.readAsBytes();
-    final base64String = base64.encode(imageBytes);
-    ref.watch(playersProvider.notifier).updateProfilePictureUseCase(
-        params: UpdateProfilePictureParams(
-            id: widget.player.id, data: base64String));
+      final imageBytes = await profilePicture!.readAsBytes();
+      final base64String = base64.encode(imageBytes);
+      ref.watch(playersProvider.notifier).updateProfilePictureUseCase(
+          params: UpdateProfilePictureParams(
+              id: widget.player.id, data: base64String));
+    }
   }
 
   @override
