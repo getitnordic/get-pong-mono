@@ -14,7 +14,7 @@ public class GetResultByGameIdHandler : IGetResultByGameIdHandler
         _resultRepository = resultRepository;
     }
 
-    public async Task<Result> Handle(string gameId)
+    public async Task<List<Result>> Handle(string gameId)
     {
         return await _resultRepository.GetResultByGameId(gameId);
     }

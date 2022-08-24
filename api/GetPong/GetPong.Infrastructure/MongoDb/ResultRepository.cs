@@ -22,13 +22,12 @@ public class ResultRepository : IResultRepository
         _mongoCollection = mongoDatabase.GetCollection<BsonDocument>("results");
     }
 
-    public async Task<Result> GetResultByGameId(string gameId)
+    public Task<List<Result>> GetResultByGameId(string gameId)
     {
         var filter = Builders<BsonDocument>.Filter.Eq(id => id["game_id"], gameId);
-        var docs = await _mongoCollection.FindAsync(filter);
-        var doc = docs.FirstOrDefault();
-
-        return new Result(doc);
+        var docs =  _mongoCollection.Find(filter).ToList();
+        // var bsonList = docs.ToList();
+        return Task.FromResult(docs.Select(x => new Result(x)).ToList());
     }
 
     public Task<Result> SaveResult(Game game)

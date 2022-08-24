@@ -21,8 +21,8 @@ public class ResultService : global::ResultService.ResultServiceBase
     {
         var result = await _getResultByGameIdHandler.Handle(request.GameId);
        
-        var resultModel = _mapper.Map<ResultModel>(result);
+        var resultModel = _mapper.Map<List<ResultModel>>(result);
         
-        return new GetResultByGameIdReply() { ResultModel = resultModel };
+        return new GetResultByGameIdReply() { ResultModel = {resultModel} };
     }
 }
