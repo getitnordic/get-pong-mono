@@ -6,7 +6,6 @@ namespace GetPong.Application.Handlers.Results;
 
 public class GetResultsByPlayerId : IGetResultsByPlayerId
 {
-
     private readonly IResultRepository _resultRepository;
 
     public GetResultsByPlayerId(IResultRepository resultRepository)
@@ -14,8 +13,8 @@ public class GetResultsByPlayerId : IGetResultsByPlayerId
         _resultRepository = resultRepository;
     }
 
-    public List<Result> Handle(string playerId)
+    public List<Result> Handle(string playerId, int limit, int offset)
     {
-       return _resultRepository.GetResultsByPlayerId(playerId);
+        return _resultRepository.GetResultsByPlayerId(playerId, limit, offset);
     }
 }

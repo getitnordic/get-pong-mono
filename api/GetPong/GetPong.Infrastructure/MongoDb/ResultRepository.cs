@@ -30,6 +30,13 @@ public class ResultRepository : IResultRepository
         return Task.FromResult(docs.Select(x => new Result(x)).ToList());
     }
 
+    public List<Result> GetResultsByPlayerId(string playerId,  int limit, int offset)
+    {
+        var filter = Builders<BsonDocument>.Filter.Eq(id => id["player_id"], playerId);
+        var docs = _mongoCollection.Find(filter).Sort("{time_stamp: -1}").Skip(offset).Limit(limit).ToList();
+        return docs.Select(x => new Result(x)).ToList();
+    }
+
     public Task<Result> SaveResult(Game game)
     {
         //Check which team won
@@ -102,12 +109,4 @@ public class ResultRepository : IResultRepository
 
         return null;
     }
-
-    public List<Result> GetResultsByPlayerId(string playerId)
-    {
-        var filter = Builders<BsonDocument>.Filter.Eq(id => id["player_id"], playerId);
-        var docs = _mongoCollection.Find(filter).ToList();
-        return docs.Select(x => new Result(x)).ToList();
-    }
-
 }

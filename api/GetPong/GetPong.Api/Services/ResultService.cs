@@ -30,7 +30,7 @@ public class ResultService : global::ResultService.ResultServiceBase
 
     public override async Task<GetResultsByPlayerIdReply> GetResultsByPlayerId(GetResultsByPlayerIdRequest request, ServerCallContext context)
     {
-        var resultList = _getResultsByPlayerId.Handle(request.PlayerId);
+        var resultList = _getResultsByPlayerId.Handle(request.PlayerId, request.Limit, request.Offset);
         var resultModel = _mapper.Map<List<ResultModel>>(resultList);
         return new GetResultsByPlayerIdReply() { ResultModels = { resultModel } };
 
