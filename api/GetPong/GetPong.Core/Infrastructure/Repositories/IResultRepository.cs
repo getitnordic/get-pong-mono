@@ -7,5 +7,6 @@ public interface IResultRepository
 {
     Task<List<Result>> GetResultByGameId(string gameId);
     Task<Result> SaveResult(Game game);
+    List<Result> GetResultsByPlayerId(string playerId);
 
 }

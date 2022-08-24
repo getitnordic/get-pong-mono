@@ -15,6 +15,7 @@ public class Result
         GameWon = doc.GetValue("game_won").AsBoolean;;
         TimeStamp  = doc.GetValue("time_stamp").ToUniversalTime();;
         GameId  = doc.GetValue("game_id").AsString;
+        PlayerId = doc.GetValue("player_id").AsString;
     }
 
     public int EloDiff { set; get; }
@@ -23,4 +24,5 @@ public class Result
     [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
     public DateTime TimeStamp { get; set; }
     public string GameId { set; get; }
+    public string PlayerId { set; get; }
 }

@@ -45,4 +45,5 @@ message ResultModel {
   bool gameWon = 3;
   google.protobuf.Timestamp timeStamp = 4;
   string gameId = 5;
+  string playerId = 6;
 }

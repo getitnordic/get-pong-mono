@@ -61,13 +61,14 @@ public class ResultRepository : IResultRepository
                         .Add("new_elo", player1.Result.TotalScore + 10) //fix values
                         .Add("game_won", true)
                         .Add("time_stamp", game.TimeStamp)
-                        .Add("game_id", game.Id);
+                        .Add("player_id", game.HomeTeamIds[0]);
                     player2Doc
                         .Add("game_id", game.Id)
                         .Add("elo_diff", player2.Result.TotalScore - player1.Result.TotalScore) //fix values
                         .Add("new_elo", player2.Result.TotalScore - 10) //fix values
                         .Add("game_won", false)
-                        .Add("time_stamp", game.TimeStamp);
+                        .Add("time_stamp", game.TimeStamp)
+                        .Add("player_id", game.AwayTeamIds[0]);
 
                     _mongoCollection.InsertOne(player1Doc);
                     _mongoCollection.InsertOne(player2Doc);
@@ -79,14 +80,16 @@ public class ResultRepository : IResultRepository
                         .Add("elo_diff", player2.Result.TotalScore - player1.Result.TotalScore) //fix values
                         .Add("new_elo", player1.Result.TotalScore - 10) //fix values
                         .Add("game_won", false)
-                        .Add("time_stamp", game.TimeStamp);
+                        .Add("time_stamp", game.TimeStamp)
+                        .Add("player_id", game.HomeTeamIds[0]);
 
                     player2Doc
                         .Add("game_id", game.Id)
                         .Add("elo_diff", player1.Result.TotalScore - player2.Result.TotalScore) //fix values
                         .Add("new_elo", player2.Result.TotalScore + 10) //fix values
                         .Add("game_won", true)
-                        .Add("time_stamp", game.TimeStamp);
+                        .Add("time_stamp", game.TimeStamp)
+                        .Add("player_id", game.AwayTeamIds[0]);
                     _mongoCollection.InsertOne(player1Doc);
                     _mongoCollection.InsertOne(player2Doc);
                 }
@@ -99,4 +102,12 @@ public class ResultRepository : IResultRepository
 
         return null;
     }
+
+    public List<Result> GetResultsByPlayerId(string playerId)
+    {
+        var filter = Builders<BsonDocument>.Filter.Eq(id => id["player_id"], playerId);
+        var docs = _mongoCollection.Find(filter).ToList();
+        return docs.Select(x => new Result(x)).ToList();
+    }
+
 }
