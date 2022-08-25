@@ -11,6 +11,8 @@ service PlayerService{
   rpc GetPlayerById (GetPlayerByIdRequest) returns (GetPlayerByIdReply) {}
   rpc UpdatePlayer (UpdatePlayerRequest) returns (UpdatePlayerReply) {}
   rpc SyncAzureAdToDb(SyncAzureAdToDbRequest) returns (SyncAzureAdToDbReply){}
+  rpc UpdatePlayerPicture(UpdatePlayerPictureRequest) returns (UpdatePlayerPictureReply){}
+  rpc DeletePlayerPicture(DeletePlayerPictureRequest) returns (DeletePlayerPictureReply){}
 }
 
 // Register
@@ -56,4 +58,23 @@ message UpdatePlayerRequest {
 
 message UpdatePlayerReply {
   base.PlayerModel playerModel = 1;
+}
+
+// Update player picture
+message UpdatePlayerPictureRequest {
+  string playerId = 1;
+  string base64Data = 2;
+}
+
+message UpdatePlayerPictureReply {
+  string responseMessage = 1;
+}
+
+// Delete player picture
+message DeletePlayerPictureRequest {
+  string playerId = 1;
+}
+
+message DeletePlayerPictureReply {
+  string responseMessage = 1;
 }

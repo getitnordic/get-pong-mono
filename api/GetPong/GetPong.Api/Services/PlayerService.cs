@@ -14,10 +14,11 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly IGetPlayerByIdHandler _getPlayerByIdHandler;
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly ISyncAzureAdToDb _syncAzureAdToDb;
+    private readonly IUpdatePlayerPictureHandler _updatePlayerPictureHandler;
     private readonly IMapper _mapper;
 
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
-        IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb)
+        IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb, IUpdatePlayerPictureHandler updatePlayerPictureHandler)
 
     {
         _addPlayerHandler = addPlayerHandler;
@@ -26,6 +27,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         _updatePlayerHandler = updatePlayerHandler;
         _mapper = mapper;
         _syncAzureAdToDb = syncAzureAdToDb;
+        _updatePlayerPictureHandler = updatePlayerPictureHandler;
     }
 
     // Get all players
@@ -79,5 +81,11 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
 
         var test = _syncAzureAdToDb.Handle();
         return Task.FromResult(new SyncAzureAdToDbReply() { Message = "return a message of success/failure" });
+    }
+    
+    // Update player picture
+    public override Task<UpdatePlayerPictureReply> UpdatePlayerPicture(UpdatePlayerPictureRequest request, ServerCallContext context)
+    {
+        return Task.FromResult(new UpdatePlayerPictureReply() { ResponseMessage = _updatePlayerPictureHandler.Handle(request.PlayerId, request.Base64Data) });
     }
 }
