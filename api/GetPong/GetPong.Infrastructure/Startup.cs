@@ -12,6 +12,7 @@ namespace GetPong.Infrastructure
             // Repositories
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IResultRepository, ResultRepository>();
         }
     }
 }

@@ -16,12 +16,13 @@ public class GameService : global::Game.GameService.GameServiceBase
     private readonly IGetPlayerByIdHandler _getPlayerByIdHandler;
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly IGetGamesByPlayerIdHandler _getGamesByPlayerIdHandler;
+    private readonly ISaveResultHandler _saveResultHandler;
     private readonly IMapper _mapper;
 
 
     public GameService(IAddGameHandler addGameHandler, IMapper mapper, IGetGamesHandler getGamesHandler,
         IGetPlayersHandler getPlayersHandler, IGetPlayerByIdHandler getPlayerByIdHandler,
-        IUpdatePlayerHandler updatePlayerHandler, IGetGamesByPlayerIdHandler getGamesByPlayerIdHandler)
+        IUpdatePlayerHandler updatePlayerHandler, IGetGamesByPlayerIdHandler getGamesByPlayerIdHandler, ISaveResultHandler saveResultHandler)
     {
         _addGameHandler = addGameHandler;
         _mapper = mapper;
@@ -29,11 +30,14 @@ public class GameService : global::Game.GameService.GameServiceBase
         _getPlayerByIdHandler = getPlayerByIdHandler;
         _updatePlayerHandler = updatePlayerHandler;
         _getGamesByPlayerIdHandler = getGamesByPlayerIdHandler;
+        _saveResultHandler = saveResultHandler;
     }
 
     public override Task<SaveGameReply> SaveGame(SaveGameRequest request, ServerCallContext context)
     {
         var game = _addGameHandler.Handle(_mapper.Map<Core.Infrastructure.Entities.Games.Game>(request.GameModel));
+        //TODO: result value is never used right now
+        _saveResultHandler.Handle(game);
         var gameModel = _mapper.Map<GameModel>(game);
 
         //Update lastActivity on players in the game. Add functionality for doubles and make it cleaner later.
@@ -57,7 +61,6 @@ public class GameService : global::Game.GameService.GameServiceBase
         playerFourCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         var updated3 = _updatePlayerHandler.Handle(playerThree.Id, playerThreeCommand);
         var updated4 = _updatePlayerHandler.Handle(playerFour.Id, playerFourCommand);
-        //
 
         return Task.FromResult(new SaveGameReply() {GameModel = gameModel});
     }

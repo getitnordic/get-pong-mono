@@ -2,6 +2,7 @@
 using Base;
 using Game;
 using GetPong.Core.Infrastructure.Entities.Games;
+using GetPong.Core.Infrastructure.Entities.Results;
 using GetPong.Core.Models.Commands.Players;
 using Google.Protobuf.WellKnownTypes;
 using Player;
@@ -21,6 +22,7 @@ public class GetPongProfile : Profile
         CreateMap(typeof(SetModel), typeof(GameSet)).ReverseMap();
         CreateMap(typeof(PlayerModel), typeof(UpdatePlayerCommand)).ReverseMap();
         CreateMap(typeof(Core.Infrastructure.Entities.Players.Player), typeof(UpdatePlayerCommand)).ReverseMap();
+        CreateMap(typeof(ResultModel), typeof(Result)).ReverseMap();
         CreateMap<DateTime, Timestamp>().ConvertUsing<TimestampConverter>();
         CreateMap<Timestamp, DateTime>().ConvertUsing<DateTimeConverter>();
     }
