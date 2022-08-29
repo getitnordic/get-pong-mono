@@ -12,11 +12,20 @@ public class BlobRepository : IBlobRepository
 
     public async Task<string> UpdatePlayerPicture(string playerId, string base64Data)
     {
-        // write base64Data to blobstorage where playerId = playerId
-        var blob = container.GetBlobClient(blobStorageContainerName);
-        var data = Convert.FromBase64String(base64Data);
-        Stream stream = new MemoryStream(data);
-        await container.UploadBlobAsync("pp_id_" + playerId + ".jpg", stream);
+        try
+        {
+// write base64Data to blobstorage where playerId = playerId
+            var blob = container.GetBlobClient(blobStorageContainerName);
+            var data = Convert.FromBase64String(base64Data);
+            Stream stream = new MemoryStream(data);
+            await container.UploadBlobAsync("pp_id_" + playerId + ".jpg", stream);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+        
 
         // TODO: Add imageUrl to player collection in mongoDB aswell
         return "picture uploaded";

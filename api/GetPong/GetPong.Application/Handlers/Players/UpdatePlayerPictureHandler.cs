@@ -13,9 +13,9 @@ public class UpdatePlayerPictureHandler : IUpdatePlayerPictureHandler
         _blobRepository = blobRepository;
     }
 
-    public string Handle(string playerId, string base64Data)
+    public async Task<string> Handle(string playerId, string base64Data)
     {
-        var responseMessage = _blobRepository.UpdatePlayerPicture(playerId, base64Data);
+        var responseMessage = await _blobRepository.UpdatePlayerPicture(playerId, base64Data);
         
         //TODO: this retrieves name of thread, change this to something that makes sense
         return responseMessage.ToString();

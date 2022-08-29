@@ -84,8 +84,9 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     }
     
     // Update player picture
-    public override Task<UpdatePlayerPictureReply> UpdatePlayerPicture(UpdatePlayerPictureRequest request, ServerCallContext context)
+    public override async Task<UpdatePlayerPictureReply> UpdatePlayerPicture(UpdatePlayerPictureRequest request, ServerCallContext context)
     {
-        return Task.FromResult(new UpdatePlayerPictureReply() { ResponseMessage = _updatePlayerPictureHandler.Handle(request.PlayerId, request.Base64Data) });
+        var response = await _updatePlayerPictureHandler.Handle(request.PlayerId, request.Base64Data);
+        return await Task.FromResult(new UpdatePlayerPictureReply() { ResponseMessage = response });
     }
 }
