@@ -7,17 +7,19 @@ import '../../../../../protos/game.pbgrpc.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/players_notifier.dart';
+import '../../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
 import '../../../../core/common/common.dart';
 import '../../custom_small_container.dart';
-import 'scoreboard_controller.dart';
 import 'scoreboard_set_score.dart';
 
 class ScoreboardCard extends ConsumerWidget
     with SetProfileImageMixin, FormatDateMixin {
   final GameModel match;
+  final ScoreboardController controller;
   const ScoreboardCard({
     Key? key,
     required this.match,
+    required this.controller,
   }) : super(key: key);
 
   @override

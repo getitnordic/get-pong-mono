@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/protos/game.pbgrpc.dart';
+import 'package:get_pong/src/core/models/match_details_arguments.dart';
+import 'package:get_pong/src/presentation/pages/match_details_page.dart';
 import 'package:get_pong/src/presentation/pages/stats_page.dart';
 
 import '../../enums/player_select_choice.dart';
 import '../../protos/base.pb.dart';
-import '../../src/Presentation/pages/match_details_page.dart';
 import '../../src/Presentation/pages/pages.dart';
 import '../../src/core/models/score_page_arguments.dart';
 
@@ -41,12 +43,21 @@ Route<dynamic> controller(RouteSettings settings) {
       {
         final player = settings.arguments as PlayerModel;
         return MaterialPageRoute(
-            builder: (context) => ProfilePage(
-                  player: player,
-                ));
+          builder: (context) => ProfilePage(
+            player: player,
+          ),
+        );
       }
     case matchDetailsPage:
-      return MaterialPageRoute(builder: (context) => const MatchDetailsPage());
+      {
+        final args = settings.arguments as MatchDetailsArguments;
+        return MaterialPageRoute(
+          builder: (context) => MatchDetailsPage(
+            arguments: args,
+          ),
+        );
+      }
+
     case statsPage:
       return MaterialPageRoute(builder: (context) => const StatsPage());
     default:

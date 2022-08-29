@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
 
 import '../../../protos/protos.dart';
 import '../../../register_services.dart';
 import '../../core/common/common.dart';
 import '../../core/models/models.dart';
+import '../../domain/use_cases/games/get_games_by_id_usecase.dart';
 import '../../domain/use_cases/use_cases.dart';
 import 'players_notifier.dart';
 
@@ -16,7 +16,7 @@ final matchesProvider =
 
 final playerGamesProvider = FutureProvider.family
     .autoDispose<List<GameModel>, String>((ref, playerId) async {
-  return ref.read(matchesProvider.notifier).getMatchesByPlayerId(playerId);
+  return ref.watch(matchesProvider.notifier).getMatchesByPlayerId(playerId);
 });
 
 final fetchingMatchesProvider = StateProvider<bool>((ref) => false);

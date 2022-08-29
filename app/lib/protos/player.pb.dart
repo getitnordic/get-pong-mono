@@ -9,7 +9,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'base.pb.dart' as $3;
+import 'base.pb.dart' as $4;
 
 class RegisterExternalRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RegisterExternalRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
@@ -88,13 +88,13 @@ class RegisterExternalRequest extends $pb.GeneratedMessage {
 
 class RegisterExternalReply extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'RegisterExternalReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
-    ..aOM<$3.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $3.PlayerModel.create)
+    ..aOM<$4.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $4.PlayerModel.create)
     ..hasRequiredFields = false
   ;
 
   RegisterExternalReply._() : super();
   factory RegisterExternalReply({
-    $3.PlayerModel? playerModel,
+    $4.PlayerModel? playerModel,
   }) {
     final _result = create();
     if (playerModel != null) {
@@ -124,15 +124,15 @@ class RegisterExternalReply extends $pb.GeneratedMessage {
   static RegisterExternalReply? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.PlayerModel get playerModel => $_getN(0);
+  $4.PlayerModel get playerModel => $_getN(0);
   @$pb.TagNumber(1)
-  set playerModel($3.PlayerModel v) { setField(1, v); }
+  set playerModel($4.PlayerModel v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPlayerModel() => $_has(0);
   @$pb.TagNumber(1)
   void clearPlayerModel() => clearField(1);
   @$pb.TagNumber(1)
-  $3.PlayerModel ensurePlayerModel() => $_ensure(0);
+  $4.PlayerModel ensurePlayerModel() => $_ensure(0);
 }
 
 class GetPlayersRequest extends $pb.GeneratedMessage {
@@ -166,13 +166,13 @@ class GetPlayersRequest extends $pb.GeneratedMessage {
 
 class GetPlayersReply extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPlayersReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
-    ..pc<$3.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', $pb.PbFieldType.PM, protoName: 'playerModel', subBuilder: $3.PlayerModel.create)
+    ..pc<$4.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', $pb.PbFieldType.PM, protoName: 'playerModel', subBuilder: $4.PlayerModel.create)
     ..hasRequiredFields = false
   ;
 
   GetPlayersReply._() : super();
   factory GetPlayersReply({
-    $core.Iterable<$3.PlayerModel>? playerModel,
+    $core.Iterable<$4.PlayerModel>? playerModel,
   }) {
     final _result = create();
     if (playerModel != null) {
@@ -202,7 +202,7 @@ class GetPlayersReply extends $pb.GeneratedMessage {
   static GetPlayersReply? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.List<$3.PlayerModel> get playerModel => $_getList(0);
+  $core.List<$4.PlayerModel> get playerModel => $_getList(0);
 }
 
 class SyncAzureAdToDbRequest extends $pb.GeneratedMessage {
@@ -330,13 +330,13 @@ class GetPlayerByIdRequest extends $pb.GeneratedMessage {
 
 class GetPlayerByIdReply extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetPlayerByIdReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
-    ..aOM<$3.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $3.PlayerModel.create)
+    ..aOM<$4.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $4.PlayerModel.create)
     ..hasRequiredFields = false
   ;
 
   GetPlayerByIdReply._() : super();
   factory GetPlayerByIdReply({
-    $3.PlayerModel? playerModel,
+    $4.PlayerModel? playerModel,
   }) {
     final _result = create();
     if (playerModel != null) {
@@ -366,26 +366,26 @@ class GetPlayerByIdReply extends $pb.GeneratedMessage {
   static GetPlayerByIdReply? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.PlayerModel get playerModel => $_getN(0);
+  $4.PlayerModel get playerModel => $_getN(0);
   @$pb.TagNumber(1)
-  set playerModel($3.PlayerModel v) { setField(1, v); }
+  set playerModel($4.PlayerModel v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPlayerModel() => $_has(0);
   @$pb.TagNumber(1)
   void clearPlayerModel() => clearField(1);
   @$pb.TagNumber(1)
-  $3.PlayerModel ensurePlayerModel() => $_ensure(0);
+  $4.PlayerModel ensurePlayerModel() => $_ensure(0);
 }
 
 class UpdatePlayerRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdatePlayerRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
-    ..aOM<$3.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $3.PlayerModel.create)
+    ..aOM<$4.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $4.PlayerModel.create)
     ..hasRequiredFields = false
   ;
 
   UpdatePlayerRequest._() : super();
   factory UpdatePlayerRequest({
-    $3.PlayerModel? playerModel,
+    $4.PlayerModel? playerModel,
   }) {
     final _result = create();
     if (playerModel != null) {
@@ -415,26 +415,26 @@ class UpdatePlayerRequest extends $pb.GeneratedMessage {
   static UpdatePlayerRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.PlayerModel get playerModel => $_getN(0);
+  $4.PlayerModel get playerModel => $_getN(0);
   @$pb.TagNumber(1)
-  set playerModel($3.PlayerModel v) { setField(1, v); }
+  set playerModel($4.PlayerModel v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPlayerModel() => $_has(0);
   @$pb.TagNumber(1)
   void clearPlayerModel() => clearField(1);
   @$pb.TagNumber(1)
-  $3.PlayerModel ensurePlayerModel() => $_ensure(0);
+  $4.PlayerModel ensurePlayerModel() => $_ensure(0);
 }
 
 class UpdatePlayerReply extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdatePlayerReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
-    ..aOM<$3.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $3.PlayerModel.create)
+    ..aOM<$4.PlayerModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerModel', protoName: 'playerModel', subBuilder: $4.PlayerModel.create)
     ..hasRequiredFields = false
   ;
 
   UpdatePlayerReply._() : super();
   factory UpdatePlayerReply({
-    $3.PlayerModel? playerModel,
+    $4.PlayerModel? playerModel,
   }) {
     final _result = create();
     if (playerModel != null) {
@@ -464,14 +464,14 @@ class UpdatePlayerReply extends $pb.GeneratedMessage {
   static UpdatePlayerReply? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $3.PlayerModel get playerModel => $_getN(0);
+  $4.PlayerModel get playerModel => $_getN(0);
   @$pb.TagNumber(1)
-  set playerModel($3.PlayerModel v) { setField(1, v); }
+  set playerModel($4.PlayerModel v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPlayerModel() => $_has(0);
   @$pb.TagNumber(1)
   void clearPlayerModel() => clearField(1);
   @$pb.TagNumber(1)
-  $3.PlayerModel ensurePlayerModel() => $_ensure(0);
+  $4.PlayerModel ensurePlayerModel() => $_ensure(0);
 }
 

@@ -6,6 +6,10 @@ import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pb.dart';
 import '../../../../utils/extensions/compare_date.dart';
 import '../../../../utils/mixins/format_date_mixin.dart';
+import '../../../Presentation/providers/players_notifier.dart';
+import '../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
+import '../../../core/common/blank_player_model.dart';
+import '../../../core/models/match_details_arguments.dart';
 import '../../providers/matches_notifier.dart';
 import '../widgets.dart';
 import 'updated_scorecard/scoreboard_card.dart';
@@ -74,6 +78,27 @@ class _GameListViewState extends ConsumerState<GameListView>
                     shrinkWrap: true,
                     itemCount: matches.length,
                     itemBuilder: (context, index) {
+                      final isDouble = matches[index].homeTeamIds.length == 2;
+                      final controller = ScoreboardController(
+                        homeTeamOne: ref
+                            .watch(playersProvider.notifier)
+                            .getPlayerById(matches[index].homeTeamIds[0]),
+                        awayTeamOne: ref
+                            .watch(playersProvider.notifier)
+                            .getPlayerById(matches[index].awayTeamIds[0]),
+                        homeTeamTwo: isDouble
+                            ? ref
+                                .watch(playersProvider.notifier)
+                                .getPlayerById(matches[index].homeTeamIds[1])
+                            : BlankPlayerModel.player,
+                        awayTeamTwo: isDouble
+                            ? ref
+                                .watch(playersProvider.notifier)
+                                .getPlayerById(matches[index].awayTeamIds[1])
+                            : BlankPlayerModel.player,
+                        match: matches[index],
+                      );
+
                       bool isSameDate = true;
                       final currentMatch = matches[index];
                       if (index == 0) {
@@ -86,9 +111,11 @@ class _GameListViewState extends ConsumerState<GameListView>
                         isSameDate = currentDate.hasSameDate(previousDate);
                       }
                       if (index == 0 || !isSameDate) {
-                        return _scoreboardCardWithDate(currentMatch);
+                        return _scoreboardCardWithDate(
+                            currentMatch, controller);
                       } else {
-                        return _scoreboardCardWithoutDate(currentMatch);
+                        return _scoreboardCardWithoutDate(
+                            currentMatch, controller);
                       }
                     },
                   ),
@@ -131,7 +158,9 @@ class _GameListViewState extends ConsumerState<GameListView>
     }
   }
 
-  Widget _scoreboardCardWithDate(GameModel match) => Column(
+  Widget _scoreboardCardWithDate(
+          GameModel match, ScoreboardController controller) =>
+      Column(
         children: [
           const SizedBox(
             height: 30,
@@ -173,8 +202,13 @@ class _GameListViewState extends ConsumerState<GameListView>
             onTap: () => Navigator.pushNamed(
               context,
               route.matchDetailsPage,
+              arguments:
+                  MatchDetailsArguments(game: match, controller: controller),
             ),
-            child: ScoreboardCard(match: match),
+            child: ScoreboardCard(
+              match: match,
+              controller: controller,
+            ),
             //ScoreboardListItem(
             //match: matches[index],
             //),
@@ -182,14 +216,21 @@ class _GameListViewState extends ConsumerState<GameListView>
         ],
       );
 
-  Widget _scoreboardCardWithoutDate(GameModel match) => Column(
+  Widget _scoreboardCardWithoutDate(
+          GameModel match, ScoreboardController controller) =>
+      Column(
         children: [
           GestureDetector(
             onTap: () => Navigator.pushNamed(
               context,
               route.matchDetailsPage,
+              arguments:
+                  MatchDetailsArguments(game: match, controller: controller),
             ),
-            child: ScoreboardCard(match: match),
+            child: ScoreboardCard(
+              match: match,
+              controller: controller,
+            ),
             //ScoreboardListItem(
             //match: matches[index],
             //),

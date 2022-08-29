@@ -9,8 +9,8 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $2;
-import 'base.pb.dart' as $3;
+import 'google/protobuf/timestamp.pb.dart' as $3;
+import 'base.pb.dart' as $4;
 
 class GetGamesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetGamesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
@@ -303,20 +303,20 @@ class SaveGameReply extends $pb.GeneratedMessage {
 class GameModel extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GameModel', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aOM<$2.Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeStamp', protoName: 'timeStamp', subBuilder: $2.Timestamp.create)
+    ..aOM<$3.Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeStamp', protoName: 'timeStamp', subBuilder: $3.Timestamp.create)
     ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeTeamIds', protoName: 'homeTeamIds')
     ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'awayTeamIds', protoName: 'awayTeamIds')
-    ..pc<$3.SetModel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sets', $pb.PbFieldType.PM, subBuilder: $3.SetModel.create)
+    ..pc<$4.SetModel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sets', $pb.PbFieldType.PM, subBuilder: $4.SetModel.create)
     ..hasRequiredFields = false
   ;
 
   GameModel._() : super();
   factory GameModel({
     $core.String? id,
-    $2.Timestamp? timeStamp,
+    $3.Timestamp? timeStamp,
     $core.Iterable<$core.String>? homeTeamIds,
     $core.Iterable<$core.String>? awayTeamIds,
-    $core.Iterable<$3.SetModel>? sets,
+    $core.Iterable<$4.SetModel>? sets,
   }) {
     final _result = create();
     if (id != null) {
@@ -367,15 +367,15 @@ class GameModel extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $2.Timestamp get timeStamp => $_getN(1);
+  $3.Timestamp get timeStamp => $_getN(1);
   @$pb.TagNumber(2)
-  set timeStamp($2.Timestamp v) { setField(2, v); }
+  set timeStamp($3.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasTimeStamp() => $_has(1);
   @$pb.TagNumber(2)
   void clearTimeStamp() => clearField(2);
   @$pb.TagNumber(2)
-  $2.Timestamp ensureTimeStamp() => $_ensure(1);
+  $3.Timestamp ensureTimeStamp() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $core.List<$core.String> get homeTeamIds => $_getList(2);
@@ -384,6 +384,6 @@ class GameModel extends $pb.GeneratedMessage {
   $core.List<$core.String> get awayTeamIds => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<$3.SetModel> get sets => $_getList(4);
+  $core.List<$4.SetModel> get sets => $_getList(4);
 }
 

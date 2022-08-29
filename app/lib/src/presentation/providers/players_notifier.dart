@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/core/models/update_profile_picture_params.dart';
 
 import '../../../protos/base.pb.dart';
 import '../../../protos/game.pb.dart';
 import '../../../register_services.dart';
 import '../../core/common/common.dart';
 import '../../core/models/models.dart';
+import '../../core/models/update_profile_picture_params.dart';
 import '../../domain/use_cases/players/update_profile_picture_usecase.dart';
 import '../../domain/use_cases/use_cases.dart';
 
@@ -22,17 +22,17 @@ final playersLoadingProvider = StateProvider<bool>((ref) => false);
 
 final topRanksProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.read(playersProvider.notifier).getTopRanks();
+  return ref.watch(playersProvider.notifier).getTopRanks();
 });
 
 final latestPlayersProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.read(playersProvider.notifier).getLatestPlayers();
+  return ref.watch(playersProvider.notifier).getLatestPlayers();
 });
 
 final allPlayersProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.read(playersProvider.notifier).getAllPlayers();
+  return ref.watch(playersProvider.notifier).getAllPlayers();
 });
 
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
