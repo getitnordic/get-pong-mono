@@ -10,6 +10,7 @@ public class ExceptionInterceptor : Grpc.Core.Interceptors.Interceptor
     public ExceptionInterceptor(ILogger<ExceptionInterceptor> logger)
     {
         _logger = logger;
+        Console.WriteLine("logger created");
     }
 
     public override async Task<TResponse> UnaryServerHandler<TRequest, TResponse>(TRequest request,
