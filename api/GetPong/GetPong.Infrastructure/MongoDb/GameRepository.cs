@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using GetPong.Core.Core.Helpers;
 using GetPong.Core.Infrastructure.Entities.Games;
 using GetPong.Core.Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -11,12 +10,10 @@ namespace GetPong.Infrastructure.MongoDb
     public class GameRepository : IGameRepository
     {
         private readonly IMongoCollection<BsonDocument> MongoCollection;
-        private readonly IHelper _helper;
         private readonly IConfiguration _configuration;
 
-        public GameRepository(IHelper helper, IConfiguration configuration)
+        public GameRepository(IConfiguration configuration)
         {
-            _helper = helper;
             _configuration = configuration;
             var MongoClient = new MongoClient(_configuration["MongoDb:ConnectionString"]);
             var MongoDatabase = MongoClient.GetDatabase("gpdb");

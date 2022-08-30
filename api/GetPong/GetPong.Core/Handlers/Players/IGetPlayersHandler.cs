@@ -1,9 +1,8 @@
 using GetPong.Core.Infrastructure.Entities.Players;
 
-namespace GetPong.Core.Handlers.Players
+namespace GetPong.Core.Handlers.Players;
+
+public interface IGetPlayersHandler
 {
-    public interface IGetPlayersHandler
-    {
-        List<Player> Handle();
-    }
+    List<Player> Handle();
 }

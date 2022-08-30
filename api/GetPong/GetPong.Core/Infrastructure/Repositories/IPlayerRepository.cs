@@ -5,7 +5,7 @@ namespace GetPong.Core.Infrastructure.Repositories
 {
     public interface IPlayerRepository
     {
-        Player RegisterPlayer(Player player);
+        void RegisterPlayer(Player player);
 
         List<Player> GetPlayers();
 

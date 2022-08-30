@@ -1,5 +1,6 @@
 using Azure.Storage.Blobs;
 using GetPong.Core.Infrastructure.Repositories;
+using Grpc.Core;
 using Microsoft.Extensions.Configuration;
 
 namespace GetPong.Infrastructure.BlobStorage;
@@ -28,11 +29,11 @@ public class BlobRepository : IBlobRepository
         }
         catch (Exception e)
         {
+            //TODO: Why doesn't this catch the error?
             Console.WriteLine(e);
-            throw;
+            throw new RpcException(new Status(StatusCode.Internal, "Something went wrong in the upload, maybe the user already have an image?"));
         }
 
-        // TODO: Add imageUrl to player collection in mongoDB aswell
         return "picture uploaded";
     }
 

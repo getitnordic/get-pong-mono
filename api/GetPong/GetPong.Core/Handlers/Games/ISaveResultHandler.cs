@@ -5,5 +5,5 @@ namespace GetPong.Core.Handlers.Games;
 
 public interface ISaveResultHandler
 {
-    Task<Result> Handle(Game game);
+    void Handle(Game game);
 }

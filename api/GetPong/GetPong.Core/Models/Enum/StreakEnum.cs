@@ -1,9 +1,8 @@
-namespace GetPong.Core.Models.Enum
+namespace GetPong.Core.Models.Enum;
+
+public enum StreakEnum
 {
-    public enum StreakEnum
-    {
-        None = 0,
-        Win = 1,
-        Loss = 2
-    }
+    None = 0,
+    Win = 1,
+    Loss = 2
 }

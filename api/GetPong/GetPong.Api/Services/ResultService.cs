@@ -14,15 +14,14 @@ public class ResultService : global::ResultService.ResultServiceBase
     public ResultService(IGetResultByGameIdHandler getResultByGameIdHandler, IMapper mapper, IGetResultsByPlayerId getResultsByPlayerId)
     {
         _getResultByGameIdHandler = getResultByGameIdHandler;
-        _mapper = mapper;
         _getResultsByPlayerId = getResultsByPlayerId;
+        _mapper = mapper;
     }
 
     public override async Task<GetResultByGameIdReply> GetResultByGameId(GetResultByGameIdRequest request,
         ServerCallContext context)
     {
         var result = await _getResultByGameIdHandler.Handle(request.GameId);
-       
         var resultModel = _mapper.Map<List<ResultModel>>(result);
         
         return new GetResultByGameIdReply() { ResultModel = {resultModel} };
@@ -32,7 +31,7 @@ public class ResultService : global::ResultService.ResultServiceBase
     {
         var resultList = _getResultsByPlayerId.Handle(request.PlayerId, request.Limit, request.Offset);
         var resultModel = _mapper.Map<List<ResultModel>>(resultList);
+        
         return new GetResultsByPlayerIdReply() { ResultModels = { resultModel } };
-
     }
 }

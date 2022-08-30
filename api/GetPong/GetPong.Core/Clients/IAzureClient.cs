@@ -4,5 +4,5 @@ namespace GetPong.Core.Clients;
 
 public interface IAzureClient
 {
-    IGraphServiceUsersCollectionPage getAzureClient();
+    IGraphServiceUsersCollectionPage GetAzureClient();
 }
