@@ -15,10 +15,13 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     private readonly IUpdatePlayerHandler _updatePlayerHandler;
     private readonly ISyncAzureAdToDb _syncAzureAdToDb;
     private readonly IUpdatePlayerPictureHandler _updatePlayerPictureHandler;
+    private readonly IDeletePlayerPictureHandler _deletePlayerPictureHandler;
     private readonly IMapper _mapper;
 
     public PlayerService(IAddPlayerHandler addPlayerHandler, IGetPlayersHandler getPlayersHandler,
-        IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper, ISyncAzureAdToDb syncAzureAdToDb, IUpdatePlayerPictureHandler updatePlayerPictureHandler)
+        IGetPlayerByIdHandler getPlayerByIdHandler, IUpdatePlayerHandler updatePlayerHandler, IMapper mapper,
+        ISyncAzureAdToDb syncAzureAdToDb, IUpdatePlayerPictureHandler updatePlayerPictureHandler,
+        IDeletePlayerPictureHandler deletePlayerPictureHandler)
 
     {
         _addPlayerHandler = addPlayerHandler;
@@ -28,6 +31,7 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         _mapper = mapper;
         _syncAzureAdToDb = syncAzureAdToDb;
         _updatePlayerPictureHandler = updatePlayerPictureHandler;
+        _deletePlayerPictureHandler = deletePlayerPictureHandler;
     }
 
     // Get all players
@@ -78,15 +82,24 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
     public override Task<SyncAzureAdToDbReply> SyncAzureAdToDb(SyncAzureAdToDbRequest request,
         ServerCallContext context)
     {
-
         var test = _syncAzureAdToDb.Handle();
         return Task.FromResult(new SyncAzureAdToDbReply() { Message = "return a message of success/failure" });
     }
-    
+
     // Update player picture
-    public override async Task<UpdatePlayerPictureReply> UpdatePlayerPicture(UpdatePlayerPictureRequest request, ServerCallContext context)
+    public override async Task<UpdatePlayerPictureReply> UpdatePlayerPicture(UpdatePlayerPictureRequest request,
+        ServerCallContext context)
     {
         var response = await _updatePlayerPictureHandler.Handle(request.PlayerId, request.Base64Data);
         return await Task.FromResult(new UpdatePlayerPictureReply() { ResponseMessage = response });
+    }
+
+    // Delete player picture
+
+    public override async Task<DeletePlayerPictureReply> DeletePlayerPicture(DeletePlayerPictureRequest request,
+        ServerCallContext context)
+    {
+        var response = _deletePlayerPictureHandler.Handle(request.PlayerId);
+        return await Task.FromResult(new DeletePlayerPictureReply() { ResponseMessage = response.Result });
     }
 }
