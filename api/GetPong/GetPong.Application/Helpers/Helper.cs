@@ -5,7 +5,7 @@ namespace GetPong.Application.Helpers;
 
 public class Helper : IHelper
 {
-    public string getStringValue(BsonDocument doc, string key)
+    public string GetStringValue(BsonDocument doc, string key)
     {
         try
         {
@@ -17,7 +17,7 @@ public class Helper : IHelper
         }
     }
 
-    public int getIntValue(BsonDocument doc, string key)
+    public int GetIntValue(BsonDocument doc, string key)
     {
         try
         {
@@ -29,7 +29,7 @@ public class Helper : IHelper
         }
     }
 
-    public long getLongValue(BsonDocument doc, string key)
+    public long GetLongValue(BsonDocument doc, string key)
     {
         try
         {

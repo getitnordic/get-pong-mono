@@ -15,7 +15,6 @@ public class DeletePlayerPictureHandler : IDeletePlayerPictureHandler
 
     public async Task<string> Handle(string playerId)
     {
-        var response = await _blobRepository.DeletePlayerPicture(playerId);
-        return response;
+        return await _blobRepository.DeletePlayerPicture(playerId);
     }
 }

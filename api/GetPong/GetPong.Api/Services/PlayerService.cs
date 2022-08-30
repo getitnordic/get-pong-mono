@@ -28,78 +28,75 @@ public class PlayerService : global::Player.PlayerService.PlayerServiceBase
         _getPlayersHandler = getPlayersHandler;
         _getPlayerByIdHandler = getPlayerByIdHandler;
         _updatePlayerHandler = updatePlayerHandler;
-        _mapper = mapper;
         _syncAzureAdToDb = syncAzureAdToDb;
         _updatePlayerPictureHandler = updatePlayerPictureHandler;
         _deletePlayerPictureHandler = deletePlayerPictureHandler;
+        _mapper = mapper;
     }
 
-    // Get all players
     public override Task<GetPlayersReply> GetPlayers(GetPlayersRequest request, ServerCallContext context)
     {
-        List<Core.Infrastructure.Entities.Players.Player> players = _getPlayersHandler.Handle();
-
+        var players = _getPlayersHandler.Handle();
         var playerModels = _mapper.Map<List<PlayerModel>>(players);
 
         return Task.FromResult(new GetPlayersReply() { PlayerModel = { playerModels } });
     }
 
-    // Get player by ID
     public override async Task<GetPlayerByIdReply> GetPlayerById(GetPlayerByIdRequest request,
         ServerCallContext context)
     {
         var player = await _getPlayerByIdHandler.Handle(request.PlayerId);
         var playerModel = _mapper.Map<PlayerModel>(player);
+
         return new GetPlayerByIdReply() { PlayerModel = playerModel };
     }
 
-    // Register external player
     public override Task<RegisterExternalReply> RegisterExternal(RegisterExternalRequest request,
         ServerCallContext context)
     {
-        var player =
-            _addPlayerHandler.Handle(
-                _mapper.Map<AddPlayerCommand>(request));
-
+        var player = _addPlayerHandler.Handle(_mapper.Map<AddPlayerCommand>(request));
         var externalUser = _mapper.Map<PlayerModel>(player);
 
         return Task.FromResult(new RegisterExternalReply() { PlayerModel = externalUser });
     }
 
-
-    //Update player
     public override async Task<UpdatePlayerReply> UpdatePlayer(UpdatePlayerRequest request, ServerCallContext context)
     {
-        var updatedPlayer =
-            await _updatePlayerHandler.Handle(request.PlayerModel.Id,
-                _mapper.Map<UpdatePlayerCommand>(request.PlayerModel));
-
+        var updatedPlayer = await _updatePlayerHandler.Handle(request.PlayerModel.Id,
+            _mapper.Map<UpdatePlayerCommand>(request.PlayerModel));
         var updatedPlayerModel = _mapper.Map<PlayerModel>(updatedPlayer);
+
         return await Task.FromResult(new UpdatePlayerReply() { PlayerModel = updatedPlayerModel });
     }
 
-    //Sync ad to db
     public override Task<SyncAzureAdToDbReply> SyncAzureAdToDb(SyncAzureAdToDbRequest request,
         ServerCallContext context)
     {
-        var test = _syncAzureAdToDb.Handle();
-        return Task.FromResult(new SyncAzureAdToDbReply() { Message = "return a message of success/failure" });
+        try
+        {
+           _syncAzureAdToDb.Handle();
+        }
+        catch (Exception)
+        {
+            throw new RpcException(new Status(StatusCode.Internal, "Something went wrong"));
+        }
+
+        return Task.FromResult(new SyncAzureAdToDbReply() { Message = "Successfully synced AD users to database" });
     }
 
-    // Update player picture
     public override async Task<UpdatePlayerPictureReply> UpdatePlayerPicture(UpdatePlayerPictureRequest request,
         ServerCallContext context)
     {
         var response = await _updatePlayerPictureHandler.Handle(request.PlayerId, request.Base64Data);
+
         return await Task.FromResult(new UpdatePlayerPictureReply() { ResponseMessage = response });
     }
-
-    // Delete player picture
 
     public override async Task<DeletePlayerPictureReply> DeletePlayerPicture(DeletePlayerPictureRequest request,
         ServerCallContext context)
     {
         var response = _deletePlayerPictureHandler.Handle(request.PlayerId);
+
         return await Task.FromResult(new DeletePlayerPictureReply() { ResponseMessage = response.Result });
     }
 }
