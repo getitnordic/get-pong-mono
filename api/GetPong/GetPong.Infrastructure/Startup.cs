@@ -1,4 +1,5 @@
 using GetPong.Core.Infrastructure.Repositories;
+using GetPong.Infrastructure.BlobStorage;
 using GetPong.Infrastructure.MongoDb;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +14,7 @@ namespace GetPong.Infrastructure
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddScoped<IResultRepository, ResultRepository>();
+            services.AddScoped<IBlobRepository, BlobRepository>();
         }
     }
 }

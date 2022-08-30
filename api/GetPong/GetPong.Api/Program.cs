@@ -1,4 +1,5 @@
 using GetPong.Api;
+using NLog.Web;
 
 namespace GetPong
 {
@@ -13,7 +14,7 @@ namespace GetPong
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseNLog();
 
         //For running on macOS
         // private static IHostBuilder CreateHostBuilder(string[] args) =>
