@@ -6,7 +6,6 @@ public class ExceptionInterceptor : Grpc.Core.Interceptors.Interceptor
 {
     private readonly ILogger<ExceptionInterceptor> _logger;
 
-
     public ExceptionInterceptor(ILogger<ExceptionInterceptor> logger)
     {
         _logger = logger;

@@ -5,7 +5,7 @@ namespace GetPong.Core.Infrastructure.Repositories
 {
     public interface IPlayerRepository
     {
-        Player RegisterPlayer(Player player);
+        void RegisterPlayer(Player player);
 
         List<Player> GetPlayers();
 
@@ -14,6 +14,6 @@ namespace GetPong.Core.Infrastructure.Repositories
         Task<Player> UpdatePlayer(string playerId, UpdatePlayerCommand updatePlayerCommand);
 
         void UpdateScoreOfPlayer(string playerId, bool didPlayerWin);
-
+        
     }
 }

@@ -2,22 +2,19 @@ using GetPong.Core.Handlers.Players;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 
-namespace GetPong.Application.old.Handlers.Players
+namespace GetPong.Application.Handlers.Players;
+
+public class GetPlayersHandler : IGetPlayersHandler
 {
-    public class GetPlayersHandler : IGetPlayersHandler
+    private readonly IPlayerRepository _playerRepository;
+
+    public GetPlayersHandler(IPlayerRepository playerRepository)
     {
-        private readonly IPlayerRepository _playerRepository;
+        _playerRepository = playerRepository;
+    }
 
-        public GetPlayersHandler(IPlayerRepository playerRepository)
-        {
-            _playerRepository = playerRepository;
-        }
-
-        public List<Player> Handle()
-        {
-            return _playerRepository.GetPlayers();
-
-        }
-
+    public List<Player> Handle()
+    {
+        return _playerRepository.GetPlayers();
     }
 }

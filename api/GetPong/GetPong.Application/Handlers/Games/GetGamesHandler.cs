@@ -15,9 +15,6 @@ public class GetGamesHandler : IGetGamesHandler
 
     public List<Game> Handle(int limit, int offset)
     {
-        // TODO: This should probably only query the documents we actually want, instead of getting all and then doing the pagenation?
-        var games = _gameRepository.GetGames(offset, limit);
-
-        return games;
+        return _gameRepository.GetGames(offset, limit);
     }
 }

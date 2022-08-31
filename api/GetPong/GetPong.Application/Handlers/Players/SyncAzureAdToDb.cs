@@ -4,13 +4,18 @@ using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 using GetPong.Core.Models.Enum;
 using Microsoft.Graph;
+using NLog;
 
 namespace GetPong.Application.Handlers.Players;
 
 public class SyncAzureAdToDb : ISyncAzureAdToDb
 {
     private readonly IPlayerRepository _playerRepository;
+
     private readonly IAzureClient _azureClient;
+
+    //TODO: Dependency injection how?
+    private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
 
     public SyncAzureAdToDb(IPlayerRepository playerRepository, IAzureClient azureClient)
@@ -19,10 +24,9 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
         _azureClient = azureClient;
     }
 
-    public List<Player> Handle()
+    public void Handle()
     {
-        var users = _azureClient.getAzureClient();
-
+        var users = _azureClient.GetAzureClient();
         var listOfUsers = (from user in users
             where !user.DisplayName.Contains("admin", StringComparison.CurrentCultureIgnoreCase) &&
                   !user.DisplayName.Contains("getit", StringComparison.CurrentCultureIgnoreCase) &&
@@ -51,14 +55,13 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
                 LastActivity = DateTime.SpecifyKind(new DateTime(2000, 1, 1), DateTimeKind.Utc)
             }).DistinctBy(i => i.FullName).ToList();
 
-        
-
         var playersInMongoDb = _playerRepository.GetPlayers();
         var isAdUserAlreadyInDb = false;
 
         foreach (var player in listOfUsers)
         {
-            foreach (var playerInMongoDb in playersInMongoDb.Where(playerInMongoDb => playerInMongoDb.AzureAdId.Equals(player.AzureAdId)))
+            foreach (var playerInMongoDb in playersInMongoDb.Where(playerInMongoDb =>
+                         playerInMongoDb.AzureAdId.Equals(player.AzureAdId)))
             {
                 isAdUserAlreadyInDb = true;
             }
@@ -66,17 +69,11 @@ public class SyncAzureAdToDb : ISyncAzureAdToDb
             if (!isAdUserAlreadyInDb)
             {
                 _playerRepository.RegisterPlayer(player);
-                // TODO: Exchange Console.Writeline with real logging in the future
-                Console.WriteLine(player.FullName + " added to mongo player collection");
-            }
-            else
-            {
-                // TODO: logging here fore users already exists in DB);
+                _logger.Info($"{player.FullName}({player.Id}) synced from AD to mongoDB");
+                Console.WriteLine($"{player.FullName} added to mongo player collection");
             }
 
             isAdUserAlreadyInDb = false;
         }
-
-        return listOfUsers;
     }
 }

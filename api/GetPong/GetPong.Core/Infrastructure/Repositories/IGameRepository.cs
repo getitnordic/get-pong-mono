@@ -1,11 +1,10 @@
 ﻿using GetPong.Core.Infrastructure.Entities.Games;
 
-namespace GetPong.Core.Infrastructure.Repositories
+namespace GetPong.Core.Infrastructure.Repositories;
+
+public interface IGameRepository
 {
-    public interface IGameRepository
-    {
-        Game AddGame(Game game);
-        List<Game> GetGames(int offset, int limit);
-        List<Game> GetGamesByPlayerId(string id);
-    }
+    Game AddGame(Game game);
+    List<Game> GetGames(int offset, int limit);
+    List<Game> GetGamesByPlayerId(string id);
 }

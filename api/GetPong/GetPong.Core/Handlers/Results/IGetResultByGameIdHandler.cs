@@ -4,5 +4,5 @@ namespace GetPong.Core.Handlers.Results;
 
 public interface IGetResultByGameIdHandler
 {
-    Task<List<Result>> Handle(String gameId);
+    Task<List<Result>> Handle(string gameId);
 }

@@ -28,7 +28,6 @@ public class GetPongProfile : Profile
     }
 }
 
-//TODO Put these where?
 public class TimestampConverter : ITypeConverter<DateTime, Timestamp>
 {
     public Timestamp Convert(DateTime source, Timestamp destination, ResolutionContext context)

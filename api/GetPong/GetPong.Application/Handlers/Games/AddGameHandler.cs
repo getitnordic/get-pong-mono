@@ -20,15 +20,9 @@ namespace GetPong.Application.Handlers.Games
         {
             var gameInDb = _gameRepository.AddGame(game);
             if (game.HomeTeamIds.Count == 2)
-            {
-                var wasSuccessfullySaved = _gameHelper.SaveDoubleMatchScoreToDb(gameInDb);
-            }
+                _gameHelper.SaveDoubleMatchScoreToDb(gameInDb);
             else
-            {
-                var wasSuccessfullySaved = _gameHelper.SaveSingleMatchScoreToDb(gameInDb);
-            }
-            
-            
+                _gameHelper.SaveSingleMatchScoreToDb(gameInDb);
 
             return gameInDb;
         }
