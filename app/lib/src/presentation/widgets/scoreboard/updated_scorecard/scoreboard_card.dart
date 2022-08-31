@@ -10,6 +10,7 @@ import '../../../../Presentation/providers/players_notifier.dart';
 import '../../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
 import '../../../../core/common/common.dart';
 import '../../custom_small_container.dart';
+import '../../my_profile_image.dart';
 import 'scoreboard_set_score.dart';
 
 class ScoreboardCard extends ConsumerWidget
@@ -47,7 +48,7 @@ class ScoreboardCard extends ConsumerWidget
 
     final result = controller.getMatchScore();
     const fontSize = 12.0;
-    const imageSize = 10.0;
+    const imageSize = 20.0;
     const setScoreWidth = 20.0;
     final screenWidth = MediaQuery.of(context).size.width;
     final sidePadding = screenWidth > 800 ? screenWidth * 0.2 : 0.0;
@@ -85,10 +86,9 @@ class ScoreboardCard extends ConsumerWidget
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(10, 0, 10, 2),
-                                    child: CircleAvatar(
-                                      radius: imageSize,
-                                      backgroundImage: NetworkImage(setImage(
-                                          controller.homeTeamOne.imageUrl)),
+                                    child: MyProfileImage(
+                                      playerId: controller.homeTeamOne.id,
+                                      size: imageSize,
                                     ),
                                   ),
                                   Text(
@@ -112,11 +112,10 @@ class ScoreboardCard extends ConsumerWidget
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: CircleAvatar(
-                                        radius: imageSize,
-                                        backgroundImage: NetworkImage(setImage(
-                                            controller.homeTeamTwo.imageUrl)),
-                                      ),
+                                      child: MyProfileImage(
+                                      playerId: controller.homeTeamTwo.id,
+                                      size: imageSize,
+                                    ),
                                     ),
                                     Text(
                                       controller.homeTeamTwo.fullName,
@@ -194,10 +193,9 @@ class ScoreboardCard extends ConsumerWidget
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(10, 0, 10, 2),
-                                    child: CircleAvatar(
-                                      radius: imageSize,
-                                      backgroundImage: NetworkImage(setImage(
-                                          controller.awayTeamOne.imageUrl)),
+                                    child: MyProfileImage(
+                                      playerId: controller.awayTeamOne.id,
+                                      size: imageSize,
                                     ),
                                   ),
                                   Text(
@@ -221,11 +219,10 @@ class ScoreboardCard extends ConsumerWidget
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: CircleAvatar(
-                                        radius: imageSize,
-                                        backgroundImage: NetworkImage(setImage(
-                                            controller.awayTeamTwo.imageUrl)),
-                                      ),
+                                      child: MyProfileImage(
+                                      playerId: controller.homeTeamTwo.id,
+                                      size: imageSize,
+                                    ),
                                     ),
                                     Text(
                                       controller.awayTeamTwo.fullName,

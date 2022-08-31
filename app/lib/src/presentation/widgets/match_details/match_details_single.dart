@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/protos/protos.dart';
+import 'package:get_pong/src/presentation/widgets/my_profile_image.dart';
+
+import '../../../../protos/protos.dart';
 
 class MatchDetailsSingle extends StatelessWidget {
   final List<ResultModel> results;
@@ -18,9 +20,19 @@ class MatchDetailsSingle extends StatelessWidget {
       children: [
         Row(
           children: [
-            Text(homeTeam.fullName),
+            Column(
+              children: [
+                MyProfileImage(playerId: homeTeam.id, size: 50),
+                Text(homeTeam.fullName),
+              ],
+            ),
             const Text(' - '),
-            Text(awayTeam.fullName)
+            Column(
+              children: [
+                MyProfileImage(playerId: awayTeam.id, size: 50),
+                Text(awayTeam.fullName),
+              ],
+            ),
           ],
         )
       ],

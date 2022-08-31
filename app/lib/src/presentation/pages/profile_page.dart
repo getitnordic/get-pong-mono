@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/core/models/update_profile_picture_params.dart';
+import 'package:get_pong/src/presentation/widgets/my_profile_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -83,10 +84,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                           ),
                         )
                       : Center(
-                          child: CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(setImage(widget.player.imageUrl)),
-                            radius: 80,
+                          child: MyProfileImage(
+                            playerId: widget.player.id,
+                            size: 140,
                           ),
                         ),
                   Positioned(
