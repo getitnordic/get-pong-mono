@@ -475,3 +475,205 @@ class UpdatePlayerReply extends $pb.GeneratedMessage {
   $4.PlayerModel ensurePlayerModel() => $_ensure(0);
 }
 
+class UpdatePlayerPictureRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdatePlayerPictureRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerId', protoName: 'playerId')
+    ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'base64Data', protoName: 'base64Data')
+    ..hasRequiredFields = false
+  ;
+
+  UpdatePlayerPictureRequest._() : super();
+  factory UpdatePlayerPictureRequest({
+    $core.String? playerId,
+    $core.String? base64Data,
+  }) {
+    final _result = create();
+    if (playerId != null) {
+      _result.playerId = playerId;
+    }
+    if (base64Data != null) {
+      _result.base64Data = base64Data;
+    }
+    return _result;
+  }
+  factory UpdatePlayerPictureRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdatePlayerPictureRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdatePlayerPictureRequest clone() => UpdatePlayerPictureRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdatePlayerPictureRequest copyWith(void Function(UpdatePlayerPictureRequest) updates) => super.copyWith((message) => updates(message as UpdatePlayerPictureRequest)) as UpdatePlayerPictureRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdatePlayerPictureRequest create() => UpdatePlayerPictureRequest._();
+  UpdatePlayerPictureRequest createEmptyInstance() => create();
+  static $pb.PbList<UpdatePlayerPictureRequest> createRepeated() => $pb.PbList<UpdatePlayerPictureRequest>();
+  @$core.pragma('dart2js:noInline')
+  static UpdatePlayerPictureRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdatePlayerPictureRequest>(create);
+  static UpdatePlayerPictureRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get playerId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set playerId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPlayerId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPlayerId() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get base64Data => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set base64Data($core.String v) { $_setString(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasBase64Data() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearBase64Data() => clearField(2);
+}
+
+class UpdatePlayerPictureReply extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'UpdatePlayerPictureReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'responseMessage', protoName: 'responseMessage')
+    ..hasRequiredFields = false
+  ;
+
+  UpdatePlayerPictureReply._() : super();
+  factory UpdatePlayerPictureReply({
+    $core.String? responseMessage,
+  }) {
+    final _result = create();
+    if (responseMessage != null) {
+      _result.responseMessage = responseMessage;
+    }
+    return _result;
+  }
+  factory UpdatePlayerPictureReply.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory UpdatePlayerPictureReply.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  UpdatePlayerPictureReply clone() => UpdatePlayerPictureReply()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  UpdatePlayerPictureReply copyWith(void Function(UpdatePlayerPictureReply) updates) => super.copyWith((message) => updates(message as UpdatePlayerPictureReply)) as UpdatePlayerPictureReply; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static UpdatePlayerPictureReply create() => UpdatePlayerPictureReply._();
+  UpdatePlayerPictureReply createEmptyInstance() => create();
+  static $pb.PbList<UpdatePlayerPictureReply> createRepeated() => $pb.PbList<UpdatePlayerPictureReply>();
+  @$core.pragma('dart2js:noInline')
+  static UpdatePlayerPictureReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<UpdatePlayerPictureReply>(create);
+  static UpdatePlayerPictureReply? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get responseMessage => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set responseMessage($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasResponseMessage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearResponseMessage() => clearField(1);
+}
+
+class DeletePlayerPictureRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DeletePlayerPictureRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'playerId', protoName: 'playerId')
+    ..hasRequiredFields = false
+  ;
+
+  DeletePlayerPictureRequest._() : super();
+  factory DeletePlayerPictureRequest({
+    $core.String? playerId,
+  }) {
+    final _result = create();
+    if (playerId != null) {
+      _result.playerId = playerId;
+    }
+    return _result;
+  }
+  factory DeletePlayerPictureRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeletePlayerPictureRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeletePlayerPictureRequest clone() => DeletePlayerPictureRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeletePlayerPictureRequest copyWith(void Function(DeletePlayerPictureRequest) updates) => super.copyWith((message) => updates(message as DeletePlayerPictureRequest)) as DeletePlayerPictureRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeletePlayerPictureRequest create() => DeletePlayerPictureRequest._();
+  DeletePlayerPictureRequest createEmptyInstance() => create();
+  static $pb.PbList<DeletePlayerPictureRequest> createRepeated() => $pb.PbList<DeletePlayerPictureRequest>();
+  @$core.pragma('dart2js:noInline')
+  static DeletePlayerPictureRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeletePlayerPictureRequest>(create);
+  static DeletePlayerPictureRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get playerId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set playerId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPlayerId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPlayerId() => clearField(1);
+}
+
+class DeletePlayerPictureReply extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'DeletePlayerPictureReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'player'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'responseMessage', protoName: 'responseMessage')
+    ..hasRequiredFields = false
+  ;
+
+  DeletePlayerPictureReply._() : super();
+  factory DeletePlayerPictureReply({
+    $core.String? responseMessage,
+  }) {
+    final _result = create();
+    if (responseMessage != null) {
+      _result.responseMessage = responseMessage;
+    }
+    return _result;
+  }
+  factory DeletePlayerPictureReply.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DeletePlayerPictureReply.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  DeletePlayerPictureReply clone() => DeletePlayerPictureReply()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  DeletePlayerPictureReply copyWith(void Function(DeletePlayerPictureReply) updates) => super.copyWith((message) => updates(message as DeletePlayerPictureReply)) as DeletePlayerPictureReply; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DeletePlayerPictureReply create() => DeletePlayerPictureReply._();
+  DeletePlayerPictureReply createEmptyInstance() => create();
+  static $pb.PbList<DeletePlayerPictureReply> createRepeated() => $pb.PbList<DeletePlayerPictureReply>();
+  @$core.pragma('dart2js:noInline')
+  static DeletePlayerPictureReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DeletePlayerPictureReply>(create);
+  static DeletePlayerPictureReply? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get responseMessage => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set responseMessage($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasResponseMessage() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearResponseMessage() => clearField(1);
+}
+
