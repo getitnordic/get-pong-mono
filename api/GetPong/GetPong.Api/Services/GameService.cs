@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Base;
 using Game;
+using GetPong.Application.Helpers;
 using GetPong.Core.Handlers.Games;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
@@ -39,10 +40,17 @@ public class GameService : global::Game.GameService.GameServiceBase
         var game = _addGameHandler.Handle(_mapper.Map<Core.Infrastructure.Entities.Games.Game>(request.GameModel));
         _saveResultHandler.Handle(game);
         var gameModel = _mapper.Map<GameModel>(game);
+        
+        
 
         //Update lastActivity on players in the game. 
         var playerOne = _getPlayerByIdHandler.Handle(game.HomeTeamIds[0]).Result;
         var playerTwo = _getPlayerByIdHandler.Handle(game.AwayTeamIds[0]).Result;
+        
+        var calculatedElo = EloHelper.CalculateElo(playerOne.TotalScore, playerTwo.TotalScore, EloHelper.GameOutcome.Win);
+        
+        
+        
         var playerOneCommand = _mapper.Map<UpdatePlayerCommand>(playerOne);
         var playerTwoCommand = _mapper.Map<UpdatePlayerCommand>(playerTwo);
         playerOneCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
