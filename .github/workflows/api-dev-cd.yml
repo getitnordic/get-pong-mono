@@ -48,6 +48,7 @@ jobs:
           AzureAd.ClientId: "df75520c-c168-4c9e-a9b9-ccb7045fd434"
           AzureAd.ClientSecret: ${{ secrets.AZ_CLIENT_SECRET }}
           MongoDb.ConnectionString: ${{ secrets.CONNSTR_DEV }}
+          BlobStorage.ConnectionString: ${{ secrets.BLOB_CONNSTR }}
 
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
