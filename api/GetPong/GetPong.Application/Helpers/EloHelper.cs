@@ -15,14 +15,15 @@ public class EloHelper
         return 1 / (1 + Math.Pow(10, (playerTwoRating - playerOneRating) / 400.0));
     }
 
-    public static void CalculateElo(ref int playerOneRating, ref int playerTwoRating, GameOutcome outcome)
+    public static int[] CalculateElo(int playerOneRating, int playerTwoRating, GameOutcome outcome)
     {
-        const int eloK = 32;
+        const int eloK = 50;
 
         var delta = (int) (eloK * ((int) outcome - ExpectationToWin(playerOneRating, playerTwoRating)));
-
-
+        
         playerTwoRating -= delta;
         playerOneRating += delta;
+        int[] x = {playerOneRating, playerTwoRating};
+        return x;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GetPong.Core.Core.Helpers;
 using GetPong.Core.Infrastructure.Entities.Games;
+using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
 
 namespace GetPong.Application.Helpers;
@@ -31,8 +32,23 @@ public class GameHelper : IGameHelper
         var team1Win = player1Score > player2Score;
         var team2Win = player2Score > player1Score;
 
-        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win);
-        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win);
+        EloHelper.GameOutcome winnerVariable;
+        if (team1Win)
+        {
+            winnerVariable = EloHelper.GameOutcome.Win;
+        }
+        else
+        {
+            winnerVariable = EloHelper.GameOutcome.Loss;
+        }
+
+        var playerOne = _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
+        var playerTwo = _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
+        var calculatedElo =
+            EloHelper.CalculateElo(playerOne.Result.TotalScore, playerTwo.Result.TotalScore, winnerVariable);
+
+        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, calculatedElo[0]);
+        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, calculatedElo[1]);
     }
 
     public void SaveDoubleMatchScoreToDb(Game game)
@@ -48,10 +64,34 @@ public class GameHelper : IGameHelper
 
         var team1Win = team1SetsWon > team2SetsWon;
         var team2Win = team2SetsWon > team1SetsWon;
+
+        EloHelper.GameOutcome winnerVariable;
+        if (team1Win)
+        {
+            winnerVariable = EloHelper.GameOutcome.Win;
+        }
+        else
+        {
+            winnerVariable = EloHelper.GameOutcome.Loss;
+        }
         
-        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win);
-        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win);
-        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win);
-        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win);
+        var playerOne = _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
+        var playerTwo = _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
+        var playerThree = _playerRepository.GetPlayerById(game.HomeTeamIds[1]);
+        var playerFour = _playerRepository.GetPlayerById(game.AwayTeamIds[1]);
+
+        var t1 = playerOne.Result.TotalScore + playerThree.Result.TotalScore / 2;
+        var t2 = playerTwo.Result.TotalScore + playerFour.Result.TotalScore / 2;
+        var calculatedElo =
+            EloHelper.CalculateElo(t1, t2, winnerVariable);
+
+        // var diff = calculatedElo[0] - t1;
+        
+        //TODO: Calculate duo elo diffs correctly
+
+        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, calculatedElo[0]);
+        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, calculatedElo[0]);
+        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, calculatedElo[1]);
+        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, calculatedElo[1]);
     }
 }

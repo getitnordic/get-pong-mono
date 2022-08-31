@@ -47,10 +47,6 @@ public class GameService : global::Game.GameService.GameServiceBase
         var playerOne = _getPlayerByIdHandler.Handle(game.HomeTeamIds[0]).Result;
         var playerTwo = _getPlayerByIdHandler.Handle(game.AwayTeamIds[0]).Result;
         
-        var calculatedElo = EloHelper.CalculateElo(playerOne.TotalScore, playerTwo.TotalScore, EloHelper.GameOutcome.Win);
-        
-        
-        
         var playerOneCommand = _mapper.Map<UpdatePlayerCommand>(playerOne);
         var playerTwoCommand = _mapper.Map<UpdatePlayerCommand>(playerTwo);
         playerOneCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);

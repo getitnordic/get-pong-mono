@@ -96,7 +96,7 @@ public class PlayerRepository : IPlayerRepository
         };
     }
 
-    public async void UpdateScoreOfPlayer(string playerId, bool didPlayerWin)
+    public async void UpdateScoreOfPlayer(string playerId, bool didPlayerWin, int newElo)
     {
         var objectId = ObjectId.Parse(playerId);
         var filter = Builders<BsonDocument>.Filter.Eq(d => d["_id"], objectId);
@@ -104,6 +104,7 @@ public class PlayerRepository : IPlayerRepository
 
         var isPlayerOnWinStreak = getPlayer.StreakEnum == StreakEnum.Win;
 
+        
         var playerDoc = didPlayerWin switch
         {
             true when isPlayerOnWinStreak => new BsonDocument().Add("_id", ObjectId.Parse(playerId))
@@ -114,7 +115,7 @@ public class PlayerRepository : IPlayerRepository
                 .Add("streak", getPlayer.Streak + 1)
                 .Add("win", getPlayer.Win + 1)
                 .Add("loss", getPlayer.Loss)
-                .Add("total_score", getPlayer.TotalScore + 10)
+                .Add("total_score", newElo)
                 .Add("streak_enum", 1)
                 .Add("azure_ad_id", getPlayer.AzureAdId)
                 .Add("last_activity", getPlayer.LastActivity),
@@ -126,7 +127,7 @@ public class PlayerRepository : IPlayerRepository
                 .Add("streak", 1)
                 .Add("win", getPlayer.Win + 1)
                 .Add("loss", getPlayer.Loss)
-                .Add("total_score", getPlayer.TotalScore + 10)
+                .Add("total_score", newElo)
                 .Add("streak_enum", 1)
                 .Add("azure_ad_id", getPlayer.AzureAdId)
                 .Add("last_activity", getPlayer.LastActivity),
@@ -138,7 +139,7 @@ public class PlayerRepository : IPlayerRepository
                 .Add("streak", 1)
                 .Add("win", getPlayer.Win)
                 .Add("loss", getPlayer.Loss + 1)
-                .Add("total_score", getPlayer.TotalScore + 10)
+                .Add("total_score", newElo)
                 .Add("streak_enum", 2)
                 .Add("azure_ad_id", getPlayer.AzureAdId)
                 .Add("last_activity", getPlayer.LastActivity),
@@ -150,7 +151,7 @@ public class PlayerRepository : IPlayerRepository
                 .Add("streak", getPlayer.Streak + 1)
                 .Add("win", getPlayer.Win)
                 .Add("loss", getPlayer.Loss + 1)
-                .Add("total_score", getPlayer.TotalScore - 10)
+                .Add("total_score", newElo)
                 .Add("streak_enum", 2)
                 .Add("azure_ad_id", getPlayer.AzureAdId)
                 .Add("last_activity", getPlayer.LastActivity)

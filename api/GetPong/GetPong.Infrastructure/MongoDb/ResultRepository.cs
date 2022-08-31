@@ -60,6 +60,7 @@ public class ResultRepository : IResultRepository
 
         switch (game.AwayTeamIds.Count)
         {
+            //TODO Update elo values with actual ELO values from games played
             // singles match
             case 1:
             {
