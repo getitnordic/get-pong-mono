@@ -33,14 +33,7 @@ public class GameHelper : IGameHelper
         var team2Win = player2Score > player1Score;
 
         EloHelper.GameOutcome winnerVariable;
-        if (team1Win)
-        {
-            winnerVariable = EloHelper.GameOutcome.Win;
-        }
-        else
-        {
-            winnerVariable = EloHelper.GameOutcome.Loss;
-        }
+        winnerVariable = team1Win ? EloHelper.GameOutcome.Win : EloHelper.GameOutcome.Loss;
 
         var playerOne = _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
         var playerTwo = _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
@@ -66,32 +59,32 @@ public class GameHelper : IGameHelper
         var team2Win = team2SetsWon > team1SetsWon;
 
         EloHelper.GameOutcome winnerVariable;
-        if (team1Win)
-        {
-            winnerVariable = EloHelper.GameOutcome.Win;
-        }
-        else
-        {
-            winnerVariable = EloHelper.GameOutcome.Loss;
-        }
-        
+        winnerVariable = team1Win ? EloHelper.GameOutcome.Win : EloHelper.GameOutcome.Loss;
+
         var playerOne = _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
         var playerTwo = _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
         var playerThree = _playerRepository.GetPlayerById(game.HomeTeamIds[1]);
         var playerFour = _playerRepository.GetPlayerById(game.AwayTeamIds[1]);
 
-        var t1 = playerOne.Result.TotalScore + playerThree.Result.TotalScore / 2;
-        var t2 = playerTwo.Result.TotalScore + playerFour.Result.TotalScore / 2;
-        var calculatedElo =
-            EloHelper.CalculateElo(t1, t2, winnerVariable);
+        var t1 = (playerOne.Result.TotalScore + playerThree.Result.TotalScore) / 2;
+        var t2 = (playerTwo.Result.TotalScore + playerFour.Result.TotalScore) / 2;
+        var calculatedElo = EloHelper.CalculateElo(t1, t2, winnerVariable);
 
-        // var diff = calculatedElo[0] - t1;
-        
-        //TODO: Calculate duo elo diffs correctly
+        var diff = Math.Abs(calculatedElo[0] - t1) / 2;
 
-        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, calculatedElo[0]);
-        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, calculatedElo[0]);
-        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, calculatedElo[1]);
-        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, calculatedElo[1]);
+        if (team1Win)
+        {
+            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, playerOne.Result.TotalScore + diff);
+            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, playerThree.Result.TotalScore + diff);
+            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, playerTwo.Result.TotalScore - diff);
+            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, playerFour.Result.TotalScore - diff);
+        }
+        else
+        {
+            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, playerOne.Result.TotalScore - diff);
+            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, playerThree.Result.TotalScore - diff);
+            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, playerTwo.Result.TotalScore + diff);
+            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, playerFour.Result.TotalScore + diff);
+        }
     }
 }
