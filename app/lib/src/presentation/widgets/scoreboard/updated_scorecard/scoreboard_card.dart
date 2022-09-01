@@ -65,15 +65,6 @@ class ScoreboardCard extends ConsumerWidget
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Text(
-                    //   formatDate(
-                    //     match.timeStamp.toDateTime(),
-                    //   ),
-                    //   style: GoogleFonts.goldman(
-                    //     fontSize: 11,
-                    //     color: ColorConstants.secondaryTextColor,
-                    //   ),
-                    // ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -113,9 +104,9 @@ class ScoreboardCard extends ConsumerWidget
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       child: MyProfileImage(
-                                      playerId: controller.homeTeamTwo.id,
-                                      size: imageSize,
-                                    ),
+                                        playerId: controller.homeTeamTwo.id,
+                                        size: imageSize,
+                                      ),
                                     ),
                                     Text(
                                       controller.homeTeamTwo.fullName,
@@ -220,9 +211,9 @@ class ScoreboardCard extends ConsumerWidget
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
                                       child: MyProfileImage(
-                                      playerId: controller.homeTeamTwo.id,
-                                      size: imageSize,
-                                    ),
+                                        playerId: controller.homeTeamTwo.id,
+                                        size: imageSize,
+                                      ),
                                     ),
                                     Text(
                                       controller.awayTeamTwo.fullName,

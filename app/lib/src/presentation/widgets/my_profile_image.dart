@@ -1,7 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get_pong/constants/constants.dart';
-import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
+
+import '../../../utils/mixins/set_profile_image_mixin.dart';
 
 // class MyProfileImage extends StatefulWidget {
 //   final String playerId;

@@ -4,4 +4,8 @@ abstract class FormatDateMixin {
   String formatDate(DateTime date) {
     return date.format('D, M j - Y');
   }
+
+  String formatDateWithTime(DateTime date) {
+    return date.format('D, M j - Y, H:i');
+  }
 }
