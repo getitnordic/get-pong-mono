@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get_pong/constants/constants.dart';
 import 'package:get_pong/utils/mixins/set_profile_image_mixin.dart';
-import 'package:http/http.dart' as http;
 
 // class MyProfileImage extends StatefulWidget {
 //   final String playerId;
@@ -95,7 +94,59 @@ import 'package:http/http.dart' as http;
 //     );
 //   }
 // }
-class MyProfileImage extends StatelessWidget with SetProfileImageMixin {
+
+// class MyProfileImage extends StatelessWidget with SetProfileImageMixin {
+//   final String playerId;
+//   final double size;
+//   const MyProfileImage({
+//     Key? key,
+//     required this.playerId,
+//     required this.size,
+//   }) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CachedNetworkImage(
+//       imageUrl: getImageUrl(playerId),
+//       imageBuilder: (context, imageProvider) => ClipRRect(
+//         borderRadius: BorderRadius.circular(80),
+//         child: Container(
+//           height: size,
+//           width: size,
+//           decoration: BoxDecoration(
+//             image: DecorationImage(
+//               image: imageProvider,
+//             ),
+//           ),
+//         ),
+//       ),
+//       placeholder: (context, url) => ClipRRect(
+//         borderRadius: BorderRadius.circular(80),
+//         child: Container(
+//           height: size,
+//           width: size,
+//           decoration: const BoxDecoration(
+//             color: ColorConstants.appBarColor,
+//           ),
+//         ),
+//       ),
+//       errorWidget: (context, url, error) => ClipRRect(
+//         borderRadius: BorderRadius.circular(80),
+//         child: Container(
+//           height: size,
+//           width: size,
+//           decoration: const BoxDecoration(
+//             image: DecorationImage(
+//               image: AssetImage('assets/images/default_avatar_getit.png'),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+class MyProfileImage extends StatefulWidget {
   final String playerId;
   final double size;
   const MyProfileImage({
@@ -105,40 +156,39 @@ class MyProfileImage extends StatelessWidget with SetProfileImageMixin {
   }) : super(key: key);
 
   @override
+  State<MyProfileImage> createState() => _MyProfileImageState();
+}
+
+class _MyProfileImageState extends State<MyProfileImage>
+    with SetProfileImageMixin {
+  late dynamic image;
+
+  @override
+  void initState() {
+    setState(() {
+      image = NetworkImage(getImageUrl(widget.playerId));
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: getImageUrl(playerId),
-      imageBuilder: (context, imageProvider) => ClipRRect(
-        borderRadius: BorderRadius.circular(80),
-        child: Container(
-          height: size,
-          width: size,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imageProvider,
-            ),
-          ),
-        ),
-      ),
-      placeholder: (context, url) => ClipRRect(
-        borderRadius: BorderRadius.circular(80),
-        child: Container(
-          height: size,
-          width: size,
-          decoration: const BoxDecoration(
-            color: ColorConstants.appBarColor,
-          ),
-        ),
-      ),
-      errorWidget: (context, url, error) => ClipRRect(
-        borderRadius: BorderRadius.circular(80),
-        child: Container(
-          height: size,
-          width: size,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/default_avatar_getit.png'),
-            ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(80),
+      child: Container(
+        height: widget.size,
+        width: widget.size,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: image,
+            onError: (exception, stackTrace) {
+              setState(
+                () {
+                  image = const AssetImage(
+                      'assets/images/default_avatar_getit.png');
+                },
+              );
+            },
           ),
         ),
       ),

@@ -63,18 +63,30 @@ class PlayerRepositoryImpl implements PlayerRepository {
   @override
   Future<DataState<String>> updateProfilePicture(
       UpdateProfilePictureParams params) async {
-    final request = UpdatePlayerPictureRequest(
+    final updateRequest = UpdatePlayerPictureRequest(
       playerId: params.id,
       base64Data: params.data,
     );
+    final deleteRequest = DeletePlayerPictureRequest(
+      playerId: params.id,
+    );
+
     try {
-      final response = await client.updatePlayerPicture(request);
-      return DataSuccess(response.responseMessage);
+      await client.deletePlayerPicture(deleteRequest);
     } on GrpcError catch (e) {
       if (kDebugMode) {
         print(e);
       }
-      return DataFailed(e);
+    } finally {
+      try {
+        final response = await client.updatePlayerPicture(updateRequest);
+        return DataSuccess(response.responseMessage);
+      } on GrpcError catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        return DataFailed(e);
+      }
     }
   }
 }
