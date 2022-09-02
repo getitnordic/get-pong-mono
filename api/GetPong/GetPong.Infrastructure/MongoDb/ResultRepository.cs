@@ -46,8 +46,8 @@ public class ResultRepository : IResultRepository
 
         foreach (var gameSet in game.Sets)
         {
-            homeTeamScore += gameSet.HomeTeam;
-            awayTeamScore += gameSet.AwayTeam;
+            if (gameSet.HomeTeam > gameSet.AwayTeam) homeTeamScore++;
+            else awayTeamScore++;
         }
 
         var player1 = await _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
@@ -65,7 +65,7 @@ public class ResultRepository : IResultRepository
             // singles match
             case 1:
             {
-                var diffSingle = (Math.Abs(player1.TotalScore - player2.TotalScore)) / 2;
+                var diffSingle = Math.Abs(player1.TotalScore - player2.TotalScore);
                 if (homeTeamScore > awayTeamScore) // Home wins
                 {
                     player1Doc
