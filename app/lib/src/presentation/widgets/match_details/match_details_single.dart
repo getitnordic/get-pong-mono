@@ -82,7 +82,7 @@ class MatchDetailsSingle extends StatelessWidget with FormatDateMixin {
           Row(
             children: [
               const Text(
-                'Elo change: ',
+                'Score change: ',
                 style: TextStyle(
                   color: ColorConstants.textColor,
                   fontSize: 14,
@@ -98,14 +98,14 @@ class MatchDetailsSingle extends StatelessWidget with FormatDateMixin {
             ],
           ),
           Text(
-            'New elo: ${result.newElo}',
+            'New score: ${result.newElo}',
             style: const TextStyle(
               color: ColorConstants.textColor,
               fontSize: 14,
             ),
           ),
           Text(
-            'Old elo: ${_getOldElo(result)}',
+            'Old score: ${_getOldElo(result)}',
             style: const TextStyle(
               color: ColorConstants.textColor,
               fontSize: 14,

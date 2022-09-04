@@ -226,7 +226,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
 
                 return data.when(
                   error: (error, stackTrace) => Text('Error $error'),
-                  loading: () => const CircularProgressIndicator(),
+                  loading: () => const Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: CircularProgressIndicator(),
+                  ),
                   data: (data) => SizedBox(
                     height: 200,
                     child: ListView.builder(

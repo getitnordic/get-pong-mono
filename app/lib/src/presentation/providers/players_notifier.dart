@@ -36,10 +36,10 @@ final allPlayersProvider =
 });
 
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
-  final GetPlayersUseCase getPlayersUseCase;
-  final AddPlayerUseCase registerNewPlayerUseCase;
-  final UpdatePlayerUseCase updatePlayerUseCase;
-  final UpdateProfilePictureUseCase updateProfilePictureUseCase;
+  final UseCase getPlayersUseCase;
+  final UseCase registerNewPlayerUseCase;
+  final UseCase updatePlayerUseCase;
+  final UseCase updateProfilePictureUseCase;
   final Reader read;
   bool isLoading = false;
 

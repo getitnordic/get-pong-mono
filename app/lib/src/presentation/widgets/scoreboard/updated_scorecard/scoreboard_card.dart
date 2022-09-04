@@ -82,14 +82,19 @@ class ScoreboardCard extends ConsumerWidget
                                       size: imageSize,
                                     ),
                                   ),
-                                  Text(
-                                    controller.homeTeamOne.fullName,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      color: ColorConstants.textColor,
-                                      fontWeight: result.winner == Team.homeTeam
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
+                                  SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      controller.homeTeamOne.fullName,
+                                      style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: fontSize,
+                                        color: ColorConstants.textColor,
+                                        fontWeight:
+                                            result.winner == Team.homeTeam
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -108,15 +113,19 @@ class ScoreboardCard extends ConsumerWidget
                                         size: imageSize,
                                       ),
                                     ),
-                                    Text(
-                                      controller.homeTeamTwo.fullName,
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        color: ColorConstants.textColor,
-                                        fontWeight:
-                                            result.winner == Team.homeTeam
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                    SizedBox(
+                                      width: 160,
+                                      child: Text(
+                                        controller.homeTeamTwo.fullName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: ColorConstants.textColor,
+                                          fontWeight:
+                                              result.winner == Team.homeTeam
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -189,14 +198,18 @@ class ScoreboardCard extends ConsumerWidget
                                       size: imageSize,
                                     ),
                                   ),
-                                  Text(
-                                    controller.awayTeamOne.fullName,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      color: ColorConstants.textColor,
-                                      fontWeight: result.winner == Team.awayTeam
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
+                                  SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      controller.awayTeamOne.fullName,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        color: ColorConstants.textColor,
+                                        fontWeight: result.winner == Team.awayTeam
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -215,15 +228,19 @@ class ScoreboardCard extends ConsumerWidget
                                         size: imageSize,
                                       ),
                                     ),
-                                    Text(
-                                      controller.awayTeamTwo.fullName,
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        color: ColorConstants.textColor,
-                                        fontWeight:
-                                            result.winner == Team.awayTeam
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                    SizedBox(
+                                      width: 160,
+                                      child: Text(
+                                        controller.awayTeamTwo.fullName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: ColorConstants.textColor,
+                                          fontWeight:
+                                              result.winner == Team.awayTeam
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                        ),
                                       ),
                                     ),
                                   ],

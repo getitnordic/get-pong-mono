@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_pong/src/presentation/pages/stats_page.dart';
+import 'package:get_pong/src/presentation/providers/all_players_notifier.dart';
+import 'package:get_pong/src/presentation/providers/games_notifier.dart';
+import 'package:get_pong/src/presentation/providers/result_notifier.dart';
 
 import '../../../constants/color_constants.dart';
 import '../../../protos/base.pb.dart';
@@ -103,6 +106,11 @@ class _HomePageState extends ConsumerState<HomePage> {
     if (value == 1) {
       ref.watch(playersProvider.notifier).fetchPlayers();
       ref.watch(matchesProvider.notifier).fetchGames();
+    }
+    if (value == 3) {
+      ref.watch(allPlayersNewProvider.notifier).getAllPlayers();
+      ref.watch(gamesProvider.notifier).getAllGames();
+      ref.watch(resultsProvider.notifier).fetchAllResults();
     }
   }
 }

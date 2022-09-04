@@ -61,6 +61,11 @@ class Customtheme {
     );
   }
 
+  static TextStyle StandardText({required double fontSize}) => TextStyle(
+        color: ColorConstants.textColor,
+        fontSize: fontSize,
+      );
+
   static OutlineInputBorder myFormBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),

@@ -245,14 +245,21 @@ class CreateSingleGame extends ConsumerWidget
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text(
-                                                              data[index]
-                                                                  .fullName,
-                                                              style: GoogleFonts
-                                                                  .goldman(
-                                                                fontSize: 14,
-                                                                color: ColorConstants
-                                                                    .textColor,
+                                                            SizedBox(
+                                                              width: 180,
+                                                              child: Text(
+                                                                data[index]
+                                                                    .fullName,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .fade,
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .goldman(
+                                                                  fontSize: 14,
+                                                                  color: ColorConstants
+                                                                      .textColor,
+                                                                ),
                                                               ),
                                                             ),
                                                             Text(

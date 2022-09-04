@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StatsPage extends ConsumerStatefulWidget {
+import '../providers/all_players_notifier.dart';
+import '../providers/games_notifier.dart';
+import '../providers/result_notifier.dart';
+import '../widgets/stats_page/recent_stats_overall.dart';
+import '../widgets/stats_page/result_stats_controller.dart';
+
+class StatsPage extends ConsumerWidget {
   const StatsPage({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _StatsPageState();
-}
-
-class _StatsPageState extends ConsumerState<StatsPage> {
-
-  @override
-  Widget build(BuildContext context) {
-    return Text('STATS YOOY');
+  Widget build(BuildContext context, WidgetRef ref) {
+    return ref.watch(resultsLoadingProvider)
+        ? const Center(child: CircularProgressIndicator())
+        : RecentStatsOverall(
+            statsController: ResultStatsController(
+              results: ref.watch(resultsProvider),
+              players: ref.watch(allPlayersNewProvider),
+              games: ref.watch(gamesProvider),
+            ),
+          );
   }
 }

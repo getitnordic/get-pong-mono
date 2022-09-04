@@ -43,6 +43,7 @@ class _GameListViewState extends ConsumerState<GameListView>
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Stack(
       children: [
         Center(
@@ -112,7 +113,7 @@ class _GameListViewState extends ConsumerState<GameListView>
                       }
                       if (index == 0 || !isSameDate) {
                         return _scoreboardCardWithDate(
-                            currentMatch, controller);
+                            currentMatch, controller, width);
                       } else {
                         return _scoreboardCardWithoutDate(
                             currentMatch, controller);
@@ -124,15 +125,15 @@ class _GameListViewState extends ConsumerState<GameListView>
             ],
           ),
         ),
-        if (isLoadingMore)
-          const Opacity(
-            opacity: 0.2,
-            child: ModalBarrier(dismissible: false, color: Colors.black),
-          ),
-        if (isLoadingMore)
-          const Center(
-            child: CircularProgressIndicator(),
-          ),
+        // if (isLoadingMore)
+        //   const Opacity(
+        //     opacity: 0.2,
+        //     child: ModalBarrier(dismissible: false, color: Colors.black),
+        //   ),
+        // if (isLoadingMore)
+        //   const Center(
+        //     child: CircularProgressIndicator(),
+        //   ),
       ],
     );
   }
@@ -159,7 +160,7 @@ class _GameListViewState extends ConsumerState<GameListView>
   }
 
   Widget _scoreboardCardWithDate(
-          GameModel match, ScoreboardController controller) =>
+          GameModel match, ScoreboardController controller, double width) =>
       Column(
         children: [
           const SizedBox(
@@ -168,9 +169,9 @@ class _GameListViewState extends ConsumerState<GameListView>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                width: 150,
-                child: Divider(
+              SizedBox(
+                width: width < 500 ? 50 : 150,
+                child: const Divider(
                   indent: 10,
                   endIndent: 10,
                 ),
@@ -186,9 +187,9 @@ class _GameListViewState extends ConsumerState<GameListView>
                       color: ColorConstants.textColor, fontSize: 14),
                 ),
               ),
-              const SizedBox(
-                width: 150,
-                child: Divider(
+              SizedBox(
+                width: width < 500 ? 50 : 150,
+                child: const Divider(
                   indent: 10,
                   endIndent: 10,
                 ),
