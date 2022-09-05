@@ -8,4 +8,8 @@ abstract class FormatDateMixin {
   String formatDateWithTime(DateTime date) {
     return date.format('D, M j - Y, H:i');
   }
+
+  String formatDateEloChart(DateTime date) {
+    return date.format('M j');
+  }
 }

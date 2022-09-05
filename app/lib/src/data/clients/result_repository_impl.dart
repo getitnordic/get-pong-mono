@@ -24,4 +24,19 @@ class ResultRepositoryImpl implements ResultRepository {
       return DataFailed(e);
     }
   }
+  
+  @override
+  Future<DataState<List<ResultModel>>> getResultsByPlayerId(String id) async {
+     try {
+      final request = GetResultsByPlayerIdRequest(playerId: id);
+
+      final response = await client.getResultsByPlayerId(request);
+      return DataSuccess(response.resultModels);
+    } on GrpcError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return DataFailed(e);
+    }
+  }
 }

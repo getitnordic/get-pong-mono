@@ -4,6 +4,7 @@ import 'package:get_pong/src/domain/clients/result_repository.dart';
 import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/players/update_profile_picture_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_result_by_game_id_usecase.dart';
+import 'package:get_pong/src/domain/use_cases/results/get_results_by_player_id_usecase.dart';
 
 import 'protos/protos.dart';
 import 'src/data/clients/clients.dart';
@@ -50,4 +51,6 @@ Future<void> initServices() async {
   //Result
   getIt.registerLazySingleton<GetResultByGameIdUseCase>(
       () => GetResultByGameIdUseCase(getIt()));
+  getIt.registerLazySingleton<GetResultsByPlayerIdUseCase>(
+      () => GetResultsByPlayerIdUseCase(getIt()));
 }

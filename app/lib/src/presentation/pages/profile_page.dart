@@ -1,20 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/core/models/update_profile_picture_params.dart';
-import 'package:get_pong/src/presentation/widgets/my_profile_image.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../../../../config/route/route.dart' as route;
 import '../../../constants/color_constants.dart';
 import '../../../protos/base.pb.dart';
 import '../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../utils/mixins/validation_mixin.dart';
+import '../../core/models/update_profile_picture_params.dart';
 import '../providers/matches_notifier.dart';
 import '../providers/players_notifier.dart';
+import '../widgets/my_profile_image.dart';
 import '../widgets/scoreboard/player_profile_list_item.dart';
 import '../widgets/widgets.dart';
 
@@ -212,6 +212,28 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               streakEnum: widget.player.streakEnum,
             ),
             const SizedBox(height: 50),
+            CustomSmallContainer(
+              width: 120,
+              height: 35,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    route.playerStatsPage,
+                    arguments: widget.player,
+                  );
+                },
+                child: const Text(
+                  'Recent stats',
+                  style: TextStyle(
+                    color: ColorConstants.textColor,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
             const Center(
               child: Text(
                 'Latest games',
