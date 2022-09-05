@@ -17,7 +17,6 @@ class GameRepositoryImpl implements GameRepository {
       limit: params.limit,
       offset: params.offset,
     );
-
     try {
       final response = await client.getGames(request);
       return DataSuccess(response.gameModel);
@@ -36,6 +35,21 @@ class GameRepositoryImpl implements GameRepository {
     try {
       await client.saveGame(request);
       return const DataSuccess('Player created');
+    } on GrpcError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<List<GameModel>>> getGamesByPlayerId(String id) async {
+    final request = GetGamesByPlayerIdRequest(id: id);
+
+    try {
+      final response = await client.getGamesById(request);
+      return DataSuccess(response.gameModel);
     } on GrpcError catch (e) {
       if (kDebugMode) {
         print(e);

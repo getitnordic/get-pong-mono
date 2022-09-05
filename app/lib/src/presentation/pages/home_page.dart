@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/pages/stats_page.dart';
+import 'package:get_pong/src/presentation/providers/all_players_notifier.dart';
+import 'package:get_pong/src/presentation/providers/games_notifier.dart';
+import 'package:get_pong/src/presentation/providers/result_notifier.dart';
 
 import '../../../constants/color_constants.dart';
 import '../../../protos/base.pb.dart';
@@ -11,9 +15,14 @@ import '../providers/matches_notifier.dart';
 import '../widgets/add_player_bottom_sheet.dart';
 import '../widgets/widgets.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
   Widget renderContent({
     required List<PlayerModel> players,
     required int currentIndex,
@@ -30,8 +39,16 @@ class HomePage extends ConsumerWidget {
     }
   }
 
+  int _currentIndex = 0;
+  final List _pages = const [
+    CreateGameMenu(),
+    Scoreboard(),
+    PlayerRanking(),
+    StatsPage(),
+  ];
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final currentIndex = ref.watch(bottomBarIndexProvider.state);
     List<PlayerModel> playerList = ref.watch(playersProvider);
 
@@ -54,38 +71,46 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: renderContent(
-        players: playerList,
-        currentIndex: currentIndex.state,
-      ),
+      body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex.state,
-          showUnselectedLabels: false,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.sports_tennis),
-              label: 'Play',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.scoreboard),
-              label: 'Scoreboard',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.group),
-              label: 'Rankings',
-            ),
-          ],
-          onTap: (index) async {
-            if (index == 0) {}
-            if (index == 1) {
-              ref.watch(playersProvider.notifier).fetchPlayers();
-              ref.watch(matchesProvider.notifier).fetchGames();
-            }
-            if (index == 2) {}
-            ref
-                .read(bottomBarIndexProvider.notifier)
-                .update((state) => state = index);
-          }),
+        currentIndex: _currentIndex,
+        showUnselectedLabels: true,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sports_tennis),
+            label: 'Play',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.scoreboard),
+            label: 'Scoreboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.group),
+            label: 'Rankings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.bar_chart),
+            label: 'Stats',
+          ),
+        ],
+        onTap: _updateIndex,
+      ),
     );
+  }
+
+  void _updateIndex(int value) async {
+    setState(() {
+      _currentIndex = value;
+    });
+    if (value == 0) {}
+    if (value == 1) {
+      ref.watch(playersProvider.notifier).fetchPlayers();
+      ref.watch(matchesProvider.notifier).fetchGames();
+    }
+    if (value == 3) {
+      ref.watch(allPlayersNewProvider.notifier).getAllPlayers();
+      ref.watch(gamesProvider.notifier).getAllGames();
+      ref.watch(resultsProvider.notifier).fetchAllResults();
+    }
   }
 }

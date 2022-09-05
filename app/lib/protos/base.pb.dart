@@ -9,7 +9,7 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'google/protobuf/timestamp.pb.dart' as $2;
+import 'google/protobuf/timestamp.pb.dart' as $3;
 
 import 'base.pbenum.dart';
 
@@ -28,7 +28,7 @@ class PlayerModel extends $pb.GeneratedMessage {
     ..a<$core.int>(9, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'totalScore', $pb.PbFieldType.O3, protoName: 'totalScore')
     ..aOS(10, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'azureAdId', protoName: 'azureAdId')
     ..e<StreakEnum>(11, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'streakEnum', $pb.PbFieldType.OE, protoName: 'streakEnum', defaultOrMaker: StreakEnum.NONE, valueOf: StreakEnum.valueOf, enumValues: StreakEnum.values)
-    ..aOM<$2.Timestamp>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastActivity', protoName: 'lastActivity', subBuilder: $2.Timestamp.create)
+    ..aOM<$3.Timestamp>(12, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'lastActivity', protoName: 'lastActivity', subBuilder: $3.Timestamp.create)
     ..hasRequiredFields = false
   ;
 
@@ -45,7 +45,7 @@ class PlayerModel extends $pb.GeneratedMessage {
     $core.int? totalScore,
     $core.String? azureAdId,
     StreakEnum? streakEnum,
-    $2.Timestamp? lastActivity,
+    $3.Timestamp? lastActivity,
   }) {
     final _result = create();
     if (id != null) {
@@ -207,15 +207,15 @@ class PlayerModel extends $pb.GeneratedMessage {
   void clearStreakEnum() => clearField(11);
 
   @$pb.TagNumber(12)
-  $2.Timestamp get lastActivity => $_getN(11);
+  $3.Timestamp get lastActivity => $_getN(11);
   @$pb.TagNumber(12)
-  set lastActivity($2.Timestamp v) { setField(12, v); }
+  set lastActivity($3.Timestamp v) { setField(12, v); }
   @$pb.TagNumber(12)
   $core.bool hasLastActivity() => $_has(11);
   @$pb.TagNumber(12)
   void clearLastActivity() => clearField(12);
   @$pb.TagNumber(12)
-  $2.Timestamp ensureLastActivity() => $_ensure(11);
+  $3.Timestamp ensureLastActivity() => $_ensure(11);
 }
 
 class SetModel extends $pb.GeneratedMessage {

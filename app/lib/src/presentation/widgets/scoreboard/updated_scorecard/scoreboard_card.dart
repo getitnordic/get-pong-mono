@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../constants/constants.dart';
 import '../../../../../enums/team.dart';
@@ -8,17 +7,20 @@ import '../../../../../protos/game.pbgrpc.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/players_notifier.dart';
+import '../../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
 import '../../../../core/common/common.dart';
 import '../../custom_small_container.dart';
-import 'scoreboard_controller.dart';
+import '../../my_profile_image.dart';
 import 'scoreboard_set_score.dart';
 
 class ScoreboardCard extends ConsumerWidget
     with SetProfileImageMixin, FormatDateMixin {
   final GameModel match;
+  final ScoreboardController controller;
   const ScoreboardCard({
     Key? key,
     required this.match,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -46,7 +48,7 @@ class ScoreboardCard extends ConsumerWidget
 
     final result = controller.getMatchScore();
     const fontSize = 12.0;
-    const imageSize = 10.0;
+    const imageSize = 20.0;
     const setScoreWidth = 20.0;
     final screenWidth = MediaQuery.of(context).size.width;
     final sidePadding = screenWidth > 800 ? screenWidth * 0.2 : 0.0;
@@ -63,16 +65,6 @@ class ScoreboardCard extends ConsumerWidget
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      formatDate(
-                        DateTime.fromMicrosecondsSinceEpoch(
-                            match.timeStamp.toInt() * 10000),
-                      ),
-                      style: GoogleFonts.goldman(
-                        fontSize: 11,
-                        color: ColorConstants.secondaryTextColor,
-                      ),
-                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -85,20 +77,24 @@ class ScoreboardCard extends ConsumerWidget
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(10, 0, 10, 2),
-                                    child: CircleAvatar(
-                                      radius: imageSize,
-                                      backgroundImage: NetworkImage(setImage(
-                                          controller.homeTeamOne.imageUrl)),
+                                    child: MyProfileImage(
+                                      playerId: controller.homeTeamOne.id,
+                                      size: imageSize,
                                     ),
                                   ),
-                                  Text(
-                                    controller.homeTeamOne.fullName,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      color: ColorConstants.textColor,
-                                      fontWeight: result.winner == Team.homeTeam
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
+                                  SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      controller.homeTeamOne.fullName,
+                                      style: TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: fontSize,
+                                        color: ColorConstants.textColor,
+                                        fontWeight:
+                                            result.winner == Team.homeTeam
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -112,21 +108,24 @@ class ScoreboardCard extends ConsumerWidget
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: CircleAvatar(
-                                        radius: imageSize,
-                                        backgroundImage: NetworkImage(setImage(
-                                            controller.homeTeamTwo.imageUrl)),
+                                      child: MyProfileImage(
+                                        playerId: controller.homeTeamTwo.id,
+                                        size: imageSize,
                                       ),
                                     ),
-                                    Text(
-                                      controller.homeTeamTwo.fullName,
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        color: ColorConstants.textColor,
-                                        fontWeight:
-                                            result.winner == Team.homeTeam
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                    SizedBox(
+                                      width: 160,
+                                      child: Text(
+                                        controller.homeTeamTwo.fullName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: ColorConstants.textColor,
+                                          fontWeight:
+                                              result.winner == Team.homeTeam
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -194,20 +193,23 @@ class ScoreboardCard extends ConsumerWidget
                                   Padding(
                                     padding:
                                         const EdgeInsets.fromLTRB(10, 0, 10, 2),
-                                    child: CircleAvatar(
-                                      radius: imageSize,
-                                      backgroundImage: NetworkImage(setImage(
-                                          controller.awayTeamOne.imageUrl)),
+                                    child: MyProfileImage(
+                                      playerId: controller.awayTeamOne.id,
+                                      size: imageSize,
                                     ),
                                   ),
-                                  Text(
-                                    controller.awayTeamOne.fullName,
-                                    style: TextStyle(
-                                      fontSize: fontSize,
-                                      color: ColorConstants.textColor,
-                                      fontWeight: result.winner == Team.awayTeam
-                                          ? FontWeight.bold
-                                          : FontWeight.normal,
+                                  SizedBox(
+                                    width: 160,
+                                    child: Text(
+                                      controller.awayTeamOne.fullName,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: fontSize,
+                                        color: ColorConstants.textColor,
+                                        fontWeight: result.winner == Team.awayTeam
+                                            ? FontWeight.bold
+                                            : FontWeight.normal,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -221,21 +223,24 @@ class ScoreboardCard extends ConsumerWidget
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10),
-                                      child: CircleAvatar(
-                                        radius: imageSize,
-                                        backgroundImage: NetworkImage(setImage(
-                                            controller.awayTeamTwo.imageUrl)),
+                                      child: MyProfileImage(
+                                        playerId: controller.homeTeamTwo.id,
+                                        size: imageSize,
                                       ),
                                     ),
-                                    Text(
-                                      controller.awayTeamTwo.fullName,
-                                      style: TextStyle(
-                                        fontSize: fontSize,
-                                        color: ColorConstants.textColor,
-                                        fontWeight:
-                                            result.winner == Team.awayTeam
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                    SizedBox(
+                                      width: 160,
+                                      child: Text(
+                                        controller.awayTeamTwo.fullName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontSize: fontSize,
+                                          color: ColorConstants.textColor,
+                                          fontWeight:
+                                              result.winner == Team.awayTeam
+                                                  ? FontWeight.bold
+                                                  : FontWeight.normal,
+                                        ),
                                       ),
                                     ),
                                   ],

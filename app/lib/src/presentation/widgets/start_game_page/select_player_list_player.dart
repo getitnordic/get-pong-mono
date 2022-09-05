@@ -7,6 +7,7 @@ import '../../../../protos/base.pb.dart';
 import '../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../Presentation/providers/selected_notifier.dart';
 import '../../../Presentation/widgets/custom_small_container.dart';
+import '../my_profile_image.dart';
 
 class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
   final PlayerModel player;
@@ -34,9 +35,9 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                  child: CircleAvatar(
-                    radius: 20.0,
-                    backgroundImage: NetworkImage(setImage(player.imageUrl)),
+                  child: MyProfileImage(
+                    playerId: player.id,
+                    size: 25,
                   ),
                 ),
                 Text(

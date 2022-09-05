@@ -4,30 +4,40 @@ import '../../../protos/protos.dart';
 import '../../../register_services.dart';
 import '../../core/common/common.dart';
 import '../../core/models/models.dart';
+import '../../domain/use_cases/games/get_games_by_id_usecase.dart';
 import '../../domain/use_cases/use_cases.dart';
 import 'players_notifier.dart';
 
 final matchesProvider =
     StateNotifierProvider<MatchesNotifier, List<GameModel>>((ref) {
-  return MatchesNotifier(
-      [], getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>(), ref.read);
+  return MatchesNotifier([], getIt<GetGamesUseCase>(), getIt<SaveGameUseCase>(),
+      getIt<GetGamesByPlayerIdUseCase>(), ref.read);
 });
 
 final playerGamesProvider = FutureProvider.family
     .autoDispose<List<GameModel>, String>((ref, playerId) async {
-  return ref.read(matchesProvider.notifier).getMatchesByPlayerId(playerId);
+  return ref.watch(matchesProvider.notifier).getMatchesByPlayerId(playerId);
+});
+
+final allGamesProvider = FutureProvider<List<GameModel>>((ref) async {
+  return ref.watch(matchesProvider.notifier).fetchAllGames();
 });
 
 final fetchingMatchesProvider = StateProvider<bool>((ref) => false);
 
 class MatchesNotifier extends StateNotifier<List<GameModel>> {
-  final GetGamesUseCase getGamesUseCase;
-  final SaveGameUseCase saveGameUseCase;
+  final UseCase getGamesUseCase;
+  final UseCase saveGameUseCase;
+  final UseCase getGamesByPlayerIdUseCase;
   final Reader read;
 
-  MatchesNotifier(List<GameModel> state, this.getGamesUseCase,
-      this.saveGameUseCase, this.read)
-      : super(state);
+  MatchesNotifier(
+    List<GameModel> state,
+    this.getGamesUseCase,
+    this.saveGameUseCase,
+    this.getGamesByPlayerIdUseCase,
+    this.read,
+  ) : super([]);
 
   void addMatch(GameModel match) async {
     // if (state.isEmpty) {
@@ -61,10 +71,34 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
                   setFetchingMatches(false),
                 }
             });
-    state.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            b.timeStamp.toInt() * 1000)
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+    state.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
+  }
+
+  Future<List<GameModel>> fetchAllGames() async {
+    setFetchingMatches(true);
+
+    // if (state.isNotEmpty) {
+    //   setFetchingMatches(false);
+    //   return;
+    // }
+    late List<GameModel> games;
+    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100000))
+        .then((value) => {
+              if (value is DataSuccess)
+                {
+                  setFetchingMatches(false),
+                  state = value.data,
+                  games = value.data,
+                }
+              else
+                {
+                  setFetchingMatches(false),
+                }
+            });
+    state.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
+    return games;
   }
 
   void setFetchingMatches(bool loadingState) {
@@ -73,33 +107,22 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
 
   Future<List<GameModel>> getMatchesByPlayerId(String id) async {
     List<GameModel> matches = [];
-    List<GameModel> playerGames = [];
     const amountOfMatchesToGrab = 5;
-    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100))
-        .then((value) => {
-              if (value is DataSuccess)
-                {
-                  setFetchingMatches(false),
-                  matches = value.data!,
-                }
-              else
-                {
-                  setFetchingMatches(false),
-                }
-            });
-    matches.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            b.timeStamp.toInt() * 1000)
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
-    for (GameModel match in matches) {
-      if (match.homeTeamIds[0] == id) {
-        playerGames.add(match);
-      }
-      if (match.awayTeamIds[0] == id) {
-        playerGames.add(match);
-      }
-    }
-    return playerGames.take(amountOfMatchesToGrab).toList();
+    await getGamesByPlayerIdUseCase(params: id).then((value) => {
+          if (value is DataSuccess)
+            {
+              setFetchingMatches(false),
+              matches = value.data!,
+            }
+          else
+            {
+              setFetchingMatches(false),
+            }
+        });
+    matches.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
+
+    return matches.take(amountOfMatchesToGrab).toList();
   }
 
   Future<List<GameModel>> getNextTenMatches(int offset) async {
@@ -113,10 +136,8 @@ class MatchesNotifier extends StateNotifier<List<GameModel>> {
               else
                 {print(value.error)}
             });
-    matches.sort((a, b) => DateTime.fromMicrosecondsSinceEpoch(
-            b.timeStamp.toInt() * 1000)
-        .compareTo(
-            DateTime.fromMicrosecondsSinceEpoch(a.timeStamp.toInt() * 1000)));
+    matches.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
 
     return matches;
   }

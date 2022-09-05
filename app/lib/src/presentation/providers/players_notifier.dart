@@ -5,34 +5,41 @@ import '../../../protos/game.pb.dart';
 import '../../../register_services.dart';
 import '../../core/common/common.dart';
 import '../../core/models/models.dart';
+import '../../core/models/update_profile_picture_params.dart';
+import '../../domain/use_cases/players/update_profile_picture_usecase.dart';
 import '../../domain/use_cases/use_cases.dart';
 
 final playersProvider =
     StateNotifierProvider<PlayersNotifier, List<PlayerModel>>((ref) =>
-        PlayersNotifier(getIt<GetPlayersUseCase>(), getIt<AddPlayerUseCase>(),
-            getIt<UpdatePlayerUseCase>(), ref.read));
+        PlayersNotifier(
+            getIt<GetPlayersUseCase>(),
+            getIt<AddPlayerUseCase>(),
+            getIt<UpdatePlayerUseCase>(),
+            getIt<UpdateProfilePictureUseCase>(),
+            ref.read));
 
 final playersLoadingProvider = StateProvider<bool>((ref) => false);
 
 final topRanksProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.read(playersProvider.notifier).getTopRanks();
+  return ref.watch(playersProvider.notifier).getTopRanks();
 });
 
 final latestPlayersProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.read(playersProvider.notifier).getLatestPlayers();
+  return ref.watch(playersProvider.notifier).getLatestPlayers();
 });
 
 final allPlayersProvider =
     FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.read(playersProvider.notifier).getAllPlayers();
+  return ref.watch(playersProvider.notifier).getAllPlayers();
 });
 
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
-  final GetPlayersUseCase getPlayersUseCase;
-  final AddPlayerUseCase registerNewPlayerUseCase;
-  final UpdatePlayerUseCase updatePlayerUseCase;
+  final UseCase getPlayersUseCase;
+  final UseCase registerNewPlayerUseCase;
+  final UseCase updatePlayerUseCase;
+  final UseCase updateProfilePictureUseCase;
   final Reader read;
   bool isLoading = false;
 
@@ -40,6 +47,7 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     this.getPlayersUseCase,
     this.registerNewPlayerUseCase,
     this.updatePlayerUseCase,
+    this.updateProfilePictureUseCase,
     this.read,
   ) : super([]);
 
@@ -155,5 +163,10 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
             : BlankPlayerModel.player,
         sets: match.sets,
         isDouble: checkDouble);
+  }
+
+  Future<DataState<String>> updateProfilePicture(
+      UpdateProfilePictureParams params) async {
+    return await updateProfilePictureUseCase(params: params);
   }
 }

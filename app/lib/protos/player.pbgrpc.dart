@@ -44,6 +44,18 @@ class PlayerServiceClient extends $grpc.Client {
           ($0.SyncAzureAdToDbRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $0.SyncAzureAdToDbReply.fromBuffer(value));
+  static final _$updatePlayerPicture = $grpc.ClientMethod<
+          $0.UpdatePlayerPictureRequest, $0.UpdatePlayerPictureReply>(
+      '/player.PlayerService/UpdatePlayerPicture',
+      ($0.UpdatePlayerPictureRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.UpdatePlayerPictureReply.fromBuffer(value));
+  static final _$deletePlayerPicture = $grpc.ClientMethod<
+          $0.DeletePlayerPictureRequest, $0.DeletePlayerPictureReply>(
+      '/player.PlayerService/DeletePlayerPicture',
+      ($0.DeletePlayerPictureRequest value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) =>
+          $0.DeletePlayerPictureReply.fromBuffer(value));
 
   PlayerServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -78,6 +90,18 @@ class PlayerServiceClient extends $grpc.Client {
       $0.SyncAzureAdToDbRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$syncAzureAdToDb, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.UpdatePlayerPictureReply> updatePlayerPicture(
+      $0.UpdatePlayerPictureRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$updatePlayerPicture, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DeletePlayerPictureReply> deletePlayerPicture(
+      $0.DeletePlayerPictureRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$deletePlayerPicture, request, options: options);
   }
 }
 
@@ -128,6 +152,24 @@ abstract class PlayerServiceBase extends $grpc.Service {
             ($core.List<$core.int> value) =>
                 $0.SyncAzureAdToDbRequest.fromBuffer(value),
             ($0.SyncAzureAdToDbReply value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.UpdatePlayerPictureRequest,
+            $0.UpdatePlayerPictureReply>(
+        'UpdatePlayerPicture',
+        updatePlayerPicture_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.UpdatePlayerPictureRequest.fromBuffer(value),
+        ($0.UpdatePlayerPictureReply value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeletePlayerPictureRequest,
+            $0.DeletePlayerPictureReply>(
+        'DeletePlayerPicture',
+        deletePlayerPicture_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $0.DeletePlayerPictureRequest.fromBuffer(value),
+        ($0.DeletePlayerPictureReply value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.RegisterExternalReply> registerExternal_Pre(
@@ -157,6 +199,18 @@ abstract class PlayerServiceBase extends $grpc.Service {
     return syncAzureAdToDb(call, await request);
   }
 
+  $async.Future<$0.UpdatePlayerPictureReply> updatePlayerPicture_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.UpdatePlayerPictureRequest> request) async {
+    return updatePlayerPicture(call, await request);
+  }
+
+  $async.Future<$0.DeletePlayerPictureReply> deletePlayerPicture_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$0.DeletePlayerPictureRequest> request) async {
+    return deletePlayerPicture(call, await request);
+  }
+
   $async.Future<$0.RegisterExternalReply> registerExternal(
       $grpc.ServiceCall call, $0.RegisterExternalRequest request);
   $async.Future<$0.GetPlayersReply> getPlayers(
@@ -167,4 +221,8 @@ abstract class PlayerServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $0.UpdatePlayerRequest request);
   $async.Future<$0.SyncAzureAdToDbReply> syncAzureAdToDb(
       $grpc.ServiceCall call, $0.SyncAzureAdToDbRequest request);
+  $async.Future<$0.UpdatePlayerPictureReply> updatePlayerPicture(
+      $grpc.ServiceCall call, $0.UpdatePlayerPictureRequest request);
+  $async.Future<$0.DeletePlayerPictureReply> deletePlayerPicture(
+      $grpc.ServiceCall call, $0.DeletePlayerPictureRequest request);
 }

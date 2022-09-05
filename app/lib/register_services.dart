@@ -1,4 +1,9 @@
 import 'package:get_it/get_it.dart';
+import 'package:get_pong/src/data/clients/result_repository_impl.dart';
+import 'package:get_pong/src/domain/clients/result_repository.dart';
+import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
+import 'package:get_pong/src/domain/use_cases/players/update_profile_picture_usecase.dart';
+import 'package:get_pong/src/domain/use_cases/results/get_result_by_game_id_usecase.dart';
 
 import 'protos/protos.dart';
 import 'src/data/clients/clients.dart';
@@ -14,12 +19,16 @@ Future<void> initServices() async {
       () => PlayerServiceClient(GrpcClient.client));
   getIt.registerLazySingleton<GameServiceClient>(
       () => GameServiceClient(GrpcClient.client));
+  getIt.registerLazySingleton<ResultServiceClient>(
+      () => ResultServiceClient(GrpcClient.client));
 
   //Repositories
   getIt.registerLazySingleton<PlayerRepository>(
       () => PlayerRepositoryImpl(getIt()));
   getIt
       .registerLazySingleton<GameRepository>(() => GameRepositoryImpl(getIt()));
+  getIt.registerLazySingleton<ResultRepository>(
+      () => ResultRepositoryImpl(getIt()));
 
   //Use cases
   //Player
@@ -29,8 +38,16 @@ Future<void> initServices() async {
       .registerLazySingleton<AddPlayerUseCase>(() => AddPlayerUseCase(getIt()));
   getIt.registerLazySingleton<UpdatePlayerUseCase>(
       () => UpdatePlayerUseCase(getIt()));
+  getIt.registerLazySingleton<UpdateProfilePictureUseCase>(
+      () => UpdateProfilePictureUseCase(getIt()));
 
   //Game
   getIt.registerLazySingleton<GetGamesUseCase>(() => GetGamesUseCase(getIt()));
   getIt.registerLazySingleton<SaveGameUseCase>(() => SaveGameUseCase(getIt()));
+  getIt.registerLazySingleton<GetGamesByPlayerIdUseCase>(
+      () => GetGamesByPlayerIdUseCase(getIt()));
+
+  //Result
+  getIt.registerLazySingleton<GetResultByGameIdUseCase>(
+      () => GetResultByGameIdUseCase(getIt()));
 }

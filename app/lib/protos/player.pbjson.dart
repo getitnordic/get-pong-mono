@@ -104,3 +104,44 @@ const UpdatePlayerReply$json = const {
 
 /// Descriptor for `UpdatePlayerReply`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List updatePlayerReplyDescriptor = $convert.base64Decode('ChFVcGRhdGVQbGF5ZXJSZXBseRIzCgtwbGF5ZXJNb2RlbBgBIAEoCzIRLmJhc2UuUGxheWVyTW9kZWxSC3BsYXllck1vZGVs');
+@$core.Deprecated('Use updatePlayerPictureRequestDescriptor instead')
+const UpdatePlayerPictureRequest$json = const {
+  '1': 'UpdatePlayerPictureRequest',
+  '2': const [
+    const {'1': 'playerId', '3': 1, '4': 1, '5': 9, '10': 'playerId'},
+    const {'1': 'base64Data', '3': 2, '4': 1, '5': 9, '10': 'base64Data'},
+  ],
+};
+
+/// Descriptor for `UpdatePlayerPictureRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updatePlayerPictureRequestDescriptor = $convert.base64Decode('ChpVcGRhdGVQbGF5ZXJQaWN0dXJlUmVxdWVzdBIaCghwbGF5ZXJJZBgBIAEoCVIIcGxheWVySWQSHgoKYmFzZTY0RGF0YRgCIAEoCVIKYmFzZTY0RGF0YQ==');
+@$core.Deprecated('Use updatePlayerPictureReplyDescriptor instead')
+const UpdatePlayerPictureReply$json = const {
+  '1': 'UpdatePlayerPictureReply',
+  '2': const [
+    const {'1': 'responseMessage', '3': 1, '4': 1, '5': 9, '10': 'responseMessage'},
+  ],
+};
+
+/// Descriptor for `UpdatePlayerPictureReply`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List updatePlayerPictureReplyDescriptor = $convert.base64Decode('ChhVcGRhdGVQbGF5ZXJQaWN0dXJlUmVwbHkSKAoPcmVzcG9uc2VNZXNzYWdlGAEgASgJUg9yZXNwb25zZU1lc3NhZ2U=');
+@$core.Deprecated('Use deletePlayerPictureRequestDescriptor instead')
+const DeletePlayerPictureRequest$json = const {
+  '1': 'DeletePlayerPictureRequest',
+  '2': const [
+    const {'1': 'playerId', '3': 1, '4': 1, '5': 9, '10': 'playerId'},
+  ],
+};
+
+/// Descriptor for `DeletePlayerPictureRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deletePlayerPictureRequestDescriptor = $convert.base64Decode('ChpEZWxldGVQbGF5ZXJQaWN0dXJlUmVxdWVzdBIaCghwbGF5ZXJJZBgBIAEoCVIIcGxheWVySWQ=');
+@$core.Deprecated('Use deletePlayerPictureReplyDescriptor instead')
+const DeletePlayerPictureReply$json = const {
+  '1': 'DeletePlayerPictureReply',
+  '2': const [
+    const {'1': 'responseMessage', '3': 1, '4': 1, '5': 9, '10': 'responseMessage'},
+  ],
+};
+
+/// Descriptor for `DeletePlayerPictureReply`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List deletePlayerPictureReplyDescriptor = $convert.base64Decode('ChhEZWxldGVQbGF5ZXJQaWN0dXJlUmVwbHkSKAoPcmVzcG9uc2VNZXNzYWdlGAEgASgJUg9yZXNwb25zZU1lc3NhZ2U=');

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:get_pong/src/core/models/update_profile_picture_params.dart';
 import 'package:grpc/grpc.dart';
 
 import '../../../protos/protos.dart';
@@ -56,6 +57,36 @@ class PlayerRepositoryImpl implements PlayerRepository {
         print(e);
       }
       return DataFailed(e);
+    }
+  }
+
+  @override
+  Future<DataState<String>> updateProfilePicture(
+      UpdateProfilePictureParams params) async {
+    final updateRequest = UpdatePlayerPictureRequest(
+      playerId: params.id,
+      base64Data: params.data,
+    );
+    final deleteRequest = DeletePlayerPictureRequest(
+      playerId: params.id,
+    );
+
+    try {
+      await client.deletePlayerPicture(deleteRequest);
+    } on GrpcError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    } finally {
+      try {
+        final response = await client.updatePlayerPicture(updateRequest);
+        return DataSuccess(response.responseMessage);
+      } on GrpcError catch (e) {
+        if (kDebugMode) {
+          print(e);
+        }
+        return DataFailed(e);
+      }
     }
   }
 }

@@ -7,10 +7,10 @@
 
 import 'dart:core' as $core;
 
-import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
-import 'base.pb.dart' as $3;
+import 'google/protobuf/timestamp.pb.dart' as $3;
+import 'base.pb.dart' as $4;
 
 class GetGamesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetGamesRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
@@ -109,6 +109,94 @@ class GetGamesReply extends $pb.GeneratedMessage {
   @$core.pragma('dart2js:noInline')
   static GetGamesReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetGamesReply>(create);
   static GetGamesReply? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<GameModel> get gameModel => $_getList(0);
+}
+
+class GetGamesByPlayerIdRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetGamesByPlayerIdRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..hasRequiredFields = false
+  ;
+
+  GetGamesByPlayerIdRequest._() : super();
+  factory GetGamesByPlayerIdRequest({
+    $core.String? id,
+  }) {
+    final _result = create();
+    if (id != null) {
+      _result.id = id;
+    }
+    return _result;
+  }
+  factory GetGamesByPlayerIdRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetGamesByPlayerIdRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdRequest clone() => GetGamesByPlayerIdRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdRequest copyWith(void Function(GetGamesByPlayerIdRequest) updates) => super.copyWith((message) => updates(message as GetGamesByPlayerIdRequest)) as GetGamesByPlayerIdRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdRequest create() => GetGamesByPlayerIdRequest._();
+  GetGamesByPlayerIdRequest createEmptyInstance() => create();
+  static $pb.PbList<GetGamesByPlayerIdRequest> createRepeated() => $pb.PbList<GetGamesByPlayerIdRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetGamesByPlayerIdRequest>(create);
+  static GetGamesByPlayerIdRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => clearField(1);
+}
+
+class GetGamesByPlayerIdReply extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetGamesByPlayerIdReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
+    ..pc<GameModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'gameModel', $pb.PbFieldType.PM, protoName: 'gameModel', subBuilder: GameModel.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetGamesByPlayerIdReply._() : super();
+  factory GetGamesByPlayerIdReply({
+    $core.Iterable<GameModel>? gameModel,
+  }) {
+    final _result = create();
+    if (gameModel != null) {
+      _result.gameModel.addAll(gameModel);
+    }
+    return _result;
+  }
+  factory GetGamesByPlayerIdReply.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetGamesByPlayerIdReply.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdReply clone() => GetGamesByPlayerIdReply()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetGamesByPlayerIdReply copyWith(void Function(GetGamesByPlayerIdReply) updates) => super.copyWith((message) => updates(message as GetGamesByPlayerIdReply)) as GetGamesByPlayerIdReply; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdReply create() => GetGamesByPlayerIdReply._();
+  GetGamesByPlayerIdReply createEmptyInstance() => create();
+  static $pb.PbList<GetGamesByPlayerIdReply> createRepeated() => $pb.PbList<GetGamesByPlayerIdReply>();
+  @$core.pragma('dart2js:noInline')
+  static GetGamesByPlayerIdReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetGamesByPlayerIdReply>(create);
+  static GetGamesByPlayerIdReply? _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.List<GameModel> get gameModel => $_getList(0);
@@ -215,20 +303,20 @@ class SaveGameReply extends $pb.GeneratedMessage {
 class GameModel extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GameModel', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
-    ..aInt64(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeStamp', protoName: 'timeStamp')
+    ..aOM<$3.Timestamp>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timeStamp', protoName: 'timeStamp', subBuilder: $3.Timestamp.create)
     ..pPS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeTeamIds', protoName: 'homeTeamIds')
     ..pPS(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'awayTeamIds', protoName: 'awayTeamIds')
-    ..pc<$3.SetModel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sets', $pb.PbFieldType.PM, subBuilder: $3.SetModel.create)
+    ..pc<$4.SetModel>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'sets', $pb.PbFieldType.PM, subBuilder: $4.SetModel.create)
     ..hasRequiredFields = false
   ;
 
   GameModel._() : super();
   factory GameModel({
     $core.String? id,
-    $fixnum.Int64? timeStamp,
+    $3.Timestamp? timeStamp,
     $core.Iterable<$core.String>? homeTeamIds,
     $core.Iterable<$core.String>? awayTeamIds,
-    $core.Iterable<$3.SetModel>? sets,
+    $core.Iterable<$4.SetModel>? sets,
   }) {
     final _result = create();
     if (id != null) {
@@ -279,13 +367,15 @@ class GameModel extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $fixnum.Int64 get timeStamp => $_getI64(1);
+  $3.Timestamp get timeStamp => $_getN(1);
   @$pb.TagNumber(2)
-  set timeStamp($fixnum.Int64 v) { $_setInt64(1, v); }
+  set timeStamp($3.Timestamp v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasTimeStamp() => $_has(1);
   @$pb.TagNumber(2)
   void clearTimeStamp() => clearField(2);
+  @$pb.TagNumber(2)
+  $3.Timestamp ensureTimeStamp() => $_ensure(1);
 
   @$pb.TagNumber(3)
   $core.List<$core.String> get homeTeamIds => $_getList(2);
@@ -294,6 +384,6 @@ class GameModel extends $pb.GeneratedMessage {
   $core.List<$core.String> get awayTeamIds => $_getList(3);
 
   @$pb.TagNumber(5)
-  $core.List<$3.SetModel> get sets => $_getList(4);
+  $core.List<$4.SetModel> get sets => $_getList(4);
 }
 

@@ -23,6 +23,7 @@ class Customtheme {
         unselectedItemColor: ColorConstants.secondaryTextColor,
         selectedItemColor: ColorConstants.primaryColor,
         backgroundColor: ColorConstants.appBarColor,
+        type: BottomNavigationBarType.fixed,
       ),
       textTheme: Typography.material2018().white.copyWith(
             bodyText1: GoogleFonts.goldman(),
@@ -59,6 +60,11 @@ class Customtheme {
       ),
     );
   }
+
+  static TextStyle StandardText({required double fontSize}) => TextStyle(
+        color: ColorConstants.textColor,
+        fontSize: fontSize,
+      );
 
   static OutlineInputBorder myFormBorder() {
     return OutlineInputBorder(
