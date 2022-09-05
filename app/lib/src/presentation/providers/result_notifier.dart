@@ -6,10 +6,19 @@ import '../../core/common/common.dart';
 import '../../core/models/get_games_params.dart';
 import '../../domain/use_cases/games/get_games_usecase.dart';
 import '../../domain/use_cases/results/get_result_by_game_id_usecase.dart';
+import '../../domain/use_cases/results/get_results_by_player_id_usecase.dart';
 
 final resultByGameIdProvider = FutureProvider.family
     .autoDispose<List<ResultModel>, String>((ref, gameId) async {
   final response = await getIt<GetResultByGameIdUseCase>().call(params: gameId);
+
+  return response.data!;
+});
+
+final resultByPlayerIdProvider = FutureProvider.family
+    .autoDispose<List<ResultModel>, String>((ref, playerId) async {
+  final response =
+      await getIt<GetResultsByPlayerIdUseCase>().call(params: playerId);
 
   return response.data!;
 });

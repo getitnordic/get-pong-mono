@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/src/core/models/match_details_arguments.dart';
-import 'package:get_pong/src/presentation/pages/match_details_page.dart';
-import 'package:get_pong/src/presentation/pages/stats_page.dart';
+import 'package:get_pong/src/presentation/pages/player_stats_page.dart';
 
 import '../../enums/player_select_choice.dart';
 import '../../protos/base.pb.dart';
 import '../../src/Presentation/pages/pages.dart';
+import '../../src/core/models/match_details_arguments.dart';
 import '../../src/core/models/score_page_arguments.dart';
+import '../../src/presentation/pages/match_details_page.dart';
+import '../../src/presentation/pages/stats_page.dart';
 
 const String homePage = 'homePage';
 const String playerListPage = 'playerListPage';
@@ -16,6 +16,7 @@ const String profilePage = 'profilepage';
 const String matchDetailsPage = 'matchdetails';
 const String addNewPlayerPage = 'addplayer';
 const String statsPage = 'statspage';
+const String playerStatsPage = 'playerstats';
 
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
@@ -57,9 +58,15 @@ Route<dynamic> controller(RouteSettings settings) {
           ),
         );
       }
-
     case statsPage:
       return MaterialPageRoute(builder: (context) => const StatsPage());
+    case playerStatsPage:
+      {
+        final args = settings.arguments as PlayerModel;
+        return MaterialPageRoute(
+          builder: (context) => PlayerStatsPage(player: args),
+        );
+      }
     default:
       throw ("This route name don't exist");
   }
