@@ -18,7 +18,7 @@ public class GameHelper : IGameHelper
         _mapper = mapper;
     }
 
-    public void SaveSingleMatchScoreToDb(Game game)
+    public async Task SaveSingleMatchScoreToDb(Game game)
     {
         var player1Score = 0;
         var player2Score = 0;
@@ -35,16 +35,16 @@ public class GameHelper : IGameHelper
         EloHelper.GameOutcome winnerVariable;
         winnerVariable = team1Win ? EloHelper.GameOutcome.Win : EloHelper.GameOutcome.Loss;
 
-        var playerOne = _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
-        var playerTwo = _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
+        var playerOne = await _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
+        var playerTwo = await _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
         var calculatedElo =
-            EloHelper.CalculateElo(playerOne.Result.TotalScore, playerTwo.Result.TotalScore, winnerVariable);
+            EloHelper.CalculateElo(playerOne.TotalScore, playerTwo.TotalScore, winnerVariable);
 
-        _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, calculatedElo[0]);
-        _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, calculatedElo[1]);
+        await _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, calculatedElo[0]);
+        await _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, calculatedElo[1]);
     }
 
-    public void SaveDoubleMatchScoreToDb(Game game)
+    public async Task SaveDoubleMatchScoreToDb(Game game)
     {
         var team1SetsWon = 0;
         var team2SetsWon = 0;

@@ -16,13 +16,13 @@ namespace GetPong.Application.Handlers.Games
             _gameHelper = gameHelper;
         }
 
-        public Game Handle(Game game)
+        public async Task<Game> Handle(Game game)
         {
             var gameInDb = _gameRepository.AddGame(game);
             if (game.HomeTeamIds.Count == 2)
-                _gameHelper.SaveDoubleMatchScoreToDb(gameInDb);
+                await _gameHelper.SaveDoubleMatchScoreToDb(gameInDb);
             else
-                _gameHelper.SaveSingleMatchScoreToDb(gameInDb);
+                await _gameHelper.SaveSingleMatchScoreToDb(gameInDb);
 
             return gameInDb;
         }

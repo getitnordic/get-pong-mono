@@ -96,7 +96,7 @@ public class PlayerRepository : IPlayerRepository
         };
     }
 
-    public async void UpdateScoreOfPlayer(string playerId, bool didPlayerWin, int newElo)
+    public async Task UpdateScoreOfPlayer(string playerId, bool didPlayerWin, int newElo)
     {
         var objectId = ObjectId.Parse(playerId);
         var filter = Builders<BsonDocument>.Filter.Eq(d => d["_id"], objectId);

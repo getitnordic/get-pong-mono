@@ -38,7 +38,7 @@ public class ResultRepository : IResultRepository
         return docs.Select(x => new Result(x)).ToList();
     }
 
-    public async void SaveResult(Game game)
+    public async Task SaveResult(Game game)
     {
         //Check which team won
         var homeTeamScore = 0;
@@ -52,7 +52,7 @@ public class ResultRepository : IResultRepository
 
         var player1 = await _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
         var player2 = await _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
-
+        
         var player1Doc = new BsonDocument();
         var player2Doc = new BsonDocument();
         var player3Doc = new BsonDocument();
@@ -84,8 +84,8 @@ public class ResultRepository : IResultRepository
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[0]);
 
-                    _mongoCollection.InsertOneAsync(player1Doc);
-                    _mongoCollection.InsertOneAsync(player2Doc);
+                    await _mongoCollection.InsertOneAsync(player1Doc);
+                    await _mongoCollection.InsertOneAsync(player2Doc);
                 }
                 else // Away wins
                 {

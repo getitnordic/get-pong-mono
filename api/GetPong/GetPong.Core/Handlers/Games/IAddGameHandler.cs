@@ -4,5 +4,5 @@ namespace GetPong.Core.Handlers.Games;
 
 public interface IAddGameHandler
 {
-    Game Handle(Game game);
+    Task<Game> Handle(Game game);
 }

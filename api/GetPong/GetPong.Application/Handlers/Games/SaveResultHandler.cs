@@ -14,8 +14,8 @@ public class SaveResultHandler : ISaveResultHandler
         _resultRepository = repository;
     }
 
-    public void Handle(Game game)
+    public async Task Handle(Game game)
     {
-        _resultRepository.SaveResult(game);
+        await _resultRepository.SaveResult(game);
     }
 }
