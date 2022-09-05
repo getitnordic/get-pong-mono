@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using GetPong.Core.Core.Helpers;
+﻿using GetPong.Core.Core.Helpers;
 using GetPong.Core.Infrastructure.Entities.Games;
 using GetPong.Core.Infrastructure.Entities.Players;
 using GetPong.Core.Infrastructure.Repositories;
@@ -9,13 +8,11 @@ namespace GetPong.Application.Helpers;
 public class GameHelper : IGameHelper
 {
     private readonly IPlayerRepository _playerRepository;
-    private readonly IMapper _mapper;
 
     // Takes in a game from AddGameHandler, crunches numbers, adds win/loss to player DB and calculates totalScore
-    public GameHelper(IPlayerRepository playerRepository, IMapper mapper)
+    public GameHelper(IPlayerRepository playerRepository)
     {
         _playerRepository = playerRepository;
-        _mapper = mapper;
     }
 
     public async Task SaveSingleMatchScoreToDb(Game game)
@@ -61,30 +58,30 @@ public class GameHelper : IGameHelper
         EloHelper.GameOutcome winnerVariable;
         winnerVariable = team1Win ? EloHelper.GameOutcome.Win : EloHelper.GameOutcome.Loss;
 
-        var playerOne = _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
-        var playerTwo = _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
-        var playerThree = _playerRepository.GetPlayerById(game.HomeTeamIds[1]);
-        var playerFour = _playerRepository.GetPlayerById(game.AwayTeamIds[1]);
+        var playerOne = await _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
+        var playerTwo = await _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
+        var playerThree = await _playerRepository.GetPlayerById(game.HomeTeamIds[1]);
+        var playerFour = await _playerRepository.GetPlayerById(game.AwayTeamIds[1]);
 
-        var t1 = (playerOne.Result.TotalScore + playerThree.Result.TotalScore) / 2;
-        var t2 = (playerTwo.Result.TotalScore + playerFour.Result.TotalScore) / 2;
+        var t1 = (playerOne.TotalScore + playerThree.TotalScore) / 2;
+        var t2 = (playerTwo.TotalScore + playerFour.TotalScore) / 2;
         var calculatedElo = EloHelper.CalculateElo(t1, t2, winnerVariable);
 
-        var diff = Math.Abs(calculatedElo[0] - t1) / 2;
+        var diff = Math.Abs(calculatedElo[0] - t1);
 
         if (team1Win)
         {
-            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, playerOne.Result.TotalScore + diff);
-            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, playerThree.Result.TotalScore + diff);
-            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, playerTwo.Result.TotalScore - diff);
-            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, playerFour.Result.TotalScore - diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, playerOne.TotalScore + diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, playerThree.TotalScore + diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, playerTwo.TotalScore - diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, playerFour.TotalScore - diff);
         }
         else
         {
-            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, playerOne.Result.TotalScore - diff);
-            _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, playerThree.Result.TotalScore - diff);
-            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, playerTwo.Result.TotalScore + diff);
-            _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, playerFour.Result.TotalScore + diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[0], team1Win, playerOne.TotalScore - diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.HomeTeamIds[1], team1Win, playerThree.TotalScore - diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[0], team2Win, playerTwo.TotalScore + diff);
+            await _playerRepository.UpdateScoreOfPlayer(game.AwayTeamIds[1], team2Win, playerFour.TotalScore + diff);
         }
     }
 }

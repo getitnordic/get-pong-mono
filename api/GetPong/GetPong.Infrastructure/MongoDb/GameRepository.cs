@@ -38,20 +38,8 @@ namespace GetPong.Infrastructure.MongoDb
         public List<Game> GetGames(int offset, int limit)
         {
             var allGamesBson = MongoCollection.Find(new BsonDocument()).Sort("{time_stamp: -1}").Skip(offset).Limit(limit).ToList();
-            
-            return allGamesBson.Select(doc => new Game()
-            {
-                Id = doc.GetValue("_id").ToString(),
-                TimeStamp = doc["time_stamp"].ToUniversalTime(),
-                HomeTeamIds = doc.GetValue("home_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
-                AwayTeamIds = doc.GetValue("away_team_ids").AsBsonArray.Select(x => x.AsString).ToList(),
-                Sets = doc.GetValue("sets").AsBsonArray.Select(x => new GameSet()
-                {
-                    AwayTeam = x.AsBsonDocument.GetValue("AwayTeam").AsInt32,
-                    HomeTeam = doc.GetValue("", x.AsBsonDocument.GetValue("HomeTeam")).AsInt32,
-                    SetNo = doc.GetValue("", x.AsBsonDocument.GetValue("SetNo")).AsInt32
-                }).ToList()
-            }).ToList();
+
+            return allGamesBson.Select(doc => new Game(doc)).ToList();
         }
 
         public  List<Game> GetGamesByPlayerId(string playerId)

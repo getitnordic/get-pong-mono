@@ -52,20 +52,28 @@ public class ResultRepository : IResultRepository
 
         var player1 = await _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
         var player2 = await _playerRepository.GetPlayerById(game.AwayTeamIds[0]);
-        
+
         var player1Doc = new BsonDocument();
         var player2Doc = new BsonDocument();
         var player3Doc = new BsonDocument();
         var player4Doc = new BsonDocument();
+        var player1OldScore = 1000;
+        try
+        {
+            player1OldScore = GetResultsByPlayerId(player1.Id, 1, 0)[0].NewElo;
+        }
+        catch (Exception e)
+        {
+            // ignored
+        }
+
 
         switch (game.AwayTeamIds.Count)
         {
-            //TODO new_elo updates randomly.. (1 x 2 3 4... )
-            //TODO GetGamesById broke??
             // singles match
             case 1:
             {
-                var diffSingle = Math.Abs(player1.TotalScore - player2.TotalScore);
+                var diffSingle = Math.Abs(player1.TotalScore - player1OldScore);
                 if (homeTeamScore > awayTeamScore) // Home wins
                 {
                     player1Doc
@@ -105,18 +113,28 @@ public class ResultRepository : IResultRepository
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[0]);
 
-                    _mongoCollection.InsertOneAsync(player1Doc);
-                    _mongoCollection.InsertOneAsync(player2Doc);
+                    await _mongoCollection.InsertOneAsync(player1Doc);
+                    await _mongoCollection.InsertOneAsync(player2Doc);
                 }
 
                 break;
             }
             // doubles match
             case 2:
-                var player3 = _playerRepository.GetPlayerById(game.HomeTeamIds[1]);
-                var player4 = _playerRepository.GetPlayerById(game.AwayTeamIds[1]);
-                var diffDouble = Math.Abs(player1.TotalScore + player3.Result.TotalScore -
-                                          (player2.TotalScore + player4.Result.TotalScore));
+                var player3 = await _playerRepository.GetPlayerById(game.HomeTeamIds[1]);
+                var player4 = await _playerRepository.GetPlayerById(game.AwayTeamIds[1]);
+                var player3OldScore = 1000;
+                try
+                {
+                    player3OldScore = GetResultsByPlayerId(player3.Id, 1, 0)[0].NewElo;
+                }
+                catch (Exception e)
+                {
+                    // ignored
+                }
+
+                var diffDouble =
+                    Math.Abs((player1OldScore + player3OldScore - (player1.TotalScore + player3.TotalScore)) / 2);
                 if (homeTeamScore > awayTeamScore) // Home wins
                 {
                     player1Doc
@@ -128,8 +146,8 @@ public class ResultRepository : IResultRepository
                         .Add("player_id", game.HomeTeamIds[0]);
                     player2Doc
                         .Add("game_id", game.Id)
-                        .Add("elo_diff", diffDouble)
-                        .Add("new_elo", player2.TotalScore - diffDouble)
+                        .Add("elo_diff", -diffDouble)
+                        .Add("new_elo", player2.TotalScore)
                         .Add("game_won", false)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[0]);
@@ -137,29 +155,29 @@ public class ResultRepository : IResultRepository
                     player3Doc
                         .Add("game_id", game.Id)
                         .Add("elo_diff", diffDouble)
-                        .Add("new_elo", player3.Result.TotalScore + diffDouble)
+                        .Add("new_elo", player3.TotalScore)
                         .Add("game_won", true)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.HomeTeamIds[1]);
 
                     player4Doc
                         .Add("game_id", game.Id)
-                        .Add("elo_diff", diffDouble)
-                        .Add("new_elo", player4.Result.TotalScore - diffDouble)
+                        .Add("elo_diff", -diffDouble)
+                        .Add("new_elo", player4.TotalScore)
                         .Add("game_won", false)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[1]);
 
-                    _mongoCollection.InsertOneAsync(player1Doc);
-                    _mongoCollection.InsertOneAsync(player2Doc);
-                    _mongoCollection.InsertOneAsync(player3Doc);
-                    _mongoCollection.InsertOneAsync(player4Doc);
+                    await _mongoCollection.InsertOneAsync(player1Doc);
+                    await _mongoCollection.InsertOneAsync(player2Doc);
+                    await _mongoCollection.InsertOneAsync(player3Doc);
+                    await _mongoCollection.InsertOneAsync(player4Doc);
                 }
                 else // Away wins
                 {
                     player1Doc
                         .Add("game_id", game.Id)
-                        .Add("elo_diff", diffDouble)
+                        .Add("elo_diff", -diffDouble)
                         .Add("new_elo", player1.TotalScore)
                         .Add("game_won", false)
                         .Add("time_stamp", game.TimeStamp)
@@ -175,8 +193,8 @@ public class ResultRepository : IResultRepository
 
                     player3Doc
                         .Add("game_id", game.Id)
-                        .Add("elo_diff", diffDouble)
-                        .Add("new_elo", player3.Result.TotalScore)
+                        .Add("elo_diff", -diffDouble)
+                        .Add("new_elo", player3.TotalScore)
                         .Add("game_won", false)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.HomeTeamIds[1]);
@@ -184,15 +202,15 @@ public class ResultRepository : IResultRepository
                     player4Doc
                         .Add("game_id", game.Id)
                         .Add("elo_diff", diffDouble)
-                        .Add("new_elo", player4.Result.TotalScore)
+                        .Add("new_elo", player4.TotalScore)
                         .Add("game_won", true)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[1]);
 
-                    _mongoCollection.InsertOneAsync(player1Doc);
-                    _mongoCollection.InsertOneAsync(player2Doc);
-                    _mongoCollection.InsertOneAsync(player3Doc);
-                    _mongoCollection.InsertOneAsync(player4Doc);
+                    await _mongoCollection.InsertOneAsync(player1Doc);
+                    await _mongoCollection.InsertOneAsync(player2Doc);
+                    await _mongoCollection.InsertOneAsync(player3Doc);
+                    await _mongoCollection.InsertOneAsync(player4Doc);
                 }
 
                 break;

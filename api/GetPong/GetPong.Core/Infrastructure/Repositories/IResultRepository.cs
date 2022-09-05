@@ -8,5 +8,4 @@ public interface IResultRepository
     Task<List<Result>> GetResultByGameId(string gameId);
     Task SaveResult(Game game);
     List<Result> GetResultsByPlayerId(string playerId, int limit, int offset);
-
 }
