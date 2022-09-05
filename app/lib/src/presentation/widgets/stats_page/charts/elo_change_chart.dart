@@ -125,7 +125,6 @@ class _EloChangeChartState extends State<EloChangeChart> with FormatDateMixin {
         return Container();
     }
 
-    
     return Text(text, style: style, textAlign: TextAlign.left);
   }
 
@@ -192,6 +191,7 @@ class _EloChangeChartState extends State<EloChangeChart> with FormatDateMixin {
             end: Alignment.centerRight,
           ),
           barWidth: 2,
+          preventCurveOverShooting: true,
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,
