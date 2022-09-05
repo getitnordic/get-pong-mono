@@ -53,17 +53,17 @@ class RecentStatsOverall extends StatelessWidget {
                         height: 20,
                         child: Divider(),
                       ),
+                      _playersWithMostEloGained(),
+                      const SizedBox(
+                        height: 20,
+                        child: Divider(),
+                      ),
                       _playersWithMostGames(),
                       const SizedBox(
                         height: 20,
                         child: Divider(),
                       ),
                       _playersWithMostWins(),
-                      const SizedBox(
-                        height: 20,
-                        child: Divider(),
-                      ),
-                      _playersWithMostEloGained(),
                       const SizedBox(
                         height: 20,
                         child: Divider(),
