@@ -79,21 +79,8 @@ public class PlayerRepository : IPlayerRepository
 
         await MongoCollection.ReplaceOneAsync(filter, playerDoc);
 
-        return new Player
-        {
-            Id = playerId,
-            FullName = playerDoc.GetValue("full_name").ToString(),
-            Nickname = playerDoc.GetValue("nickname").ToString(),
-            ImageUrl = playerDoc.GetValue("image_url").ToString(),
-            Email = playerDoc.GetValue("email").ToString(),
-            Streak = playerDoc.GetValue("streak").ToInt32(),
-            Win = playerDoc.GetValue("win").ToInt32(),
-            Loss = playerDoc.GetValue("loss").ToInt32(),
-            TotalScore = playerDoc.GetValue("total_score").ToInt32(),
-            AzureAdId = playerDoc.GetValue("azure_ad_id").ToString(),
-            StreakEnum = (StreakEnum)playerDoc.GetValue("streak_enum").ToInt32(),
-            LastActivity = playerDoc.GetValue("last_activity").ToUniversalTime()
-        };
+        return new Player(playerDoc);
+        
     }
 
     public async Task UpdateScoreOfPlayer(string playerId, bool didPlayerWin, int newElo)

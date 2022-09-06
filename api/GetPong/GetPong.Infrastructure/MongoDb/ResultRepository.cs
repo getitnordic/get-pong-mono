@@ -46,8 +46,7 @@ public class ResultRepository : IResultRepository
 
         foreach (var gameSet in game.Sets)
         {
-            if (gameSet.HomeTeam > gameSet.AwayTeam) homeTeamScore++;
-            else awayTeamScore++;
+            if (gameSet.HomeTeam > gameSet.AwayTeam) homeTeamScore++; else awayTeamScore++;
         }
 
         var player1 = await _playerRepository.GetPlayerById(game.HomeTeamIds[0]);
@@ -58,6 +57,7 @@ public class ResultRepository : IResultRepository
         var player3Doc = new BsonDocument();
         var player4Doc = new BsonDocument();
         var player1OldScore = 1000;
+        var player3OldScore = 1000;
         try
         {
             player1OldScore = GetResultsByPlayerId(player1.Id, 1, 0)[0].NewElo;
@@ -66,7 +66,6 @@ public class ResultRepository : IResultRepository
         {
             // ignored
         }
-
 
         switch (game.AwayTeamIds.Count)
         {
@@ -91,9 +90,6 @@ public class ResultRepository : IResultRepository
                         .Add("game_won", false)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[0]);
-
-                    await _mongoCollection.InsertOneAsync(player1Doc);
-                    await _mongoCollection.InsertOneAsync(player2Doc);
                 }
                 else // Away wins
                 {
@@ -112,18 +108,16 @@ public class ResultRepository : IResultRepository
                         .Add("game_won", true)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[0]);
-
-                    await _mongoCollection.InsertOneAsync(player1Doc);
-                    await _mongoCollection.InsertOneAsync(player2Doc);
                 }
 
+                await _mongoCollection.InsertOneAsync(player1Doc);
+                await _mongoCollection.InsertOneAsync(player2Doc);
                 break;
             }
             // doubles match
             case 2:
                 var player3 = await _playerRepository.GetPlayerById(game.HomeTeamIds[1]);
                 var player4 = await _playerRepository.GetPlayerById(game.AwayTeamIds[1]);
-                var player3OldScore = 1000;
                 try
                 {
                     player3OldScore = GetResultsByPlayerId(player3.Id, 1, 0)[0].NewElo;
@@ -167,11 +161,6 @@ public class ResultRepository : IResultRepository
                         .Add("game_won", false)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[1]);
-
-                    await _mongoCollection.InsertOneAsync(player1Doc);
-                    await _mongoCollection.InsertOneAsync(player2Doc);
-                    await _mongoCollection.InsertOneAsync(player3Doc);
-                    await _mongoCollection.InsertOneAsync(player4Doc);
                 }
                 else // Away wins
                 {
@@ -206,13 +195,12 @@ public class ResultRepository : IResultRepository
                         .Add("game_won", true)
                         .Add("time_stamp", game.TimeStamp)
                         .Add("player_id", game.AwayTeamIds[1]);
-
-                    await _mongoCollection.InsertOneAsync(player1Doc);
-                    await _mongoCollection.InsertOneAsync(player2Doc);
-                    await _mongoCollection.InsertOneAsync(player3Doc);
-                    await _mongoCollection.InsertOneAsync(player4Doc);
                 }
 
+                await _mongoCollection.InsertOneAsync(player1Doc);
+                await _mongoCollection.InsertOneAsync(player2Doc);
+                await _mongoCollection.InsertOneAsync(player3Doc);
+                await _mongoCollection.InsertOneAsync(player4Doc);
                 break;
         }
     }
