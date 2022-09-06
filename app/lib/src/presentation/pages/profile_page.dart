@@ -211,9 +211,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               streak: widget.player.streak.toString(),
               streakEnum: widget.player.streakEnum,
             ),
-            const SizedBox(height: 50),
+            const SizedBox(height: 30),
             CustomSmallContainer(
-              width: 120,
+              width: 150,
               height: 35,
               child: TextButton(
                 onPressed: () {
@@ -224,7 +224,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                   );
                 },
                 child: const Text(
-                  'Recent stats',
+                  'Show recent stats',
                   style: TextStyle(
                     color: ColorConstants.textColor,
                   ),
@@ -232,7 +232,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 30,
             ),
             const Center(
               child: Text(

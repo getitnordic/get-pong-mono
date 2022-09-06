@@ -5,16 +5,20 @@ import '../../../../protos/protos.dart';
 import '../../../../utils/mixins/format_date_mixin.dart';
 import '../my_profile_image.dart';
 
-class MatchDetailsSingle extends StatelessWidget with FormatDateMixin {
+class MatchDetailsDouble extends StatelessWidget with FormatDateMixin {
   final List<ResultModel> results;
-  final PlayerModel homeTeam;
-  final PlayerModel awayTeam;
-  const MatchDetailsSingle(
-      {Key? key,
-      required this.results,
-      required this.homeTeam,
-      required this.awayTeam})
-      : super(key: key);
+  final PlayerModel homeTeamOne;
+  final PlayerModel awayTeamOne;
+  final PlayerModel homeTeamTwo;
+  final PlayerModel awayTeamTwo;
+  const MatchDetailsDouble({
+    Key? key,
+    required this.results,
+    required this.homeTeamOne,
+    required this.awayTeamOne,
+    required this.homeTeamTwo,
+    required this.awayTeamTwo,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +42,50 @@ class MatchDetailsSingle extends StatelessWidget with FormatDateMixin {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _statsColumn(
-              result: results[0],
-              player: homeTeam,
+            Column(
+              children: [
+                results[0].gameWon
+                    ? const Text('Winners')
+                    : const Text('Losers'),
+                const SizedBox(
+                  height: 20,
+                ),
+                _statsColumn(
+                  result: results[0],
+                  player: homeTeamOne,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                _statsColumn(
+                  result: results[2],
+                  player: homeTeamTwo,
+                ),
+              ],
             ),
             const SizedBox(
               width: 80,
             ),
-            _statsColumn(
-              result: results[1],
-              player: awayTeam,
+            Column(
+              children: [
+                results[1].gameWon
+                    ? const Text('Winners')
+                    : const Text('Losers'),
+                const SizedBox(
+                  height: 20,
+                ),
+                _statsColumn(
+                  result: results[1],
+                  player: awayTeamOne,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                _statsColumn(
+                  result: results[3],
+                  player: awayTeamTwo,
+                ),
+              ],
             ),
           ],
         )
@@ -61,10 +99,6 @@ class MatchDetailsSingle extends StatelessWidget with FormatDateMixin {
   }) =>
       Column(
         children: [
-          result.gameWon ? const Text('Winner') : const Text('Loser'),
-          const SizedBox(
-            height: 20,
-          ),
           MyProfileImage(playerId: player.id, size: 80),
           const SizedBox(
             height: 30,
