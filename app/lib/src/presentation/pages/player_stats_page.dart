@@ -15,6 +15,7 @@ class PlayerStatsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final results = ref.watch(resultByPlayerIdProvider.call(player.id));
     final games = ref.watch(gamesByPlayerIdProvider.call(player.id));
+
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Last 30 days.')),
@@ -30,9 +31,7 @@ class PlayerStatsPage extends ConsumerWidget {
                 ),
             error: ((error, stackTrace) => Text(error.toString())),
             loading: () => const Center(child: CircularProgressIndicator())),
-        error: ((error, stackTrace) => Text(
-              error.toString()
-            )),
+        error: ((error, stackTrace) => Text(error.toString())),
         loading: () => const Center(
           child: CircularProgressIndicator(),
         ),
