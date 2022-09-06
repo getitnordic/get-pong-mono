@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/widgets/match_details/match_details_double.dart';
 
 import '../../core/models/match_details_arguments.dart';
 import '../providers/result_notifier.dart';
@@ -21,11 +22,18 @@ class MatchDetailsPage extends ConsumerWidget {
       ),
       body: results.when(
         data: (results) {
-          return MatchDetailsSingle(
-            results: results,
-            homeTeam: controller.homeTeamOne,
-            awayTeam: controller.awayTeamOne,
-          );
+          return isDouble
+              ? MatchDetailsDouble(
+                  results: results,
+                  homeTeamOne: controller.homeTeamOne,
+                  awayTeamOne: controller.awayTeamOne,
+                  homeTeamTwo: controller.homeTeamTwo,
+                  awayTeamTwo: controller.awayTeamTwo)
+              : MatchDetailsSingle(
+                  results: results,
+                  homeTeam: controller.homeTeamOne,
+                  awayTeam: controller.awayTeamOne,
+                );
         },
         error: (e, stack) => const Text('Error'),
         loading: () => const Center(

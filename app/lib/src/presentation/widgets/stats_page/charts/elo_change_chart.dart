@@ -184,14 +184,14 @@ class _EloChangeChartState extends State<EloChangeChart> with FormatDateMixin {
       lineBarsData: [
         LineChartBarData(
           spots: _generateFlSpots(),
-          isCurved: true,
+          isCurved: false,
           gradient: LinearGradient(
             colors: gradientColors,
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
           ),
           barWidth: 2,
-          preventCurveOverShooting: true,
+          preventCurveOverShooting: false,
           isStrokeCapRound: true,
           dotData: FlDotData(
             show: false,
