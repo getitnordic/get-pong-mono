@@ -179,6 +179,7 @@ class _MyProfileImageState extends State<MyProfileImage>
         width: widget.size,
         decoration: BoxDecoration(
           image: DecorationImage(
+            fit: BoxFit.cover,
             image: image,
             onError: (exception, stackTrace) {
               setState(
