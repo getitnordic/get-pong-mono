@@ -111,7 +111,7 @@ class PlayerStatsController {
       latestElo = 1000;
     }
 
-    for (var i = 30; i > 0; i--) {
+    for (var i = 29; i >= 0; i--) {
       for (var result in recentResults) {
         if (result.timeStamp
             .toDateTime()

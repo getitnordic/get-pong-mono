@@ -25,7 +25,7 @@ class MatchDetailsSingle extends StatelessWidget with FormatDateMixin {
         ),
         Text(
           formatDateWithTime(
-            results[0].timeStamp.toDateTime(),
+            results[0].timeStamp.toDateTime().toLocal(),
           ),
           style: const TextStyle(
             color: ColorConstants.textColor,
