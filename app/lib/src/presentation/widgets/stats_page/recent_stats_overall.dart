@@ -15,69 +15,72 @@ class RecentStatsOverall extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 15,
-          ),
-          _header(width),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
-            child: Center(
-              child: CustomSmallContainer(
-                height: 1400,
-                width: 450,
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 5,
+    var notEnoughData = statsController.getPlayerCount() < 5;
+    return notEnoughData
+        ? const Center(child: Text('No data'))
+        : SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 15,
+                ),
+                _header(width),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Center(
+                    child: CustomSmallContainer(
+                      height: 1400,
+                      width: 450,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            _gamesPlayedTotal(),
+                            _singlesPlayed(),
+                            _doublesPlayed(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _setsPlayedTotal(),
+                            _averageSetsPerGame(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _pointsPlayedTotal(),
+                            _averagePointsPerGame(),
+                            const SizedBox(
+                              height: 20,
+                              child: Divider(),
+                            ),
+                            _playersWithMostEloGained(),
+                            const SizedBox(
+                              height: 20,
+                              child: Divider(),
+                            ),
+                            _playersWithMostGames(),
+                            const SizedBox(
+                              height: 20,
+                              child: Divider(),
+                            ),
+                            _playersWithMostWins(),
+                            const SizedBox(
+                              height: 20,
+                              child: Divider(),
+                            ),
+                            _gamesPlayedByDay(),
+                          ],
+                        ),
                       ),
-                      _gamesPlayedTotal(),
-                      _singlesPlayed(),
-                      _doublesPlayed(),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      _setsPlayedTotal(),
-                      _averageSetsPerGame(),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      _pointsPlayedTotal(),
-                      _averagePointsPerGame(),
-                      const SizedBox(
-                        height: 20,
-                        child: Divider(),
-                      ),
-                      _playersWithMostEloGained(),
-                      const SizedBox(
-                        height: 20,
-                        child: Divider(),
-                      ),
-                      _playersWithMostGames(),
-                      const SizedBox(
-                        height: 20,
-                        child: Divider(),
-                      ),
-                      _playersWithMostWins(),
-                      const SizedBox(
-                        height: 20,
-                        child: Divider(),
-                      ),
-                      _gamesPlayedByDay(),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
   }
 
   Row _header(double width) {

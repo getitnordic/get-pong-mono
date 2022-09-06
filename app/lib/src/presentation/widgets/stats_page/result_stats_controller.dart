@@ -20,6 +20,20 @@ class ResultStatsController {
     return _getRecentGames().length;
   }
 
+  int getPlayerCount() {
+    final playerSet = HashSet<String>();
+    final recentGames = _getRecentGames();
+    for (var game in recentGames) {
+      playerSet.add(game.homeTeamIds[0]);
+      playerSet.add(game.awayTeamIds[0]);
+      if (game.homeTeamIds.length == 2) {
+        playerSet.add(game.homeTeamIds[1]);
+        playerSet.add(game.awayTeamIds[1]);
+      }
+    }
+    return playerSet.length;
+  }
+
   int getSingles() {
     final recentGames = _getRecentGames();
     int singles = 0;
