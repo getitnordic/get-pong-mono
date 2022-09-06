@@ -29,7 +29,7 @@ class RecentStatsOverall extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Center(
                     child: CustomSmallContainer(
-                      height: 1400,
+                      height: 1420,
                       width: 450,
                       child: Padding(
                         padding: const EdgeInsets.all(12),
@@ -42,6 +42,10 @@ class RecentStatsOverall extends StatelessWidget {
                             _gamesPlayedTotal(),
                             _singlesPlayed(),
                             _doublesPlayed(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _playersParticipating(),
                             const SizedBox(
                               height: 10,
                             ),
@@ -130,6 +134,27 @@ class RecentStatsOverall extends StatelessWidget {
         ),
         Text(
           statsController.getAmountOfGames().toString(),
+          style: TextStyle(
+            color: ColorConstants.secondaryTextColor,
+            fontSize: fontSize,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _playersParticipating() {
+    return Row(
+      children: [
+        Text(
+          'Number of players: ',
+          style: TextStyle(
+            color: ColorConstants.textColor,
+            fontSize: fontSize,
+          ),
+        ),
+        Text(
+          statsController.getPlayerCount().toString(),
           style: TextStyle(
             color: ColorConstants.secondaryTextColor,
             fontSize: fontSize,
