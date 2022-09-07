@@ -10,6 +10,7 @@ service GameService {
   rpc GetGames(GetGamesRequest) returns (GetGamesReply){}
   rpc SaveGame(SaveGameRequest) returns (SaveGameReply){}
   rpc GetGamesById(GetGamesByPlayerIdRequest) returns (GetGamesByPlayerIdReply) {}
+  rpc GetWinProbability(GetWinProbabilityRequest) returns (GetWinProbabilityReply) {}
 }
 
 // Get Games
@@ -27,6 +28,15 @@ message GetGamesByPlayerIdRequest {
 }
 message GetGamesByPlayerIdReply {
   repeated GameModel gameModel = 1;
+}
+
+// Get win probability
+message GetWinProbabilityRequest {
+  int32 homeTeamElo = 1;
+  int32 awayTeamElo = 2;
+}
+message GetWinProbabilityReply {
+  double winProbability = 1;
 }
 
 // Save Games

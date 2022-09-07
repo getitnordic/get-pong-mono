@@ -9,10 +9,11 @@ import '../../../../../enums/player_select_choice.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/players_notifier.dart';
-import '../../../../Presentation/providers/selected_notifier.dart';
 import '../../../../Presentation/widgets/custom_small_container.dart';
 import '../../../../core/models/score_page_arguments.dart';
+import '../../../providers/selected_notifier.dart';
 import '../../my_profile_image.dart';
+import '../vs_bar.dart';
 
 class CreateDoubleGame extends ConsumerWidget
     with SetProfileImageMixin, FormatDateMixin {
@@ -64,6 +65,8 @@ class CreateDoubleGame extends ConsumerWidget
                                   ref
                                       .watch(playersProvider.notifier)
                                       .fetchPlayers();
+                                  ref.watch(matchTypeProvider.notifier).update(
+                                      (state) => state = MatchType.double);
                                   Navigator.pushNamed(
                                     context,
                                     route.playerListPage,
@@ -97,6 +100,10 @@ class CreateDoubleGame extends ConsumerWidget
                                     ref
                                         .watch(playersProvider.notifier)
                                         .fetchPlayers();
+                                    ref
+                                        .watch(matchTypeProvider.notifier)
+                                        .update((state) =>
+                                            state = MatchType.double);
                                     Navigator.pushNamed(
                                       context,
                                       route.playerListPage,
@@ -121,29 +128,67 @@ class CreateDoubleGame extends ConsumerWidget
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                SizedBox(
-                                  width: 150,
-                                  child: Divider(
-                                    height: 5,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 15,
-                                    vertical: 20,
-                                  ),
-                                  child: Text('VS'),
-                                ),
-                                SizedBox(
-                                  width: 150,
-                                  child: Divider(
-                                    height: 5,
-                                  ),
-                                ),
-                              ],
+                            SizedBox(
+                              height: 25,
+                              child: isAllSelected
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Center(
+                                          child: Row(
+                                            children: [
+                                              const Text(
+                                                'Win probability: ',
+                                                style: TextStyle(
+                                                    color: ColorConstants
+                                                        .textColor,
+                                                    fontSize: 11),
+                                              ),
+                                              Text(
+                                                '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
+                                                style: const TextStyle(
+                                                    color: ColorConstants
+                                                        .secondaryTextColor,
+                                                    fontSize: 14),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : null,
+                            ),
+                            const VsBar(),
+                            SizedBox(
+                              height: 25,
+                              child: isAllSelected
+                                  ? Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Center(
+                                          child: Row(
+                                            children: [
+                                              const Text(
+                                                'Win probability: ',
+                                                style: TextStyle(
+                                                    color: ColorConstants
+                                                        .textColor,
+                                                    fontSize: 11),
+                                              ),
+                                              Text(
+                                                '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
+                                                style: const TextStyle(
+                                                    color: ColorConstants
+                                                        .secondaryTextColor,
+                                                    fontSize: 14),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : null,
                             ),
                             CustomSmallContainer(
                               width: 300,
@@ -153,6 +198,8 @@ class CreateDoubleGame extends ConsumerWidget
                                   ref
                                       .watch(playersProvider.notifier)
                                       .fetchPlayers();
+                                  ref.watch(matchTypeProvider.notifier).update(
+                                      (state) => state = MatchType.double);
                                   Navigator.pushNamed(
                                     context,
                                     route.playerListPage,
@@ -186,6 +233,10 @@ class CreateDoubleGame extends ConsumerWidget
                                     ref
                                         .watch(playersProvider.notifier)
                                         .fetchPlayers();
+                                    ref
+                                        .watch(matchTypeProvider.notifier)
+                                        .update((state) =>
+                                            state = MatchType.double);
                                     Navigator.pushNamed(
                                       context,
                                       route.playerListPage,
@@ -377,12 +428,20 @@ class CreateDoubleGame extends ConsumerWidget
                                                                   ),
                                                                 ),
                                                                 onPressed: () {
-                                                                  selectedNotifier.setPlayer(
-                                                                      player: data[
-                                                                          index],
-                                                                      playerSelectChoice:
-                                                                          PlayerSelectChoice
-                                                                              .playerOne);
+                                                                  ref
+                                                                      .watch(matchTypeProvider
+                                                                          .notifier)
+                                                                      .update((state) =>
+                                                                          state =
+                                                                              MatchType.double);
+                                                                  selectedNotifier
+                                                                      .setPlayer(
+                                                                    player: data[
+                                                                        index],
+                                                                    playerSelectChoice:
+                                                                        PlayerSelectChoice
+                                                                            .playerOne,
+                                                                  );
                                                                 },
                                                                 child: Text(
                                                                   '# 1',
@@ -411,12 +470,20 @@ class CreateDoubleGame extends ConsumerWidget
                                                                 ),
                                                               ),
                                                               onPressed: () {
-                                                                selectedNotifier.setPlayer(
-                                                                    player: data[
-                                                                        index],
-                                                                    playerSelectChoice:
-                                                                        PlayerSelectChoice
-                                                                            .playerTwo);
+                                                                ref
+                                                                    .watch(matchTypeProvider
+                                                                        .notifier)
+                                                                    .update((state) =>
+                                                                        state =
+                                                                            MatchType.double);
+                                                                selectedNotifier
+                                                                    .setPlayer(
+                                                                  player: data[
+                                                                      index],
+                                                                  playerSelectChoice:
+                                                                      PlayerSelectChoice
+                                                                          .playerTwo,
+                                                                );
                                                               },
                                                               child: Text(
                                                                 '# 2',
@@ -462,11 +529,20 @@ class CreateDoubleGame extends ConsumerWidget
                                                                   ),
                                                                   onPressed:
                                                                       () {
-                                                                    selectedNotifier.setPlayer(
-                                                                        player: data[
-                                                                            index],
-                                                                        playerSelectChoice:
-                                                                            PlayerSelectChoice.playerThree);
+                                                                    ref
+                                                                        .watch(matchTypeProvider
+                                                                            .notifier)
+                                                                        .update((state) =>
+                                                                            state =
+                                                                                MatchType.double);
+                                                                    selectedNotifier
+                                                                        .setPlayer(
+                                                                      player: data[
+                                                                          index],
+                                                                      playerSelectChoice:
+                                                                          PlayerSelectChoice
+                                                                              .playerThree,
+                                                                    );
                                                                   },
                                                                   child: Text(
                                                                     '# 3',
@@ -496,12 +572,20 @@ class CreateDoubleGame extends ConsumerWidget
                                                                   ),
                                                                 ),
                                                                 onPressed: () {
-                                                                  selectedNotifier.setPlayer(
-                                                                      player: data[
-                                                                          index],
-                                                                      playerSelectChoice:
-                                                                          PlayerSelectChoice
-                                                                              .playerFour);
+                                                                  ref
+                                                                      .watch(matchTypeProvider
+                                                                          .notifier)
+                                                                      .update((state) =>
+                                                                          state =
+                                                                              MatchType.double);
+                                                                  selectedNotifier
+                                                                      .setPlayer(
+                                                                    player: data[
+                                                                        index],
+                                                                    playerSelectChoice:
+                                                                        PlayerSelectChoice
+                                                                            .playerFour,
+                                                                  );
                                                                 },
                                                                 child: Text(
                                                                   '# 4',
@@ -617,29 +701,64 @@ class CreateDoubleGame extends ConsumerWidget
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            SizedBox(
-                              width: 150,
-                              child: Divider(
-                                height: 5,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 15,
-                                vertical: 20,
-                              ),
-                              child: Text('VS'),
-                            ),
-                            SizedBox(
-                              width: 150,
-                              child: Divider(
-                                height: 5,
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          height: 25,
+                          child: isAllSelected
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'Win probability: ',
+                                            style: TextStyle(
+                                                color: ColorConstants.textColor,
+                                                fontSize: 11),
+                                          ),
+                                          Text(
+                                            '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
+                                            style: const TextStyle(
+                                                color: ColorConstants
+                                                    .secondaryTextColor,
+                                                fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : null,
+                        ),
+                        const VsBar(),
+                        SizedBox(
+                          height: 25,
+                          child: isAllSelected
+                              ? Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Center(
+                                      child: Row(
+                                        children: [
+                                          const Text(
+                                            'Win probability: ',
+                                            style: TextStyle(
+                                                color: ColorConstants.textColor,
+                                                fontSize: 11),
+                                          ),
+                                          Text(
+                                            '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
+                                            style: const TextStyle(
+                                                color: ColorConstants
+                                                    .secondaryTextColor,
+                                                fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : null,
                         ),
                         CustomSmallContainer(
                           width: 300,
@@ -801,10 +920,9 @@ class CreateDoubleGame extends ConsumerWidget
                                                         const EdgeInsets.only(
                                                             right: 10),
                                                     child: MyProfileImage(
-                                                            playerId:
-                                                                data[index].id,
-                                                            size: 30,
-                                                          ),
+                                                      playerId: data[index].id,
+                                                      size: 30,
+                                                    ),
                                                   ),
                                                   Column(
                                                     crossAxisAlignment:
@@ -863,12 +981,21 @@ class CreateDoubleGame extends ConsumerWidget
                                                             ),
                                                           ),
                                                           onPressed: () {
-                                                            selectedNotifier.setPlayer(
-                                                                player:
-                                                                    data[index],
-                                                                playerSelectChoice:
-                                                                    PlayerSelectChoice
-                                                                        .playerOne);
+                                                            ref
+                                                                .watch(
+                                                                    matchTypeProvider
+                                                                        .notifier)
+                                                                .update((state) =>
+                                                                    state = MatchType
+                                                                        .double);
+                                                            selectedNotifier
+                                                                .setPlayer(
+                                                              player:
+                                                                  data[index],
+                                                              playerSelectChoice:
+                                                                  PlayerSelectChoice
+                                                                      .playerOne,
+                                                            );
                                                           },
                                                           child: Text(
                                                             '# 1',
@@ -895,12 +1022,20 @@ class CreateDoubleGame extends ConsumerWidget
                                                           ),
                                                         ),
                                                         onPressed: () {
-                                                          selectedNotifier.setPlayer(
-                                                              player:
-                                                                  data[index],
-                                                              playerSelectChoice:
-                                                                  PlayerSelectChoice
-                                                                      .playerTwo);
+                                                          ref
+                                                              .watch(
+                                                                  matchTypeProvider
+                                                                      .notifier)
+                                                              .update((state) =>
+                                                                  state = MatchType
+                                                                      .double);
+                                                          selectedNotifier
+                                                              .setPlayer(
+                                                            player: data[index],
+                                                            playerSelectChoice:
+                                                                PlayerSelectChoice
+                                                                    .playerTwo,
+                                                          );
                                                         },
                                                         child: Text(
                                                           '# 2',
@@ -941,12 +1076,20 @@ class CreateDoubleGame extends ConsumerWidget
                                                               ),
                                                             ),
                                                             onPressed: () {
-                                                              selectedNotifier.setPlayer(
-                                                                  player: data[
-                                                                      index],
-                                                                  playerSelectChoice:
-                                                                      PlayerSelectChoice
-                                                                          .playerThree);
+                                                              ref
+                                                                  .watch(matchTypeProvider
+                                                                      .notifier)
+                                                                  .update((state) =>
+                                                                      state = MatchType
+                                                                          .double);
+                                                              selectedNotifier
+                                                                  .setPlayer(
+                                                                player:
+                                                                    data[index],
+                                                                playerSelectChoice:
+                                                                    PlayerSelectChoice
+                                                                        .playerThree,
+                                                              );
                                                             },
                                                             child: Text(
                                                               '# 3',
@@ -974,12 +1117,21 @@ class CreateDoubleGame extends ConsumerWidget
                                                             ),
                                                           ),
                                                           onPressed: () {
-                                                            selectedNotifier.setPlayer(
-                                                                player:
-                                                                    data[index],
-                                                                playerSelectChoice:
-                                                                    PlayerSelectChoice
-                                                                        .playerFour);
+                                                            ref
+                                                                .watch(
+                                                                    matchTypeProvider
+                                                                        .notifier)
+                                                                .update((state) =>
+                                                                    state = MatchType
+                                                                        .double);
+                                                            selectedNotifier
+                                                                .setPlayer(
+                                                              player:
+                                                                  data[index],
+                                                              playerSelectChoice:
+                                                                  PlayerSelectChoice
+                                                                      .playerFour,
+                                                            );
                                                           },
                                                           child: Text(
                                                             '# 4',

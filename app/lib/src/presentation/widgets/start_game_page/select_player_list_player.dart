@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/providers/selected_notifier.dart';
 
 import '../../../../constants/color_constants.dart';
 import '../../../../enums/player_select_choice.dart';
 import '../../../../protos/base.pb.dart';
 import '../../../../utils/mixins/set_profile_image_mixin.dart';
-import '../../../Presentation/providers/selected_notifier.dart';
+
 import '../../../Presentation/widgets/custom_small_container.dart';
 import '../my_profile_image.dart';
 
@@ -21,8 +22,6 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedNotifier = ref.watch(selectedProvider.notifier);
-
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: CustomSmallContainer(
@@ -51,10 +50,10 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
             ),
             TextButton(
                 onPressed: () {
-                  selectedNotifier.setPlayer(
-                    player: player,
-                    playerSelectChoice: playerSelectIndex,
-                  );
+                  ref.watch(selectedProvider.notifier).setPlayer(
+                        player: player,
+                        playerSelectChoice: playerSelectIndex,
+                      );
                   Navigator.of(context).pop();
                 },
                 child: const Icon(

@@ -29,13 +29,14 @@ namespace GetPong.Application
 
             services.AddScoped<IAddGameHandler, AddGameHandler>();
             services.AddScoped<IGetGamesHandler, GetGamesHandler>();
+            services.AddScoped<IGetWinProbabilityHandler, GetWinProbabilityHandler>();
             services.AddScoped<IGetGamesByPlayerIdHandler, GetGamesByPlayerIdHandler>();
-            services.AddScoped<ISaveResultHandler, SaveResultHandler>();
 
+            services.AddScoped<ISaveResultHandler, SaveResultHandler>();
             services.AddScoped<IGetResultByGameIdHandler, GetResultByGameIdHandler>();
             services.AddScoped<IGetResultsByPlayerIdHandler, GetResultsByPlayerIdHandler>();
             services.AddScoped<IGetResultsHandler, GetResultsHandler>();
-            
+
             // Helpers
             services.AddScoped<IHelper, Helper>();
             services.AddScoped<IGameHelper, GameHelper>();
