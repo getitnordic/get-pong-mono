@@ -6,6 +6,7 @@ service ResultService{
   rpc GetResultByGameId(GetResultByGameIdRequest) returns (GetResultByGameIdReply) {}
   rpc GetResultsByPlayerId(GetResultsByPlayerIdRequest) returns (GetResultsByPlayerIdReply) {}
   rpc SaveResult(SaveResultRequest) returns (SaveResultReply) {}
+  rpc GetResults(GetResultsRequest) returns (GetResultsReply) {}
 }
 
 
@@ -31,11 +32,21 @@ message GetResultsByPlayerIdReply {
 
 
 message SaveResultRequest {
-  ResultModel resultModel= 1;
+  ResultModel resultModel = 1;
 }
 
 message SaveResultReply {
-  ResultModel resultModel= 1;
+  ResultModel resultModel = 1;
+}
+
+
+
+message GetResultsRequest{
+  int32 limit = 1;
+}
+
+message GetResultsReply{
+  repeated ResultModel resultModel = 1;
 }
 
 // Model

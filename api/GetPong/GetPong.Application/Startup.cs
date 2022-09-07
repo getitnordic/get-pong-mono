@@ -33,7 +33,8 @@ namespace GetPong.Application
             services.AddScoped<ISaveResultHandler, SaveResultHandler>();
 
             services.AddScoped<IGetResultByGameIdHandler, GetResultByGameIdHandler>();
-            services.AddScoped<IGetResultsByPlayerId, GetResultsByPlayerId>();
+            services.AddScoped<IGetResultsByPlayerIdHandler, GetResultsByPlayerIdHandler>();
+            services.AddScoped<IGetResultsHandler, GetResultsHandler>();
             
             // Helpers
             services.AddScoped<IHelper, Helper>();

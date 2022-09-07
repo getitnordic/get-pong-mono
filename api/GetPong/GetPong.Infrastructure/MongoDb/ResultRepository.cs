@@ -38,6 +38,12 @@ public class ResultRepository : IResultRepository
         return docs.Select(x => new Result(x)).ToList();
     }
 
+    public List<Result> GetResults(int limit)
+    {
+        var allResultsBson = _mongoCollection.Find(new BsonDocument()).Sort("{time_stamp: -1}").Limit(limit).ToList();
+        return allResultsBson.Select(doc => new Result(doc)).ToList();
+    }
+
     public async Task SaveResult(Game game)
     {
         //Check which team won
