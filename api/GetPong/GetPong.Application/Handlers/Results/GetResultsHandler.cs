@@ -4,17 +4,18 @@ using GetPong.Core.Infrastructure.Repositories;
 
 namespace GetPong.Application.Handlers.Results;
 
-public class GetResultsByPlayerId : IGetResultsByPlayerId
+public class GetResultsHandler : IGetResultsHandler
 {
+
     private readonly IResultRepository _resultRepository;
 
-    public GetResultsByPlayerId(IResultRepository resultRepository)
+    public GetResultsHandler(IResultRepository resultRepository)
     {
         _resultRepository = resultRepository;
     }
 
-    public List<Result> Handle(string playerId, int limit, int offset)
+    public List<Result> Handle(int limit)
     {
-        return _resultRepository.GetResultsByPlayerId(playerId, limit, offset);
+        return _resultRepository.GetResults(limit);
     }
 }

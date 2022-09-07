@@ -2,7 +2,7 @@
 
 namespace GetPong.Core.Handlers.Results;
 
-public interface IGetResultsByPlayerId
+public interface IGetResultsByPlayerIdHandler
 {
     List<Result> Handle(string playerId, int limit, int offset);
 }

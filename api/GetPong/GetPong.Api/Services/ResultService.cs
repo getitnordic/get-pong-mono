@@ -8,13 +8,15 @@ namespace GetPong.Services;
 public class ResultService : global::ResultService.ResultServiceBase
 {
     private readonly IGetResultByGameIdHandler _getResultByGameIdHandler;
-    private readonly IGetResultsByPlayerId _getResultsByPlayerId;
+    private readonly IGetResultsByPlayerIdHandler _getResultsByPlayerIdHandler;
+    private readonly IGetResultsHandler _getResultsHandler;
     private readonly IMapper _mapper;
 
-    public ResultService(IGetResultByGameIdHandler getResultByGameIdHandler, IMapper mapper, IGetResultsByPlayerId getResultsByPlayerId)
+    public ResultService(IGetResultByGameIdHandler getResultByGameIdHandler, IMapper mapper, IGetResultsByPlayerIdHandler getResultsByPlayerIdHandler, IGetResultsHandler getResultsHandler)
     {
         _getResultByGameIdHandler = getResultByGameIdHandler;
-        _getResultsByPlayerId = getResultsByPlayerId;
+        _getResultsByPlayerIdHandler = getResultsByPlayerIdHandler;
+        _getResultsHandler = getResultsHandler;
         _mapper = mapper;
     }
 
@@ -29,9 +31,17 @@ public class ResultService : global::ResultService.ResultServiceBase
 
     public override async Task<GetResultsByPlayerIdReply> GetResultsByPlayerId(GetResultsByPlayerIdRequest request, ServerCallContext context)
     {
-        var resultList = _getResultsByPlayerId.Handle(request.PlayerId, request.Limit, request.Offset);
+        var resultList = _getResultsByPlayerIdHandler.Handle(request.PlayerId, request.Limit, request.Offset);
         var resultModel = _mapper.Map<List<ResultModel>>(resultList);
         
         return new GetResultsByPlayerIdReply() { ResultModels = { resultModel } };
+    }
+
+    public override Task<GetResultsReply> GetResults(GetResultsRequest request, ServerCallContext context)
+    {
+        var results = _getResultsHandler.Handle(request.Limit);
+        var resultModels = _mapper.Map<List<ResultModel>>(results);
+
+        return Task.FromResult(new GetResultsReply() {ResultModel = {resultModels}});
     }
 }
