@@ -32,6 +32,12 @@ class ResultServiceClient extends $grpc.Client {
           ($2.SaveResultRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) =>
               $2.SaveResultReply.fromBuffer(value));
+  static final _$getResults =
+      $grpc.ClientMethod<$2.GetResultsRequest, $2.GetResultsReply>(
+          '/ResultService/GetResults',
+          ($2.GetResultsRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $2.GetResultsReply.fromBuffer(value));
 
   ResultServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -54,6 +60,12 @@ class ResultServiceClient extends $grpc.Client {
       $2.SaveResultRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$saveResult, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$2.GetResultsReply> getResults(
+      $2.GetResultsRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$getResults, request, options: options);
   }
 }
 
@@ -86,6 +98,13 @@ abstract class ResultServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $2.SaveResultRequest.fromBuffer(value),
         ($2.SaveResultReply value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.GetResultsRequest, $2.GetResultsReply>(
+        'GetResults',
+        getResults_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.GetResultsRequest.fromBuffer(value),
+        ($2.GetResultsReply value) => value.writeToBuffer()));
   }
 
   $async.Future<$2.GetResultByGameIdReply> getResultByGameId_Pre(
@@ -105,10 +124,17 @@ abstract class ResultServiceBase extends $grpc.Service {
     return saveResult(call, await request);
   }
 
+  $async.Future<$2.GetResultsReply> getResults_Pre($grpc.ServiceCall call,
+      $async.Future<$2.GetResultsRequest> request) async {
+    return getResults(call, await request);
+  }
+
   $async.Future<$2.GetResultByGameIdReply> getResultByGameId(
       $grpc.ServiceCall call, $2.GetResultByGameIdRequest request);
   $async.Future<$2.GetResultsByPlayerIdReply> getResultsByPlayerId(
       $grpc.ServiceCall call, $2.GetResultsByPlayerIdRequest request);
   $async.Future<$2.SaveResultReply> saveResult(
       $grpc.ServiceCall call, $2.SaveResultRequest request);
+  $async.Future<$2.GetResultsReply> getResults(
+      $grpc.ServiceCall call, $2.GetResultsRequest request);
 }

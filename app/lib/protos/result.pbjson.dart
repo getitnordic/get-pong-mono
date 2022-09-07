@@ -70,6 +70,26 @@ const SaveResultReply$json = const {
 
 /// Descriptor for `SaveResultReply`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List saveResultReplyDescriptor = $convert.base64Decode('Cg9TYXZlUmVzdWx0UmVwbHkSLgoLcmVzdWx0TW9kZWwYASABKAsyDC5SZXN1bHRNb2RlbFILcmVzdWx0TW9kZWw=');
+@$core.Deprecated('Use getResultsRequestDescriptor instead')
+const GetResultsRequest$json = const {
+  '1': 'GetResultsRequest',
+  '2': const [
+    const {'1': 'limit', '3': 1, '4': 1, '5': 5, '10': 'limit'},
+  ],
+};
+
+/// Descriptor for `GetResultsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getResultsRequestDescriptor = $convert.base64Decode('ChFHZXRSZXN1bHRzUmVxdWVzdBIUCgVsaW1pdBgBIAEoBVIFbGltaXQ=');
+@$core.Deprecated('Use getResultsReplyDescriptor instead')
+const GetResultsReply$json = const {
+  '1': 'GetResultsReply',
+  '2': const [
+    const {'1': 'resultModel', '3': 1, '4': 3, '5': 11, '6': '.ResultModel', '10': 'resultModel'},
+  ],
+};
+
+/// Descriptor for `GetResultsReply`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getResultsReplyDescriptor = $convert.base64Decode('Cg9HZXRSZXN1bHRzUmVwbHkSLgoLcmVzdWx0TW9kZWwYASADKAsyDC5SZXN1bHRNb2RlbFILcmVzdWx0TW9kZWw=');
 @$core.Deprecated('Use resultModelDescriptor instead')
 const ResultModel$json = const {
   '1': 'ResultModel',

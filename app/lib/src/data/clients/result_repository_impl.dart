@@ -39,4 +39,19 @@ class ResultRepositoryImpl implements ResultRepository {
       return DataFailed(e);
     }
   }
+  
+  @override
+  Future<DataState<List<ResultModel>>> getLatestResults(int limit) async {
+    try {
+      final request = GetResultsRequest(limit: limit);
+
+      final response = await client.getResults(request);
+      return DataSuccess(response.resultModel);
+    } on GrpcError catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      return DataFailed(e);
+    }
+  }
 }

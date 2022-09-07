@@ -313,6 +313,94 @@ class SaveResultReply extends $pb.GeneratedMessage {
   ResultModel ensureResultModel() => $_ensure(0);
 }
 
+class GetResultsRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetResultsRequest', createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'limit', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  GetResultsRequest._() : super();
+  factory GetResultsRequest({
+    $core.int? limit,
+  }) {
+    final _result = create();
+    if (limit != null) {
+      _result.limit = limit;
+    }
+    return _result;
+  }
+  factory GetResultsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetResultsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetResultsRequest clone() => GetResultsRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetResultsRequest copyWith(void Function(GetResultsRequest) updates) => super.copyWith((message) => updates(message as GetResultsRequest)) as GetResultsRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetResultsRequest create() => GetResultsRequest._();
+  GetResultsRequest createEmptyInstance() => create();
+  static $pb.PbList<GetResultsRequest> createRepeated() => $pb.PbList<GetResultsRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetResultsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetResultsRequest>(create);
+  static GetResultsRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get limit => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set limit($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasLimit() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearLimit() => clearField(1);
+}
+
+class GetResultsReply extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetResultsReply', createEmptyInstance: create)
+    ..pc<ResultModel>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'resultModel', $pb.PbFieldType.PM, protoName: 'resultModel', subBuilder: ResultModel.create)
+    ..hasRequiredFields = false
+  ;
+
+  GetResultsReply._() : super();
+  factory GetResultsReply({
+    $core.Iterable<ResultModel>? resultModel,
+  }) {
+    final _result = create();
+    if (resultModel != null) {
+      _result.resultModel.addAll(resultModel);
+    }
+    return _result;
+  }
+  factory GetResultsReply.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetResultsReply.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetResultsReply clone() => GetResultsReply()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetResultsReply copyWith(void Function(GetResultsReply) updates) => super.copyWith((message) => updates(message as GetResultsReply)) as GetResultsReply; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetResultsReply create() => GetResultsReply._();
+  GetResultsReply createEmptyInstance() => create();
+  static $pb.PbList<GetResultsReply> createRepeated() => $pb.PbList<GetResultsReply>();
+  @$core.pragma('dart2js:noInline')
+  static GetResultsReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetResultsReply>(create);
+  static GetResultsReply? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<ResultModel> get resultModel => $_getList(0);
+}
+
 class ResultModel extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ResultModel', createEmptyInstance: create)
     ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'eloDiff', $pb.PbFieldType.O3, protoName: 'eloDiff')
