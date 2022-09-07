@@ -3,7 +3,7 @@
 //  source: game.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 
@@ -200,6 +200,114 @@ class GetGamesByPlayerIdReply extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $core.List<GameModel> get gameModel => $_getList(0);
+}
+
+class GetWinProbabilityRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetWinProbabilityRequest', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
+    ..a<$core.int>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'homeTeamElo', $pb.PbFieldType.O3, protoName: 'homeTeamElo')
+    ..a<$core.int>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'awayTeamElo', $pb.PbFieldType.O3, protoName: 'awayTeamElo')
+    ..hasRequiredFields = false
+  ;
+
+  GetWinProbabilityRequest._() : super();
+  factory GetWinProbabilityRequest({
+    $core.int? homeTeamElo,
+    $core.int? awayTeamElo,
+  }) {
+    final _result = create();
+    if (homeTeamElo != null) {
+      _result.homeTeamElo = homeTeamElo;
+    }
+    if (awayTeamElo != null) {
+      _result.awayTeamElo = awayTeamElo;
+    }
+    return _result;
+  }
+  factory GetWinProbabilityRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetWinProbabilityRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetWinProbabilityRequest clone() => GetWinProbabilityRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetWinProbabilityRequest copyWith(void Function(GetWinProbabilityRequest) updates) => super.copyWith((message) => updates(message as GetWinProbabilityRequest)) as GetWinProbabilityRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetWinProbabilityRequest create() => GetWinProbabilityRequest._();
+  GetWinProbabilityRequest createEmptyInstance() => create();
+  static $pb.PbList<GetWinProbabilityRequest> createRepeated() => $pb.PbList<GetWinProbabilityRequest>();
+  @$core.pragma('dart2js:noInline')
+  static GetWinProbabilityRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetWinProbabilityRequest>(create);
+  static GetWinProbabilityRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get homeTeamElo => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set homeTeamElo($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasHomeTeamElo() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearHomeTeamElo() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get awayTeamElo => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set awayTeamElo($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAwayTeamElo() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAwayTeamElo() => clearField(2);
+}
+
+class GetWinProbabilityReply extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'GetWinProbabilityReply', package: const $pb.PackageName(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'game'), createEmptyInstance: create)
+    ..a<$core.double>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'winProbability', $pb.PbFieldType.OD, protoName: 'winProbability')
+    ..hasRequiredFields = false
+  ;
+
+  GetWinProbabilityReply._() : super();
+  factory GetWinProbabilityReply({
+    $core.double? winProbability,
+  }) {
+    final _result = create();
+    if (winProbability != null) {
+      _result.winProbability = winProbability;
+    }
+    return _result;
+  }
+  factory GetWinProbabilityReply.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory GetWinProbabilityReply.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  GetWinProbabilityReply clone() => GetWinProbabilityReply()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  GetWinProbabilityReply copyWith(void Function(GetWinProbabilityReply) updates) => super.copyWith((message) => updates(message as GetWinProbabilityReply)) as GetWinProbabilityReply; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static GetWinProbabilityReply create() => GetWinProbabilityReply._();
+  GetWinProbabilityReply createEmptyInstance() => create();
+  static $pb.PbList<GetWinProbabilityReply> createRepeated() => $pb.PbList<GetWinProbabilityReply>();
+  @$core.pragma('dart2js:noInline')
+  static GetWinProbabilityReply getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<GetWinProbabilityReply>(create);
+  static GetWinProbabilityReply? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get winProbability => $_getN(0);
+  @$pb.TagNumber(1)
+  set winProbability($core.double v) { $_setDouble(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasWinProbability() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearWinProbability() => clearField(1);
 }
 
 class SaveGameRequest extends $pb.GeneratedMessage {
