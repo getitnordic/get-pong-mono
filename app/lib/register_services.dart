@@ -3,6 +3,7 @@ import 'package:get_pong/src/data/clients/result_repository_impl.dart';
 import 'package:get_pong/src/domain/clients/result_repository.dart';
 import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/players/update_profile_picture_usecase.dart';
+import 'package:get_pong/src/domain/use_cases/results/get_latest_results_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_result_by_game_id_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_results_by_player_id_usecase.dart';
 
@@ -53,4 +54,6 @@ Future<void> initServices() async {
       () => GetResultByGameIdUseCase(getIt()));
   getIt.registerLazySingleton<GetResultsByPlayerIdUseCase>(
       () => GetResultsByPlayerIdUseCase(getIt()));
+  getIt.registerLazySingleton<GetLatestResultsUseCase>(
+      () => GetLatestResultsUseCase(getIt()));
 }
