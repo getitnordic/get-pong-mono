@@ -6,7 +6,6 @@ namespace GetPong.Core.Infrastructure.Repositories;
 public interface IResultRepository
 {
     Task<List<Result>> GetResultByGameId(string gameId);
-    void SaveResult(Game game);
+    Task SaveResult(Game game);
     List<Result> GetResultsByPlayerId(string playerId, int limit, int offset);
-
 }

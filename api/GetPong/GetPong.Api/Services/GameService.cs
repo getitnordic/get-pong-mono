@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Base;
 using Game;
+using GetPong.Application.Helpers;
 using GetPong.Core.Handlers.Games;
 using GetPong.Core.Handlers.Players;
 using GetPong.Core.Models.Commands.Players;
@@ -34,24 +35,25 @@ public class GameService : global::Game.GameService.GameServiceBase
         _mapper = mapper;
     }
 
-    public override Task<SaveGameReply> SaveGame(SaveGameRequest request, ServerCallContext context)
+    public override async Task<SaveGameReply> SaveGame(SaveGameRequest request, ServerCallContext context)
     {
-        var game = _addGameHandler.Handle(_mapper.Map<Core.Infrastructure.Entities.Games.Game>(request.GameModel));
-        _saveResultHandler.Handle(game);
+        var game = await _addGameHandler.Handle(_mapper.Map<Core.Infrastructure.Entities.Games.Game>(request.GameModel));
+        await _saveResultHandler.Handle(game);
         var gameModel = _mapper.Map<GameModel>(game);
-
+        
         //Update lastActivity on players in the game. 
         var playerOne = _getPlayerByIdHandler.Handle(game.HomeTeamIds[0]).Result;
         var playerTwo = _getPlayerByIdHandler.Handle(game.AwayTeamIds[0]).Result;
+        
         var playerOneCommand = _mapper.Map<UpdatePlayerCommand>(playerOne);
         var playerTwoCommand = _mapper.Map<UpdatePlayerCommand>(playerTwo);
         playerOneCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         playerTwoCommand.LastActivity = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
-        _updatePlayerHandler.Handle(playerOne.Id, playerOneCommand);
-        _updatePlayerHandler.Handle(playerTwo.Id, playerTwoCommand);
+        await _updatePlayerHandler.Handle(playerOne.Id, playerOneCommand);
+        await _updatePlayerHandler.Handle(playerTwo.Id, playerTwoCommand);
 
         //For doubles
-        if (game.HomeTeamIds.Count != 2) return Task.FromResult(new SaveGameReply() { GameModel = gameModel });
+        if (game.HomeTeamIds.Count != 2) return new SaveGameReply() { GameModel = gameModel };
 
         var playerThree = _getPlayerByIdHandler.Handle(game.HomeTeamIds[1]).Result;
         var playerFour = _getPlayerByIdHandler.Handle(game.AwayTeamIds[1]).Result;
@@ -62,7 +64,7 @@ public class GameService : global::Game.GameService.GameServiceBase
         _updatePlayerHandler.Handle(playerThree.Id, playerThreeCommand);
         _updatePlayerHandler.Handle(playerFour.Id, playerFourCommand);
 
-        return Task.FromResult(new SaveGameReply() { GameModel = gameModel });
+        return new SaveGameReply() { GameModel = gameModel };
     }
 
     public override Task<GetGamesReply> GetGames(GetGamesRequest request, ServerCallContext context)

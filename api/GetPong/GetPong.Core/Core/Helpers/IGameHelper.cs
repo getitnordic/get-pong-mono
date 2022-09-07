@@ -4,6 +4,6 @@ namespace GetPong.Core.Core.Helpers;
 
 public interface IGameHelper
 {
-    void SaveSingleMatchScoreToDb(Game game);
-    void SaveDoubleMatchScoreToDb(Game game);
+    Task SaveSingleMatchScoreToDb(Game game);
+    Task SaveDoubleMatchScoreToDb(Game game);
 }
