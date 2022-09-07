@@ -42,20 +42,6 @@ class _ScorePageState extends ConsumerState<ScorePage>
     )
   ];
 
-  void addSet(ScorePageSet set) {
-    setState(() {
-      sets.add(set);
-    });
-  }
-
-  void removeSet() {
-    setState(
-      () {
-        sets.removeLast();
-      },
-    );
-  }
-
   void setHomeScore(double score) {
     setState(() {
       sets[currentSetId].homeScore = score;
@@ -116,6 +102,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
 
   @override
   Widget build(BuildContext context) {
+    final listKey = GlobalKey<AnimatedListState>();
     final matchesNotifier = ref.watch(matchesProvider.notifier);
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selectedPlayersNotifier = ref.watch(selectedProvider.notifier);
@@ -131,23 +118,53 @@ class _ScorePageState extends ConsumerState<ScorePage>
 
       if (isDouble()) {
         GameModel match = GameModel(
-          homeTeamIds: [playerOne.id, playerTwo.id],
-          awayTeamIds: [playerThree.id, playerFour.id],
-          sets: newSets,
-          timeStamp: Timestamp.create().createEmptyInstance()
-        );
+            homeTeamIds: [playerOne.id, playerTwo.id],
+            awayTeamIds: [playerThree.id, playerFour.id],
+            sets: newSets,
+            timeStamp: Timestamp.create().createEmptyInstance());
         matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       } else {
         GameModel match = GameModel(
-          homeTeamIds: [playerOne.id],
-          awayTeamIds: [playerTwo.id],
-          sets: newSets,
-          timeStamp: Timestamp.create().createEmptyInstance()
-        );
+            homeTeamIds: [playerOne.id],
+            awayTeamIds: [playerTwo.id],
+            sets: newSets,
+            timeStamp: Timestamp.create().createEmptyInstance());
         matchesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       }
+    }
+
+    void removeSet() {
+      final removedSet = sets[sets.length - 1];
+      sets.removeLast();
+      listKey.currentState!.removeItem(
+          sets.length,
+          (context, animation) => SetContainer(
+                animation: animation,
+                setId: sets.length,
+                homeScore: sets[sets.length - 1].homeScore,
+                awayScore: sets[sets.length - 1].awayScore,
+                matchType: matchType,
+                playerOneName: displayName(playerOne),
+                playerTwoName: displayName(playerTwo),
+                playerThreeName: displayName(playerThree),
+                playerFourName: displayName(playerFour),
+                setHomeScore: setHomeScore,
+                setAwayScore: setAwayScore,
+                getSetId: setCurrentSetId,
+                removeSet: removeSet,
+                setCount: sets.length,
+              ),
+          duration: Duration(milliseconds: 300));
+    }
+
+    void addSet(ScorePageSet set) {
+      sets.add(set);
+      listKey.currentState!.insertItem(
+        sets.length,
+        duration: Duration(milliseconds: 300),
+      );
     }
 
     double height(BuildContext context) => MediaQuery.of(context).size.height;
@@ -161,11 +178,13 @@ class _ScorePageState extends ConsumerState<ScorePage>
           Center(
             child: SizedBox(
               height: MediaQuery.of(context).size.height - 200,
-              child: ListView.builder(
+              child: AnimatedList(
+                key: listKey,
                 shrinkWrap: true,
-                itemCount: sets.length,
-                itemBuilder: (context, index) {
+                initialItemCount: sets.length,
+                itemBuilder: (context, index, animation) {
                   return SetContainer(
+                    animation: animation,
                     setId: index,
                     homeScore: sets[index].homeScore,
                     awayScore: sets[index].awayScore,
@@ -232,16 +251,18 @@ class _ScorePageState extends ConsumerState<ScorePage>
       floatingActionButton: FloatingActionButton(
         onPressed: sets.length < 11
             ? () {
-                setState(() {
-                  setCounter++;
-                  sets.add(
-                    ScorePageSet(
-                      homeScore: 0,
-                      awayScore: 0,
-                      setId: setCounter,
-                    ),
-                  );
-                });
+                setCounter++;
+                sets.add(
+                  ScorePageSet(
+                    homeScore: 0,
+                    awayScore: 0,
+                    setId: setCounter,
+                  ),
+                );
+                listKey.currentState!.insertItem(
+                  sets.length - 1,
+                  duration: Duration(milliseconds: 300),
+                );
               }
             : null,
         backgroundColor: sets.length < 11
