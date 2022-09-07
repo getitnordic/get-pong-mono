@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:get_pong/src/data/clients/result_repository_impl.dart';
 import 'package:get_pong/src/domain/clients/result_repository.dart';
 import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
+import 'package:get_pong/src/domain/use_cases/games/get_win_probability_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/players/update_profile_picture_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_latest_results_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_result_by_game_id_usecase.dart';
@@ -48,6 +49,8 @@ Future<void> initServices() async {
   getIt.registerLazySingleton<SaveGameUseCase>(() => SaveGameUseCase(getIt()));
   getIt.registerLazySingleton<GetGamesByPlayerIdUseCase>(
       () => GetGamesByPlayerIdUseCase(getIt()));
+  getIt.registerLazySingleton<GetWinProbabilityUseCase>(
+      () => GetWinProbabilityUseCase(getIt()));
 
   //Result
   getIt.registerLazySingleton<GetResultByGameIdUseCase>(

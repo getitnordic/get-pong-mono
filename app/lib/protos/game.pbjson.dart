@@ -3,7 +3,7 @@
 //  source: game.proto
 //
 // @dart = 2.12
-// ignore_for_file: annotate_overrides,camel_case_types,unnecessary_const,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type,unnecessary_this,prefer_final_fields,deprecated_member_use_from_same_package
+// ignore_for_file: annotate_overrides,camel_case_types,constant_identifier_names,deprecated_member_use_from_same_package,directives_ordering,library_prefixes,non_constant_identifier_names,prefer_final_fields,return_of_invalid_type,unnecessary_const,unnecessary_import,unnecessary_this,unused_import,unused_shown_name
 
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
@@ -49,6 +49,27 @@ const GetGamesByPlayerIdReply$json = const {
 
 /// Descriptor for `GetGamesByPlayerIdReply`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List getGamesByPlayerIdReplyDescriptor = $convert.base64Decode('ChdHZXRHYW1lc0J5UGxheWVySWRSZXBseRItCglnYW1lTW9kZWwYASADKAsyDy5nYW1lLkdhbWVNb2RlbFIJZ2FtZU1vZGVs');
+@$core.Deprecated('Use getWinProbabilityRequestDescriptor instead')
+const GetWinProbabilityRequest$json = const {
+  '1': 'GetWinProbabilityRequest',
+  '2': const [
+    const {'1': 'homeTeamElo', '3': 1, '4': 1, '5': 5, '10': 'homeTeamElo'},
+    const {'1': 'awayTeamElo', '3': 2, '4': 1, '5': 5, '10': 'awayTeamElo'},
+  ],
+};
+
+/// Descriptor for `GetWinProbabilityRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getWinProbabilityRequestDescriptor = $convert.base64Decode('ChhHZXRXaW5Qcm9iYWJpbGl0eVJlcXVlc3QSIAoLaG9tZVRlYW1FbG8YASABKAVSC2hvbWVUZWFtRWxvEiAKC2F3YXlUZWFtRWxvGAIgASgFUgthd2F5VGVhbUVsbw==');
+@$core.Deprecated('Use getWinProbabilityReplyDescriptor instead')
+const GetWinProbabilityReply$json = const {
+  '1': 'GetWinProbabilityReply',
+  '2': const [
+    const {'1': 'winProbability', '3': 1, '4': 1, '5': 1, '10': 'winProbability'},
+  ],
+};
+
+/// Descriptor for `GetWinProbabilityReply`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List getWinProbabilityReplyDescriptor = $convert.base64Decode('ChZHZXRXaW5Qcm9iYWJpbGl0eVJlcGx5EiYKDndpblByb2JhYmlsaXR5GAEgASgBUg53aW5Qcm9iYWJpbGl0eQ==');
 @$core.Deprecated('Use saveGameRequestDescriptor instead')
 const SaveGameRequest$json = const {
   '1': 'SaveGameRequest',
