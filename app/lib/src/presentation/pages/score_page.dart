@@ -32,8 +32,11 @@ class _ScorePageState extends ConsumerState<ScorePage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
+  final listKey = GlobalKey<AnimatedListState>();
+  final scrollController = ScrollController();
   int setCounter = 1;
   int currentSetId = 0;
+
   List<ScorePageSet> sets = [
     ScorePageSet(
       homeScore: 0,
@@ -102,7 +105,6 @@ class _ScorePageState extends ConsumerState<ScorePage>
 
   @override
   Widget build(BuildContext context) {
-    final listKey = GlobalKey<AnimatedListState>();
     final matchesNotifier = ref.watch(matchesProvider.notifier);
     final playersNotifier = ref.watch(playersProvider.notifier);
     final selectedPlayersNotifier = ref.watch(selectedProvider.notifier);
@@ -136,6 +138,14 @@ class _ScorePageState extends ConsumerState<ScorePage>
     }
 
     void removeSet() {
+      if (scrollController.hasClients) {
+        final position = scrollController.position.maxScrollExtent - 350;
+        scrollController.animateTo(
+          position,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
       final removedSet = sets[sets.length - 1];
       sets.removeLast();
       listKey.currentState!.removeItem(
@@ -159,12 +169,29 @@ class _ScorePageState extends ConsumerState<ScorePage>
           duration: Duration(milliseconds: 300));
     }
 
-    void addSet(ScorePageSet set) {
-      sets.add(set);
+    void addSet() {
+      if (scrollController.hasClients) {
+        final position = scrollController.position.maxScrollExtent + 350;
+        scrollController.animateTo(
+          position,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+
+      setCounter++;
+      sets.add(
+        ScorePageSet(
+          homeScore: 0,
+          awayScore: 0,
+          setId: setCounter,
+        ),
+      );
       listKey.currentState!.insertItem(
-        sets.length,
+        sets.length - 1,
         duration: Duration(milliseconds: 300),
       );
+      print(sets.length);
     }
 
     double height(BuildContext context) => MediaQuery.of(context).size.height;
@@ -179,6 +206,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
             child: SizedBox(
               height: MediaQuery.of(context).size.height - 200,
               child: AnimatedList(
+                controller: scrollController,
                 key: listKey,
                 shrinkWrap: true,
                 initialItemCount: sets.length,
@@ -251,18 +279,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
       floatingActionButton: FloatingActionButton(
         onPressed: sets.length < 11
             ? () {
-                setCounter++;
-                sets.add(
-                  ScorePageSet(
-                    homeScore: 0,
-                    awayScore: 0,
-                    setId: setCounter,
-                  ),
-                );
-                listKey.currentState!.insertItem(
-                  sets.length - 1,
-                  duration: Duration(milliseconds: 300),
-                );
+                addSet();
               }
             : null,
         backgroundColor: sets.length < 11

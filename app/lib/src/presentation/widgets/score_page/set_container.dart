@@ -50,7 +50,7 @@ class SetContainer extends StatelessWidget {
       ).animate(
         CurvedAnimation(
           parent: animation,
-          curve: Curves.easeIn,
+          curve: Curves.easeOut,
         ),
       ),
       child: Padding(
