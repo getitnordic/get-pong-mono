@@ -191,10 +191,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
         sets.length - 1,
         duration: Duration(milliseconds: 300),
       );
-      print(sets.length);
     }
-
-    double height(BuildContext context) => MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
