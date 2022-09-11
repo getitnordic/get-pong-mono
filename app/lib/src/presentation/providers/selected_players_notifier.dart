@@ -1,24 +1,24 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/enums/match_type.dart';
-import 'package:get_pong/register_services.dart';
-import 'package:get_pong/src/core/models/get_win_probability_params.dart';
-import 'package:get_pong/src/domain/use_cases/games/get_win_probability_usecase.dart';
 
+import '../../../enums/match_type.dart';
 import '../../../enums/player_select_choice.dart';
 import '../../../protos/base.pb.dart';
+import '../../../register_services.dart';
 import '../../core/common/common.dart';
+import '../../core/models/get_win_probability_params.dart';
+import '../../domain/use_cases/games/get_win_probability_usecase.dart';
 
-final selectedProvider =
-    StateNotifierProvider<SelectedNotifier, List<PlayerModel>>(
-        (ref) => SelectedNotifier(getIt<GetWinProbabilityUseCase>(), ref.read));
+final selectedPlayersProvider =
+    StateNotifierProvider<SelectedPlayersNotifier, List<PlayerModel>>((ref) =>
+        SelectedPlayersNotifier(getIt<GetWinProbabilityUseCase>(), ref.read));
 
 final winProbabilityProvider = StateProvider<double>((ref) => 0.0);
 final matchTypeProvider = StateProvider<MatchType>((ref) => MatchType.none);
 
-class SelectedNotifier extends StateNotifier<List<PlayerModel>> {
-  final GetWinProbabilityUseCase getWinProb;
+class SelectedPlayersNotifier extends StateNotifier<List<PlayerModel>> {
+  final UseCase getWinProb;
   final Reader read;
-  SelectedNotifier(
+  SelectedPlayersNotifier(
     this.getWinProb,
     this.read,
   ) : super([

@@ -1,19 +1,17 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/constants/color_constants.dart';
-import 'package:get_pong/enums/match_type.dart';
-import 'package:get_pong/protos/base.pb.dart';
-import 'package:get_pong/protos/game.pbgrpc.dart';
-import 'package:get_pong/protos/google/protobuf/timestamp.pb.dart';
-import 'package:get_pong/src/Presentation/providers/players_notifier.dart';
-import 'package:get_pong/src/Presentation/providers/selected_notifier.dart';
-import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../constants/color_constants.dart';
+import '../../../enums/match_type.dart';
+import '../../../protos/base.pb.dart';
+import '../../../protos/game.pbgrpc.dart';
+import '../../../protos/google/protobuf/timestamp.pb.dart';
 import '../../Presentation/providers/matches_notifier.dart';
+import '../../Presentation/providers/players_notifier.dart';
 import '../../core/models/score_page_set.dart';
+import '../providers/selected_players_notifier.dart';
+import '../widgets/widgets.dart';
 
 class ScorePage extends ConsumerStatefulWidget {
   final List<PlayerModel> selectedPlayers;
@@ -106,8 +104,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
   @override
   Widget build(BuildContext context) {
     final matchesNotifier = ref.watch(matchesProvider.notifier);
-    final playersNotifier = ref.watch(playersProvider.notifier);
-    final selectedPlayersNotifier = ref.watch(selectedProvider.notifier);
+    final selectedPlayersNotifier = ref.watch(selectedPlayersProvider.notifier);
     final matchType = widget.matchType;
     final playerOne = widget.selectedPlayers[0];
     final playerTwo = widget.selectedPlayers[1];

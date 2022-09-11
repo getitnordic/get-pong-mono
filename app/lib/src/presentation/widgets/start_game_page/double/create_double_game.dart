@@ -11,7 +11,7 @@ import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/players_notifier.dart';
 import '../../../../Presentation/widgets/custom_small_container.dart';
 import '../../../../core/models/score_page_arguments.dart';
-import '../../../providers/selected_notifier.dart';
+import '../../../providers/selected_players_notifier.dart';
 import '../../my_profile_image.dart';
 import '../vs_bar.dart';
 
@@ -24,8 +24,8 @@ class CreateDoubleGame extends ConsumerWidget
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final playersNotifier = ref.watch(playersProvider.notifier);
-    final selected = ref.watch(selectedProvider);
-    final selectedNotifier = ref.watch(selectedProvider.notifier);
+    final selected = ref.watch(selectedPlayersProvider);
+    final selectedNotifier = ref.watch(selectedPlayersProvider.notifier);
     final isAllSelected = selected[0].nickname.isNotEmpty &&
         selected[1].nickname.isNotEmpty &&
         selected[2].nickname.isNotEmpty &&

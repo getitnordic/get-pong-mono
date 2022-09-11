@@ -11,7 +11,7 @@ import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/widgets/custom_small_container.dart';
 import '../../../../core/models/score_page_arguments.dart';
 import '../../../providers/players_notifier.dart';
-import '../../../providers/selected_notifier.dart';
+import '../../../providers/selected_players_notifier.dart';
 import '../../my_profile_image.dart';
 import '../vs_bar.dart';
 
@@ -23,9 +23,11 @@ class CreateSingleGame extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAllSelected = ref.watch(selectedProvider)[0].nickname.isNotEmpty &&
-        ref.watch(selectedProvider)[1].nickname.isNotEmpty &&
-        ref.watch(selectedProvider)[0].id != ref.watch(selectedProvider)[1].id;
+    final isAllSelected =
+        ref.watch(selectedPlayersProvider)[0].nickname.isNotEmpty &&
+            ref.watch(selectedPlayersProvider)[1].nickname.isNotEmpty &&
+            ref.watch(selectedPlayersProvider)[0].id !=
+                ref.watch(selectedPlayersProvider)[1].id;
 
     double height(BuildContext context) => MediaQuery.of(context).size.height;
 
@@ -57,7 +59,7 @@ class CreateSingleGame extends ConsumerWidget
                                 );
                               },
                               child: ref
-                                      .watch(selectedProvider)[0]
+                                      .watch(selectedPlayersProvider)[0]
                                       .fullName
                                       .isEmpty
                                   ? Text(
@@ -69,9 +71,11 @@ class CreateSingleGame extends ConsumerWidget
                                   : Text(
                                       ref
                                           .watch(playersProvider.notifier)
-                                          .getPlayerById(
-                                              ref.watch(selectedProvider)[0].id)
+                                          .getPlayerById(ref
+                                              .watch(selectedPlayersProvider)[0]
+                                              .id)
                                           .fullName,
+                                      overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.goldman(
                                           fontSize: 18,
                                           color: ColorConstants.textColor),
@@ -154,7 +158,7 @@ class CreateSingleGame extends ConsumerWidget
                                 );
                               },
                               child: ref
-                                      .watch(selectedProvider)[1]
+                                      .watch(selectedPlayersProvider)[1]
                                       .fullName
                                       .isEmpty
                                   ? Text(
@@ -167,9 +171,11 @@ class CreateSingleGame extends ConsumerWidget
                                   : Text(
                                       ref
                                           .watch(playersProvider.notifier)
-                                          .getPlayerById(
-                                              ref.watch(selectedProvider)[1].id)
+                                          .getPlayerById(ref
+                                              .watch(selectedPlayersProvider)[1]
+                                              .id)
                                           .fullName,
+                                      overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.goldman(
                                           fontSize: 18,
                                           color: ColorConstants.textColor),
@@ -207,7 +213,8 @@ class CreateSingleGame extends ConsumerWidget
                                 onPressed: isAllSelected
                                     ? () {
                                         final arguments = ScorePageArguments(
-                                          players: ref.watch(selectedProvider),
+                                          players: ref
+                                              .watch(selectedPlayersProvider),
                                           matchType: MatchType.single,
                                         );
                                         Navigator.pushNamed(
@@ -355,7 +362,7 @@ class CreateSingleGame extends ConsumerWidget
                                                                       state = MatchType
                                                                           .single);
                                                               ref
-                                                                  .watch(selectedProvider
+                                                                  .watch(selectedPlayersProvider
                                                                       .notifier)
                                                                   .setPlayer(
                                                                     player: data[
@@ -400,7 +407,7 @@ class CreateSingleGame extends ConsumerWidget
                                                                         .single);
                                                             ref
                                                                 .watch(
-                                                                    selectedProvider
+                                                                    selectedPlayersProvider
                                                                         .notifier)
                                                                 .setPlayer(
                                                                   player: data[
@@ -472,7 +479,7 @@ class CreateSingleGame extends ConsumerWidget
                                 );
                               },
                               child: ref
-                                      .watch(selectedProvider)[0]
+                                      .watch(selectedPlayersProvider)[0]
                                       .fullName
                                       .isEmpty
                                   ? Text(
@@ -484,8 +491,9 @@ class CreateSingleGame extends ConsumerWidget
                                   : Text(
                                       ref
                                           .watch(playersProvider.notifier)
-                                          .getPlayerById(
-                                              ref.watch(selectedProvider)[0].id)
+                                          .getPlayerById(ref
+                                              .watch(selectedPlayersProvider)[0]
+                                              .id)
                                           .fullName,
                                       style: GoogleFonts.goldman(
                                           fontSize: 18,
@@ -534,7 +542,7 @@ class CreateSingleGame extends ConsumerWidget
                                 );
                               },
                               child: ref
-                                      .watch(selectedProvider)[1]
+                                      .watch(selectedPlayersProvider)[1]
                                       .fullName
                                       .isEmpty
                                   ? Text(
@@ -547,8 +555,9 @@ class CreateSingleGame extends ConsumerWidget
                                   : Text(
                                       ref
                                           .watch(playersProvider.notifier)
-                                          .getPlayerById(
-                                              ref.watch(selectedProvider)[1].id)
+                                          .getPlayerById(ref
+                                              .watch(selectedPlayersProvider)[1]
+                                              .id)
                                           .fullName,
                                       style: GoogleFonts.goldman(
                                           fontSize: 18,
@@ -587,7 +596,8 @@ class CreateSingleGame extends ConsumerWidget
                                 onPressed: isAllSelected
                                     ? () {
                                         final arguments = ScorePageArguments(
-                                          players: ref.watch(selectedProvider),
+                                          players: ref
+                                              .watch(selectedPlayersProvider),
                                           matchType: MatchType.single,
                                         );
                                         Navigator.pushNamed(
@@ -730,7 +740,7 @@ class CreateSingleGame extends ConsumerWidget
                                                                         state =
                                                                             MatchType.single);
                                                                 ref
-                                                                    .watch(selectedProvider
+                                                                    .watch(selectedPlayersProvider
                                                                         .notifier)
                                                                     .setPlayer(
                                                                       player: data[
@@ -774,7 +784,7 @@ class CreateSingleGame extends ConsumerWidget
                                                                       state = MatchType
                                                                           .single);
                                                               ref
-                                                                  .watch(selectedProvider
+                                                                  .watch(selectedPlayersProvider
                                                                       .notifier)
                                                                   .setPlayer(
                                                                     player: data[

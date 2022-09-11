@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/color_constants.dart';
-import '../../../Presentation/providers/selected_notifier.dart';
 import '../../../Presentation/widgets/start_game_page/roundhouse/create_roundhouse_game.dart';
+import '../../providers/selected_players_notifier.dart';
 import 'double/create_double_game.dart';
 import 'single/create_single_game.dart';
 
@@ -19,8 +19,6 @@ class CreateGameMenu extends ConsumerStatefulWidget {
 class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
-  late SelectedNotifier selectedPlayersNotifier =
-      ref.watch(selectedProvider.notifier);
 
   @override
   void initState() {
@@ -28,7 +26,7 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
-        selectedPlayersNotifier.resetState();
+        ref.watch(selectedPlayersProvider.notifier).resetState();
       }
     });
   }
