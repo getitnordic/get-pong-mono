@@ -18,6 +18,18 @@ class PlayerStatsController {
     return _getRecentGames().length;
   }
 
+  int getAmountOfWins() {
+    return _getRecentResults().where((r) => r.gameWon).length;
+  }
+
+  int getAmountOfLosses() {
+    return _getRecentResults().where((r) => !r.gameWon).length;
+  }
+
+  String getWinRate() {
+    return '${(_getRecentResults().where((r) => r.gameWon).length / _getRecentGames().length * 100).floor()}%';
+  }
+
   List<GameModel> _getRecentGames() {
     final recentGames = games
         .where((g) => g.timeStamp

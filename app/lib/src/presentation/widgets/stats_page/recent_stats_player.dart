@@ -30,7 +30,7 @@ class RecentStatsPlayer extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Center(
                     child: CustomSmallContainer(
-                      height: 470,
+                      height: 530,
                       width: 450,
                       child: Padding(
                         padding: const EdgeInsets.all(12),
@@ -40,19 +40,66 @@ class RecentStatsPlayer extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            _gamesPlayedTotal(),
-                            _singlesPlayed(),
-                            _doublesPlayed(),
+                            _buildStatsRow(
+                              title: 'Total games played: ',
+                              data:
+                                  statsController.getAmountOfGames().toString(),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _setsPlayedTotal(),
-                            _averageSetsPerGame(),
+                            _buildStatsRow(
+                              title: 'Wins: ',
+                              data:
+                                  statsController.getAmountOfWins().toString(),
+                            ),
+                            _buildStatsRow(
+                              title: 'Losses: ',
+                              data: statsController
+                                  .getAmountOfLosses()
+                                  .toString(),
+                            ),
+                            _buildStatsRow(
+                              title: 'Win rate: ',
+                              data: statsController.getWinRate(),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _pointsPlayedTotal(),
-                            _averagePointsPerGame(),
+                            _buildStatsRow(
+                              title: 'Singles: ',
+                              data: statsController.getSingles().toString(),
+                            ),
+                            _buildStatsRow(
+                              title: 'Doubles: ',
+                              data: statsController.getDoubles().toString(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _buildStatsRow(
+                              title: 'Total sets played: ',
+                              data:
+                                  statsController.getAmountOfSets().toString(),
+                            ),
+                            _buildStatsRow(
+                              title: 'Average sets per game: ',
+                              data: statsController.getAverageSets().toString(),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            _buildStatsRow(
+                              title: 'Total points played: ',
+                              data: statsController
+                                  .getAmountOfPoints()
+                                  .toString(),
+                            ),
+                            _buildStatsRow(
+                              title: 'Average points per game: ',
+                              data:
+                                  statsController.getAveragePoints().toString(),
+                            ),
                             const SizedBox(
                               height: 20,
                               child: Divider(),
@@ -104,144 +151,18 @@ class RecentStatsPlayer extends StatelessWidget {
     );
   }
 
-  Row _gamesPlayedTotal() {
+  Row _buildStatsRow({required String title, required String data}) {
     return Row(
       children: [
         Text(
-          'Total games played: ',
+          title,
           style: TextStyle(
             color: ColorConstants.textColor,
             fontSize: fontSize,
           ),
         ),
         Text(
-          statsController.getAmountOfGames().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _singlesPlayed() {
-    return Row(
-      children: [
-        Text(
-          'Singles: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getSingles().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _doublesPlayed() {
-    return Row(
-      children: [
-        Text(
-          'Doubles: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getDoubles().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _setsPlayedTotal() {
-    return Row(
-      children: [
-        Text(
-          'Total sets played: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAmountOfSets().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _pointsPlayedTotal() {
-    return Row(
-      children: [
-        Text(
-          'Total points played: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAmountOfPoints().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _averageSetsPerGame() {
-    return Row(
-      children: [
-        Text(
-          'Average sets per game: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAverageSets().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _averagePointsPerGame() {
-    return Row(
-      children: [
-        Text(
-          'Average points per game: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAveragePoints().toString(),
+          data,
           style: TextStyle(
             color: ColorConstants.secondaryTextColor,
             fontSize: fontSize,
