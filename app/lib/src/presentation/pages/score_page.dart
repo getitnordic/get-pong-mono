@@ -34,6 +34,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
   final scrollController = ScrollController();
   int setCounter = 1;
   int currentSetId = 0;
+  late bool isDouble;
 
   List<ScorePageSet> sets = [
     ScorePageSet(
@@ -136,14 +137,16 @@ class _ScorePageState extends ConsumerState<ScorePage>
 
     void removeSet() {
       if (scrollController.hasClients) {
-        final position = scrollController.position.maxScrollExtent - 350;
+        final position = widget.matchType == MatchType.double
+            ? scrollController.position.maxScrollExtent - 420
+            : scrollController.position.maxScrollExtent - 350;
         scrollController.animateTo(
           position,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );
       }
-      final removedSet = sets[sets.length - 1];
+
       sets.removeLast();
       listKey.currentState!.removeItem(
           sets.length,
@@ -163,15 +166,17 @@ class _ScorePageState extends ConsumerState<ScorePage>
                 removeSet: removeSet,
                 setCount: sets.length,
               ),
-          duration: Duration(milliseconds: 300));
+          duration: const Duration(milliseconds: 300));
     }
 
     void addSet() {
       if (scrollController.hasClients) {
-        final position = scrollController.position.maxScrollExtent + 350;
+        final position = widget.matchType == MatchType.double
+            ? scrollController.position.maxScrollExtent + 450
+            : scrollController.position.maxScrollExtent + 350;
         scrollController.animateTo(
           position,
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );
       }
@@ -186,7 +191,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
       );
       listKey.currentState!.insertItem(
         sets.length - 1,
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
       );
     }
 
