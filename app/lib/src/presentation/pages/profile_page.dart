@@ -12,8 +12,8 @@ import '../../../protos/base.pb.dart';
 import '../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../utils/mixins/validation_mixin.dart';
 import '../../core/models/update_profile_picture_params.dart';
-import '../providers/matches_notifier.dart';
-import '../providers/players_notifier.dart';
+import '../providers/games/games_providers.dart';
+import '../providers/players/players_providers.dart';
 import '../widgets/my_profile_image.dart';
 import '../widgets/scoreboard/player_profile_list_item.dart';
 import '../widgets/widgets.dart';
@@ -55,10 +55,8 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    TextEditingController imageController = TextEditingController();
     TextEditingController nicknameController = TextEditingController();
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     const iconSize = 30.0;
     final iconPosition = width * 0.88;
 
@@ -242,28 +240,24 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                 ),
               ),
             ),
-            Consumer(
-              builder: (context, ref, child) {
-                final data = ref.watch(playerGamesProvider(widget.player.id));
-
-                return data.when(
-                  error: (error, stackTrace) => Text('Error $error'),
-                  loading: () => const Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: CircularProgressIndicator(),
-                  ),
-                  data: (data) => SizedBox(
+            ref.watch(fetchGamesProvider).when(
+                data: (_) {
+                  final games = ref
+                      .watch(gamesProvider.notifier)
+                      .getGamesByPlayerId(widget.player.id);
+                  return SizedBox(
                     height: 200,
                     child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount: data.length,
+                        itemCount: games.length,
                         itemBuilder: (context, index) {
-                          return PlayerProfileListItem(match: data[index]);
+                          return PlayerProfileListItem(match: games[index]);
                         }),
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+                error: ((error, stackTrace) => Text('Error: $error')),
+                loading: (() =>
+                    const Center(child: CircularProgressIndicator())))
           ],
         ),
       ),

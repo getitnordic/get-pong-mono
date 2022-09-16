@@ -10,7 +10,7 @@ import '../../domain/use_cases/results/get_results_by_player_id_usecase.dart';
 
 final resultByGameIdProvider = FutureProvider.family
     .autoDispose<List<ResultModel>, String>((ref, gameId) async {
-  final response = await getIt<GetResultByGameIdUseCase>().call(params: gameId);
+  final response = await locator<GetResultByGameIdUseCase>().call(params: gameId);
 
   return response.data!;
 });
@@ -18,7 +18,7 @@ final resultByGameIdProvider = FutureProvider.family
 final resultByPlayerIdProvider = FutureProvider.family
     .autoDispose<List<ResultModel>, String>((ref, playerId) async {
   final response =
-      await getIt<GetResultsByPlayerIdUseCase>().call(params: playerId);
+      await locator<GetResultsByPlayerIdUseCase>().call(params: playerId);
 
   return response.data!;
 });
@@ -28,8 +28,8 @@ final resultsLoadingProvider = StateProvider<bool>((ref) => false);
 final resultsProvider =
     StateNotifierProvider<ResultNotifier, List<ResultModel>>((ref) {
   return ResultNotifier(
-    getIt<GetResultByGameIdUseCase>(),
-    getIt<GetLatestResultsUseCase>(),
+    locator<GetResultByGameIdUseCase>(),
+    locator<GetLatestResultsUseCase>(),
     ref.read,
   );
 });

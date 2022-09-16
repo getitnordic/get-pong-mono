@@ -3,7 +3,6 @@ import 'package:get_pong/src/data/clients/result_repository_impl.dart';
 import 'package:get_pong/src/domain/clients/result_repository.dart';
 import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/games/get_win_probability_usecase.dart';
-import 'package:get_pong/src/domain/use_cases/players/update_profile_picture_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_latest_results_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_result_by_game_id_usecase.dart';
 import 'package:get_pong/src/domain/use_cases/results/get_results_by_player_id_usecase.dart';
@@ -13,50 +12,52 @@ import 'src/data/clients/clients.dart';
 import 'src/domain/clients/clients.dart';
 import 'src/domain/use_cases/use_cases.dart';
 
-final getIt = GetIt.instance;
+final locator = GetIt.instance;
 
 Future<void> initServices() async {
   //Api
   // clients
-  getIt.registerLazySingleton<PlayerServiceClient>(
+  locator.registerLazySingleton<PlayerServiceClient>(
       () => PlayerServiceClient(GrpcClient.client));
-  getIt.registerLazySingleton<GameServiceClient>(
+  locator.registerLazySingleton<GameServiceClient>(
       () => GameServiceClient(GrpcClient.client));
-  getIt.registerLazySingleton<ResultServiceClient>(
+  locator.registerLazySingleton<ResultServiceClient>(
       () => ResultServiceClient(GrpcClient.client));
 
   //Repositories
-  getIt.registerLazySingleton<PlayerRepository>(
-      () => PlayerRepositoryImpl(getIt()));
-  getIt
-      .registerLazySingleton<GameRepository>(() => GameRepositoryImpl(getIt()));
-  getIt.registerLazySingleton<ResultRepository>(
-      () => ResultRepositoryImpl(getIt()));
+  locator.registerLazySingleton<PlayerRepository>(
+      () => PlayerRepositoryImpl(locator()));
+  locator.registerLazySingleton<GameRepository>(
+      () => GameRepositoryImpl(locator()));
+  locator.registerLazySingleton<ResultRepository>(
+      () => ResultRepositoryImpl(locator()));
 
   //Use cases
   //Player
-  getIt.registerLazySingleton<GetPlayersUseCase>(
-      () => GetPlayersUseCase(getIt()));
-  getIt
-      .registerLazySingleton<AddPlayerUseCase>(() => AddPlayerUseCase(getIt()));
-  getIt.registerLazySingleton<UpdatePlayerUseCase>(
-      () => UpdatePlayerUseCase(getIt()));
-  getIt.registerLazySingleton<UpdateProfilePictureUseCase>(
-      () => UpdateProfilePictureUseCase(getIt()));
+  locator.registerLazySingleton<GetPlayersUseCase>(
+      () => GetPlayersUseCase(locator()));
+  locator.registerLazySingleton<AddPlayerUseCase>(
+      () => AddPlayerUseCase(locator()));
+  locator.registerLazySingleton<UpdatePlayerUseCase>(
+      () => UpdatePlayerUseCase(locator()));
+  locator.registerLazySingleton<UpdateProfilePictureUseCase>(
+      () => UpdateProfilePictureUseCase(locator()));
 
   //Game
-  getIt.registerLazySingleton<GetGamesUseCase>(() => GetGamesUseCase(getIt()));
-  getIt.registerLazySingleton<SaveGameUseCase>(() => SaveGameUseCase(getIt()));
-  getIt.registerLazySingleton<GetGamesByPlayerIdUseCase>(
-      () => GetGamesByPlayerIdUseCase(getIt()));
-  getIt.registerLazySingleton<GetWinProbabilityUseCase>(
-      () => GetWinProbabilityUseCase(getIt()));
+  locator
+      .registerLazySingleton<GetGamesUseCase>(() => GetGamesUseCase(locator()));
+  locator
+      .registerLazySingleton<SaveGameUseCase>(() => SaveGameUseCase(locator()));
+  locator.registerLazySingleton<GetGamesByPlayerIdUseCase>(
+      () => GetGamesByPlayerIdUseCase(locator()));
+  locator.registerLazySingleton<GetWinProbabilityUseCase>(
+      () => GetWinProbabilityUseCase(locator()));
 
   //Result
-  getIt.registerLazySingleton<GetResultByGameIdUseCase>(
-      () => GetResultByGameIdUseCase(getIt()));
-  getIt.registerLazySingleton<GetResultsByPlayerIdUseCase>(
-      () => GetResultsByPlayerIdUseCase(getIt()));
-  getIt.registerLazySingleton<GetLatestResultsUseCase>(
-      () => GetLatestResultsUseCase(getIt()));
+  locator.registerLazySingleton<GetResultByGameIdUseCase>(
+      () => GetResultByGameIdUseCase(locator()));
+  locator.registerLazySingleton<GetResultsByPlayerIdUseCase>(
+      () => GetResultsByPlayerIdUseCase(locator()));
+  locator.registerLazySingleton<GetLatestResultsUseCase>(
+      () => GetLatestResultsUseCase(locator()));
 }

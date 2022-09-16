@@ -1,39 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../protos/base.pb.dart';
-import '../../../protos/game.pb.dart';
-import '../../../register_services.dart';
-import '../../core/common/common.dart';
-import '../../core/models/models.dart';
-import '../../core/models/update_profile_picture_params.dart';
-import '../../domain/use_cases/players/update_profile_picture_usecase.dart';
-import '../../domain/use_cases/use_cases.dart';
-
-final playersProvider =
-    StateNotifierProvider<PlayersNotifier, List<PlayerModel>>((ref) =>
-        PlayersNotifier(
-            getIt<GetPlayersUseCase>(),
-            getIt<AddPlayerUseCase>(),
-            getIt<UpdatePlayerUseCase>(),
-            getIt<UpdateProfilePictureUseCase>(),
-            ref.read));
-
-final playersLoadingProvider = StateProvider<bool>((ref) => false);
-
-final topRanksProvider =
-    FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.watch(playersProvider.notifier).getTopRanks();
-});
-
-final latestPlayersProvider =
-    FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.watch(playersProvider.notifier).getLatestPlayers();
-});
-
-final allPlayersProvider =
-    FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
-  return ref.watch(playersProvider.notifier).getAllPlayers();
-});
+import '../../../../protos/base.pb.dart';
+import '../../../../protos/game.pb.dart';
+import '../../../core/common/common.dart';
+import '../../../core/models/Scoreboard_match.dart';
+import '../../../core/models/update_profile_picture_params.dart';
 
 class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   final UseCase getPlayersUseCase;
@@ -63,34 +34,25 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
         orElse: () => BlankPlayerModel.player);
   }
 
-  Future<void> fetchPlayers() async {
-    setPlayersLoading(true);
-
-    // if (state.isNotEmpty) {
-    //   setPlayersLoading(false);
-    //   sortByLastActivity();
-    //   return;
-    // }
-
+  Future<bool> fetchPlayers() async {
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
             {
-              setPlayersLoading(false),
               state = value.data!,
             }
           else
-            {setPlayersLoading(false), print(value.error)}
+            {
+              // Do something
+            }
         });
-    sortByLastActivity();
+    _sortByLastActivity();
+
+    return true;
   }
 
-  void sortByLastActivity() {
+  void _sortByLastActivity() {
     state.sort((a, b) =>
         b.lastActivity.toDateTime().compareTo(a.lastActivity.toDateTime()));
-  }
-
-  void setPlayersLoading(bool loadingState) {
-    read(playersLoadingProvider.notifier).state = loadingState;
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {
@@ -109,30 +71,21 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
             {
-              setPlayersLoading(false),
               topRanked = value.data!,
             }
           else
-            {print(value.error)}
+            {}
         });
     topRanked.sort((a, b) => b.totalScore.compareTo(a.totalScore));
+
     return topRanked
         .where((p) => p.win + p.loss > 0)
         .take(amountOfPlayersToGrab)
         .toList();
   }
 
-  Future<List<PlayerModel>> getLatestPlayers() async {
-    await getPlayersUseCase(params: EmptyParams()).then((value) => {
-          if (value is DataSuccess)
-            {
-              setPlayersLoading(false),
-              state = value.data!,
-            }
-          else
-            {setPlayersLoading(false), print(value.error)}
-        });
-    sortByLastActivity();
+  List<PlayerModel> getLatestPlayers() {
+    _sortByLastActivity();
     return state.take(15).toList();
   }
 
@@ -140,13 +93,12 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
             {
-              setPlayersLoading(false),
               state = value.data!,
             }
           else
-            {setPlayersLoading(false), print(value.error)}
+            {}
         });
-    sortByLastActivity();
+    _sortByLastActivity();
     return state.toList();
   }
 

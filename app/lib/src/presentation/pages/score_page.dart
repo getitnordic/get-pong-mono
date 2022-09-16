@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/providers/games/games_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/color_constants.dart';
@@ -7,10 +8,8 @@ import '../../../enums/match_type.dart';
 import '../../../protos/base.pb.dart';
 import '../../../protos/game.pbgrpc.dart';
 import '../../../protos/google/protobuf/timestamp.pb.dart';
-import '../../Presentation/providers/matches_notifier.dart';
-import '../../Presentation/providers/players_notifier.dart';
 import '../../core/models/score_page_set.dart';
-import '../providers/selected_players_notifier.dart';
+import '../providers/selected_players/selected_players_providers.dart';
 import '../widgets/widgets.dart';
 
 class ScorePage extends ConsumerStatefulWidget {
@@ -104,7 +103,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
 
   @override
   Widget build(BuildContext context) {
-    final matchesNotifier = ref.watch(matchesProvider.notifier);
+    final gamesNotifier = ref.watch(gamesProvider.notifier);
     final selectedPlayersNotifier = ref.watch(selectedPlayersProvider.notifier);
     final matchType = widget.matchType;
     final playerOne = widget.selectedPlayers[0];
@@ -122,7 +121,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
             awayTeamIds: [playerThree.id, playerFour.id],
             sets: newSets,
             timeStamp: Timestamp.create().createEmptyInstance());
-        matchesNotifier.createGame(match);
+        gamesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       } else {
         GameModel match = GameModel(
@@ -130,7 +129,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
             awayTeamIds: [playerTwo.id],
             sets: newSets,
             timeStamp: Timestamp.create().createEmptyInstance());
-        matchesNotifier.createGame(match);
+        gamesNotifier.createGame(match);
         selectedPlayersNotifier.resetState();
       }
     }
@@ -284,7 +283,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
         backgroundColor: sets.length < 11
             ? ColorConstants.primaryColor
             : ColorConstants.disabledButtonColor,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

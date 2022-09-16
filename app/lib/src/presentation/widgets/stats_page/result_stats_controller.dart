@@ -1,9 +1,8 @@
 import 'dart:collection';
 
-import 'player_stat.dart';
-
 import '../../../../protos/protos.dart';
 import 'day.dart';
+import 'player_stat.dart';
 
 class ResultStatsController {
   final List<ResultModel> results;
@@ -205,6 +204,12 @@ class ResultStatsController {
           ifAbsent: () => 1);
       playersMap.update(game.awayTeamIds[0], (value) => value + 1,
           ifAbsent: () => 1);
+      if (game.awayTeamIds.length == 2) {
+        playersMap.update(game.homeTeamIds[1], (value) => value + 1,
+            ifAbsent: () => 1);
+        playersMap.update(game.awayTeamIds[1], (value) => value + 1,
+            ifAbsent: () => 1);
+      }
     }
     for (var i = 0; i < playersMap.length; i++) {
       final playerToAdd =

@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pbgrpc.dart';
 import '../../../../utils/mixins/set_profile_image_mixin.dart';
-import '../../../Presentation/providers/players_notifier.dart';
 import '../../../core/common/blank_player_model.dart';
+import '../../providers/players/players_providers.dart';
 import 'updated_scorecard/scoreboard_controller.dart';
 
 class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {

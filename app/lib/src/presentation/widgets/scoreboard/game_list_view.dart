@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/providers/games/games_providers.dart';
 
 import '../../../../config/route/route.dart' as route;
 import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pb.dart';
 import '../../../../utils/extensions/compare_date.dart';
 import '../../../../utils/mixins/format_date_mixin.dart';
-import '../../../Presentation/providers/players_notifier.dart';
 import '../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
 import '../../../core/common/blank_player_model.dart';
 import '../../../core/models/match_details_arguments.dart';
-import '../../providers/matches_notifier.dart';
+import '../../providers/players/players_providers.dart';
 import '../widgets.dart';
 import 'updated_scorecard/scoreboard_card.dart';
 
@@ -44,98 +44,102 @@ class _GameListViewState extends ConsumerState<GameListView>
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Stack(
-      children: [
-        Center(
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Matches',
-                  style: TextStyle(
-                    color: ColorConstants.textColor,
-                    fontSize: 35,
-                  ),
-                ),
-              ),
-              Flexible(
-                child: NotificationListener(
-                  onNotification: (ScrollNotification scrollInfo) {
-                    if (scrollInfo is ScrollStartNotification) {
-                      if (scrollInfo.metrics.pixels == 0 &&
-                          scrollInfo.metrics.atEdge) {}
-                    }
-                    if (scrollInfo is ScrollEndNotification && !allIsLoaded) {
-                      if (scrollInfo.metrics.pixels > 0 &&
-                          scrollInfo.metrics.atEdge) {
-                        _loadMoreGames();
-                      }
-                    }
-                    return false;
-                  },
-                  child: ListView.builder(
-                    addAutomaticKeepAlives: true,
-                    shrinkWrap: true,
-                    itemCount: matches.length,
-                    itemBuilder: (context, index) {
-                      final isDouble = matches[index].homeTeamIds.length == 2;
-                      final controller = ScoreboardController(
-                        homeTeamOne: ref
-                            .watch(playersProvider.notifier)
-                            .getPlayerById(matches[index].homeTeamIds[0]),
-                        awayTeamOne: ref
-                            .watch(playersProvider.notifier)
-                            .getPlayerById(matches[index].awayTeamIds[0]),
-                        homeTeamTwo: isDouble
-                            ? ref
-                                .watch(playersProvider.notifier)
-                                .getPlayerById(matches[index].homeTeamIds[1])
-                            : BlankPlayerModel.player,
-                        awayTeamTwo: isDouble
-                            ? ref
-                                .watch(playersProvider.notifier)
-                                .getPlayerById(matches[index].awayTeamIds[1])
-                            : BlankPlayerModel.player,
-                        match: matches[index],
-                      );
+    return ref.watch(fetchPlayersProvider).when(
+          data: (_) {
+            return Stack(
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'Matches',
+                          style: TextStyle(
+                            color: ColorConstants.textColor,
+                            fontSize: 35,
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        child: NotificationListener(
+                          onNotification: (ScrollNotification scrollInfo) {
+                            if (scrollInfo is ScrollStartNotification) {
+                              if (scrollInfo.metrics.pixels == 0 &&
+                                  scrollInfo.metrics.atEdge) {}
+                            }
+                            if (scrollInfo is ScrollEndNotification &&
+                                !allIsLoaded) {
+                              if (scrollInfo.metrics.pixels > 0 &&
+                                  scrollInfo.metrics.atEdge) {
+                                _loadMoreGames();
+                              }
+                            }
+                            return false;
+                          },
+                          child: ListView.builder(
+                            addAutomaticKeepAlives: true,
+                            shrinkWrap: true,
+                            itemCount: matches.length,
+                            itemBuilder: (context, index) {
+                              final isDouble =
+                                  matches[index].homeTeamIds.length == 2;
+                              final controller = ScoreboardController(
+                                homeTeamOne: ref
+                                    .watch(playersProvider.notifier)
+                                    .getPlayerById(
+                                        matches[index].homeTeamIds[0]),
+                                awayTeamOne: ref
+                                    .watch(playersProvider.notifier)
+                                    .getPlayerById(
+                                        matches[index].awayTeamIds[0]),
+                                homeTeamTwo: isDouble
+                                    ? ref
+                                        .watch(playersProvider.notifier)
+                                        .getPlayerById(
+                                            matches[index].homeTeamIds[1])
+                                    : BlankPlayerModel.player,
+                                awayTeamTwo: isDouble
+                                    ? ref
+                                        .watch(playersProvider.notifier)
+                                        .getPlayerById(
+                                            matches[index].awayTeamIds[1])
+                                    : BlankPlayerModel.player,
+                                match: matches[index],
+                              );
 
-                      bool isSameDate = true;
-                      final currentMatch = matches[index];
-                      if (index == 0) {
-                        isSameDate = false;
-                      } else {
-                        final previousDate =
-                            matches[index - 1].timeStamp.toDateTime();
-                        final currentDate =
-                            matches[index].timeStamp.toDateTime();
-                        isSameDate = currentDate.hasSameDate(previousDate);
-                      }
-                      if (index == 0 || !isSameDate) {
-                        return _scoreboardCardWithDate(
-                            currentMatch, controller, width);
-                      } else {
-                        return _scoreboardCardWithoutDate(
-                            currentMatch, controller);
-                      }
-                    },
+                              bool isSameDate = true;
+                              final currentMatch = matches[index];
+                              if (index == 0) {
+                                isSameDate = false;
+                              } else {
+                                final previousDate =
+                                    matches[index - 1].timeStamp.toDateTime();
+                                final currentDate =
+                                    matches[index].timeStamp.toDateTime();
+                                isSameDate =
+                                    currentDate.hasSameDate(previousDate);
+                              }
+                              if (index == 0 || !isSameDate) {
+                                return _scoreboardCardWithDate(
+                                    currentMatch, controller, width);
+                              } else {
+                                return _scoreboardCardWithoutDate(
+                                    currentMatch, controller);
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        // if (isLoadingMore)
-        //   const Opacity(
-        //     opacity: 0.2,
-        //     child: ModalBarrier(dismissible: false, color: Colors.black),
-        //   ),
-        // if (isLoadingMore)
-        //   const Center(
-        //     child: CircularProgressIndicator(),
-        //   ),
-      ],
-    );
+              ],
+            );
+          },
+          error: ((error, stackTrace) => Text('Error: $error')),
+          loading: () => const Center(child: CircularProgressIndicator()),
+        );
   }
 
   void _loadMoreGames() async {
@@ -144,7 +148,7 @@ class _GameListViewState extends ConsumerState<GameListView>
     });
 
     final newMatches =
-        await ref.watch(matchesProvider.notifier).getNextTenMatches(offset);
+        await ref.watch(gamesProvider.notifier).getNextTenGames(offset);
     if (newMatches.isNotEmpty) {
       setState(() {
         offset += offset;
