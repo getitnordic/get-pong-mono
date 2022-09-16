@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../config/route/route.dart' as route;
@@ -9,7 +10,6 @@ import '../../../../../enums/player_select_choice.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/selected_players/selected_players_providers.dart';
-import '../../../../Presentation/widgets/custom_small_container.dart';
 import '../../../../core/models/score_page_arguments.dart';
 import '../../../providers/players/players_providers.dart';
 import '../../my_profile_image.dart';
@@ -42,193 +42,13 @@ class CreateSingleGame extends ConsumerWidget
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: height(context) * 0.1),
-                      child: Column(
-                        children: [
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerOne,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[0]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 1',
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[0]
-                                              .id)
-                                          .fullName,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                            child: isAllSelected
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Center(
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              'Win probability: ',
-                                              style: TextStyle(
-                                                  color:
-                                                      ColorConstants.textColor,
-                                                  fontSize: 11),
-                                            ),
-                                            Text(
-                                              '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
-                                              style: const TextStyle(
-                                                  color: ColorConstants
-                                                      .secondaryTextColor,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : null,
-                          ),
-                          const VsBar(),
-                          SizedBox(
-                            height: 25,
-                            child: isAllSelected
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Center(
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              'Win probability: ',
-                                              style: TextStyle(
-                                                  color:
-                                                      ColorConstants.textColor,
-                                                  fontSize: 11),
-                                            ),
-                                            Text(
-                                              '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
-                                              style: const TextStyle(
-                                                  color: ColorConstants
-                                                      .secondaryTextColor,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : null,
-                          ),
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerTwo,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[1]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 2',
-                                      style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor,
-                                      ),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[1]
-                                              .id)
-                                          .fullName,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 55),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  )),
-                                  minimumSize: MaterialStateProperty.all<Size>(
-                                      const Size(300, 50)),
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith<Color>(
-                                    (Set<MaterialState> states) {
-                                      if (states
-                                          .contains(MaterialState.pressed)) {
-                                        return ColorConstants.primaryColor;
-                                      } else if (states
-                                          .contains(MaterialState.disabled)) {
-                                        return ColorConstants
-                                            .disabledButtonColor;
-                                      }
-                                      return ColorConstants.primaryColor;
-                                    },
-                                  ),
-                                ),
-                                onPressed: isAllSelected
-                                    ? () {
-                                        final arguments = ScorePageArguments(
-                                          players: ref
-                                              .watch(selectedPlayersProvider),
-                                          matchType: MatchType.single,
-                                        );
-                                        Navigator.pushNamed(
-                                          context,
-                                          route.scorePage,
-                                          arguments: arguments,
-                                        );
-                                      }
-                                    : null,
-                                child: Text(
-                                  'Start Game',
-                                  style: GoogleFonts.goldman(
-                                    fontSize: 20,
-                                    color: ColorConstants.textColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: SizedBox(
+                        width: 450,
+                        child: _selectedPlayersDisplay(
+                          context: context,
+                          ref: ref,
+                          isAllSelected: isAllSelected,
+                        ),
                       ),
                     ),
                     _buildHorizontalPlayersContainer(
@@ -246,164 +66,10 @@ class CreateSingleGame extends ConsumerWidget
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Column(
-                        children: [
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                ref.watch(matchTypeProvider.notifier).update(
-                                    (state) => state = MatchType.single);
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerOne,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[0]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 1',
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[0]
-                                              .id)
-                                          .fullName,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              SizedBox(
-                                width: 150,
-                                child: Divider(
-                                  height: 5,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 15,
-                                  vertical: 20,
-                                ),
-                                child: Text('VS'),
-                              ),
-                              SizedBox(
-                                width: 150,
-                                child: Divider(
-                                  height: 5,
-                                ),
-                              ),
-                            ],
-                          ),
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                ref.watch(matchTypeProvider.notifier).update(
-                                    (state) => state = MatchType.single);
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerTwo,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[1]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 2',
-                                      style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor,
-                                      ),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[1]
-                                              .id)
-                                          .fullName,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 55),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  )),
-                                  minimumSize: MaterialStateProperty.all<Size>(
-                                      const Size(300, 50)),
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith<Color>(
-                                    (Set<MaterialState> states) {
-                                      if (states
-                                          .contains(MaterialState.pressed)) {
-                                        return ColorConstants.primaryColor;
-                                      } else if (states
-                                          .contains(MaterialState.disabled)) {
-                                        return ColorConstants
-                                            .disabledButtonColor;
-                                      }
-                                      return ColorConstants.primaryColor;
-                                    },
-                                  ),
-                                ),
-                                onPressed: isAllSelected
-                                    ? () {
-                                        final arguments = ScorePageArguments(
-                                          players: ref
-                                              .watch(selectedPlayersProvider),
-                                          matchType: MatchType.single,
-                                        );
-                                        Navigator.pushNamed(
-                                          context,
-                                          route.scorePage,
-                                          arguments: arguments,
-                                        );
-                                      }
-                                    : null,
-                                child: Text(
-                                  'Start Game',
-                                  style: GoogleFonts.goldman(
-                                    fontSize: 20,
-                                    color: ColorConstants.textColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      _selectedPlayersDisplay(
+                        context: context,
+                        ref: ref,
+                        isAllSelected: isAllSelected,
                       ),
                       ref.watch(fetchPlayersProvider).when(
                             data: (_) {
@@ -426,6 +92,167 @@ class CreateSingleGame extends ConsumerWidget
                 ),
               );
       },
+    );
+  }
+
+  Stack _selectedPlayersDisplay({
+    required BuildContext context,
+    required WidgetRef ref,
+    required bool isAllSelected,
+  }) {
+    final hasWidth = MediaQuery.of(context).size.width > 550;
+    return Stack(
+      children: [
+        Column(
+          children: [
+            CustomSmallContainer(
+              width: 300,
+              height: 50,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    route.playerListPage,
+                    arguments: PlayerSelectChoice.playerOne,
+                  );
+                },
+                child: ref.watch(selectedPlayersProvider)[0].fullName.isEmpty
+                    ? Text(
+                        'Select player 1',
+                        style: GoogleFonts.goldman(
+                            fontSize: 18, color: ColorConstants.textColor),
+                      )
+                    : Text(
+                        ref
+                            .watch(playersProvider.notifier)
+                            .getPlayerById(
+                                ref.watch(selectedPlayersProvider)[0].id)
+                            .fullName,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.goldman(
+                            fontSize: 18, color: ColorConstants.textColor),
+                      ),
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            const VsBar(),
+            const SizedBox(
+              height: 25,
+            ),
+            CustomSmallContainer(
+              width: 300,
+              height: 50,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    route.playerListPage,
+                    arguments: PlayerSelectChoice.playerTwo,
+                  );
+                },
+                child: ref.watch(selectedPlayersProvider)[1].fullName.isEmpty
+                    ? Text(
+                        'Select player 2',
+                        style: GoogleFonts.goldman(
+                          fontSize: 18,
+                          color: ColorConstants.textColor,
+                        ),
+                      )
+                    : Text(
+                        ref
+                            .watch(playersProvider.notifier)
+                            .getPlayerById(
+                                ref.watch(selectedPlayersProvider)[1].id)
+                            .fullName,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.goldman(
+                            fontSize: 18, color: ColorConstants.textColor),
+                      ),
+              ),
+            ),
+            SizedBox(
+              width: 300,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 55),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    )),
+                    minimumSize:
+                        MaterialStateProperty.all<Size>(const Size(300, 50)),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return ColorConstants.primaryColor;
+                        } else if (states.contains(MaterialState.disabled)) {
+                          return ColorConstants.disabledButtonColor;
+                        }
+                        return ColorConstants.primaryColor;
+                      },
+                    ),
+                  ),
+                  onPressed: isAllSelected
+                      ? () {
+                          final arguments = ScorePageArguments(
+                            players: ref.watch(selectedPlayersProvider),
+                            matchType: MatchType.single,
+                          );
+                          Navigator.pushNamed(
+                            context,
+                            route.scorePage,
+                            arguments: arguments,
+                          );
+                        }
+                      : null,
+                  child: Text(
+                    'Start Game',
+                    style: GoogleFonts.goldman(
+                      fontSize: 20,
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        isAllSelected && hasWidth
+            ? Positioned(
+                right: 0,
+                top: 0,
+                child: CustomSmallContainer(
+                  height: 50,
+                  width: 60,
+                  child: Text(
+                    '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
+                    style: const TextStyle(
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+        isAllSelected && hasWidth
+            ? Positioned(
+                right: 0,
+                top: 124,
+                child: CustomSmallContainer(
+                  height: 50,
+                  width: 60,
+                  child: Text(
+                    '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
+                    style: const TextStyle(
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+      ],
     );
   }
 

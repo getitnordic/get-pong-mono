@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../protos/protos.dart';
 import '../../../register_services.dart';
 import '../../core/common/common.dart';
-
 import '../../domain/use_cases/results/get_latest_results_usecase.dart';
 import '../../domain/use_cases/results/get_result_by_game_id_usecase.dart';
 import '../../domain/use_cases/results/get_results_by_player_id_usecase.dart';
