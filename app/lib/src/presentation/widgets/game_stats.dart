@@ -73,7 +73,9 @@ class GameStats extends StatelessWidget {
                 Text(
                   streak,
                   style: TextStyle(
-                    color: ColorConstants.textColor,
+                    color: streakEnum == StreakEnum.WIN
+                        ? Color.fromARGB(255, 32, 184, 95)
+                        : Color.fromARGB(255, 255, 0, 0),
                   ),
                 ),
               ],
