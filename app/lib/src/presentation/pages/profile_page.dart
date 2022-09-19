@@ -34,24 +34,6 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
   final ImagePicker _picker = ImagePicker();
   File? profilePicture;
 
-  void _takePhoto() async {
-    XFile? photo = await _picker.pickImage(
-      source: ImageSource.camera,
-      imageQuality: 90,
-    );
-    if (photo != null) {
-      setState(() {
-        profilePicture = File(photo.path);
-      });
-
-      final imageBytes = await profilePicture!.readAsBytes();
-      final base64String = base64.encode(imageBytes);
-      ref.watch(playersProvider.notifier).updateProfilePictureUseCase(
-          params: UpdateProfilePictureParams(
-              id: widget.player.id, data: base64String));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -93,88 +75,18 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                       children: [
                         IconButton(
                           onPressed: () {
-                            _takePhoto();
+                            _showImageDialog();
                           },
                           icon: const Icon(
-                            Icons.photo_camera,
+                            Icons.add_photo_alternate,
                             color: ColorConstants.textColor,
                             size: iconSize,
                           ),
                         ),
                         IconButton(
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text(
-                                    'Edit nickname',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  content: SizedBox(
-                                    width: width * 0.80,
-                                    child: Form(
-                                      key: formKey,
-                                      autovalidateMode:
-                                          AutovalidateMode.onUserInteraction,
-                                      child: SizedBox(
-                                        height: 90,
-                                        child: TextFormField(
-                                          controller: nicknameController,
-                                          decoration: const InputDecoration(
-                                            labelText: 'Nickname',
-                                            prefixIcon: Icon(
-                                              Icons.person,
-                                              color: ColorConstants.formColor,
-                                            ),
-                                          ),
-                                          keyboardType: TextInputType.text,
-                                          validator: (value) =>
-                                              validateNickname(value!),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  actions: [
-                                    ElevatedButton(
-                                      style: ButtonStyle(
-                                        shape: MaterialStateProperty.all<
-                                                RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        )),
-                                        minimumSize:
-                                            MaterialStateProperty.all<Size>(
-                                                const Size(100, 40)),
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                ColorConstants.primaryColor),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          widget.player.nickname =
-                                              nicknameController.text;
-                                        });
-                                        ref
-                                            .watch(playersProvider.notifier)
-                                            .updatePlayer(widget.player);
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text(
-                                        'Submit',
-                                        style: GoogleFonts.goldman(
-                                          fontSize: 14,
-                                          color: ColorConstants.textColor,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            _showNicknameDialog(
+                                context, width, formKey, nicknameController);
                           },
                           icon: const Icon(
                             Icons.edit_outlined,
@@ -190,9 +102,29 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
             ),
             const SizedBox(height: 20),
             Center(
-              child: NameCard(
-                playerName: widget.player.nickname,
-                fullName: widget.player.fullName,
+              child: Column(
+                children: [
+                  CustomSmallContainer(
+                    height: 40,
+                    width: 200,
+                    child: GestureDetector(
+                      onTap: () => _showNicknameDialog(
+                          context, width, formKey, nicknameController),
+                      child: Text(
+                        widget.player.nickname == 'nickname'
+                            ? 'Add nickname'
+                            : widget.player.nickname,
+                        style: const TextStyle(color: ColorConstants.textColor),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Text(widget.player.fullName,
+                        style:
+                            const TextStyle(color: ColorConstants.textColor)),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 12),
@@ -262,5 +194,152 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
         ),
       ),
     );
+  }
+
+  Future<dynamic> _showNicknameDialog(
+    BuildContext context,
+    double width,
+    GlobalKey<FormState> formKey,
+    TextEditingController nicknameController,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text(
+            'Edit nickname',
+            style: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+          content: SizedBox(
+            width: width * 0.80,
+            child: Form(
+              key: formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: SizedBox(
+                height: 90,
+                child: TextFormField(
+                  controller: nicknameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Nickname',
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: ColorConstants.formColor,
+                    ),
+                  ),
+                  keyboardType: TextInputType.text,
+                  validator: (value) => validateNickname(value!),
+                ),
+              ),
+            ),
+          ),
+          actions: [
+            ElevatedButton(
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                )),
+                minimumSize:
+                    MaterialStateProperty.all<Size>(const Size(100, 40)),
+                backgroundColor: MaterialStateProperty.all<Color>(
+                    ColorConstants.primaryColor),
+              ),
+              onPressed: () {
+                setState(() {
+                  widget.player.nickname = nicknameController.text;
+                });
+                ref.watch(playersProvider.notifier).updatePlayer(widget.player);
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Submit',
+                style: GoogleFonts.goldman(
+                  fontSize: 14,
+                  color: ColorConstants.textColor,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showImageDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: 150,
+            width: 250,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CustomSmallContainer(
+                  height: 50,
+                  width: 250,
+                  child: SizedBox(
+                    width: 250,
+                    height: 50,
+                    child: TextButton.icon(
+                      onPressed: () => _getImage(ImageSource.camera),
+                      label: const Text('Take photo'),
+                      icon: const Icon(
+                        Icons.photo_camera,
+                        color: ColorConstants.secondaryTextColor,
+                      ),
+                      style: TextButton.styleFrom(
+                        foregroundColor: ColorConstants.textColor,
+                      ),
+                    ),
+                  ),
+                ),
+                CustomSmallContainer(
+                  height: 50,
+                  width: 250,
+                  child: SizedBox(
+                    width: 250,
+                    height: 50,
+                    child: TextButton.icon(
+                      onPressed: () => _getImage(ImageSource.gallery),
+                      label: const Text('Get image from gallery'),
+                      icon: const Icon(
+                        Icons.image,
+                        color: ColorConstants.secondaryTextColor,
+                      ),
+                      style: TextButton.styleFrom(
+                        foregroundColor: ColorConstants.textColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _getImage(ImageSource source) async {
+    XFile? photo = await _picker.pickImage(
+      source: source,
+      imageQuality: 90,
+    );
+    if (photo != null) {
+      setState(() {
+        profilePicture = File(photo.path);
+      });
+
+      final imageBytes = await profilePicture!.readAsBytes();
+      final base64String = base64.encode(imageBytes);
+      ref.watch(playersProvider.notifier).updateProfilePictureUseCase(
+          params: UpdateProfilePictureParams(
+              id: widget.player.id, data: base64String));
+    }
   }
 }
