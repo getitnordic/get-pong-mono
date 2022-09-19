@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../providers/players_notifier.dart';
+import '../../providers/players/players_providers.dart';
 import 'player_ranking_list.dart';
 
 class PlayerRanking extends ConsumerWidget {

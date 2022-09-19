@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../config/route/route.dart' as route;
@@ -8,10 +9,9 @@ import '../../../../../enums/match_type.dart';
 import '../../../../../enums/player_select_choice.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
-import '../../../../Presentation/widgets/custom_small_container.dart';
+import '../../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../../core/models/score_page_arguments.dart';
-import '../../../providers/players_notifier.dart';
-import '../../../providers/selected_players_notifier.dart';
+import '../../../providers/players/players_providers.dart';
 import '../../my_profile_image.dart';
 import '../vs_bar.dart';
 
@@ -42,412 +42,18 @@ class CreateSingleGame extends ConsumerWidget
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: height(context) * 0.1),
-                      child: Column(
-                        children: [
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerOne,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[0]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 1',
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[0]
-                                              .id)
-                                          .fullName,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 25,
-                            child: isAllSelected
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Center(
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              'Win probability: ',
-                                              style: TextStyle(
-                                                  color:
-                                                      ColorConstants.textColor,
-                                                  fontSize: 11),
-                                            ),
-                                            Text(
-                                              '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
-                                              style: const TextStyle(
-                                                  color: ColorConstants
-                                                      .secondaryTextColor,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : null,
-                          ),
-                          const VsBar(),
-                          SizedBox(
-                            height: 25,
-                            child: isAllSelected
-                                ? Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Center(
-                                        child: Row(
-                                          children: [
-                                            const Text(
-                                              'Win probability: ',
-                                              style: TextStyle(
-                                                  color:
-                                                      ColorConstants.textColor,
-                                                  fontSize: 11),
-                                            ),
-                                            Text(
-                                              '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
-                                              style: const TextStyle(
-                                                  color: ColorConstants
-                                                      .secondaryTextColor,
-                                                  fontSize: 14),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                : null,
-                          ),
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerTwo,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[1]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 2',
-                                      style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor,
-                                      ),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[1]
-                                              .id)
-                                          .fullName,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 55),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  )),
-                                  minimumSize: MaterialStateProperty.all<Size>(
-                                      const Size(300, 50)),
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith<Color>(
-                                    (Set<MaterialState> states) {
-                                      if (states
-                                          .contains(MaterialState.pressed)) {
-                                        return ColorConstants.primaryColor;
-                                      } else if (states
-                                          .contains(MaterialState.disabled)) {
-                                        return ColorConstants
-                                            .disabledButtonColor;
-                                      }
-                                      return ColorConstants.primaryColor;
-                                    },
-                                  ),
-                                ),
-                                onPressed: isAllSelected
-                                    ? () {
-                                        final arguments = ScorePageArguments(
-                                          players: ref
-                                              .watch(selectedPlayersProvider),
-                                          matchType: MatchType.single,
-                                        );
-                                        Navigator.pushNamed(
-                                          context,
-                                          route.scorePage,
-                                          arguments: arguments,
-                                        );
-                                      }
-                                    : null,
-                                child: Text(
-                                  'Start Game',
-                                  style: GoogleFonts.goldman(
-                                    fontSize: 20,
-                                    color: ColorConstants.textColor,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      child: SizedBox(
+                        width: 450,
+                        child: _selectedPlayersDisplay(
+                          context: context,
+                          ref: ref,
+                          isAllSelected: isAllSelected,
+                        ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Consumer(
-                            builder: (context, ref, child) {
-                              final data = ref.watch(latestPlayersProvider);
-
-                              return data.when(
-                                error: (error, stackTrace) =>
-                                    Text('Error $error'),
-                                loading: () => const Padding(
-                                  padding: EdgeInsets.only(top: 40),
-                                  child: SizedBox(
-                                    width: 400,
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                ),
-                                data: (data) => CustomSmallContainer(
-                                  height: height(context) * 0.65,
-                                  width: 400,
-                                  child: ListView.builder(
-                                    itemCount: data.length,
-                                    itemBuilder: (context, index) {
-                                      return GestureDetector(
-                                        onTap: () => Navigator.pushNamed(
-                                          context,
-                                          route.profilePage,
-                                          arguments: data[index],
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 5),
-                                          child: Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 220,
-                                                    child: Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  right: 10),
-                                                          child: MyProfileImage(
-                                                            playerId:
-                                                                data[index].id,
-                                                            size: 30,
-                                                          ),
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 180,
-                                                              child: Text(
-                                                                data[index]
-                                                                    .fullName,
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .fade,
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .goldman(
-                                                                  fontSize: 14,
-                                                                  color: ColorConstants
-                                                                      .textColor,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              formatDate(
-                                                                data[index]
-                                                                    .lastActivity
-                                                                    .toDateTime(),
-                                                              ),
-                                                              style: GoogleFonts
-                                                                  .goldman(
-                                                                fontSize: 11,
-                                                                color: ColorConstants
-                                                                    .secondaryTextColor,
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child:
-                                                            CustomSmallContainer(
-                                                          height: 30,
-                                                          width: 50,
-                                                          child: TextButton(
-                                                            style: TextButton
-                                                                .styleFrom(
-                                                              primary:
-                                                                  ColorConstants
-                                                                      .textColor,
-                                                              textStyle:
-                                                                  GoogleFonts
-                                                                      .goldman(
-                                                                fontSize: 20,
-                                                              ),
-                                                            ),
-                                                            onPressed: () {
-                                                              ref
-                                                                  .watch(matchTypeProvider
-                                                                      .notifier)
-                                                                  .update((state) =>
-                                                                      state = MatchType
-                                                                          .single);
-                                                              ref
-                                                                  .watch(selectedPlayersProvider
-                                                                      .notifier)
-                                                                  .setPlayer(
-                                                                    player: data[
-                                                                        index],
-                                                                    playerSelectChoice:
-                                                                        PlayerSelectChoice
-                                                                            .playerOne,
-                                                                  );
-                                                            },
-                                                            child: Text(
-                                                              '# 1',
-                                                              style: GoogleFonts
-                                                                  .goldman(
-                                                                fontSize: 14,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      CustomSmallContainer(
-                                                        height: 30,
-                                                        width: 50,
-                                                        child: TextButton(
-                                                          style: TextButton
-                                                              .styleFrom(
-                                                            primary:
-                                                                ColorConstants
-                                                                    .textColor,
-                                                            textStyle:
-                                                                GoogleFonts
-                                                                    .goldman(
-                                                              fontSize: 20,
-                                                            ),
-                                                          ),
-                                                          onPressed: () {
-                                                            ref
-                                                                .watch(
-                                                                    matchTypeProvider
-                                                                        .notifier)
-                                                                .update((state) =>
-                                                                    state = MatchType
-                                                                        .single);
-                                                            ref
-                                                                .watch(
-                                                                    selectedPlayersProvider
-                                                                        .notifier)
-                                                                .setPlayer(
-                                                                  player: data[
-                                                                      index],
-                                                                  playerSelectChoice:
-                                                                      PlayerSelectChoice
-                                                                          .playerTwo,
-                                                                );
-                                                          },
-                                                          child: Text(
-                                                            '# 2',
-                                                            style: GoogleFonts
-                                                                .goldman(
-                                                              fontSize: 14,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              if (index != data.length - 1)
-                                                const Divider(
-                                                  height: 1,
-                                                  indent: 13,
-                                                  endIndent: 13,
-                                                ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                    _buildHorizontalPlayersContainer(
+                      context: context,
+                      ref: ref,
                     ),
                   ],
                 ),
@@ -460,377 +66,498 @@ class CreateSingleGame extends ConsumerWidget
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Column(
-                        children: [
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                ref.watch(matchTypeProvider.notifier).update(
-                                    (state) => state = MatchType.single);
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerOne,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[0]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 1',
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[0]
-                                              .id)
-                                          .fullName,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
+                      _selectedPlayersDisplay(
+                        context: context,
+                        ref: ref,
+                        isAllSelected: isAllSelected,
+                      ),
+                      ref.watch(fetchPlayersProvider).when(
+                            data: (_) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 40),
+                                child: _buildVerticalPlayersContainer(
+                                  ref: ref,
+                                ),
+                              );
+                            },
+                            error: ((error, stackTrace) =>
+                                Text('Error: $error')),
+                            loading: () => const Padding(
+                              padding: EdgeInsets.only(top: 80),
+                              child: CircularProgressIndicator(),
                             ),
                           ),
+                    ],
+                  ),
+                ),
+              );
+      },
+    );
+  }
+
+  Stack _selectedPlayersDisplay({
+    required BuildContext context,
+    required WidgetRef ref,
+    required bool isAllSelected,
+  }) {
+    final hasWidth = MediaQuery.of(context).size.width > 550;
+    return Stack(
+      children: [
+        Column(
+          children: [
+            CustomSmallContainer(
+              width: 300,
+              height: 50,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    route.playerListPage,
+                    arguments: PlayerSelectChoice.playerOne,
+                  );
+                },
+                child: ref.watch(selectedPlayersProvider)[0].fullName.isEmpty
+                    ? Text(
+                        'Select player 1',
+                        style: GoogleFonts.goldman(
+                            fontSize: 18, color: ColorConstants.textColor),
+                      )
+                    : Text(
+                        ref
+                            .watch(playersProvider.notifier)
+                            .getPlayerById(
+                                ref.watch(selectedPlayersProvider)[0].id)
+                            .fullName,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.goldman(
+                            fontSize: 18, color: ColorConstants.textColor),
+                      ),
+              ),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            const VsBar(),
+            const SizedBox(
+              height: 25,
+            ),
+            CustomSmallContainer(
+              width: 300,
+              height: 50,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    route.playerListPage,
+                    arguments: PlayerSelectChoice.playerTwo,
+                  );
+                },
+                child: ref.watch(selectedPlayersProvider)[1].fullName.isEmpty
+                    ? Text(
+                        'Select player 2',
+                        style: GoogleFonts.goldman(
+                          fontSize: 18,
+                          color: ColorConstants.textColor,
+                        ),
+                      )
+                    : Text(
+                        ref
+                            .watch(playersProvider.notifier)
+                            .getPlayerById(
+                                ref.watch(selectedPlayersProvider)[1].id)
+                            .fullName,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.goldman(
+                            fontSize: 18, color: ColorConstants.textColor),
+                      ),
+              ),
+            ),
+            SizedBox(
+              width: 300,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 55),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    )),
+                    minimumSize:
+                        MaterialStateProperty.all<Size>(const Size(300, 50)),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return ColorConstants.primaryColor;
+                        } else if (states.contains(MaterialState.disabled)) {
+                          return ColorConstants.disabledButtonColor;
+                        }
+                        return ColorConstants.primaryColor;
+                      },
+                    ),
+                  ),
+                  onPressed: isAllSelected
+                      ? () {
+                          final arguments = ScorePageArguments(
+                            players: ref.watch(selectedPlayersProvider),
+                            matchType: MatchType.single,
+                          );
+                          Navigator.pushNamed(
+                            context,
+                            route.scorePage,
+                            arguments: arguments,
+                          );
+                        }
+                      : null,
+                  child: Text(
+                    'Start Game',
+                    style: GoogleFonts.goldman(
+                      fontSize: 20,
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        isAllSelected && hasWidth
+            ? Positioned(
+                right: 0,
+                top: 0,
+                child: CustomSmallContainer(
+                  height: 50,
+                  width: 60,
+                  child: Text(
+                    '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
+                    style: const TextStyle(
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+        isAllSelected && hasWidth
+            ? Positioned(
+                right: 0,
+                top: 124,
+                child: CustomSmallContainer(
+                  height: 50,
+                  width: 60,
+                  child: Text(
+                    '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
+                    style: const TextStyle(
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox.shrink(),
+      ],
+    );
+  }
+
+  CustomSmallContainer _buildHorizontalPlayersContainer({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) {
+    double height(BuildContext context) => MediaQuery.of(context).size.height;
+    return CustomSmallContainer(
+      height: height(context) * 0.65,
+      width: 400,
+      child: ref.watch(fetchPlayersProvider).when(
+            data: (_) {
+              final players =
+                  ref.watch(playersProvider.notifier).getLatestPlayers();
+              return ListView.builder(
+                itemCount: players.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      route.profilePage,
+                      arguments: players[index],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Column(
+                        children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
                               SizedBox(
-                                width: 150,
-                                child: Divider(
-                                  height: 5,
+                                width: 220,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: MyProfileImage(
+                                        playerId: players[index].id,
+                                        size: 30,
+                                      ),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width: 180,
+                                          child: Text(
+                                            players[index].fullName,
+                                            overflow: TextOverflow.fade,
+                                            style: GoogleFonts.goldman(
+                                              fontSize: 14,
+                                              color: ColorConstants.textColor,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          formatDate(
+                                            players[index]
+                                                .lastActivity
+                                                .toDateTime(),
+                                          ),
+                                          style: GoogleFonts.goldman(
+                                            fontSize: 11,
+                                            color: ColorConstants
+                                                .secondaryTextColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 15,
-                                  vertical: 20,
-                                ),
-                                child: Text('VS'),
-                              ),
-                              SizedBox(
-                                width: 150,
-                                child: Divider(
-                                  height: 5,
-                                ),
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CustomSmallContainer(
+                                      height: 30,
+                                      width: 50,
+                                      child: TextButton(
+                                        style: TextButton.styleFrom(
+                                          primary: ColorConstants.textColor,
+                                          textStyle: GoogleFonts.goldman(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          ref
+                                              .watch(matchTypeProvider.notifier)
+                                              .update((state) =>
+                                                  state = MatchType.single);
+                                          ref
+                                              .watch(selectedPlayersProvider
+                                                  .notifier)
+                                              .setPlayer(
+                                                player: players[index],
+                                                playerSelectChoice:
+                                                    PlayerSelectChoice
+                                                        .playerOne,
+                                              );
+                                        },
+                                        child: Text(
+                                          '# 1',
+                                          style: GoogleFonts.goldman(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  CustomSmallContainer(
+                                    height: 30,
+                                    width: 50,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        primary: ColorConstants.textColor,
+                                        textStyle: GoogleFonts.goldman(
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        ref
+                                            .watch(matchTypeProvider.notifier)
+                                            .update((state) =>
+                                                state = MatchType.single);
+                                        ref
+                                            .watch(selectedPlayersProvider
+                                                .notifier)
+                                            .setPlayer(
+                                              player: players[index],
+                                              playerSelectChoice:
+                                                  PlayerSelectChoice.playerTwo,
+                                            );
+                                      },
+                                      child: Text(
+                                        '# 2',
+                                        style: GoogleFonts.goldman(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                ref.watch(matchTypeProvider.notifier).update(
-                                    (state) => state = MatchType.single);
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerTwo,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[1]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 2',
-                                      style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor,
-                                      ),
-                                    )
-                                  : Text(
-                                      ref
-                                          .watch(playersProvider.notifier)
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[1]
-                                              .id)
-                                          .fullName,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
+                          if (index != players.length - 1)
+                            const Divider(
+                              height: 1,
+                              indent: 13,
+                              endIndent: 13,
                             ),
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 55),
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  )),
-                                  minimumSize: MaterialStateProperty.all<Size>(
-                                      const Size(300, 50)),
-                                  backgroundColor:
-                                      MaterialStateProperty.resolveWith<Color>(
-                                    (Set<MaterialState> states) {
-                                      if (states
-                                          .contains(MaterialState.pressed)) {
-                                        return ColorConstants.primaryColor;
-                                      } else if (states
-                                          .contains(MaterialState.disabled)) {
-                                        return ColorConstants
-                                            .disabledButtonColor;
-                                      }
-                                      return ColorConstants.primaryColor;
-                                    },
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              );
+            },
+            error: ((error, stackTrace) => Text('Error: $error')),
+            loading: () => const Center(child: CircularProgressIndicator()),
+          ),
+    );
+  }
+
+  CustomSmallContainer _buildVerticalPlayersContainer({
+    required WidgetRef ref,
+  }) {
+    final players = ref.watch(playersProvider.notifier).getLatestPlayers();
+    return CustomSmallContainer(
+      height: 908,
+      width: 400,
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: players.length,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () => Navigator.pushNamed(
+              context,
+              route.profilePage,
+              arguments: players[index],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 220,
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: MyProfileImage(
+                                playerId: players[index].id,
+                                size: 30,
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  players[index].fullName,
+                                  style: GoogleFonts.goldman(
+                                    fontSize: 14,
+                                    color: ColorConstants.textColor,
                                   ),
                                 ),
-                                onPressed: isAllSelected
-                                    ? () {
-                                        final arguments = ScorePageArguments(
-                                          players: ref
-                                              .watch(selectedPlayersProvider),
-                                          matchType: MatchType.single,
-                                        );
-                                        Navigator.pushNamed(
-                                          context,
-                                          route.scorePage,
-                                          arguments: arguments,
-                                        );
-                                      }
-                                    : null,
-                                child: Text(
-                                  'Start Game',
+                                Text(
+                                  formatDate(
+                                    players[index].lastActivity.toDateTime(),
+                                  ),
                                   style: GoogleFonts.goldman(
+                                    fontSize: 11,
+                                    color: ColorConstants.secondaryTextColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CustomSmallContainer(
+                              height: 30,
+                              width: 50,
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                  primary: ColorConstants.textColor,
+                                  textStyle: GoogleFonts.goldman(
                                     fontSize: 20,
-                                    color: ColorConstants.textColor,
+                                  ),
+                                ),
+                                onPressed: () {
+                                  ref.watch(matchTypeProvider.notifier).update(
+                                      (state) => state = MatchType.single);
+                                  ref
+                                      .watch(selectedPlayersProvider.notifier)
+                                      .setPlayer(
+                                        player: players[index],
+                                        playerSelectChoice:
+                                            PlayerSelectChoice.playerOne,
+                                      );
+                                },
+                                child: Text(
+                                  '# 1',
+                                  style: GoogleFonts.goldman(
+                                    fontSize: 14,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 40),
-                            child: Consumer(
-                              builder: (context, ref, child) {
-                                final data = ref.watch(latestPlayersProvider);
-
-                                return data.when(
-                                  error: (error, stackTrace) =>
-                                      Text('Error $error'),
-                                  loading: () => const Padding(
-                                    padding: EdgeInsets.only(top: 40),
-                                    child: CircularProgressIndicator(),
-                                  ),
-                                  data: (data) => CustomSmallContainer(
-                                    height: 880,
-                                    width: 400,
-                                    child: ListView.builder(
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemCount: data.length,
-                                      itemBuilder: (context, index) {
-                                        return GestureDetector(
-                                          onTap: () => Navigator.pushNamed(
-                                            context,
-                                            route.profilePage,
-                                            arguments: data[index],
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 5),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 220,
-                                                      child: Row(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    right: 10),
-                                                            child:
-                                                                MyProfileImage(
-                                                              playerId:
-                                                                  data[index]
-                                                                      .id,
-                                                              size: 30,
-                                                            ),
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                data[index]
-                                                                    .fullName,
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .goldman(
-                                                                  fontSize: 14,
-                                                                  color: ColorConstants
-                                                                      .textColor,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                formatDate(
-                                                                  data[index]
-                                                                      .lastActivity
-                                                                      .toDateTime(),
-                                                                ),
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .goldman(
-                                                                  fontSize: 11,
-                                                                  color: ColorConstants
-                                                                      .secondaryTextColor,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child:
-                                                              CustomSmallContainer(
-                                                            height: 30,
-                                                            width: 50,
-                                                            child: TextButton(
-                                                              style: TextButton
-                                                                  .styleFrom(
-                                                                primary:
-                                                                    ColorConstants
-                                                                        .textColor,
-                                                                textStyle:
-                                                                    GoogleFonts
-                                                                        .goldman(
-                                                                  fontSize: 20,
-                                                                ),
-                                                              ),
-                                                              onPressed: () {
-                                                                ref
-                                                                    .watch(matchTypeProvider
-                                                                        .notifier)
-                                                                    .update((state) =>
-                                                                        state =
-                                                                            MatchType.single);
-                                                                ref
-                                                                    .watch(selectedPlayersProvider
-                                                                        .notifier)
-                                                                    .setPlayer(
-                                                                      player: data[
-                                                                          index],
-                                                                      playerSelectChoice:
-                                                                          PlayerSelectChoice
-                                                                              .playerOne,
-                                                                    );
-                                                              },
-                                                              child: Text(
-                                                                '# 1',
-                                                                style:
-                                                                    GoogleFonts
-                                                                        .goldman(
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        CustomSmallContainer(
-                                                          height: 30,
-                                                          width: 50,
-                                                          child: TextButton(
-                                                            style: TextButton
-                                                                .styleFrom(
-                                                              primary:
-                                                                  ColorConstants
-                                                                      .textColor,
-                                                              textStyle:
-                                                                  GoogleFonts
-                                                                      .goldman(
-                                                                fontSize: 20,
-                                                              ),
-                                                            ),
-                                                            onPressed: () {
-                                                              ref
-                                                                  .watch(matchTypeProvider
-                                                                      .notifier)
-                                                                  .update((state) =>
-                                                                      state = MatchType
-                                                                          .single);
-                                                              ref
-                                                                  .watch(selectedPlayersProvider
-                                                                      .notifier)
-                                                                  .setPlayer(
-                                                                    player: data[
-                                                                        index],
-                                                                    playerSelectChoice:
-                                                                        PlayerSelectChoice
-                                                                            .playerTwo,
-                                                                  );
-                                                            },
-                                                            child: Text(
-                                                              '# 2',
-                                                              style: GoogleFonts
-                                                                  .goldman(
-                                                                fontSize: 14,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                                if (index != data.length - 1)
-                                                  const Divider(
-                                                    height: 1,
-                                                    indent: 13,
-                                                    endIndent: 13,
-                                                  ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                );
+                          CustomSmallContainer(
+                            height: 30,
+                            width: 50,
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                primary: ColorConstants.textColor,
+                                textStyle: GoogleFonts.goldman(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              onPressed: () {
+                                ref.watch(matchTypeProvider.notifier).update(
+                                    (state) => state = MatchType.single);
+                                ref
+                                    .watch(selectedPlayersProvider.notifier)
+                                    .setPlayer(
+                                      player: players[index],
+                                      playerSelectChoice:
+                                          PlayerSelectChoice.playerTwo,
+                                    );
                               },
+                              child: Text(
+                                '# 2',
+                                style: GoogleFonts.goldman(
+                                  fontSize: 14,
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                ),
-              );
-      },
+                  if (index != players.length - 1)
+                    const Divider(
+                      height: 1,
+                      indent: 13,
+                      endIndent: 13,
+                    ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

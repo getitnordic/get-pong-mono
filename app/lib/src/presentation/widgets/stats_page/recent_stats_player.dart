@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/presentation/widgets/stats_page/charts/elo_change_chart.dart';
-import 'package:get_pong/src/presentation/widgets/stats_page/charts/elo_chart_data.dart';
 
 import '../../../../constants/color_constants.dart';
 import '../widgets.dart';
+import 'charts/elo_change_chart.dart';
+import 'charts/elo_chart_data.dart';
 import 'player_stats_controller.dart';
 
 class RecentStatsPlayer extends StatelessWidget {

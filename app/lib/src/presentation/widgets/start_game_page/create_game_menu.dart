@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/color_constants.dart';
+import '../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../Presentation/widgets/start_game_page/roundhouse/create_roundhouse_game.dart';
-import '../../providers/selected_players_notifier.dart';
 import 'double/create_double_game.dart';
 import 'single/create_single_game.dart';
 

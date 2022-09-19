@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../providers/all_players_notifier.dart';
-import '../providers/games_notifier.dart';
-import '../providers/result_notifier.dart';
+import '../providers/stats_data_providers.dart';
 import '../widgets/stats_page/recent_stats_overall.dart';
 import '../widgets/stats_page/result_stats_controller.dart';
 
@@ -12,14 +10,18 @@ class StatsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(resultsLoadingProvider)
-        ? const Center(child: CircularProgressIndicator())
-        : RecentStatsOverall(
-            statsController: ResultStatsController(
-              results: ref.watch(resultsProvider),
-              players: ref.watch(allPlayersNewProvider),
-              games: ref.watch(gamesProvider),
-            ),
-          );
+    return ref.watch(statsDataProvider).when(
+          data: (data) {
+            return RecentStatsOverall(
+              statsController: ResultStatsController(
+                results: data.results,
+                players: data.players,
+                games: data.games,
+              ),
+            );
+          },
+          error: ((error, stackTrace) => Text('Error: $error')),
+          loading: () => const Center(child: CircularProgressIndicator()),
+        );
   }
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/presentation/providers/stats_data_providers.dart';
 
 import '../../../protos/protos.dart';
-import '../providers/games_notifier.dart';
-import '../providers/result_notifier.dart';
+
 import '../widgets/stats_page/player_stats_controller.dart';
 import '../widgets/stats_page/recent_stats_player.dart';
 
@@ -13,29 +13,23 @@ class PlayerStatsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final results = ref.watch(resultByPlayerIdProvider.call(player.id));
-    final games = ref.watch(gamesByPlayerIdProvider.call(player.id));
-
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Last 30 days.')),
       ),
-      body: results.when(
-        data: (results) => games.when(
-            data: (games) => RecentStatsPlayer(
-                  statsController: PlayerStatsController(
-                    player: player,
-                    results: results,
-                    games: games,
-                  ),
+      body: ref.watch(playerStatsDataProvider(player.id)).when(
+            data: (data) {
+              return RecentStatsPlayer(
+                statsController: PlayerStatsController(
+                  player: player,
+                  results: data.results,
+                  games: data.games,
                 ),
-            error: ((error, stackTrace) => Text(error.toString())),
-            loading: () => const Center(child: CircularProgressIndicator())),
-        error: ((error, stackTrace) => Text(error.toString())),
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+              );
+            },
+            error: ((error, stackTrace) => Text('Error: $error')),
+            loading: () => const Center(child: CircularProgressIndicator()),
+          ),
     );
   }
 }
