@@ -128,8 +128,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               ),
             ),
             const SizedBox(height: 12),
-            const Text(
-              'Rank: 1',
+            Text(
+              ref
+                  .read(playersProvider.notifier)
+                  .getPlayerRank(widget.player.id),
               style: TextStyle(
                 color: ColorConstants.secondaryTextColor,
               ),

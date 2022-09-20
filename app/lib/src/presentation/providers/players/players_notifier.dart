@@ -84,6 +84,21 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
         .toList();
   }
 
+  String getPlayerRank(String playerId) {
+    state.sort((a, b) => b.totalScore.compareTo(a.totalScore));
+    final topRankedPlayers =
+        state.where((p) => p.win + p.loss > 0).take(20).toList();
+
+    var count = 1;
+    for (var player in topRankedPlayers) {
+      if (player.id == playerId) {
+        return 'Rank $count';
+      }
+      count++;
+    }
+    return 'Unranked';
+  }
+
   List<PlayerModel> getLatestPlayers() {
     _sortByLastActivity();
     return state.take(15).toList();
