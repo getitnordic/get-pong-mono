@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../config/route/route.dart' as route;
@@ -13,6 +12,7 @@ import '../../../../Presentation/providers/selected_players/selected_players_pro
 import '../../../../core/models/score_page_arguments.dart';
 import '../../../providers/players/players_providers.dart';
 import '../../my_profile_image.dart';
+import '../../widgets.dart';
 import '../vs_bar.dart';
 
 class CreateSingleGame extends ConsumerWidget
@@ -117,21 +117,13 @@ class CreateSingleGame extends ConsumerWidget
                   );
                 },
                 child: ref.watch(selectedPlayersProvider)[0].fullName.isEmpty
-                    ? Text(
-                        'Select player 1',
-                        style: GoogleFonts.goldman(
-                            fontSize: 18, color: ColorConstants.textColor),
-                      )
-                    : Text(
-                        ref
+                    ? const MyFadeTextSwitcher(text: 'Select player 1')
+                    : MyFadeTextSwitcher(
+                        text: ref
                             .watch(playersProvider.notifier)
                             .getPlayerById(
                                 ref.watch(selectedPlayersProvider)[0].id)
-                            .fullName,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.goldman(
-                            fontSize: 18, color: ColorConstants.textColor),
-                      ),
+                            .fullName),
               ),
             ),
             const SizedBox(
@@ -153,23 +145,13 @@ class CreateSingleGame extends ConsumerWidget
                   );
                 },
                 child: ref.watch(selectedPlayersProvider)[1].fullName.isEmpty
-                    ? Text(
-                        'Select player 2',
-                        style: GoogleFonts.goldman(
-                          fontSize: 18,
-                          color: ColorConstants.textColor,
-                        ),
-                      )
-                    : Text(
-                        ref
+                    ? const MyFadeTextSwitcher(text: 'Select player 1')
+                    : MyFadeTextSwitcher(
+                        text: ref
                             .watch(playersProvider.notifier)
                             .getPlayerById(
                                 ref.watch(selectedPlayersProvider)[1].id)
-                            .fullName,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.goldman(
-                            fontSize: 18, color: ColorConstants.textColor),
-                      ),
+                            .fullName),
               ),
             ),
             SizedBox(
@@ -225,15 +207,12 @@ class CreateSingleGame extends ConsumerWidget
                 right: 0,
                 top: 0,
                 child: CustomSmallContainer(
-                  height: 50,
-                  width: 60,
-                  child: Text(
-                    '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
-                    style: const TextStyle(
-                      color: ColorConstants.textColor,
-                    ),
-                  ),
-                ),
+                    height: 50,
+                    width: 60,
+                    child: MyFadeTextSwitcher(
+                      text:
+                          '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
+                    )),
               )
             : const SizedBox.shrink(),
         isAllSelected && hasWidth
@@ -241,15 +220,12 @@ class CreateSingleGame extends ConsumerWidget
                 right: 0,
                 top: 124,
                 child: CustomSmallContainer(
-                  height: 50,
-                  width: 60,
-                  child: Text(
-                    '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
-                    style: const TextStyle(
-                      color: ColorConstants.textColor,
-                    ),
-                  ),
-                ),
+                    height: 50,
+                    width: 60,
+                    child: MyFadeTextSwitcher(
+                      text:
+                          '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
+                    )),
               )
             : const SizedBox.shrink(),
       ],
@@ -336,7 +312,8 @@ class CreateSingleGame extends ConsumerWidget
                                       width: 50,
                                       child: TextButton(
                                         style: TextButton.styleFrom(
-                                          primary: ColorConstants.textColor,
+                                          foregroundColor:
+                                              ColorConstants.textColor,
                                           textStyle: GoogleFonts.goldman(
                                             fontSize: 20,
                                           ),
@@ -370,7 +347,8 @@ class CreateSingleGame extends ConsumerWidget
                                     width: 50,
                                     child: TextButton(
                                       style: TextButton.styleFrom(
-                                        primary: ColorConstants.textColor,
+                                        foregroundColor:
+                                            ColorConstants.textColor,
                                         textStyle: GoogleFonts.goldman(
                                           fontSize: 20,
                                         ),
@@ -488,7 +466,7 @@ class CreateSingleGame extends ConsumerWidget
                               width: 50,
                               child: TextButton(
                                 style: TextButton.styleFrom(
-                                  primary: ColorConstants.textColor,
+                                  foregroundColor: ColorConstants.textColor,
                                   textStyle: GoogleFonts.goldman(
                                     fontSize: 20,
                                   ),
@@ -518,7 +496,7 @@ class CreateSingleGame extends ConsumerWidget
                             width: 50,
                             child: TextButton(
                               style: TextButton.styleFrom(
-                                primary: ColorConstants.textColor,
+                                foregroundColor: ColorConstants.textColor,
                                 textStyle: GoogleFonts.goldman(
                                   fontSize: 20,
                                 ),

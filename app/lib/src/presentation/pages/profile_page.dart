@@ -132,7 +132,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               ref
                   .read(playersProvider.notifier)
                   .getPlayerRank(widget.player.id),
-              style: TextStyle(
+              style: const TextStyle(
                 color: ColorConstants.secondaryTextColor,
               ),
             ),

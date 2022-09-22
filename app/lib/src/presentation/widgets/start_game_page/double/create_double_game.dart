@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/providers/players/players_notifier.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../config/route/route.dart' as route;
@@ -10,10 +9,10 @@ import '../../../../../enums/player_select_choice.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/selected_players/selected_players_providers.dart';
-import '../../../../Presentation/widgets/custom_small_container.dart';
 import '../../../../core/models/score_page_arguments.dart';
 import '../../../providers/players/players_providers.dart';
 import '../../my_profile_image.dart';
+import '../../widgets.dart';
 import '../vs_bar.dart';
 
 class CreateDoubleGame extends ConsumerWidget
@@ -136,218 +135,10 @@ class CreateDoubleGame extends ConsumerWidget
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: height(context) * 0.1),
-                    child: Column(
-                      children: [
-                        CustomSmallContainer(
-                          width: 300,
-                          height: 50,
-                          child: TextButton(
-                            onPressed: () {
-                              ref
-                                  .watch(playersProvider.notifier)
-                                  .fetchPlayers();
-                              Navigator.pushNamed(
-                                context,
-                                route.playerListPage,
-                                arguments: PlayerSelectChoice.playerOne,
-                              );
-                            },
-                            child: ref
-                                    .watch(selectedPlayersProvider)[0]
-                                    .fullName
-                                    .isEmpty
-                                ? Text(
-                                    'Select player 1',
-                                    style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor),
-                                  )
-                                : Text(
-                                    playersNotifier
-                                        .getPlayerById(ref
-                                            .watch(selectedPlayersProvider)[0]
-                                            .id)
-                                        .fullName,
-                                    style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor),
-                                  ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerTwo,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[1]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 2',
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    )
-                                  : Text(
-                                      playersNotifier
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[1]
-                                              .id)
-                                          .fullName,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 25,
-                          child: isAllSelected
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Center(
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            'Win probability: ',
-                                            style: TextStyle(
-                                                color: ColorConstants.textColor,
-                                                fontSize: 11),
-                                          ),
-                                          Text(
-                                            '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
-                                            style: const TextStyle(
-                                                color: ColorConstants
-                                                    .secondaryTextColor,
-                                                fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : null,
-                        ),
-                        const VsBar(),
-                        SizedBox(
-                          height: 25,
-                          child: isAllSelected
-                              ? Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Center(
-                                      child: Row(
-                                        children: [
-                                          const Text(
-                                            'Win probability: ',
-                                            style: TextStyle(
-                                                color: ColorConstants.textColor,
-                                                fontSize: 11),
-                                          ),
-                                          Text(
-                                            '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
-                                            style: const TextStyle(
-                                                color: ColorConstants
-                                                    .secondaryTextColor,
-                                                fontSize: 14),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              : null,
-                        ),
-                        CustomSmallContainer(
-                          width: 300,
-                          height: 50,
-                          child: TextButton(
-                            onPressed: () {
-                              ref
-                                  .watch(playersProvider.notifier)
-                                  .fetchPlayers();
-                              Navigator.pushNamed(
-                                context,
-                                route.playerListPage,
-                                arguments: PlayerSelectChoice.playerThree,
-                              );
-                            },
-                            child: ref
-                                    .watch(selectedPlayersProvider)[2]
-                                    .fullName
-                                    .isEmpty
-                                ? Text(
-                                    'Select player 3',
-                                    style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor),
-                                  )
-                                : Text(
-                                    playersNotifier
-                                        .getPlayerById(ref
-                                            .watch(selectedPlayersProvider)[2]
-                                            .id)
-                                        .fullName,
-                                    style: GoogleFonts.goldman(
-                                        fontSize: 18,
-                                        color: ColorConstants.textColor),
-                                  ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: CustomSmallContainer(
-                            width: 300,
-                            height: 50,
-                            child: TextButton(
-                              onPressed: () {
-                                ref
-                                    .watch(playersProvider.notifier)
-                                    .fetchPlayers();
-                                Navigator.pushNamed(
-                                  context,
-                                  route.playerListPage,
-                                  arguments: PlayerSelectChoice.playerFour,
-                                );
-                              },
-                              child: ref
-                                      .watch(selectedPlayersProvider)[3]
-                                      .fullName
-                                      .isEmpty
-                                  ? Text(
-                                      'Select player 4',
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    )
-                                  : Text(
-                                      playersNotifier
-                                          .getPlayerById(ref
-                                              .watch(selectedPlayersProvider)[3]
-                                              .id)
-                                          .fullName,
-                                      style: GoogleFonts.goldman(
-                                          fontSize: 18,
-                                          color: ColorConstants.textColor),
-                                    ),
-                            ),
-                          ),
-                        ),
-                      ],
+                    child: _selectPlayersDisplay(
+                      ref: ref,
+                      context: context,
+                      isAllSelected: isAllSelected,
                     ),
                   ),
                   SizedBox(
@@ -433,18 +224,12 @@ class CreateDoubleGame extends ConsumerWidget
                   );
                 },
                 child: ref.watch(selectedPlayersProvider)[0].fullName.isEmpty
-                    ? Text(
-                        'Select player 1',
-                        style: GoogleFonts.goldman(
-                            fontSize: 18, color: ColorConstants.textColor),
-                      )
-                    : Text(
-                        playersNotifier
+                    ? const MyFadeTextSwitcher(text: 'Select player 1')
+                    : MyFadeTextSwitcher(
+                        text: playersNotifier
                             .getPlayerById(
                                 ref.watch(selectedPlayersProvider)[0].id)
                             .fullName,
-                        style: GoogleFonts.goldman(
-                            fontSize: 18, color: ColorConstants.textColor),
                       ),
               ),
             ),
@@ -466,18 +251,12 @@ class CreateDoubleGame extends ConsumerWidget
                     );
                   },
                   child: ref.watch(selectedPlayersProvider)[1].fullName.isEmpty
-                      ? Text(
-                          'Select player 2',
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        )
-                      : Text(
-                          playersNotifier
+                      ? const MyFadeTextSwitcher(text: 'Select player 2')
+                      : MyFadeTextSwitcher(
+                          text: playersNotifier
                               .getPlayerById(
                                   ref.watch(selectedPlayersProvider)[1].id)
                               .fullName,
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
                         ),
                 ),
               ),
@@ -505,18 +284,12 @@ class CreateDoubleGame extends ConsumerWidget
                   );
                 },
                 child: ref.watch(selectedPlayersProvider)[2].fullName.isEmpty
-                    ? Text(
-                        'Select player 3',
-                        style: GoogleFonts.goldman(
-                            fontSize: 18, color: ColorConstants.textColor),
-                      )
-                    : Text(
-                        playersNotifier
+                    ? const MyFadeTextSwitcher(text: 'Select player 3')
+                    : MyFadeTextSwitcher(
+                        text: playersNotifier
                             .getPlayerById(
                                 ref.watch(selectedPlayersProvider)[2].id)
                             .fullName,
-                        style: GoogleFonts.goldman(
-                            fontSize: 18, color: ColorConstants.textColor),
                       ),
               ),
             ),
@@ -538,18 +311,12 @@ class CreateDoubleGame extends ConsumerWidget
                     );
                   },
                   child: ref.watch(selectedPlayersProvider)[3].fullName.isEmpty
-                      ? Text(
-                          'Select player 4',
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
-                        )
-                      : Text(
-                          playersNotifier
+                      ? const MyFadeTextSwitcher(text: 'Select player 4')
+                      : MyFadeTextSwitcher(
+                          text: playersNotifier
                               .getPlayerById(
                                   ref.watch(selectedPlayersProvider)[3].id)
                               .fullName,
-                          style: GoogleFonts.goldman(
-                              fontSize: 18, color: ColorConstants.textColor),
                         ),
                 ),
               ),
@@ -563,11 +330,9 @@ class CreateDoubleGame extends ConsumerWidget
                 child: CustomSmallContainer(
                   height: 50,
                   width: 60,
-                  child: Text(
-                    '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
-                    style: const TextStyle(
-                      color: ColorConstants.textColor,
-                    ),
+                  child: MyFadeTextSwitcher(
+                    text:
+                        '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
                   ),
                 ),
               )
@@ -579,11 +344,9 @@ class CreateDoubleGame extends ConsumerWidget
                 child: CustomSmallContainer(
                   height: 50,
                   width: 60,
-                  child: Text(
-                    '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
-                    style: const TextStyle(
-                      color: ColorConstants.textColor,
-                    ),
+                  child: MyFadeTextSwitcher(
+                    text:
+                        '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
                   ),
                 ),
               )
@@ -670,7 +433,7 @@ class CreateDoubleGame extends ConsumerWidget
                                             width: 50,
                                             child: TextButton(
                                               style: TextButton.styleFrom(
-                                                primary:
+                                                foregroundColor:
                                                     ColorConstants.textColor,
                                                 textStyle: GoogleFonts.goldman(
                                                   fontSize: 20,
@@ -707,7 +470,8 @@ class CreateDoubleGame extends ConsumerWidget
                                           width: 50,
                                           child: TextButton(
                                             style: TextButton.styleFrom(
-                                              primary: ColorConstants.textColor,
+                                              foregroundColor:
+                                                  ColorConstants.textColor,
                                               textStyle: GoogleFonts.goldman(
                                                 fontSize: 20,
                                               ),
@@ -750,7 +514,7 @@ class CreateDoubleGame extends ConsumerWidget
                                               width: 50,
                                               child: TextButton(
                                                 style: TextButton.styleFrom(
-                                                  primary:
+                                                  foregroundColor:
                                                       ColorConstants.textColor,
                                                   textStyle:
                                                       GoogleFonts.goldman(
@@ -788,7 +552,7 @@ class CreateDoubleGame extends ConsumerWidget
                                             width: 50,
                                             child: TextButton(
                                               style: TextButton.styleFrom(
-                                                primary:
+                                                foregroundColor:
                                                     ColorConstants.textColor,
                                                 textStyle: GoogleFonts.goldman(
                                                   fontSize: 20,
@@ -932,7 +696,8 @@ class CreateDoubleGame extends ConsumerWidget
                                           width: 50,
                                           child: TextButton(
                                             style: TextButton.styleFrom(
-                                              primary: ColorConstants.textColor,
+                                              foregroundColor:
+                                                  ColorConstants.textColor,
                                               textStyle: GoogleFonts.goldman(
                                                 fontSize: 20,
                                               ),
@@ -967,7 +732,8 @@ class CreateDoubleGame extends ConsumerWidget
                                         width: 50,
                                         child: TextButton(
                                           style: TextButton.styleFrom(
-                                            primary: ColorConstants.textColor,
+                                            foregroundColor:
+                                                ColorConstants.textColor,
                                             textStyle: GoogleFonts.goldman(
                                               fontSize: 20,
                                             ),
@@ -1010,7 +776,7 @@ class CreateDoubleGame extends ConsumerWidget
                                             width: 50,
                                             child: TextButton(
                                               style: TextButton.styleFrom(
-                                                primary:
+                                                foregroundColor:
                                                     ColorConstants.textColor,
                                                 textStyle: GoogleFonts.goldman(
                                                   fontSize: 20,
@@ -1047,7 +813,8 @@ class CreateDoubleGame extends ConsumerWidget
                                           width: 50,
                                           child: TextButton(
                                             style: TextButton.styleFrom(
-                                              primary: ColorConstants.textColor,
+                                              foregroundColor:
+                                                  ColorConstants.textColor,
                                               textStyle: GoogleFonts.goldman(
                                                 fontSize: 20,
                                               ),
