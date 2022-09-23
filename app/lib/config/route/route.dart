@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_pong/src/presentation/pages/message_handler.dart';
 import 'package:get_pong/src/presentation/pages/player_stats_page.dart';
 
 import '../../enums/player_select_choice.dart';
@@ -21,7 +22,7 @@ const String playerStatsPage = 'playerstats';
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
     case homePage:
-      return MaterialPageRoute(builder: (context) => const HomePage());
+      return MaterialPageRoute(builder: (context) => const MessageHandler());
     case playerListPage:
       {
         final playerSelectIndex = settings.arguments as PlayerSelectChoice;
