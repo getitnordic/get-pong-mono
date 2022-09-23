@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../config/route/route.dart' as route;
 import '../../../../constants/color_constants.dart';
 import '../../../../enums/player_select_choice.dart';
 import '../../../../protos/base.pb.dart';
-import '../../../Presentation/widgets/start_game_page/select_player_list_player.dart';
+import '../../../Presentation/providers/selected_players/selected_players_providers.dart';
+import 'select_player_list_player.dart';
 
-class SelectPlayerList extends StatefulWidget {
+class SelectPlayerList extends ConsumerStatefulWidget {
   final PlayerSelectChoice playerSelectIndex;
   final List<PlayerModel> players;
-
-  const SelectPlayerList(
-      {Key? key, required this.playerSelectIndex, required this.players})
-      : super(key: key);
+  const SelectPlayerList({
+    Key? key,
+    required this.playerSelectIndex,
+    required this.players,
+  }) : super(key: key);
 
   @override
-  State<SelectPlayerList> createState() => _SelectPlayerListState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _SelectPlayerListState();
 }
 
-class _SelectPlayerListState extends State<SelectPlayerList> {
+class _SelectPlayerListState extends ConsumerState<SelectPlayerList> {
   List<PlayerModel> players = [];
   List<PlayerModel> originalPlayers = [];
 
@@ -66,15 +69,14 @@ class _SelectPlayerListState extends State<SelectPlayerList> {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      route.profilePage,
-                      arguments: players[index],
-                    ),
-                    child: SelectPlayerListPlayer(
-                      playerSelectIndex: widget.playerSelectIndex,
-                      player: players[index],
-                    ),
+                    onTap: () {
+                      ref.watch(selectedPlayersProvider.notifier).setPlayer(
+                            player: players[index],
+                            playerSelectChoice: widget.playerSelectIndex,
+                          );
+                      Navigator.of(context).pop();
+                    },
+                    child: SelectPlayerListPlayer(player: players[index]),
                   );
                 },
                 itemCount: players.length,

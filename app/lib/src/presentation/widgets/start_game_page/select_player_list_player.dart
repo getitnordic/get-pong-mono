@@ -2,21 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/color_constants.dart';
-import '../../../../enums/player_select_choice.dart';
 import '../../../../protos/base.pb.dart';
 import '../../../../utils/mixins/set_profile_image_mixin.dart';
-import '../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../Presentation/widgets/custom_small_container.dart';
 import '../my_profile_image.dart';
 
 class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
   final PlayerModel player;
-  final PlayerSelectChoice playerSelectIndex;
 
   const SelectPlayerListPlayer({
     Key? key,
     required this.player,
-    required this.playerSelectIndex,
   }) : super(key: key);
 
   @override
@@ -47,19 +43,6 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
                 ),
               ],
             ),
-            TextButton(
-                onPressed: () {
-                  ref.watch(selectedPlayersProvider.notifier).setPlayer(
-                        player: player,
-                        playerSelectChoice: playerSelectIndex,
-                      );
-                  Navigator.of(context).pop();
-                },
-                child: const Icon(
-                  Icons.add,
-                  color: ColorConstants.primaryColor,
-                  size: 30,
-                )),
           ],
         ),
       ),
