@@ -23,6 +23,8 @@ dependencies:
   date_time_format: ^2.0.1
   image_picker: ^0.8.5+3
   fl_chart: ^0.55.1
+  firebase_messaging: ^13.0.3
+  firebase_core: ^1.23.0
   
 
 dev_dependencies:      
