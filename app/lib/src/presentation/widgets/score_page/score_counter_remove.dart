@@ -1,31 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/color_constants.dart';
+import '../../../../enums/score_type.dart';
+import '../../../../enums/team.dart';
 import '../../../Presentation/widgets/custom_small_container.dart';
 
-class ScoreCounterRemove extends StatefulWidget {
+class ScoreCounterRemove extends ConsumerStatefulWidget {
   final int setId;
-  final Function(double) setScore;
-  final Function(int) getSetId;
+  final Function(int, Team, ScoreType) setScore;
+
   final double score;
-  const ScoreCounterRemove(
-      {Key? key,
-      required this.setId,
-      required this.setScore,
-      required this.getSetId,
-      required this.score})
-      : super(key: key);
+  final Team team;
+  const ScoreCounterRemove({
+    Key? key,
+    required this.setId,
+    required this.setScore,
+    required this.score,
+    required this.team,
+  }) : super(key: key);
 
   @override
-  State<ScoreCounterRemove> createState() => _ScoreCounterRemoveState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ScoreCounterRemoveState();
 }
 
-class _ScoreCounterRemoveState extends State<ScoreCounterRemove> {
+class _ScoreCounterRemoveState extends ConsumerState<ScoreCounterRemove> {
+  late double counter;
+
+  @override
+  void initState() {
+    counter = widget.score;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     final isPhone = MediaQuery.of(context).size.width < 550;
-    double counter = widget.score;
 
     return Row(
       children: [
@@ -40,13 +52,8 @@ class _ScoreCounterRemoveState extends State<ScoreCounterRemove> {
               child: IconButton(
                 iconSize: isPhoneOrVertical ? 38 : 58,
                 onPressed: () {
-                  if (counter > 0) {
-                    setState(() {
-                      counter--;
-                    });
-                    widget.getSetId(widget.setId);
-                    widget.setScore(counter);
-                  }
+                  counter--;
+                  widget.setScore(widget.setId, widget.team, ScoreType.remove);
                 },
                 icon: const Icon(
                   Icons.remove,
@@ -62,13 +69,9 @@ class _ScoreCounterRemoveState extends State<ScoreCounterRemove> {
         if (!isPhone)
           TextButton(
             onPressed: () {
-              if (counter > 0) {
-                setState(() {
-                  counter = 0;
-                });
-                widget.getSetId(widget.setId);
-                widget.setScore(counter);
-              }
+              counter = 0;
+
+              widget.setScore(widget.setId, widget.team, ScoreType.min);
             },
             child: Text(
               '0',

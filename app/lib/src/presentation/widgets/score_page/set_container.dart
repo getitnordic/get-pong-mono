@@ -1,8 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:get_pong/enums/score_type.dart';
 
 import '../../../../constants/color_constants.dart';
 import '../../../../enums/match_type.dart';
+import '../../../../enums/team.dart';
 import '../widgets.dart';
 import 'score_counter_add.dart';
 import 'score_counter_remove.dart';
@@ -17,9 +19,7 @@ class SetContainer extends StatelessWidget {
   final String playerTwoName;
   final String playerThreeName;
   final String playerFourName;
-  final Function(double) setHomeScore;
-  final Function(double) setAwayScore;
-  final Function(int) getSetId;
+  final Function(int, Team, ScoreType) setScore;
 
   const SetContainer({
     Key? key,
@@ -32,9 +32,7 @@ class SetContainer extends StatelessWidget {
     required this.playerTwoName,
     required this.playerThreeName,
     required this.playerFourName,
-    required this.setHomeScore,
-    required this.setAwayScore,
-    required this.getSetId,
+    required this.setScore,
   }) : super(key: key);
 
   @override
@@ -67,9 +65,9 @@ class SetContainer extends StatelessWidget {
               children: [
                 ScoreCounterRemove(
                   setId: setId,
-                  setScore: setHomeScore,
-                  getSetId: getSetId,
+                  setScore: setScore,
                   score: homeScore,
+                  team: Team.homeTeam,
                 ),
                 if (matchType == MatchType.single)
                   SizedBox(
@@ -91,9 +89,9 @@ class SetContainer extends StatelessWidget {
                   ),
                 ScoreCounterAdd(
                   setId: setId,
-                  setScore: setHomeScore,
-                  getSetId: getSetId,
+                  setScore: setScore,
                   score: homeScore,
+                  team: Team.homeTeam,
                 ),
               ],
             ),
@@ -109,9 +107,9 @@ class SetContainer extends StatelessWidget {
               children: [
                 ScoreCounterRemove(
                   setId: setId,
-                  setScore: setAwayScore,
-                  getSetId: getSetId,
+                  setScore: setScore,
                   score: awayScore,
+                  team: Team.awayTeam,
                 ),
                 if (matchType == MatchType.single)
                   SizedBox(
@@ -132,9 +130,9 @@ class SetContainer extends StatelessWidget {
                   ),
                 ScoreCounterAdd(
                   setId: setId,
-                  setScore: setAwayScore,
-                  getSetId: getSetId,
+                  setScore: setScore,
                   score: awayScore,
+                  team: Team.awayTeam,
                 ),
               ],
             ),

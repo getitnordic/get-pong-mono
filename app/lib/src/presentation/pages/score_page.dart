@@ -1,16 +1,16 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/utils/extensions/display_player_name.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/color_constants.dart';
 import '../../../enums/match_type.dart';
+import '../../../enums/score_type.dart';
+import '../../../enums/team.dart';
 import '../../../protos/base.pb.dart';
-import '../../../protos/game.pbgrpc.dart';
-import '../../../protos/google/protobuf/timestamp.pb.dart';
 import '../../core/models/score_page_set.dart';
-import '../providers/games/games_providers.dart';
-import '../providers/selected_players/selected_players_providers.dart';
+import '../providers/score/score_provider.dart';
 import '../widgets/widgets.dart';
 
 class ScorePage extends ConsumerStatefulWidget {
@@ -37,72 +37,22 @@ class _ScorePageState extends ConsumerState<ScorePage>
   late bool isDouble;
 
   List<ScorePageSet> sets = [
-    ScorePageSet(
-      homeScore: 0,
-      awayScore: 0,
-      setId: 1,
-    )
+    ScorePageSet(homeScore: 0, awayScore: 0, setId: 1)
   ];
 
-  void setHomeScore(double score) {
-    setState(() {
-      sets[currentSetId].homeScore = score;
-    });
-  }
-
-  void setAwayScore(double score) {
-    setState(() {
-      sets[currentSetId].awayScore = score;
-    });
+  void setScore(int setId, Team team, ScoreType type) {
+    ref.watch(scoreProvider.notifier).setScore(
+          setId: setId,
+          team: team,
+          type: type,
+        );
   }
 
   void setCurrentSetId(int setId) {
     currentSetId = setId;
   }
 
-  bool playerHasNickname(PlayerModel player) {
-    return player.nickname != 'nickname' && player.nickname != '';
-  }
-
-  String displayName(PlayerModel player) {
-    return playerHasNickname(player) ? player.nickname : player.fullName;
-  }
-
-  bool checkIfScoresAreSet() {
-    int homeTeamScore = 0;
-    int awayTeamSCore = 0;
-    for (final ScorePageSet set in sets) {
-      if (set.homeScore > set.awayScore) {
-        homeTeamScore++;
-      } else {
-        awayTeamSCore++;
-      }
-      if (!set.isScoreSet()) {
-        return false;
-      }
-    }
-    if (homeTeamScore == awayTeamSCore) {
-      return false;
-    }
-    return true;
-  }
-
-  List<SetModel> setModelMapper() {
-    List<SetModel> newSets = [];
-    int counter = 1;
-    for (ScorePageSet set in sets) {
-      newSets.add(
-        SetModel(
-          setNo: counter,
-          homeTeam: set.homeScore.toInt(),
-          awayTeam: set.awayScore.toInt(),
-        ),
-      );
-    }
-    return newSets;
-  }
-
-  void removeSet() {
+  void removeSet(WidgetRef ref) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     if (setCounter > 1) {
       if (scrollController.hasClients) {
@@ -117,6 +67,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
       }
 
       sets.removeLast();
+      ref.watch(scoreProvider.notifier).removeSet();
       listKey.currentState!.removeItem(
           sets.length,
           (context, animation) => SetContainer(
@@ -125,13 +76,11 @@ class _ScorePageState extends ConsumerState<ScorePage>
                 homeScore: sets[sets.length - 1].homeScore,
                 awayScore: sets[sets.length - 1].awayScore,
                 matchType: widget.matchType,
-                playerOneName: displayName(widget.selectedPlayers[0]),
-                playerTwoName: displayName(widget.selectedPlayers[1]),
-                playerThreeName: displayName(widget.selectedPlayers[2]),
-                playerFourName: displayName(widget.selectedPlayers[3]),
-                setHomeScore: setHomeScore,
-                setAwayScore: setAwayScore,
-                getSetId: setCurrentSetId,
+                playerOneName: widget.selectedPlayers[0].displayName(),
+                playerTwoName: widget.selectedPlayers[1].displayName(),
+                playerThreeName: widget.selectedPlayers[2].displayName(),
+                playerFourName: widget.selectedPlayers[3].displayName(),
+                setScore: setScore,
               ),
           duration: const Duration(milliseconds: 300));
       setState(() {
@@ -140,7 +89,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
     }
   }
 
-  void addSet() {
+  void addSet(WidgetRef ref) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     if (scrollController.hasClients) {
       final position = isPhoneOrVertical
@@ -153,12 +102,13 @@ class _ScorePageState extends ConsumerState<ScorePage>
       );
     }
     sets.add(
-      ScorePageSet(
-        homeScore: 0,
-        awayScore: 0,
-        setId: setCounter,
-      ),
+      ScorePageSet(homeScore: 0, awayScore: 0, setId: setCounter),
     );
+    ref.watch(scoreProvider.notifier).addSet(ScorePageSet(
+          homeScore: 0,
+          awayScore: 0,
+          setId: setCounter,
+        ));
     listKey.currentState!.insertItem(
       sets.length - 1,
       duration: const Duration(milliseconds: 300),
@@ -170,36 +120,12 @@ class _ScorePageState extends ConsumerState<ScorePage>
 
   @override
   Widget build(BuildContext context) {
-    final gamesNotifier = ref.watch(gamesProvider.notifier);
-    final selectedPlayersNotifier = ref.watch(selectedPlayersProvider.notifier);
     final matchType = widget.matchType;
     final playerOne = widget.selectedPlayers[0];
     final playerTwo = widget.selectedPlayers[1];
     final playerThree = widget.selectedPlayers[2];
     final playerFour = widget.selectedPlayers[3];
-    final isDouble = widget.selectedPlayers[2].nickname.isNotEmpty;
-
-    void saveNewMatch() {
-      List<SetModel> newSets = setModelMapper();
-
-      if (isDouble) {
-        GameModel match = GameModel(
-            homeTeamIds: [playerOne.id, playerTwo.id],
-            awayTeamIds: [playerThree.id, playerFour.id],
-            sets: newSets,
-            timeStamp: Timestamp.create().createEmptyInstance());
-        gamesNotifier.createGame(match);
-        selectedPlayersNotifier.resetState();
-      } else {
-        GameModel match = GameModel(
-            homeTeamIds: [playerOne.id],
-            awayTeamIds: [playerTwo.id],
-            sets: newSets,
-            timeStamp: Timestamp.create().createEmptyInstance());
-        gamesNotifier.createGame(match);
-        selectedPlayersNotifier.resetState();
-      }
-    }
+    final globalSets = ref.watch(scoreProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -223,16 +149,14 @@ class _ScorePageState extends ConsumerState<ScorePage>
                       child: SetContainer(
                         animation: animation,
                         setId: index,
-                        homeScore: sets[index].homeScore,
-                        awayScore: sets[index].awayScore,
+                        homeScore: globalSets[index].homeScore,
+                        awayScore: globalSets[index].awayScore,
                         matchType: matchType,
-                        playerOneName: displayName(playerOne),
-                        playerTwoName: displayName(playerTwo),
-                        playerThreeName: displayName(playerThree),
-                        playerFourName: displayName(playerFour),
-                        setHomeScore: setHomeScore,
-                        setAwayScore: setAwayScore,
-                        getSetId: setCurrentSetId,
+                        playerOneName: playerOne.displayName(),
+                        playerTwoName: playerTwo.displayName(),
+                        playerThreeName: playerThree.displayName(),
+                        playerFourName: playerFour.displayName(),
+                        setScore: setScore,
                       ),
                     );
                   },
@@ -266,12 +190,18 @@ class _ScorePageState extends ConsumerState<ScorePage>
                         },
                       ),
                     ),
-                    onPressed: checkIfScoresAreSet()
-                        ? () {
-                            saveNewMatch();
-                            Navigator.pop(context);
-                          }
-                        : null,
+                    onPressed:
+                        ref.watch(scoreProvider.notifier).checkIfScoresAreSet()
+                            ? () {
+                                ref.watch(scoreProvider.notifier).saveNewMatch(
+                                      playerOne,
+                                      playerTwo,
+                                      playerThree,
+                                      playerFour,
+                                    );
+                                Navigator.pop(context);
+                              }
+                            : null,
                     child: Text(
                       'Save Result',
                       style: GoogleFonts.goldman(
@@ -280,7 +210,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
                       ),
                     ),
                   ),
-                  _addRemoveSetButtons(),
+                  _addRemoveSetButtons(ref),
                 ],
               ),
             ),
@@ -290,7 +220,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
     );
   }
 
-  Padding _addRemoveSetButtons() {
+  Padding _addRemoveSetButtons(WidgetRef ref) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     return Padding(
       padding: const EdgeInsets.only(right: 10),
@@ -304,7 +234,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
               width: 50,
               child: IconButton(
                 onPressed: () {
-                  removeSet();
+                  removeSet(ref);
                 },
                 icon: const Icon(
                   Icons.close,
@@ -321,7 +251,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
               width: 50,
               child: IconButton(
                 onPressed: () {
-                  addSet();
+                  addSet(ref);
                 },
                 icon: const Icon(
                   Icons.add,

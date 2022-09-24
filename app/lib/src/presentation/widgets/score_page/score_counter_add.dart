@@ -1,30 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/enums/score_type.dart';
 
 import '../../../../constants/constants.dart';
+import '../../../../enums/team.dart';
 import '../widgets.dart';
 
-class ScoreCounterAdd extends StatefulWidget {
+class ScoreCounterAdd extends ConsumerStatefulWidget {
   final int setId;
-  final Function(double) setScore;
-  final Function(int) getSetId;
+  final Function(int, Team, ScoreType) setScore;
+
   final double score;
-  const ScoreCounterAdd(
-      {Key? key,
-      required this.setId,
-      required this.setScore,
-      required this.getSetId,
-      required this.score})
-      : super(key: key);
+  final Team team;
+  const ScoreCounterAdd({
+    Key? key,
+    required this.setId,
+    required this.setScore,
+    required this.score,
+    required this.team,
+  }) : super(key: key);
 
   @override
-  State<ScoreCounterAdd> createState() => _ScoreCounterAddState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ScoreCounterAddState();
 }
 
-class _ScoreCounterAddState extends State<ScoreCounterAdd> {
+class _ScoreCounterAddState extends ConsumerState<ScoreCounterAdd> {
   @override
   Widget build(BuildContext context) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     final isPhone = MediaQuery.of(context).size.width < 550;
+
     double counter = widget.score;
 
     return Row(
@@ -33,11 +39,9 @@ class _ScoreCounterAddState extends State<ScoreCounterAdd> {
         if (!isPhone)
           TextButton(
             onPressed: () {
-              setState(() {
-                counter = 11;
-              });
-              widget.getSetId(widget.setId);
-              widget.setScore(counter);
+              counter = 11;
+
+              widget.setScore(widget.setId, widget.team, ScoreType.max);
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -64,11 +68,9 @@ class _ScoreCounterAddState extends State<ScoreCounterAdd> {
               child: IconButton(
                 iconSize: isPhoneOrVertical ? 38 : 58,
                 onPressed: () {
-                  setState(() {
-                    counter++;
-                  });
-                  widget.getSetId(widget.setId);
-                  widget.setScore(counter);
+                  counter++;
+
+                  widget.setScore(widget.setId, widget.team, ScoreType.add);
                 },
                 icon: const Icon(
                   Icons.add,
