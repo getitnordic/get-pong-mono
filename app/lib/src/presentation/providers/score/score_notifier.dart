@@ -110,7 +110,9 @@ class ScoreNotifier extends StateNotifier<List<ScorePageSet>> {
         ? _setHomeScore(score: score, setId: setId)
         : _setAwayScore(score: score, setId: setId);
 
-    print('Triggered on notification?');
+    print('----------------------------');
+    print('HomeScore: ${state[0].homeScore}\nAwayScore: ${state[0].awayScore}');
+    print('----------------------------');
   }
 
   void saveNewMatch(

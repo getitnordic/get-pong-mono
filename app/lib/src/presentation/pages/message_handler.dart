@@ -37,6 +37,7 @@ class _MessageHandlerState extends ConsumerState<MessageHandler> {
       print('MESSAGE DATA: ${message.data}');
 
       final scoreNotification = ScoreNotification.fromMap(message.data);
+      print(scoreNotification);
       ScoreType? type;
       switch (scoreNotification.type) {
         case 'add':
@@ -47,7 +48,7 @@ class _MessageHandlerState extends ConsumerState<MessageHandler> {
           break;
       }
 
-      ref.watch(scoreProvider.notifier).setScore(
+      ref.read(scoreProvider.notifier).setScore(
             setId: int.parse(scoreNotification.setId),
             team: scoreNotification.team == 'homeTeam'
                 ? Team.homeTeam
