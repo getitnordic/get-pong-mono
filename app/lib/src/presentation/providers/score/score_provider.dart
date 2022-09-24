@@ -4,5 +4,5 @@ import '../../../core/models/score_page_set.dart';
 import 'score_notifier.dart';
 
 final scoreProvider =
-    StateNotifierProvider<ScoreNotifier, List<ScorePageSet>>(
+    StateNotifierProvider.autoDispose<ScoreNotifier, List<ScorePageSet>>(
         (ref) => ScoreNotifier(ref.read));

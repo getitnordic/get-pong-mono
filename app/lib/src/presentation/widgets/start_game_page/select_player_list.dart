@@ -44,6 +44,7 @@ class _SelectPlayerListState extends ConsumerState<SelectPlayerList> {
 
   @override
   Widget build(BuildContext context) {
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     return Expanded(
       child: Column(
         children: [
@@ -65,8 +66,23 @@ class _SelectPlayerListState extends ConsumerState<SelectPlayerList> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
+                padding: const EdgeInsets.all(8.0),
+                child: isPhoneOrVertical ? _buildListView() : _buildGridView()),
+          ),
+        ],
+      ),
+    );
+  }
+
+  GridView _buildGridView() {
+    return GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 10 / 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemCount: players.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -79,12 +95,24 @@ class _SelectPlayerListState extends ConsumerState<SelectPlayerList> {
                     child: SelectPlayerListPlayer(player: players[index]),
                   );
                 },
-                itemCount: players.length,
-              ),
-            ),
-          ),
-        ],
-      ),
+              );
+  }
+
+  ListView _buildListView() {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            ref.watch(selectedPlayersProvider.notifier).setPlayer(
+                  player: players[index],
+                  playerSelectChoice: widget.playerSelectIndex,
+                );
+            Navigator.of(context).pop();
+          },
+          child: SelectPlayerListPlayer(player: players[index]),
+        );
+      },
+      itemCount: players.length,
     );
   }
 }
