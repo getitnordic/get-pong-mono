@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/color_constants.dart';
@@ -19,8 +20,7 @@ class SetContainer extends StatelessWidget {
   final Function(double) setHomeScore;
   final Function(double) setAwayScore;
   final Function(int) getSetId;
-  final Function removeSet;
-  final int setCount;
+
   const SetContainer({
     Key? key,
     required this.animation,
@@ -35,13 +35,13 @@ class SetContainer extends StatelessWidget {
     required this.setHomeScore,
     required this.setAwayScore,
     required this.getSetId,
-    required this.removeSet,
-    required this.setCount,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    bool isPhone = MediaQuery.of(context).size.width < 500;
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+    final horizontalHeight = MediaQuery.of(context).size.height * 0.38;
+    final verticalHeight = MediaQuery.of(context).size.height * 0.16;
 
     return SlideTransition(
       position: Tween<Offset>(
@@ -53,139 +53,112 @@ class SetContainer extends StatelessWidget {
           curve: Curves.easeOut,
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
+      child: Column(
+        children: [
+          if (isPhoneOrVertical)
             SizedBox(
-              width: isPhone ? 400 : 550,
-              height: 80,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Set ${setId + 1}'),
-                  if (setId == setCount - 1 && setId != 0)
-                    CustomSmallContainer(
-                      height: 50,
-                      width: 50,
-                      child: IconButton(
-                        onPressed: () {
-                          removeSet();
-                        },
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.red,
-                          size: 25,
-                        ),
-                      ),
-                    )
-                ],
-              ),
+              height: MediaQuery.of(context).size.height * 0.15,
             ),
-            ResultCardContainer(
-              height: matchType == MatchType.double ? 140 : 100,
-              width: isPhone ? 400 : 550,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ScoreCounterRemove(
-                    setId: setId,
-                    setScore: setHomeScore,
-                    getSetId: getSetId,
-                    score: homeScore,
-                  ),
-                  if (matchType == MatchType.single)
-                    SizedBox(
-                      width: isPhone ? 100 : 200,
-                      child: ResultCardSingle(
+          ResultCardContainer(
+            height: isPhoneOrVertical ? verticalHeight : horizontalHeight,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ScoreCounterRemove(
+                  setId: setId,
+                  setScore: setHomeScore,
+                  getSetId: getSetId,
+                  score: homeScore,
+                ),
+                if (matchType == MatchType.single)
+                  SizedBox(
+                    width: isPhoneOrVertical ? 150 : 500,
+                    child: ResultCardSingle(
                         name: playerOneName,
-                        child: Text(
-                          homeScore.floor().toString(),
-                          style: const TextStyle(
-                            color: ColorConstants.textColor,
-                            fontSize: 38,
-                          ),
-                        ),
-                      ),
-                    ),
-                  if (matchType == MatchType.double)
-                    SizedBox(
-                      width: isPhone ? 100 : 200,
-                      child: ResultCardDouble(
-                        playerOne: playerOneName,
-                        playerTwo: playerTwoName,
-                        child: Text(
-                          homeScore.floor().toString(),
-                          style: const TextStyle(
-                            color: ColorConstants.textColor,
-                            fontSize: 38,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ScoreCounterAdd(
-                    setId: setId,
-                    setScore: setHomeScore,
-                    getSetId: getSetId,
-                    score: homeScore,
+                        child: _scoreCounter(
+                            homeScore.floor().toString(), isPhoneOrVertical)),
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            ResultCardContainer(
-              height: matchType == MatchType.double ? 140 : 100,
-              width: isPhone ? 400 : 550,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ScoreCounterRemove(
-                    setId: setId,
-                    setScore: setAwayScore,
-                    getSetId: getSetId,
-                    score: awayScore,
+                if (matchType == MatchType.double)
+                  SizedBox(
+                    width: isPhoneOrVertical ? 150 : 500,
+                    child: ResultCardDouble(
+                      playerOne: playerOneName,
+                      playerTwo: playerTwoName,
+                      child: _scoreCounter(
+                          homeScore.floor().toString(), isPhoneOrVertical),
+                    ),
                   ),
-                  if (matchType == MatchType.single)
-                    SizedBox(
-                      width: isPhone ? 100 : 200,
-                      child: ResultCardSingle(
+                ScoreCounterAdd(
+                  setId: setId,
+                  setScore: setHomeScore,
+                  getSetId: getSetId,
+                  score: homeScore,
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ResultCardContainer(
+            height: isPhoneOrVertical ? verticalHeight : horizontalHeight,
+            width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ScoreCounterRemove(
+                  setId: setId,
+                  setScore: setAwayScore,
+                  getSetId: getSetId,
+                  score: awayScore,
+                ),
+                if (matchType == MatchType.single)
+                  SizedBox(
+                    width: isPhoneOrVertical ? 150 : 500,
+                    child: ResultCardSingle(
                         name: playerTwoName,
-                        child: Text(
-                          awayScore.floor().toString(),
-                          style: const TextStyle(
-                            color: ColorConstants.textColor,
-                            fontSize: 38,
-                          ),
-                        ),
-                      ),
-                    ),
-                  if (matchType == MatchType.double)
-                    SizedBox(
-                      width: isPhone ? 100 : 200,
-                      child: ResultCardDouble(
+                        child: _scoreCounter(
+                            awayScore.floor().toString(), isPhoneOrVertical)),
+                  ),
+                if (matchType == MatchType.double)
+                  SizedBox(
+                    width: isPhoneOrVertical ? 150 : 500,
+                    child: ResultCardDouble(
                         playerOne: playerThreeName,
                         playerTwo: playerFourName,
-                        child: Text(
-                          awayScore.floor().toString(),
-                          style: const TextStyle(
-                            color: ColorConstants.textColor,
-                            fontSize: 38,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ScoreCounterAdd(
-                    setId: setId,
-                    setScore: setAwayScore,
-                    getSetId: getSetId,
-                    score: awayScore,
+                        child: _scoreCounter(
+                            awayScore.floor().toString(), isPhoneOrVertical)),
                   ),
-                ],
-              ),
+                ScoreCounterAdd(
+                  setId: setId,
+                  setScore: setAwayScore,
+                  getSetId: getSetId,
+                  score: awayScore,
+                ),
+              ],
             ),
-          ],
+          ),
+          if (isPhoneOrVertical)
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.30,
+            ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox _scoreCounter(String score, bool isPhoneOrVertical) {
+    return SizedBox(
+      height: isPhoneOrVertical ? 60 : 100,
+      child: AutoSizeText(
+        score,
+        minFontSize: 11,
+        maxFontSize: 168,
+        maxLines: 1,
+        style: const TextStyle(
+          color: ColorConstants.textColor,
+          fontSize: 168,
         ),
       ),
     );

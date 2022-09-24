@@ -1,6 +1,6 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/providers/games/games_providers.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/color_constants.dart';
@@ -9,6 +9,7 @@ import '../../../protos/base.pb.dart';
 import '../../../protos/game.pbgrpc.dart';
 import '../../../protos/google/protobuf/timestamp.pb.dart';
 import '../../core/models/score_page_set.dart';
+import '../providers/games/games_providers.dart';
 import '../providers/selected_players/selected_players_providers.dart';
 import '../widgets/widgets.dart';
 
@@ -101,6 +102,72 @@ class _ScorePageState extends ConsumerState<ScorePage>
     return newSets;
   }
 
+  void removeSet() {
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+    if (setCounter > 1) {
+      if (scrollController.hasClients) {
+        final position = isPhoneOrVertical
+            ? scrollController.position.maxScrollExtent - 700
+            : scrollController.position.maxScrollExtent - 568;
+        scrollController.animateTo(
+          position,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+
+      sets.removeLast();
+      listKey.currentState!.removeItem(
+          sets.length,
+          (context, animation) => SetContainer(
+                animation: animation,
+                setId: sets.length,
+                homeScore: sets[sets.length - 1].homeScore,
+                awayScore: sets[sets.length - 1].awayScore,
+                matchType: widget.matchType,
+                playerOneName: displayName(widget.selectedPlayers[0]),
+                playerTwoName: displayName(widget.selectedPlayers[1]),
+                playerThreeName: displayName(widget.selectedPlayers[2]),
+                playerFourName: displayName(widget.selectedPlayers[3]),
+                setHomeScore: setHomeScore,
+                setAwayScore: setAwayScore,
+                getSetId: setCurrentSetId,
+              ),
+          duration: const Duration(milliseconds: 300));
+      setState(() {
+        setCounter--;
+      });
+    }
+  }
+
+  void addSet() {
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+    if (scrollController.hasClients) {
+      final position = isPhoneOrVertical
+          ? scrollController.position.maxScrollExtent + 700
+          : scrollController.position.maxScrollExtent + 568;
+      scrollController.animateTo(
+        position,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+    sets.add(
+      ScorePageSet(
+        homeScore: 0,
+        awayScore: 0,
+        setId: setCounter,
+      ),
+    );
+    listKey.currentState!.insertItem(
+      sets.length - 1,
+      duration: const Duration(milliseconds: 300),
+    );
+    setState(() {
+      setCounter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final gamesNotifier = ref.watch(gamesProvider.notifier);
@@ -110,12 +177,12 @@ class _ScorePageState extends ConsumerState<ScorePage>
     final playerTwo = widget.selectedPlayers[1];
     final playerThree = widget.selectedPlayers[2];
     final playerFour = widget.selectedPlayers[3];
-    bool isDouble() => widget.selectedPlayers[2].nickname.isNotEmpty;
+    final isDouble = widget.selectedPlayers[2].nickname.isNotEmpty;
 
     void saveNewMatch() {
       List<SetModel> newSets = setModelMapper();
 
-      if (isDouble()) {
+      if (isDouble) {
         GameModel match = GameModel(
             homeTeamIds: [playerOne.id, playerTwo.id],
             awayTeamIds: [playerThree.id, playerFour.id],
@@ -134,115 +201,60 @@ class _ScorePageState extends ConsumerState<ScorePage>
       }
     }
 
-    void removeSet() {
-      if (scrollController.hasClients) {
-        final position = widget.matchType == MatchType.double
-            ? scrollController.position.maxScrollExtent - 420
-            : scrollController.position.maxScrollExtent - 350;
-        scrollController.animateTo(
-          position,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-
-      sets.removeLast();
-      listKey.currentState!.removeItem(
-          sets.length,
-          (context, animation) => SetContainer(
-                animation: animation,
-                setId: sets.length,
-                homeScore: sets[sets.length - 1].homeScore,
-                awayScore: sets[sets.length - 1].awayScore,
-                matchType: matchType,
-                playerOneName: displayName(playerOne),
-                playerTwoName: displayName(playerTwo),
-                playerThreeName: displayName(playerThree),
-                playerFourName: displayName(playerFour),
-                setHomeScore: setHomeScore,
-                setAwayScore: setAwayScore,
-                getSetId: setCurrentSetId,
-                removeSet: removeSet,
-                setCount: sets.length,
-              ),
-          duration: const Duration(milliseconds: 300));
-    }
-
-    void addSet() {
-      if (scrollController.hasClients) {
-        final position = widget.matchType == MatchType.double
-            ? scrollController.position.maxScrollExtent + 450
-            : scrollController.position.maxScrollExtent + 350;
-        scrollController.animateTo(
-          position,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
-      }
-
-      setCounter++;
-      sets.add(
-        ScorePageSet(
-          homeScore: 0,
-          awayScore: 0,
-          setId: setCounter,
-        ),
-      );
-      listKey.currentState!.insertItem(
-        sets.length - 1,
-        duration: const Duration(milliseconds: 300),
-      );
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Your Score'),
       ),
-      body: Column(
-        children: [
-          Center(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height - 200,
-              child: AnimatedList(
-                controller: scrollController,
-                key: listKey,
-                shrinkWrap: true,
-                initialItemCount: sets.length,
-                itemBuilder: (context, index, animation) {
-                  return SetContainer(
-                    animation: animation,
-                    setId: index,
-                    homeScore: sets[index].homeScore,
-                    awayScore: sets[index].awayScore,
-                    matchType: matchType,
-                    playerOneName: displayName(playerOne),
-                    playerTwoName: displayName(playerTwo),
-                    playerThreeName: displayName(playerThree),
-                    playerFourName: displayName(playerFour),
-                    setHomeScore: setHomeScore,
-                    setAwayScore: setAwayScore,
-                    getSetId: setCurrentSetId,
-                    removeSet: removeSet,
-                    setCount: sets.length,
-                  );
-                },
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Center(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height - 150,
+                child: AnimatedList(
+                  controller: scrollController,
+                  key: listKey,
+                  shrinkWrap: true,
+                  initialItemCount: sets.length,
+                  itemBuilder: (context, index, animation) {
+                    return Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: SetContainer(
+                        animation: animation,
+                        setId: index,
+                        homeScore: sets[index].homeScore,
+                        awayScore: sets[index].awayScore,
+                        matchType: matchType,
+                        playerOneName: displayName(playerOne),
+                        playerTwoName: displayName(playerTwo),
+                        playerThreeName: displayName(playerThree),
+                        playerFourName: displayName(playerFour),
+                        setHomeScore: setHomeScore,
+                        setAwayScore: setAwayScore,
+                        getSetId: setCurrentSetId,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          Column(
-            children: [
-              SizedBox(
-                width: 300,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: ElevatedButton(
+            Padding(
+              padding: const EdgeInsets.only(top: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _setNumText(),
+                  ElevatedButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       )),
-                      minimumSize:
-                          MaterialStateProperty.all<Size>(const Size(300, 50)),
+                      minimumSize: MediaQuery.of(context).size.width < 550
+                          ? MaterialStateProperty.all<Size>(const Size(100, 50))
+                          : MaterialStateProperty.all<Size>(
+                              const Size(300, 50)),
                       backgroundColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.pressed)) {
@@ -268,22 +280,83 @@ class _ScorePageState extends ConsumerState<ScorePage>
                       ),
                     ),
                   ),
+                  _addRemoveSetButtons(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Padding _addRemoveSetButtons() {
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+    return Padding(
+      padding: const EdgeInsets.only(right: 10),
+      child: SizedBox(
+        width: isPhoneOrVertical ? 105 : 150,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            CustomSmallContainer(
+              height: 50,
+              width: 50,
+              child: IconButton(
+                onPressed: () {
+                  removeSet();
+                },
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.red,
+                  size: 25,
                 ),
               ),
-            ],
-          ),
-        ],
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            CustomSmallContainer(
+              height: 50,
+              width: 50,
+              child: IconButton(
+                onPressed: () {
+                  addSet();
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: ColorConstants.primaryColor,
+                  size: 25,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: sets.length < 11
-            ? () {
-                addSet();
-              }
-            : null,
-        backgroundColor: sets.length < 11
-            ? ColorConstants.primaryColor
-            : ColorConstants.disabledButtonColor,
-        child: const Icon(Icons.add),
+    );
+  }
+
+  Padding _setNumText() {
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 20),
+      child: SizedBox(
+        width: isPhoneOrVertical ? 70 : 150,
+        child: CustomSmallContainer(
+          height: 50,
+          width: isPhoneOrVertical ? 70 : 150,
+          child: Padding(
+            padding: const EdgeInsets.all(5),
+            child: AutoSizeText(
+              'Set $setCounter',
+              minFontSize: 11,
+              maxFontSize: 34,
+              maxLines: 1,
+              style: const TextStyle(fontSize: 34),
+            ),
+          ),
+        ),
       ),
     );
   }

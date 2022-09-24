@@ -101,6 +101,7 @@ class CreateSingleGame extends ConsumerWidget
     required bool isAllSelected,
   }) {
     final hasWidth = MediaQuery.of(context).size.width > 550;
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     return Stack(
       children: [
         Column(
@@ -204,7 +205,7 @@ class CreateSingleGame extends ConsumerWidget
         ),
         isAllSelected && hasWidth
             ? Positioned(
-                right: 0,
+                right: isPhoneOrVertical ? 35 : 0,
                 top: 0,
                 child: CustomSmallContainer(
                     height: 50,
@@ -217,7 +218,7 @@ class CreateSingleGame extends ConsumerWidget
             : const SizedBox.shrink(),
         isAllSelected && hasWidth
             ? Positioned(
-                right: 0,
+                right: isPhoneOrVertical ? 35 : 0,
                 top: 124,
                 child: CustomSmallContainer(
                     height: 50,

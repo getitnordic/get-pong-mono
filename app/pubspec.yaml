@@ -25,6 +25,7 @@ dependencies:
   fl_chart: ^0.55.1
   firebase_messaging: ^13.0.3
   firebase_core: ^1.23.0
+  auto_size_text: ^3.0.0
   
 
 dev_dependencies:      

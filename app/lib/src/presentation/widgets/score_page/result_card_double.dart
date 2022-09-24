@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/color_constants.dart';
@@ -16,7 +17,6 @@ class ResultCardDouble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isPhone = MediaQuery.of(context).size.width < 500;
     return Card(
       elevation: 0,
       color: Colors.transparent,
@@ -26,26 +26,18 @@ class ResultCardDouble extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                playerOne,
-                style: TextStyle(
+              AutoSizeText(
+                '$playerOne\n$playerTwo',
+                minFontSize: 11,
+                maxFontSize: 38,
+                maxLines: 2,
+                style: const TextStyle(
                   color: ColorConstants.textColor,
-                  fontSize: isPhone ? 11 : 14,
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                playerTwo,
-                style: TextStyle(
-                  color: ColorConstants.textColor,
-                  fontSize: isPhone ? 11 : 14,
+                  fontSize: 14,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 10),
           child,
         ],
       ),
