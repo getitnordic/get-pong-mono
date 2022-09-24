@@ -1,16 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:get_pong/src/presentation/pages/pages.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../enums/team.dart';
+import '../../core/models/score_notification.dart';
+import 'pages.dart';
+import '../providers/score/score_provider.dart';
 
-class MessageHandler extends StatefulWidget {
+import '../../../enums/score_type.dart';
+
+class MessageHandler extends ConsumerStatefulWidget {
   const MessageHandler({Key? key}) : super(key: key);
 
   @override
-  State<MessageHandler> createState() => _MessageHandlerState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MessageHandlerState();
 }
 
-class _MessageHandlerState extends State<MessageHandler> {
+class _MessageHandlerState extends ConsumerState<MessageHandler> {
   @override
   void initState() {
     registerNotification();
@@ -29,6 +35,25 @@ class _MessageHandlerState extends State<MessageHandler> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('MESSAGE NOTIFICATION: ${message.notification}');
       print('MESSAGE DATA: ${message.data}');
+
+      final scoreNotification = ScoreNotification.fromMap(message.data);
+      ScoreType? type;
+      switch (scoreNotification.type) {
+        case 'add':
+          type = ScoreType.add;
+          break;
+        case 'remove':
+          type = ScoreType.remove;
+          break;
+      }
+
+      ref.watch(scoreProvider.notifier).setScore(
+            setId: int.parse(scoreNotification.setId),
+            team: scoreNotification.team == 'homeTeam'
+                ? Team.homeTeam
+                : Team.awayTeam,
+            type: type!,
+          );
 
       // Check data event
 

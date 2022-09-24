@@ -109,6 +109,8 @@ class ScoreNotifier extends StateNotifier<List<ScorePageSet>> {
     team == Team.homeTeam
         ? _setHomeScore(score: score, setId: setId)
         : _setAwayScore(score: score, setId: setId);
+
+    print('Triggered on notification?');
   }
 
   void saveNewMatch(

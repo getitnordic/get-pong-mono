@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/utils/extensions/display_player_name.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/color_constants.dart';
@@ -9,6 +8,7 @@ import '../../../enums/match_type.dart';
 import '../../../enums/score_type.dart';
 import '../../../enums/team.dart';
 import '../../../protos/base.pb.dart';
+import '../../../utils/extensions/display_player_name.dart';
 import '../../core/models/score_page_set.dart';
 import '../providers/score/score_provider.dart';
 import '../widgets/widgets.dart';
