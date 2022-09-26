@@ -35,9 +35,22 @@ class _MessageHandlerState extends ConsumerState<MessageHandler> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('MESSAGE NOTIFICATION: ${message.notification}');
       print('MESSAGE DATA: ${message.data}');
-
+      final scoreNotifier = ref.read(scoreProvider.notifier);
       final scoreNotification = ScoreNotification.fromMap(message.data);
       print(scoreNotification);
+
+      if (scoreNotification.gameEvent != null) {
+        switch (scoreNotification.gameEvent) {
+          case 'add':
+            scoreNotifier.addSetEvent();
+            break;
+          case 'remove':
+            scoreNotifier.removeSetEvent();
+            break;
+        }
+        return;
+      }
+
       ScoreType? type;
       switch (scoreNotification.type) {
         case 'add':
@@ -48,13 +61,13 @@ class _MessageHandlerState extends ConsumerState<MessageHandler> {
           break;
       }
 
-      ref.read(scoreProvider.notifier).setScore(
-            setId: int.parse(scoreNotification.setId),
-            team: scoreNotification.team == 'homeTeam'
-                ? Team.homeTeam
-                : Team.awayTeam,
-            type: type!,
-          );
+      scoreNotifier.setScore(
+        setId: int.parse(scoreNotification.setId!),
+        team: scoreNotification.team == 'homeTeam'
+            ? Team.homeTeam
+            : Team.awayTeam,
+        type: type!,
+      );
 
       // Check data event
 

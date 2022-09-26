@@ -6,3 +6,5 @@ import 'score_notifier.dart';
 final scoreProvider =
     StateNotifierProvider.autoDispose<ScoreNotifier, List<ScorePageSet>>(
         (ref) => ScoreNotifier(ref.read));
+
+final setNotificationProvider = StateProvider.autoDispose<int>((ref) => 1);

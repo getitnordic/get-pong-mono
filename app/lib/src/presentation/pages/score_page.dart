@@ -61,9 +61,22 @@ class _ScorePageState extends ConsumerState<ScorePage>
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('MESSAGE NOTIFICATION: ${message.notification}');
       print('MESSAGE DATA: ${message.data}');
-
+      final scoreNotifier = ref.read(scoreProvider.notifier);
       final scoreNotification = ScoreNotification.fromMap(message.data);
-      print(scoreNotification);
+      final setCounterNotifier = ref.read(setNotificationProvider.notifier);
+
+      if (scoreNotification.gameEvent != null) {
+        switch (scoreNotification.gameEvent) {
+          case 'add':
+            setCounterNotifier.update((state) => state + 1);
+            break;
+          case 'remove':
+            setCounterNotifier.update((state) => state - 1);
+            break;
+        }
+        return;
+      }
+
       ScoreType? type;
       switch (scoreNotification.type) {
         case 'add':
@@ -74,13 +87,13 @@ class _ScorePageState extends ConsumerState<ScorePage>
           break;
       }
 
-      ref.read(scoreProvider.notifier).setScore(
-            setId: int.parse(scoreNotification.setId),
-            team: scoreNotification.team == 'homeTeam'
-                ? Team.homeTeam
-                : Team.awayTeam,
-            type: type!,
-          );
+      scoreNotifier.setScore(
+        setId: int.parse(scoreNotification.setId!),
+        team: scoreNotification.team == 'homeTeam'
+            ? Team.homeTeam
+            : Team.awayTeam,
+        type: type!,
+      );
 
       // Check data event
 
@@ -178,6 +191,15 @@ class _ScorePageState extends ConsumerState<ScorePage>
     final playerFour = widget.selectedPlayers[3];
     final globalSets = ref.watch(scoreProvider);
     final scoreNotifier = ref.read(scoreProvider.notifier);
+
+    ref.listen(
+      setNotificationProvider,
+      ((previous, next) {
+        int oldCount = previous as int;
+        int newCount = next as int;
+        oldCount > newCount ? addSet(ref) : removeSet(ref);
+      }),
+    );
 
     return Scaffold(
       appBar: AppBar(
