@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +11,7 @@ import '../../../enums/score_type.dart';
 import '../../../enums/team.dart';
 import '../../../protos/base.pb.dart';
 import '../../../utils/extensions/display_player_name.dart';
+import '../../core/models/score_notification.dart';
 import '../../core/models/score_page_set.dart';
 import '../providers/score/score_provider.dart';
 import '../widgets/widgets.dart';
@@ -40,8 +43,54 @@ class _ScorePageState extends ConsumerState<ScorePage>
     ScorePageSet(homeScore: 0, awayScore: 0, setId: 1)
   ];
 
+  @override
+  void initState() {
+    registerNotification();
+    super.initState();
+  }
+
+  Future<void> registerNotification() async {
+    print('REGISTER NOTIFICATION');
+    await Firebase.initializeApp();
+    final messaging = FirebaseMessaging.instance;
+
+    await messaging.subscribeToTopic('getpong');
+
+    //TODO: If adding iOS functionality request permissions and check AuthorizationStatus == Authorized
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      print('MESSAGE NOTIFICATION: ${message.notification}');
+      print('MESSAGE DATA: ${message.data}');
+
+      final scoreNotification = ScoreNotification.fromMap(message.data);
+      print(scoreNotification);
+      ScoreType? type;
+      switch (scoreNotification.type) {
+        case 'add':
+          type = ScoreType.add;
+          break;
+        case 'remove':
+          type = ScoreType.remove;
+          break;
+      }
+
+      ref.read(scoreProvider.notifier).setScore(
+            setId: int.parse(scoreNotification.setId),
+            team: scoreNotification.team == 'homeTeam'
+                ? Team.homeTeam
+                : Team.awayTeam,
+            type: type!,
+          );
+
+      // Check data event
+
+      // Team home && addScore
+      // Switch case on event
+    });
+  }
+
   void setScore(int setId, Team team, ScoreType type) {
-    ref.watch(scoreProvider.notifier).setScore(
+    ref.read(scoreProvider.notifier).setScore(
           setId: setId,
           team: team,
           type: type,
@@ -53,6 +102,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
   }
 
   void removeSet(WidgetRef ref) {
+    final scoreNotifier = ref.read(scoreProvider.notifier);
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     if (setCounter > 1) {
       if (scrollController.hasClients) {
@@ -67,7 +117,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
       }
 
       sets.removeLast();
-      ref.watch(scoreProvider.notifier).removeSet();
+      scoreNotifier.removeSet();
       listKey.currentState!.removeItem(
           sets.length,
           (context, animation) => SetContainer(
@@ -90,6 +140,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
   }
 
   void addSet(WidgetRef ref) {
+    final scoreNotifier = ref.read(scoreProvider.notifier);
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     if (scrollController.hasClients) {
       final position = isPhoneOrVertical
@@ -104,11 +155,11 @@ class _ScorePageState extends ConsumerState<ScorePage>
     sets.add(
       ScorePageSet(homeScore: 0, awayScore: 0, setId: setCounter),
     );
-    ref.watch(scoreProvider.notifier).addSet(ScorePageSet(
-          homeScore: 0,
-          awayScore: 0,
-          setId: setCounter,
-        ));
+    scoreNotifier.addSet(ScorePageSet(
+      homeScore: 0,
+      awayScore: 0,
+      setId: setCounter,
+    ));
     listKey.currentState!.insertItem(
       sets.length - 1,
       duration: const Duration(milliseconds: 300),
@@ -126,6 +177,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
     final playerThree = widget.selectedPlayers[2];
     final playerFour = widget.selectedPlayers[3];
     final globalSets = ref.watch(scoreProvider);
+    final scoreNotifier = ref.read(scoreProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -190,18 +242,17 @@ class _ScorePageState extends ConsumerState<ScorePage>
                         },
                       ),
                     ),
-                    onPressed:
-                        ref.watch(scoreProvider.notifier).checkIfScoresAreSet()
-                            ? () {
-                                ref.watch(scoreProvider.notifier).saveNewMatch(
-                                      playerOne,
-                                      playerTwo,
-                                      playerThree,
-                                      playerFour,
-                                    );
-                                Navigator.pop(context);
-                              }
-                            : null,
+                    onPressed: scoreNotifier.checkIfScoresAreSet()
+                        ? () {
+                            scoreNotifier.saveNewMatch(
+                              playerOne,
+                              playerTwo,
+                              playerThree,
+                              playerFour,
+                            );
+                            Navigator.pop(context);
+                          }
+                        : null,
                     child: Text(
                       'Save Result',
                       style: GoogleFonts.goldman(
@@ -210,7 +261,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
                       ),
                     ),
                   ),
-                  _addRemoveSetButtons(ref),
+                  _addRemoveSetButtons(),
                 ],
               ),
             ),
@@ -220,7 +271,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
     );
   }
 
-  Padding _addRemoveSetButtons(WidgetRef ref) {
+  Padding _addRemoveSetButtons() {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     return Padding(
       padding: const EdgeInsets.only(right: 10),
