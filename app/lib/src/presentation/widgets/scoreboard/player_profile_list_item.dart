@@ -16,22 +16,15 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDouble = match.homeTeamIds.length == 2;
+    final playersNotifier = ref.watch(playersProvider.notifier);
     final controller = ScoreboardController(
-      homeTeamOne: ref
-          .watch(playersProvider.notifier)
-          .getPlayerById(match.homeTeamIds[0]),
-      awayTeamOne: ref
-          .watch(playersProvider.notifier)
-          .getPlayerById(match.awayTeamIds[0]),
+      homeTeamOne: playersNotifier.getPlayerById(match.homeTeamIds[0]),
+      awayTeamOne: playersNotifier.getPlayerById(match.awayTeamIds[0]),
       homeTeamTwo: isDouble
-          ? ref
-              .watch(playersProvider.notifier)
-              .getPlayerById(match.homeTeamIds[1])
+          ? playersNotifier.getPlayerById(match.homeTeamIds[1])
           : BlankPlayerModel.player,
       awayTeamTwo: isDouble
-          ? ref
-              .watch(playersProvider.notifier)
-              .getPlayerById(match.awayTeamIds[1])
+          ? playersNotifier.getPlayerById(match.awayTeamIds[1])
           : BlankPlayerModel.player,
       match: match,
     );

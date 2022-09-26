@@ -41,6 +41,9 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
     final width = MediaQuery.of(context).size.width;
     const iconSize = 30.0;
     final iconPosition = width * 0.88;
+    final playersNotifier = ref.read(playersProvider.notifier);
+    final fetchGames = ref.watch(fetchGamesProvider);
+    final gamesNotifier = ref.watch(gamesProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -129,9 +132,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
             ),
             const SizedBox(height: 12),
             Text(
-              ref
-                  .read(playersProvider.notifier)
-                  .getPlayerRank(widget.player.id),
+              playersNotifier.getPlayerRank(widget.player.id),
               style: const TextStyle(
                 color: ColorConstants.secondaryTextColor,
               ),
@@ -174,11 +175,10 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                 ),
               ),
             ),
-            ref.watch(fetchGamesProvider).when(
+            fetchGames.when(
                 data: (_) {
-                  final games = ref
-                      .watch(gamesProvider.notifier)
-                      .getGamesByPlayerId(widget.player.id);
+                  final games =
+                      gamesNotifier.getGamesByPlayerId(widget.player.id);
                   return SizedBox(
                     height: 200,
                     child: ListView.builder(
@@ -252,7 +252,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
                 setState(() {
                   widget.player.nickname = nicknameController.text;
                 });
-                ref.watch(playersProvider.notifier).updatePlayer(widget.player);
+                ref.read(playersProvider.notifier).updatePlayer(widget.player);
                 Navigator.of(context).pop();
               },
               child: Text(

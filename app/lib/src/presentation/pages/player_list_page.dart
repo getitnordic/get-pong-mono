@@ -15,6 +15,8 @@ class PlayerListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final fetchPlayers = ref.read(fetchPlayersProvider);
+    final players = ref.read(playersProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -24,18 +26,18 @@ class PlayerListPage extends ConsumerWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ref.watch(fetchPlayersProvider).when(
-                data: (_) {
-                  return SelectPlayerList(
-                    playerSelectIndex: playerSelectIndex,
-                    players: ref.watch(playersProvider),
-                  );
-                },
-                error: ((error, stackTrace) => Text('Error: $error')),
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-              )
+          fetchPlayers.when(
+            data: (_) {
+              return SelectPlayerList(
+                playerSelectIndex: playerSelectIndex,
+                players: players,
+              );
+            },
+            error: ((error, stackTrace) => Text('Error: $error')),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
         ],
       ),
     );

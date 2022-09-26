@@ -23,11 +23,10 @@ class CreateSingleGame extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAllSelected =
-        ref.watch(selectedPlayersProvider)[0].nickname.isNotEmpty &&
-            ref.watch(selectedPlayersProvider)[1].nickname.isNotEmpty &&
-            ref.watch(selectedPlayersProvider)[0].id !=
-                ref.watch(selectedPlayersProvider)[1].id;
+    final selectedPlayers = ref.watch(selectedPlayersProvider);
+    final isAllSelected = selectedPlayers[0].nickname.isNotEmpty &&
+        selectedPlayers[1].nickname.isNotEmpty &&
+        selectedPlayers[0].id != selectedPlayers[1].id;
 
     double height(BuildContext context) => MediaQuery.of(context).size.height;
 
@@ -102,6 +101,9 @@ class CreateSingleGame extends ConsumerWidget
   }) {
     final hasWidth = MediaQuery.of(context).size.width > 550;
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+    final winProbability = ref.watch(winProbabilityProvider);
+    final selectedPlayers = ref.read(selectedPlayersProvider);
+    final playersNotifier = ref.read(playersProvider.notifier);
     return Stack(
       children: [
         Column(
@@ -117,13 +119,11 @@ class CreateSingleGame extends ConsumerWidget
                     arguments: PlayerSelectChoice.playerOne,
                   );
                 },
-                child: ref.watch(selectedPlayersProvider)[0].fullName.isEmpty
+                child: selectedPlayers[0].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 1')
                     : MyFadeTextSwitcher(
-                        text: ref
-                            .watch(playersProvider.notifier)
-                            .getPlayerById(
-                                ref.watch(selectedPlayersProvider)[0].id)
+                        text: playersNotifier
+                            .getPlayerById(selectedPlayers[0].id)
                             .fullName),
               ),
             ),
@@ -145,13 +145,11 @@ class CreateSingleGame extends ConsumerWidget
                     arguments: PlayerSelectChoice.playerTwo,
                   );
                 },
-                child: ref.watch(selectedPlayersProvider)[1].fullName.isEmpty
+                child: selectedPlayers[1].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 1')
                     : MyFadeTextSwitcher(
-                        text: ref
-                            .watch(playersProvider.notifier)
-                            .getPlayerById(
-                                ref.watch(selectedPlayersProvider)[1].id)
+                        text: playersNotifier
+                            .getPlayerById(selectedPlayers[1].id)
                             .fullName),
               ),
             ),
@@ -181,7 +179,7 @@ class CreateSingleGame extends ConsumerWidget
                   onPressed: isAllSelected
                       ? () {
                           final arguments = ScorePageArguments(
-                            players: ref.watch(selectedPlayersProvider),
+                            players: selectedPlayers,
                             matchType: MatchType.single,
                           );
                           Navigator.pushNamed(
@@ -212,7 +210,7 @@ class CreateSingleGame extends ConsumerWidget
                     width: 60,
                     child: MyFadeTextSwitcher(
                       text:
-                          '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
+                          '${winProbability.toStringAsFixed(2).split('.')[1]}%',
                     )),
               )
             : const SizedBox.shrink(),
@@ -225,7 +223,7 @@ class CreateSingleGame extends ConsumerWidget
                     width: 60,
                     child: MyFadeTextSwitcher(
                       text:
-                          '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
+                          '${(1 - winProbability).toStringAsFixed(2).split('.')[1]}%',
                     )),
               )
             : const SizedBox.shrink(),
@@ -238,6 +236,9 @@ class CreateSingleGame extends ConsumerWidget
     required WidgetRef ref,
   }) {
     double height(BuildContext context) => MediaQuery.of(context).size.height;
+    final selectedPlayersNotifier = ref.read(selectedPlayersProvider.notifier);
+    final matchTypeNotifier = ref.read(matchTypeProvider.notifier);
+
     return CustomSmallContainer(
       height: height(context) * 0.65,
       width: 400,
@@ -320,19 +321,13 @@ class CreateSingleGame extends ConsumerWidget
                                           ),
                                         ),
                                         onPressed: () {
-                                          ref
-                                              .watch(matchTypeProvider.notifier)
-                                              .update((state) =>
-                                                  state = MatchType.single);
-                                          ref
-                                              .watch(selectedPlayersProvider
-                                                  .notifier)
-                                              .setPlayer(
-                                                player: players[index],
-                                                playerSelectChoice:
-                                                    PlayerSelectChoice
-                                                        .playerOne,
-                                              );
+                                          matchTypeNotifier.update((state) =>
+                                              state = MatchType.single);
+                                          selectedPlayersNotifier.setPlayer(
+                                            player: players[index],
+                                            playerSelectChoice:
+                                                PlayerSelectChoice.playerOne,
+                                          );
                                         },
                                         child: Text(
                                           '# 1',
@@ -355,18 +350,13 @@ class CreateSingleGame extends ConsumerWidget
                                         ),
                                       ),
                                       onPressed: () {
-                                        ref
-                                            .watch(matchTypeProvider.notifier)
-                                            .update((state) =>
-                                                state = MatchType.single);
-                                        ref
-                                            .watch(selectedPlayersProvider
-                                                .notifier)
-                                            .setPlayer(
-                                              player: players[index],
-                                              playerSelectChoice:
-                                                  PlayerSelectChoice.playerTwo,
-                                            );
+                                        matchTypeNotifier.update((state) =>
+                                            state = MatchType.single);
+                                        selectedPlayersNotifier.setPlayer(
+                                          player: players[index],
+                                          playerSelectChoice:
+                                              PlayerSelectChoice.playerTwo,
+                                        );
                                       },
                                       child: Text(
                                         '# 2',
@@ -403,6 +393,8 @@ class CreateSingleGame extends ConsumerWidget
     required WidgetRef ref,
   }) {
     final players = ref.watch(playersProvider.notifier).getLatestPlayers();
+    final selectedPlayersNotifier = ref.read(selectedPlayersProvider.notifier);
+    final matchTypeNotifier = ref.read(matchTypeProvider.notifier);
     return CustomSmallContainer(
       height: 908,
       width: 400,
@@ -473,15 +465,13 @@ class CreateSingleGame extends ConsumerWidget
                                   ),
                                 ),
                                 onPressed: () {
-                                  ref.watch(matchTypeProvider.notifier).update(
+                                  matchTypeNotifier.update(
                                       (state) => state = MatchType.single);
-                                  ref
-                                      .watch(selectedPlayersProvider.notifier)
-                                      .setPlayer(
-                                        player: players[index],
-                                        playerSelectChoice:
-                                            PlayerSelectChoice.playerOne,
-                                      );
+                                  selectedPlayersNotifier.setPlayer(
+                                    player: players[index],
+                                    playerSelectChoice:
+                                        PlayerSelectChoice.playerOne,
+                                  );
                                 },
                                 child: Text(
                                   '# 1',
@@ -503,15 +493,13 @@ class CreateSingleGame extends ConsumerWidget
                                 ),
                               ),
                               onPressed: () {
-                                ref.watch(matchTypeProvider.notifier).update(
+                                matchTypeNotifier.update(
                                     (state) => state = MatchType.single);
-                                ref
-                                    .watch(selectedPlayersProvider.notifier)
-                                    .setPlayer(
-                                      player: players[index],
-                                      playerSelectChoice:
-                                          PlayerSelectChoice.playerTwo,
-                                    );
+                                selectedPlayersNotifier.setPlayer(
+                                  player: players[index],
+                                  playerSelectChoice:
+                                      PlayerSelectChoice.playerTwo,
+                                );
                               },
                               child: Text(
                                 '# 2',

@@ -44,6 +44,8 @@ class _GameListViewState extends ConsumerState<GameListView>
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    final playersNotifier = ref.read(playersProvider.notifier);
+
     return ref.watch(fetchPlayersProvider).when(
           data: (_) {
             return Stack(
@@ -85,25 +87,17 @@ class _GameListViewState extends ConsumerState<GameListView>
                               final isDouble =
                                   matches[index].homeTeamIds.length == 2;
                               final controller = ScoreboardController(
-                                homeTeamOne: ref
-                                    .watch(playersProvider.notifier)
-                                    .getPlayerById(
-                                        matches[index].homeTeamIds[0]),
-                                awayTeamOne: ref
-                                    .watch(playersProvider.notifier)
-                                    .getPlayerById(
-                                        matches[index].awayTeamIds[0]),
+                                homeTeamOne: playersNotifier.getPlayerById(
+                                    matches[index].homeTeamIds[0]),
+                                awayTeamOne: playersNotifier.getPlayerById(
+                                    matches[index].awayTeamIds[0]),
                                 homeTeamTwo: isDouble
-                                    ? ref
-                                        .watch(playersProvider.notifier)
-                                        .getPlayerById(
-                                            matches[index].homeTeamIds[1])
+                                    ? playersNotifier.getPlayerById(
+                                        matches[index].homeTeamIds[1])
                                     : BlankPlayerModel.player,
                                 awayTeamTwo: isDouble
-                                    ? ref
-                                        .watch(playersProvider.notifier)
-                                        .getPlayerById(
-                                            matches[index].awayTeamIds[1])
+                                    ? playersNotifier.getPlayerById(
+                                        matches[index].awayTeamIds[1])
                                     : BlankPlayerModel.player,
                                 match: matches[index],
                               );

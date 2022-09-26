@@ -26,18 +26,15 @@ class _PlayerRankingListState extends ConsumerState<PlayerRankingList> {
   @override
   Widget build(BuildContext context) {
     final sorter = RankingSorter(widget.players);
-    final lastPressed = ref.watch(rankingPressedLastProvider);
+    final lastPressed = ref.read(rankingPressedLastProvider);
     List<PlayerModel> players = widget.players;
-    bool highToLow = ref.watch(rankingSortingTypeProvider);
+    final highToLowNotifier = ref.watch(rankingSortingTypeProvider.notifier);
+    bool highToLow = ref.read(rankingSortingTypeProvider);
 
     void toggleHighToLow() {
       highToLow
-          ? ref
-              .watch(rankingSortingTypeProvider.notifier)
-              .update((state) => false)
-          : ref
-              .watch(rankingSortingTypeProvider.notifier)
-              .update((state) => true);
+          ? highToLowNotifier.update((state) => false)
+          : highToLowNotifier.update((state) => true);
     }
 
     void setLastPressed(SortingOptions option) {

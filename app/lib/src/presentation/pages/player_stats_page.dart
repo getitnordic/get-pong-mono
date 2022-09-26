@@ -13,11 +13,12 @@ class PlayerStatsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final fetchPlayerStats = ref.watch(playerStatsDataProvider(player.id));
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Last 30 days.')),
       ),
-      body: ref.watch(playerStatsDataProvider(player.id)).when(
+      body: fetchPlayerStats.when(
             data: (data) {
               return RecentStatsPlayer(
                 statsController: PlayerStatsController(
