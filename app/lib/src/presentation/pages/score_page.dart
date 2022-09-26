@@ -210,7 +210,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
       ((previous, next) {
         int oldCount = previous as int;
         int newCount = next as int;
-        oldCount > newCount ? addSet(ref) : removeSet(ref);
+        oldCount < newCount ? addSet(ref) : removeSet(ref);
       }),
     );
     ref.listen(
