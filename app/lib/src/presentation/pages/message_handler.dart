@@ -39,18 +39,6 @@ class _MessageHandlerState extends ConsumerState<MessageHandler> {
       final scoreNotification = ScoreNotification.fromMap(message.data);
       print(scoreNotification);
 
-      if (scoreNotification.gameEvent != null) {
-        switch (scoreNotification.gameEvent) {
-          case 'add':
-            scoreNotifier.addSetEvent();
-            break;
-          case 'remove':
-            scoreNotifier.removeSetEvent();
-            break;
-        }
-        return;
-      }
-
       ScoreType? type;
       switch (scoreNotification.type) {
         case 'add':

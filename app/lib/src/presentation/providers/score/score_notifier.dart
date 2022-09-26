@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/providers/score/score_provider.dart';
 
 import '../../../../enums/score_type.dart';
 import '../../../../enums/team.dart';
@@ -114,14 +113,6 @@ class ScoreNotifier extends StateNotifier<List<ScorePageSet>> {
     print('----------------------------');
     print('HomeScore: ${state[0].homeScore}\nAwayScore: ${state[0].awayScore}');
     print('----------------------------');
-  }
-
-  void addSetEvent() {
-    read(setNotificationProvider.notifier).update((state) => state + 1);
-  }
-
-  void removeSetEvent() {
-    read(setNotificationProvider.notifier).update((state) => state - 1);
   }
 
   void saveNewMatch(

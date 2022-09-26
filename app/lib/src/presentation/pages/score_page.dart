@@ -64,6 +64,8 @@ class _ScorePageState extends ConsumerState<ScorePage>
       final scoreNotifier = ref.read(scoreProvider.notifier);
       final scoreNotification = ScoreNotification.fromMap(message.data);
       final setCounterNotifier = ref.read(setNotificationProvider.notifier);
+      final saveGameNotififier =
+          ref.read(saveGameNotificationProvider.notifier);
 
       if (scoreNotification.gameEvent != null) {
         switch (scoreNotification.gameEvent) {
@@ -72,6 +74,15 @@ class _ScorePageState extends ConsumerState<ScorePage>
             break;
           case 'remove':
             setCounterNotifier.update((state) => state - 1);
+            break;
+          case 'save':
+            {
+              if (scoreNotifier.checkIfScoresAreSet()) {
+                saveGameNotififier.update((state) => true);
+              }
+            }
+            break;
+          default:
             break;
         }
         return;
@@ -84,6 +95,8 @@ class _ScorePageState extends ConsumerState<ScorePage>
           break;
         case 'remove':
           type = ScoreType.remove;
+          break;
+        default:
           break;
       }
 
@@ -198,6 +211,20 @@ class _ScorePageState extends ConsumerState<ScorePage>
         int oldCount = previous as int;
         int newCount = next as int;
         oldCount > newCount ? addSet(ref) : removeSet(ref);
+      }),
+    );
+    ref.listen(
+      saveGameNotificationProvider,
+      ((previous, next) {
+        if (scoreNotifier.checkIfScoresAreSet()) {
+          scoreNotifier.saveNewMatch(
+            playerOne,
+            playerTwo,
+            playerThree,
+            playerFour,
+          );
+          Navigator.pop(context);
+        }
       }),
     );
 
