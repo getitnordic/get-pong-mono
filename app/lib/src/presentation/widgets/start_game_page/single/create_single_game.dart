@@ -7,52 +7,40 @@ import '../../../../../constants/color_constants.dart';
 import '../../../../../enums/match_type.dart';
 import '../../../../../enums/player_select_choice.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
-import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../../core/models/score_page_arguments.dart';
+import '../../../providers/app_loading_provider.dart';
 import '../../../providers/players/players_providers.dart';
 import '../../my_profile_image.dart';
 import '../../widgets.dart';
 import '../vs_bar.dart';
 
-class CreateSingleGame extends ConsumerWidget
-    with SetProfileImageMixin, FormatDateMixin {
+class CreateSingleGame extends ConsumerWidget {
   const CreateSingleGame({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedPlayers = ref.watch(selectedPlayersProvider);
-    final isAllSelected = selectedPlayers[0].nickname.isNotEmpty &&
-        selectedPlayers[1].nickname.isNotEmpty &&
-        selectedPlayers[0].id != selectedPlayers[1].id;
-
-    double height(BuildContext context) => MediaQuery.of(context).size.height;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return OrientationBuilder(
       builder: (context, orientation) {
-        return orientation == Orientation.landscape &&
-                MediaQuery.of(context).size.height > 400
+        return orientation == Orientation.landscape && screenHeight > 400
             ? //Horizontal
             SingleChildScrollView(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: height(context) * 0.1),
-                      child: SizedBox(
-                        width: 450,
-                        child: _selectedPlayersDisplay(
-                          context: context,
-                          ref: ref,
-                          isAllSelected: isAllSelected,
-                        ),
-                      ),
+                      padding: EdgeInsets.only(top: screenHeight * 0.1),
+                      child: const SizedBox(
+                          width: 450, child: SelectedPlayersDisplay()),
                     ),
-                    _buildHorizontalPlayersContainer(
-                      context: context,
-                      ref: ref,
+                    CustomSmallContainer(
+                      height: screenHeight * 0.65,
+                      width: 400,
+                      child: LatestPlayersListView(orientation: orientation),
                     ),
                   ],
                 ),
@@ -61,31 +49,20 @@ class CreateSingleGame extends ConsumerWidget
             //Vertical
             SingleChildScrollView(
                 child: Padding(
-                  padding: EdgeInsets.only(top: height(context) * 0.1),
+                  padding: EdgeInsets.only(top: screenHeight * 0.1),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      _selectedPlayersDisplay(
-                        context: context,
-                        ref: ref,
-                        isAllSelected: isAllSelected,
+                      const SelectedPlayersDisplay(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40),
+                        child: CustomSmallContainer(
+                          height: 908,
+                          width: 400,
+                          child:
+                              LatestPlayersListView(orientation: orientation),
+                        ),
                       ),
-                      ref.watch(fetchPlayersProvider).when(
-                            data: (_) {
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 40),
-                                child: _buildVerticalPlayersContainer(
-                                  ref: ref,
-                                ),
-                              );
-                            },
-                            error: ((error, stackTrace) =>
-                                Text('Error: $error')),
-                            loading: () => const Padding(
-                              padding: EdgeInsets.only(top: 80),
-                              child: CircularProgressIndicator(),
-                            ),
-                          ),
                     ],
                   ),
                 ),
@@ -93,17 +70,25 @@ class CreateSingleGame extends ConsumerWidget
       },
     );
   }
+}
 
-  Stack _selectedPlayersDisplay({
-    required BuildContext context,
-    required WidgetRef ref,
-    required bool isAllSelected,
-  }) {
-    final hasWidth = MediaQuery.of(context).size.width > 550;
-    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+class SelectedPlayersDisplay extends ConsumerWidget {
+  const SelectedPlayersDisplay({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedPlayers = ref.watch(selectedPlayersProvider);
+    final playersController = ref.watch(playersProvider.notifier);
     final winProbability = ref.watch(winProbabilityProvider);
-    final selectedPlayers = ref.read(selectedPlayersProvider);
-    final playersNotifier = ref.read(playersProvider.notifier);
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isAllSelected = selectedPlayers[0].nickname.isNotEmpty &&
+        selectedPlayers[1].nickname.isNotEmpty &&
+        selectedPlayers[0].id != selectedPlayers[1].id;
+
+    final hasWidth = screenWidth > 550;
+    final isPhoneOrVertical = screenWidth < 1000;
+
     return Stack(
       children: [
         Column(
@@ -122,7 +107,7 @@ class CreateSingleGame extends ConsumerWidget
                 child: selectedPlayers[0].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 1')
                     : MyFadeTextSwitcher(
-                        text: playersNotifier
+                        text: playersController
                             .getPlayerById(selectedPlayers[0].id)
                             .fullName),
               ),
@@ -146,9 +131,9 @@ class CreateSingleGame extends ConsumerWidget
                   );
                 },
                 child: selectedPlayers[1].fullName.isEmpty
-                    ? const MyFadeTextSwitcher(text: 'Select player 1')
+                    ? const MyFadeTextSwitcher(text: 'Select player 2')
                     : MyFadeTextSwitcher(
-                        text: playersNotifier
+                        text: playersController
                             .getPlayerById(selectedPlayers[1].id)
                             .fullName),
               ),
@@ -230,301 +215,155 @@ class CreateSingleGame extends ConsumerWidget
       ],
     );
   }
+}
 
-  CustomSmallContainer _buildHorizontalPlayersContainer({
-    required BuildContext context,
-    required WidgetRef ref,
-  }) {
-    double height(BuildContext context) => MediaQuery.of(context).size.height;
-    final selectedPlayersNotifier = ref.read(selectedPlayersProvider.notifier);
-    final matchTypeNotifier = ref.read(matchTypeProvider.notifier);
+class LatestPlayersListView extends ConsumerWidget with FormatDateMixin {
+  final Orientation orientation;
+  const LatestPlayersListView({Key? key, required this.orientation})
+      : super(key: key);
 
-    return CustomSmallContainer(
-      height: height(context) * 0.65,
-      width: 400,
-      child: ref.watch(fetchPlayersProvider).when(
-            data: (_) {
-              final players =
-                  ref.watch(playersProvider.notifier).getLatestPlayers();
-              return ListView.builder(
-                itemCount: players.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      route.profilePage,
-                      arguments: players[index],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Column(
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final playersController = ref.watch(playersProvider.notifier);
+    final selectedPlayersController =
+        ref.read(selectedPlayersProvider.notifier);
+    final isLoading = ref.watch(appLoadingProvider);
+
+    final players = playersController.getLatestPlayers();
+
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : ListView.builder(
+            physics: orientation == Orientation.portrait
+                ? const NeverScrollableScrollPhysics()
+                : null,
+            itemCount: players.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  route.profilePage,
+                  arguments: players[index],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              SizedBox(
-                                width: 220,
-                                child: Row(
+                          SizedBox(
+                            width: 220,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: MyProfileImage(
+                                    playerId: players[index].id,
+                                    size: 30,
+                                  ),
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: MyProfileImage(
-                                        playerId: players[index].id,
-                                        size: 30,
+                                    SizedBox(
+                                      width: 180,
+                                      child: Text(
+                                        players[index].fullName,
+                                        overflow: TextOverflow.fade,
+                                        style: GoogleFonts.goldman(
+                                          fontSize: 14,
+                                          color: ColorConstants.textColor,
+                                        ),
                                       ),
                                     ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 180,
-                                          child: Text(
-                                            players[index].fullName,
-                                            overflow: TextOverflow.fade,
-                                            style: GoogleFonts.goldman(
-                                              fontSize: 14,
-                                              color: ColorConstants.textColor,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          formatDate(
-                                            players[index]
-                                                .lastActivity
-                                                .toDateTime(),
-                                          ),
-                                          style: GoogleFonts.goldman(
-                                            fontSize: 11,
-                                            color: ColorConstants
-                                                .secondaryTextColor,
-                                          ),
-                                        ),
-                                      ],
+                                    Text(
+                                      formatDate(
+                                        players[index]
+                                            .lastActivity
+                                            .toDateTime(),
+                                      ),
+                                      style: GoogleFonts.goldman(
+                                        fontSize: 11,
+                                        color:
+                                            ColorConstants.secondaryTextColor,
+                                      ),
                                     ),
                                   ],
                                 ),
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomSmallContainer(
+                                  height: 30,
+                                  width: 50,
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                      foregroundColor: ColorConstants.textColor,
+                                      textStyle: GoogleFonts.goldman(
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      selectedPlayersController.setPlayer(
+                                        player: players[index],
+                                        playerSelectChoice:
+                                            PlayerSelectChoice.playerOne,
+                                      );
+                                    },
+                                    child: Text(
+                                      '# 1',
+                                      style: GoogleFonts.goldman(
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                              Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: CustomSmallContainer(
-                                      height: 30,
-                                      width: 50,
-                                      child: TextButton(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor:
-                                              ColorConstants.textColor,
-                                          textStyle: GoogleFonts.goldman(
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          matchTypeNotifier.update((state) =>
-                                              state = MatchType.single);
-                                          selectedPlayersNotifier.setPlayer(
-                                            player: players[index],
-                                            playerSelectChoice:
-                                                PlayerSelectChoice.playerOne,
-                                          );
-                                        },
-                                        child: Text(
-                                          '# 1',
-                                          style: GoogleFonts.goldman(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                      ),
+                              CustomSmallContainer(
+                                height: 30,
+                                width: 50,
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: ColorConstants.textColor,
+                                    textStyle: GoogleFonts.goldman(
+                                      fontSize: 20,
                                     ),
                                   ),
-                                  CustomSmallContainer(
-                                    height: 30,
-                                    width: 50,
-                                    child: TextButton(
-                                      style: TextButton.styleFrom(
-                                        foregroundColor:
-                                            ColorConstants.textColor,
-                                        textStyle: GoogleFonts.goldman(
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        matchTypeNotifier.update((state) =>
-                                            state = MatchType.single);
-                                        selectedPlayersNotifier.setPlayer(
-                                          player: players[index],
-                                          playerSelectChoice:
-                                              PlayerSelectChoice.playerTwo,
-                                        );
-                                      },
-                                      child: Text(
-                                        '# 2',
-                                        style: GoogleFonts.goldman(
-                                          fontSize: 14,
-                                        ),
-                                      ),
+                                  onPressed: () {
+                                    selectedPlayersController.setPlayer(
+                                      player: players[index],
+                                      playerSelectChoice:
+                                          PlayerSelectChoice.playerTwo,
+                                    );
+                                  },
+                                  child: Text(
+                                    '# 2',
+                                    style: GoogleFonts.goldman(
+                                      fontSize: 14,
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
-                          if (index != players.length - 1)
-                            const Divider(
-                              height: 1,
-                              indent: 13,
-                              endIndent: 13,
-                            ),
                         ],
                       ),
-                    ),
-                  );
-                },
-              );
-            },
-            error: ((error, stackTrace) => Text('Error: $error')),
-            loading: () => const Center(child: CircularProgressIndicator()),
-          ),
-    );
-  }
-
-  CustomSmallContainer _buildVerticalPlayersContainer({
-    required WidgetRef ref,
-  }) {
-    final players = ref.watch(playersProvider.notifier).getLatestPlayers();
-    final selectedPlayersNotifier = ref.read(selectedPlayersProvider.notifier);
-    final matchTypeNotifier = ref.read(matchTypeProvider.notifier);
-    return CustomSmallContainer(
-      height: 908,
-      width: 400,
-      child: ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: players.length,
-        itemBuilder: (context, index) {
-          return GestureDetector(
-            onTap: () => Navigator.pushNamed(
-              context,
-              route.profilePage,
-              arguments: players[index],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        width: 220,
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: MyProfileImage(
-                                playerId: players[index].id,
-                                size: 30,
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  players[index].fullName,
-                                  style: GoogleFonts.goldman(
-                                    fontSize: 14,
-                                    color: ColorConstants.textColor,
-                                  ),
-                                ),
-                                Text(
-                                  formatDate(
-                                    players[index].lastActivity.toDateTime(),
-                                  ),
-                                  style: GoogleFonts.goldman(
-                                    fontSize: 11,
-                                    color: ColorConstants.secondaryTextColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                      if (index != players.length - 1)
+                        const Divider(
+                          height: 1,
+                          indent: 13,
+                          endIndent: 13,
                         ),
-                      ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomSmallContainer(
-                              height: 30,
-                              width: 50,
-                              child: TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: ColorConstants.textColor,
-                                  textStyle: GoogleFonts.goldman(
-                                    fontSize: 20,
-                                  ),
-                                ),
-                                onPressed: () {
-                                  matchTypeNotifier.update(
-                                      (state) => state = MatchType.single);
-                                  selectedPlayersNotifier.setPlayer(
-                                    player: players[index],
-                                    playerSelectChoice:
-                                        PlayerSelectChoice.playerOne,
-                                  );
-                                },
-                                child: Text(
-                                  '# 1',
-                                  style: GoogleFonts.goldman(
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          CustomSmallContainer(
-                            height: 30,
-                            width: 50,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                foregroundColor: ColorConstants.textColor,
-                                textStyle: GoogleFonts.goldman(
-                                  fontSize: 20,
-                                ),
-                              ),
-                              onPressed: () {
-                                matchTypeNotifier.update(
-                                    (state) => state = MatchType.single);
-                                selectedPlayersNotifier.setPlayer(
-                                  player: players[index],
-                                  playerSelectChoice:
-                                      PlayerSelectChoice.playerTwo,
-                                );
-                              },
-                              child: Text(
-                                '# 2',
-                                style: GoogleFonts.goldman(
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
-                  if (index != players.length - 1)
-                    const Divider(
-                      height: 1,
-                      indent: 13,
-                      endIndent: 13,
-                    ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
-        },
-      ),
-    );
   }
 }

@@ -7,30 +7,20 @@ import '../../../Presentation/providers/selected_players/selected_players_provid
 import '../../../core/common/common.dart';
 import '../../../core/models/get_win_probability_params.dart';
 
-class SelectedPlayersNotifier extends StateNotifier<List<PlayerModel>> {
+class SelectedPlayersController extends StateNotifier<List<PlayerModel>> {
   final UseCase getWinProb;
   final Reader read;
-  SelectedPlayersNotifier(
+  SelectedPlayersController(
     this.getWinProb,
     this.read,
-  ) : super([
-          BlankPlayerModel.player,
-          BlankPlayerModel.player,
-          BlankPlayerModel.player,
-          BlankPlayerModel.player,
-        ]);
+  ) : super(BlankPlayerModel.emptyPlayerSelect);
 
   void addPlayer(PlayerModel player) {
     state = [...state, player];
   }
 
   void resetState() {
-    state = [
-      BlankPlayerModel.player,
-      BlankPlayerModel.player,
-      BlankPlayerModel.player,
-      BlankPlayerModel.player,
-    ];
+    state = BlankPlayerModel.emptyPlayerSelect;
   }
 
   void _setPlayerOne(PlayerModel player) {

@@ -1,7 +1,7 @@
 import '../../../protos/base.pb.dart';
 
 abstract class BlankPlayerModel {
-  static PlayerModel player = PlayerModel(
+  static final PlayerModel player = PlayerModel(
     id: '',
     email: '',
     nickname: '',
@@ -14,4 +14,7 @@ abstract class BlankPlayerModel {
     loss: 0,
     win: 0,
   );
+
+  static List<PlayerModel> get emptyPlayerSelect =>
+      [player, player, player, player];
 }

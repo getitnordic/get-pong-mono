@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/color_constants.dart';
+import '../../../../enums/match_type.dart';
 import '../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../Presentation/widgets/start_game_page/roundhouse/create_roundhouse_game.dart';
 import 'double/create_double_game.dart';
@@ -22,13 +23,22 @@ class _CreateGameMenuState extends ConsumerState<CreateGameMenu>
 
   @override
   void initState() {
-    super.initState();
+    final matchTypeController = ref.read(matchTypeProvider.notifier);
+    matchTypeController.update((state) => MatchType.single);
+
     tabController = TabController(length: 3, vsync: this);
     tabController.addListener(() {
       if (tabController.indexIsChanging) {
-        ref.watch(selectedPlayersProvider.notifier).resetState();
+        if (tabController.index == 1) {
+          matchTypeController.update((state) => MatchType.double);
+        }
+        if (tabController.index == 0) {
+          matchTypeController.update((state) => MatchType.single);
+        }
+        ref.read(selectedPlayersProvider.notifier).resetState();
       }
     });
+    super.initState();
   }
 
   @override

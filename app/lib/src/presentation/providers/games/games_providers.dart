@@ -21,9 +21,10 @@ final gamesByPlayerIdProvider = FutureProvider.family
 });
 
 final fetchGamesProvider = FutureProvider.autoDispose<bool>((ref) async {
-  return ref.watch(gamesProvider.notifier).fetchAllGames();
+  return ref.watch(gamesProvider.notifier).fetchGames();
 });
 
-final fetchTenGamesProvider = FutureProvider.autoDispose<List<GameModel>>((ref) async {
+final fetchTenGamesProvider =
+    FutureProvider.autoDispose<List<GameModel>>((ref) async {
   return ref.watch(gamesProvider.notifier).getNextTenGames(0);
 });
