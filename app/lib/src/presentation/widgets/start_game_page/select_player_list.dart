@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/color_constants.dart';
 import '../../../../enums/player_select_choice.dart';
 import '../../../../protos/base.pb.dart';
+import '../../../Presentation/providers/selected_players/selected_players_controller.dart';
 import '../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import 'select_player_list_player.dart';
 
@@ -45,6 +46,9 @@ class _SelectPlayerListState extends ConsumerState<SelectPlayerList> {
   @override
   Widget build(BuildContext context) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+    final selectedPlayersController =
+        ref.read(selectedPlayersProvider.notifier);
+
     return Expanded(
       child: Column(
         children: [
@@ -66,47 +70,86 @@ class _SelectPlayerListState extends ConsumerState<SelectPlayerList> {
           ),
           Expanded(
             child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: isPhoneOrVertical ? _buildListView() : _buildGridView()),
+              padding: const EdgeInsets.all(8.0),
+              child: isPhoneOrVertical
+                  ? PlayerGridView(
+                      players: players,
+                      controller: selectedPlayersController,
+                      playerSelectIndex: widget.playerSelectIndex,
+                    )
+                  : PlayerGridView(
+                      players: players,
+                      controller: selectedPlayersController,
+                      playerSelectIndex: widget.playerSelectIndex,
+                    ),
+            ),
           ),
         ],
       ),
     );
   }
+}
 
-  GridView _buildGridView() {
+class PlayerGridView extends StatelessWidget {
+  final List<PlayerModel> players;
+  final SelectedPlayersController controller;
+  final PlayerSelectChoice playerSelectIndex;
+
+  const PlayerGridView(
+      {Key? key,
+      required this.players,
+      required this.controller,
+      required this.playerSelectIndex})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  childAspectRatio: 10 / 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: players.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      ref.watch(selectedPlayersProvider.notifier).setPlayer(
-                            player: players[index],
-                            playerSelectChoice: widget.playerSelectIndex,
-                          );
-                      Navigator.of(context).pop();
-                    },
-                    child: SelectPlayerListPlayer(player: players[index]),
-                  );
-                },
-              );
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        childAspectRatio: 10 / 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+      itemCount: players.length,
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () {
+            controller.setPlayer(
+              player: players[index],
+              playerSelectChoice: playerSelectIndex,
+            );
+            Navigator.of(context).pop();
+          },
+          child: SelectPlayerListPlayer(player: players[index]),
+        );
+      },
+    );
   }
+}
 
-  ListView _buildListView() {
+class PlayerListView extends StatelessWidget {
+  final List<PlayerModel> players;
+  final SelectedPlayersController controller;
+  final PlayerSelectChoice playerSelectIndex;
+
+  const PlayerListView(
+      {Key? key,
+      required this.players,
+      required this.controller,
+      required this.playerSelectIndex})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            ref.watch(selectedPlayersProvider.notifier).setPlayer(
-                  player: players[index],
-                  playerSelectChoice: widget.playerSelectIndex,
-                );
+            controller.setPlayer(
+              player: players[index],
+              playerSelectChoice: playerSelectIndex,
+            );
             Navigator.of(context).pop();
           },
           child: SelectPlayerListPlayer(player: players[index]),
