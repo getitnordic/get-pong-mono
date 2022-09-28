@@ -1,6 +1,6 @@
 import '../../../../protos/base.pb.dart';
 import '../../../core/common/common.dart';
-import '../../clients/clients.dart';
+import '../../repositories/repositories.dart';
 
 class AddPlayerUseCase implements UseCase<DataState<String>, PlayerModel> {
   final PlayerRepository service;

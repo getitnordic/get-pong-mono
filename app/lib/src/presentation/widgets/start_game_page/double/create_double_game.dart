@@ -10,7 +10,7 @@ import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../../core/models/score_page_arguments.dart';
-import '../../../providers/players/players_providers.dart';
+import '../../../providers/players_providers.dart';
 import '../../my_profile_image.dart';
 import '../../widgets.dart';
 import '../vs_bar.dart';

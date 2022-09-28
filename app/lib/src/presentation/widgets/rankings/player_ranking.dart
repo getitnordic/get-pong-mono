@@ -5,7 +5,7 @@ import '../../../../config/route/route.dart' as route;
 import '../../../../constants/constants.dart';
 import '../../../../enums/sorting_options.dart';
 import '../../../../protos/protos.dart';
-import '../../providers/top_ranks/top_ranks_providers.dart';
+import '../../providers/top_ranks_providers.dart';
 import 'player_ranking_header.dart';
 import 'player_ranking_player.dart';
 

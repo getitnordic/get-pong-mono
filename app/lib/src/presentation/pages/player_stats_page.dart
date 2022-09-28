@@ -4,7 +4,7 @@ import 'package:get_pong/src/presentation/providers/stats_data_providers.dart';
 
 import '../../../protos/protos.dart';
 
-import '../widgets/stats_page/player_stats_controller.dart';
+import '../controllers/player_stats_controller.dart';
 import '../widgets/stats_page/recent_stats_player.dart';
 
 class PlayerStatsPage extends ConsumerWidget {

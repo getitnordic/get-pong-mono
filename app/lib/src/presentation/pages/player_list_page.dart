@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../enums/player_select_choice.dart';
 import '../../Presentation/providers/app_loading_provider.dart';
 import '../../Presentation/widgets/start_game_page/select_player_list.dart';
-import '../providers/players/players_providers.dart';
+import '../providers/players_providers.dart';
 
 class PlayerListPage extends ConsumerWidget {
   final PlayerSelectChoice playerSelectIndex;

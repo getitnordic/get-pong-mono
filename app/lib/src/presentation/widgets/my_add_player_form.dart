@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/color_constants.dart';
 import '../../../protos/base.pb.dart';
 import '../../../utils/mixins/validation_mixin.dart';
-import '../providers/players/players_providers.dart';
+import '../providers/players_providers.dart';
 
 class AddPlayerFields extends ConsumerStatefulWidget {
   const AddPlayerFields({Key? key}) : super(key: key);

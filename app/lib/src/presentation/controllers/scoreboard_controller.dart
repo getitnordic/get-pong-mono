@@ -1,7 +1,7 @@
-import '../../../../../enums/team.dart';
-import '../../../../../protos/base.pb.dart';
-import '../../../../../protos/game.pb.dart';
-import '../../../../core/models/match_result.dart';
+import '../../../enums/team.dart';
+import '../../../protos/base.pb.dart';
+import '../../../protos/game.pb.dart';
+import '../../core/models/match_result.dart';
 
 class ScoreboardController {
   final PlayerModel homeTeamOne;

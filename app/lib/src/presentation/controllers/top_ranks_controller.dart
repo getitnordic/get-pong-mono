@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../enums/sorting_options.dart';
-import '../../../../protos/protos.dart';
-import '../../../core/common/common.dart';
-import 'top_ranks_providers.dart';
+import '../../../enums/sorting_options.dart';
+import '../../../protos/protos.dart';
+import '../../core/common/common.dart';
+import '../providers/top_ranks_providers.dart';
 
 class TopRanksController extends StateNotifier<List<PlayerModel>> {
   final UseCase getPlayersUseCase;

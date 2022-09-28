@@ -9,8 +9,8 @@ import '../../../../utils/mixins/format_date_mixin.dart';
 import '../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
 import '../../../core/common/blank_player_model.dart';
 import '../../../core/models/match_details_arguments.dart';
-import '../../providers/games/games_providers.dart';
-import '../../providers/players/players_providers.dart';
+import '../../providers/games_providers.dart';
+import '../../providers/players_providers.dart';
 import '../widgets.dart';
 import 'updated_scorecard/scoreboard_card.dart';
 

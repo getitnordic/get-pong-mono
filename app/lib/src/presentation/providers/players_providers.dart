@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../protos/base.pb.dart';
-import '../../../../register_services.dart';
-import '../../../domain/use_cases/players/players.dart';
-import 'players_controller.dart';
+import '../../../protos/base.pb.dart';
+import '../../../register_services.dart';
+import '../../domain/use_cases/players/players.dart';
+import '../controllers/players_controller.dart';
 
 final playersProvider =
     StateNotifierProvider<PlayersController, List<PlayerModel>>((ref) =>

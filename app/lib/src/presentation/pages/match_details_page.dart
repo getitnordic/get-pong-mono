@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_pong/src/presentation/widgets/match_details/match_details_double.dart';
 
 import '../../core/models/match_details_arguments.dart';
-import '../providers/result_notifier.dart';
+import '../providers/results_provider.dart';
+import '../widgets/match_details/match_details_double.dart';
 import '../widgets/match_details/match_details_single.dart';
 
 class MatchDetailsPage extends ConsumerWidget {

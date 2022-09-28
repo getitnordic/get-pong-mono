@@ -3,7 +3,7 @@ import 'package:grpc/grpc.dart';
 
 import '../../../protos/protos.dart';
 import '../../core/common/data_state.dart';
-import '../../domain/clients/result_repository.dart';
+import '../../domain/repositories/result_repository.dart';
 
 class ResultRepositoryImpl implements ResultRepository {
   final ResultServiceClient client;

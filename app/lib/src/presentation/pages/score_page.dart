@@ -13,7 +13,7 @@ import '../../../protos/base.pb.dart';
 import '../../../utils/extensions/display_player_name.dart';
 import '../../core/models/score_notification.dart';
 import '../../core/models/score_page_set.dart';
-import '../providers/score/score_providers.dart';
+import '../providers/score_providers.dart';
 import '../widgets/widgets.dart';
 
 class ScorePage extends ConsumerStatefulWidget {

@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../protos/base.pb.dart';
-import '../../../../protos/game.pb.dart';
-import '../../../core/common/common.dart';
-import '../../../core/models/Scoreboard_match.dart';
-import '../../../core/models/update_profile_picture_params.dart';
-import 'players_providers.dart';
+import '../../../protos/base.pb.dart';
+import '../../../protos/game.pb.dart';
+import '../../core/common/common.dart';
+import '../../core/models/Scoreboard_match.dart';
+import '../../core/models/update_profile_picture_params.dart';
+import '../providers/players_providers.dart';
 
 class PlayersController extends StateNotifier<List<PlayerModel>> {
   final UseCase getPlayersUseCase;

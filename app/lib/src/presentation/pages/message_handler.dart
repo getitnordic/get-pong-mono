@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../enums/team.dart';
 import '../../core/models/score_notification.dart';
 import 'pages.dart';
-import '../providers/score/score_providers.dart';
+import '../providers/score_providers.dart';
 
 import '../../../enums/score_type.dart';
 

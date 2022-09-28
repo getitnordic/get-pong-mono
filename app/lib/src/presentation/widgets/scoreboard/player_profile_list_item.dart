@@ -5,8 +5,8 @@ import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pbgrpc.dart';
 import '../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../core/common/blank_player_model.dart';
-import '../../providers/players/players_providers.dart';
-import 'updated_scorecard/scoreboard_controller.dart';
+import '../../providers/players_providers.dart';
+import '../../controllers/scoreboard_controller.dart';
 
 class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   const PlayerProfileListItem({Key? key, required this.match})

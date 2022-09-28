@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../protos/game.pbgrpc.dart';
-import '../../../core/common/common.dart';
-import '../../../core/models/get_games_params.dart';
-import 'games_providers.dart';
+import '../../../protos/game.pbgrpc.dart';
+import '../../core/common/common.dart';
+import '../../core/models/get_games_params.dart';
+import '../providers/games_providers.dart';
 
 class GamesController extends StateNotifier<List<GameModel>> {
   final UseCase getGamesUseCase;

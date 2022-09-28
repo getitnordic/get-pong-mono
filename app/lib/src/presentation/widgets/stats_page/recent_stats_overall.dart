@@ -4,7 +4,7 @@ import '../../../../constants/color_constants.dart';
 import '../widgets.dart';
 import 'charts/days_played_chart.dart';
 import 'charts/my_bar_chart.dart';
-import 'result_stats_controller.dart';
+import '../../controllers/result_stats_controller.dart';
 
 class RecentStatsOverall extends StatelessWidget {
   final ResultStatsController statsController;

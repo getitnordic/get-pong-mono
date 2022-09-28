@@ -1,6 +1,6 @@
 import '../../../../protos/game.pb.dart';
 import '../../../core/common/common.dart';
-import '../../clients/clients.dart';
+import '../../repositories/repositories.dart';
 
 class GetGamesByPlayerIdUseCase
     implements UseCase<DataState<List<GameModel>>, String> {

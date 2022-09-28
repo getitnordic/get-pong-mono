@@ -1,6 +1,6 @@
 import '../../../../protos/game.pbgrpc.dart';
 import '../../../core/common/common.dart';
-import '../../clients/game_repository.dart';
+import '../../repositories/game_repository.dart';
 
 class SaveGameUseCase implements UseCase<DataState<String>, GameModel> {
   final GameRepository service;

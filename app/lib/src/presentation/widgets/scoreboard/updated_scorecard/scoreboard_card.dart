@@ -8,7 +8,7 @@ import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
 import '../../../../core/common/common.dart';
-import '../../../providers/players/players_providers.dart';
+import '../../../providers/players_providers.dart';
 import '../../custom_small_container.dart';
 import '../../my_profile_image.dart';
 import 'scoreboard_set_score.dart';

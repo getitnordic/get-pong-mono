@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../providers/stats_data_providers.dart';
 import '../widgets/stats_page/recent_stats_overall.dart';
-import '../widgets/stats_page/result_stats_controller.dart';
+import '../controllers/result_stats_controller.dart';
 
 class StatsPage extends ConsumerWidget {
   const StatsPage({Key? key}) : super(key: key);
