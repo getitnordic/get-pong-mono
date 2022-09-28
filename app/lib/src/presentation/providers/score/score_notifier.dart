@@ -1,11 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../games/games_providers.dart';
 
 import '../../../../enums/score_type.dart';
 import '../../../../enums/team.dart';
 import '../../../../protos/base.pb.dart';
 import '../../../../protos/game.pb.dart';
 import '../../../../protos/google/protobuf/timestamp.pb.dart';
-import '../../../Presentation/providers/games/games_providers.dart';
 import '../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../core/models/score_page_set.dart';
 
@@ -109,10 +109,6 @@ class ScoreNotifier extends StateNotifier<List<ScorePageSet>> {
     team == Team.homeTeam
         ? _setHomeScore(score: score, setId: setId)
         : _setAwayScore(score: score, setId: setId);
-
-    print('----------------------------');
-    print('HomeScore: ${state[0].homeScore}\nAwayScore: ${state[0].awayScore}');
-    print('----------------------------');
   }
 
   void saveNewMatch(
@@ -122,6 +118,8 @@ class ScoreNotifier extends StateNotifier<List<ScorePageSet>> {
     PlayerModel playerFour,
   ) {
     List<SetModel> newSets = _setModelMapper();
+    final gamesController = read(gamesProvider.notifier);
+    final selectedPlayersController = read(selectedPlayersProvider.notifier);
 
     if (playerThree.fullName.isNotEmpty) {
       GameModel match = GameModel(
@@ -129,16 +127,16 @@ class ScoreNotifier extends StateNotifier<List<ScorePageSet>> {
           awayTeamIds: [playerThree.id, playerFour.id],
           sets: newSets,
           timeStamp: Timestamp.create().createEmptyInstance());
-      read(gamesProvider.notifier).createGame(match);
-      read(selectedPlayersProvider.notifier).resetState();
+      gamesController.createGame(match);
+      selectedPlayersController.resetState();
     } else {
       GameModel match = GameModel(
           homeTeamIds: [playerOne.id],
           awayTeamIds: [playerTwo.id],
           sets: newSets,
           timeStamp: Timestamp.create().createEmptyInstance());
-      read(gamesProvider.notifier).createGame(match);
-      read(selectedPlayersProvider.notifier).resetState();
+      gamesController.createGame(match);
+      selectedPlayersController.resetState();
     }
   }
 

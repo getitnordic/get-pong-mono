@@ -4,10 +4,10 @@ import '../../../../protos/game.pb.dart';
 import '../../../../register_services.dart';
 import '../../../domain/use_cases/games/games.dart';
 import '../../../domain/use_cases/games/get_games_by_id_usecase.dart';
-import 'games_notifier.dart';
+import 'games_controller.dart';
 
-final gamesProvider = StateNotifierProvider<GamesNotifier, List<GameModel>>(
-  (ref) => GamesNotifier(
+final gamesProvider = StateNotifierProvider<GamesController, List<GameModel>>(
+  (ref) => GamesController(
     locator<GetGamesUseCase>(),
     locator<GetGamesByPlayerIdUseCase>(),
     locator<SaveGameUseCase>(),
@@ -28,3 +28,5 @@ final fetchTenGamesProvider =
     FutureProvider.autoDispose<List<GameModel>>((ref) async {
   return ref.watch(gamesProvider.notifier).getNextTenGames(0);
 });
+
+final gamesLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);

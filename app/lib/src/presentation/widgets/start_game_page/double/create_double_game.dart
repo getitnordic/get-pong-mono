@@ -10,7 +10,6 @@ import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../../core/models/score_page_arguments.dart';
-import '../../../providers/app_loading_provider.dart';
 import '../../../providers/players/players_providers.dart';
 import '../../my_profile_image.dart';
 import '../../widgets.dart';
@@ -89,7 +88,7 @@ class SelectedPlayersDisplayDoubles extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPlayers = ref.watch(selectedPlayersProvider);
-    final playersController = ref.watch(playersProvider.notifier);
+    final playersController = ref.read(playersProvider.notifier);
     final winProbability = ref.watch(winProbabilityProvider);
 
     final screenWidth = MediaQuery.of(context).size.width;
@@ -102,8 +101,8 @@ class SelectedPlayersDisplayDoubles extends ConsumerWidget {
     final isPhoneOrVertical = screenWidth < 1000;
 
     bool duplicatesDoesNotExist() {
-      final players = ref.watch(selectedPlayersProvider);
-      final newPlayers = ref.watch(selectedPlayersProvider).toSet().toList();
+      final players = ref.read(selectedPlayersProvider);
+      final newPlayers = ref.read(selectedPlayersProvider).toSet().toList();
       if (players.length == newPlayers.length) {
         return true;
       }
@@ -294,10 +293,10 @@ class LatestPlayersListViewDoubles extends ConsumerWidget with FormatDateMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final playersController = ref.watch(playersProvider.notifier);
+    final playersController = ref.read(playersProvider.notifier);
     final selectedPlayersController =
         ref.read(selectedPlayersProvider.notifier);
-    final isLoading = ref.watch(appLoadingProvider);
+    final isLoading = ref.watch(playersLoadingProvider);
 
     final players = playersController.getLatestPlayers();
 

@@ -73,9 +73,11 @@ class SetContainer extends StatelessWidget {
                   SizedBox(
                     width: isPhoneOrVertical ? 150 : 500,
                     child: ResultCardSingle(
-                        name: playerOneName,
-                        child: _scoreCounter(
-                            homeScore.floor().toString(), isPhoneOrVertical)),
+                      name: playerOneName,
+                      child: ScoreCounter(
+                        score: homeScore.floor().toString(),
+                      ),
+                    ),
                   ),
                 if (matchType == MatchType.double)
                   SizedBox(
@@ -83,8 +85,9 @@ class SetContainer extends StatelessWidget {
                     child: ResultCardDouble(
                       playerOne: playerOneName,
                       playerTwo: playerTwoName,
-                      child: _scoreCounter(
-                          homeScore.floor().toString(), isPhoneOrVertical),
+                      child: ScoreCounter(
+                        score: homeScore.floor().toString(),
+                      ),
                     ),
                   ),
                 ScoreCounterAdd(
@@ -115,18 +118,22 @@ class SetContainer extends StatelessWidget {
                   SizedBox(
                     width: isPhoneOrVertical ? 150 : 500,
                     child: ResultCardSingle(
-                        name: playerTwoName,
-                        child: _scoreCounter(
-                            awayScore.floor().toString(), isPhoneOrVertical)),
+                      name: playerTwoName,
+                      child: ScoreCounter(
+                        score: awayScore.floor().toString(),
+                      ),
+                    ),
                   ),
                 if (matchType == MatchType.double)
                   SizedBox(
                     width: isPhoneOrVertical ? 150 : 500,
                     child: ResultCardDouble(
-                        playerOne: playerThreeName,
-                        playerTwo: playerFourName,
-                        child: _scoreCounter(
-                            awayScore.floor().toString(), isPhoneOrVertical)),
+                      playerOne: playerThreeName,
+                      playerTwo: playerFourName,
+                      child: ScoreCounter(
+                        score: awayScore.floor().toString(),
+                      ),
+                    ),
                   ),
                 ScoreCounterAdd(
                   setId: setId,
@@ -145,8 +152,15 @@ class SetContainer extends StatelessWidget {
       ),
     );
   }
+}
 
-  SizedBox _scoreCounter(String score, bool isPhoneOrVertical) {
+class ScoreCounter extends StatelessWidget {
+  final String score;
+  const ScoreCounter({Key? key, required this.score}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     return SizedBox(
       height: isPhoneOrVertical ? 60 : 100,
       child: AutoSizeText(

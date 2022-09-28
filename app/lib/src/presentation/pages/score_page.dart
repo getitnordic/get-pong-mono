@@ -29,10 +29,7 @@ class ScorePage extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _ScorePageState();
 }
 
-class _ScorePageState extends ConsumerState<ScorePage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
+class _ScorePageState extends ConsumerState<ScorePage> {
   final listKey = GlobalKey<AnimatedListState>();
   final scrollController = ScrollController();
   int setCounter = 1;
@@ -47,6 +44,12 @@ class _ScorePageState extends ConsumerState<ScorePage>
   void initState() {
     registerNotification();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   Future<void> registerNotification() async {
@@ -107,11 +110,6 @@ class _ScorePageState extends ConsumerState<ScorePage>
             : Team.awayTeam,
         type: type!,
       );
-
-      // Check data event
-
-      // Team home && addScore
-      // Switch case on event
     });
   }
 
@@ -204,6 +202,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
     final playerFour = widget.selectedPlayers[3];
     final globalSets = ref.watch(scoreProvider);
     final scoreNotifier = ref.read(scoreProvider.notifier);
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
 
     ref.listen(
       setNotificationProvider,
@@ -269,7 +268,7 @@ class _ScorePageState extends ConsumerState<ScorePage>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  _setNumText(),
+                  SetNumberText(setCounter: setCounter),
                   ElevatedButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -310,7 +309,48 @@ class _ScorePageState extends ConsumerState<ScorePage>
                       ),
                     ),
                   ),
-                  _addRemoveSetButtons(),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: SizedBox(
+                      width: isPhoneOrVertical ? 105 : 150,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          CustomSmallContainer(
+                            height: 50,
+                            width: 50,
+                            child: IconButton(
+                              onPressed: () {
+                                removeSet(ref);
+                              },
+                              icon: const Icon(
+                                Icons.close,
+                                color: Colors.red,
+                                size: 25,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          CustomSmallContainer(
+                            height: 50,
+                            width: 50,
+                            child: IconButton(
+                              onPressed: () {
+                                addSet(ref);
+                              },
+                              icon: const Icon(
+                                Icons.add,
+                                color: ColorConstants.primaryColor,
+                                size: 25,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -319,56 +359,15 @@ class _ScorePageState extends ConsumerState<ScorePage>
       ),
     );
   }
+}
 
-  Padding _addRemoveSetButtons() {
+class SetNumberText extends StatelessWidget {
+  final int setCounter;
+  const SetNumberText({Key? key, required this.setCounter}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
-    return Padding(
-      padding: const EdgeInsets.only(right: 10),
-      child: SizedBox(
-        width: isPhoneOrVertical ? 105 : 150,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            CustomSmallContainer(
-              height: 50,
-              width: 50,
-              child: IconButton(
-                onPressed: () {
-                  removeSet(ref);
-                },
-                icon: const Icon(
-                  Icons.close,
-                  color: Colors.red,
-                  size: 25,
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            CustomSmallContainer(
-              height: 50,
-              width: 50,
-              child: IconButton(
-                onPressed: () {
-                  addSet(ref);
-                },
-                icon: const Icon(
-                  Icons.add,
-                  color: ColorConstants.primaryColor,
-                  size: 25,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Padding _setNumText() {
-    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
-
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: SizedBox(

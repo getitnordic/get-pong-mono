@@ -9,21 +9,8 @@ class PlayerRanking extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Consumer(
-      builder: (context, ref, child) {
-        final data = ref.watch(topRanksProvider);
+   
 
-        return data.when(
-          error: (error, stackTrace) => Text('Error $error'),
-          loading: () => const Padding(
-            padding: EdgeInsets.only(top: 250),
-            child: Center(child: CircularProgressIndicator()),
-          ),
-          data: (data) => PlayerRankingList(
-            players: data,
-          ),
-        );
-      },
-    );
+    return PlayerRankingList();
   }
 }

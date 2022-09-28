@@ -3,14 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../protos/game.pbgrpc.dart';
 import '../../../core/common/common.dart';
 import '../../../core/models/get_games_params.dart';
-import '../app_loading_provider.dart';
+import 'games_providers.dart';
 
-class GamesNotifier extends StateNotifier<List<GameModel>> {
+class GamesController extends StateNotifier<List<GameModel>> {
   final UseCase getGamesUseCase;
   final UseCase getGamesByPlayerIdUseCase;
   final UseCase saveGameUseCase;
   final Reader read;
-  GamesNotifier(
+  GamesController(
     this.getGamesUseCase,
     this.getGamesByPlayerIdUseCase,
     this.saveGameUseCase,
@@ -20,12 +20,12 @@ class GamesNotifier extends StateNotifier<List<GameModel>> {
   }
 
   void _setLoading(bool value) {
-    read(appLoadingProvider.notifier).update((state) => value);
+    read(gamesLoadingProvider.notifier).update((state) => value);
   }
 
   Future<bool> fetchGames() async {
     _setLoading(true);
-    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 100000))
+    await getGamesUseCase(params: GetGamesParams(offset: 0, limit: 10))
         .then((value) => {
               if (value is DataSuccess)
                 {
@@ -34,10 +34,14 @@ class GamesNotifier extends StateNotifier<List<GameModel>> {
               else
                 {}
             });
-    state.sort(
-        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
+    _sortByLatestDate();
     _setLoading(false);
     return true;
+  }
+
+  void _sortByLatestDate() {
+    return state.sort(
+        (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
   }
 
   Future<List<GameModel>> getMatchesByPlayerId(String id) async {
@@ -56,6 +60,7 @@ class GamesNotifier extends StateNotifier<List<GameModel>> {
   }
 
   Future<List<GameModel>> getNextTenGames(int offset) async {
+    _setLoading(true);
     List<GameModel> matches = [];
     await getGamesUseCase(params: GetGamesParams(offset: offset, limit: 10))
         .then((value) => {
@@ -68,7 +73,7 @@ class GamesNotifier extends StateNotifier<List<GameModel>> {
             });
     matches.sort(
         (a, b) => b.timeStamp.toDateTime().compareTo(a.timeStamp.toDateTime()));
-
+    _setLoading(false);
     return matches;
   }
 
@@ -91,7 +96,8 @@ class GamesNotifier extends StateNotifier<List<GameModel>> {
     return games.take(amountOfMatchesToGrab).toList();
   }
 
-  Future<DataState<String>> createGame(GameModel game) async {
-    return await saveGameUseCase(params: game);
+  Future<void> createGame(GameModel game) async {
+    await saveGameUseCase(params: game);
+    await fetchGames();
   }
 }

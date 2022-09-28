@@ -5,7 +5,7 @@ import '../../../../protos/game.pb.dart';
 import '../../../core/common/common.dart';
 import '../../../core/models/Scoreboard_match.dart';
 import '../../../core/models/update_profile_picture_params.dart';
-import '../app_loading_provider.dart';
+import 'players_providers.dart';
 
 class PlayersController extends StateNotifier<List<PlayerModel>> {
   final UseCase getPlayersUseCase;
@@ -25,7 +25,7 @@ class PlayersController extends StateNotifier<List<PlayerModel>> {
   }
 
   void _setLoading(bool value) {
-    read(appLoadingProvider.notifier).update((state) => value);
+    read(playersLoadingProvider.notifier).update((state) => value);
   }
 
   void addPlayer(PlayerModel player) async {
@@ -40,7 +40,7 @@ class PlayersController extends StateNotifier<List<PlayerModel>> {
         orElse: () => BlankPlayerModel.player);
   }
 
-  Future<bool> fetchPlayers() async {
+  Future<void> fetchPlayers() async {
     _setLoading(true);
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
@@ -54,7 +54,6 @@ class PlayersController extends StateNotifier<List<PlayerModel>> {
         });
     _sortByLastActivity();
     _setLoading(false);
-    return true;
   }
 
   void _sortByLastActivity() {
