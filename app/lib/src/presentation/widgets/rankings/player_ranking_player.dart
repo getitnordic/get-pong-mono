@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../../constants/color_constants.dart';
 import '../../../../protos/base.pbgrpc.dart';
 
-class PlayerRankingListPlayer extends StatelessWidget {
-  const PlayerRankingListPlayer(
+class PlayerRankingPlayer extends StatelessWidget {
+  const PlayerRankingPlayer(
       {Key? key, required this.player, required this.index})
       : super(key: key);
 
