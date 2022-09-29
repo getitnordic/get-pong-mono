@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/color_constants.dart';
-import '../player_stat.dart';
+import '../../../../core/models/player_stat.dart';
 
 class _BarChart extends StatelessWidget {
   final List<PlayerStat> players;

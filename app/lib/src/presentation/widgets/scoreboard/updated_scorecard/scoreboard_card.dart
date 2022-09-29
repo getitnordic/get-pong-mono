@@ -6,9 +6,7 @@ import '../../../../../enums/team.dart';
 import '../../../../../protos/game.pbgrpc.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
-import '../../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
-import '../../../../core/common/common.dart';
-import '../../../providers/players_providers.dart';
+import '../../../../core/common/score_checker.dart';
 import '../../custom_small_container.dart';
 import '../../my_profile_image.dart';
 import 'scoreboard_set_score.dart';
@@ -16,7 +14,7 @@ import 'scoreboard_set_score.dart';
 class ScoreboardCard extends ConsumerWidget
     with SetProfileImageMixin, FormatDateMixin {
   final GameModel match;
-  final ScoreboardController controller;
+  final ScoreChecker controller;
   const ScoreboardCard({
     Key? key,
     required this.match,
@@ -26,18 +24,6 @@ class ScoreboardCard extends ConsumerWidget
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDouble = match.homeTeamIds.length == 2;
-    final playersNotifier = ref.watch(playersProvider.notifier);
-    final controller = ScoreboardController(
-      homeTeamOne: playersNotifier.getPlayerById(match.homeTeamIds[0]),
-      awayTeamOne: playersNotifier.getPlayerById(match.awayTeamIds[0]),
-      homeTeamTwo: isDouble
-          ? playersNotifier.getPlayerById(match.homeTeamIds[1])
-          : BlankPlayerModel.player,
-      awayTeamTwo: isDouble
-          ? playersNotifier.getPlayerById(match.awayTeamIds[1])
-          : BlankPlayerModel.player,
-      match: match,
-    );
 
     final result = controller.getMatchScore();
     const fontSize = 12.0;

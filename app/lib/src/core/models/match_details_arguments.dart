@@ -1,13 +1,12 @@
 import '../../../protos/game.pbgrpc.dart';
-import '../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
-
+import '../common/score_checker.dart';
 
 class MatchDetailsArguments {
   final GameModel game;
-  final ScoreboardController controller;
+  final ScoreChecker scoreChecker;
 
   MatchDetailsArguments({
     required this.game,
-    required this.controller,
+    required this.scoreChecker,
   });
 }

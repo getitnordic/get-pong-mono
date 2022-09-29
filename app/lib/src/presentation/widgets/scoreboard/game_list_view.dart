@@ -6,9 +6,11 @@ import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pb.dart';
 import '../../../../utils/extensions/compare_date.dart';
 import '../../../../utils/mixins/format_date_mixin.dart';
-import '../../../Presentation/widgets/scoreboard/updated_scorecard/scoreboard_controller.dart';
+
 import '../../../core/common/blank_player_model.dart';
 import '../../../core/models/match_details_arguments.dart';
+
+import '../../../core/common/score_checker.dart';
 import '../../providers/games_providers.dart';
 import '../../providers/players_providers.dart';
 import '../widgets.dart';
@@ -81,7 +83,7 @@ class _GameListViewState extends ConsumerState<GameListView> {
                     itemCount: matches.length,
                     itemBuilder: (context, index) {
                       final isDouble = matches[index].homeTeamIds.length == 2;
-                      final controller = ScoreboardController(
+                      final controller = ScoreChecker(
                         homeTeamOne: playersNotifier
                             .getPlayerById(matches[index].homeTeamIds[0]),
                         awayTeamOne: playersNotifier
@@ -111,12 +113,12 @@ class _GameListViewState extends ConsumerState<GameListView> {
                       if (index == 0 || !isSameDate) {
                         return ScoreboardCardWithDate(
                           match: currentMatch,
-                          controller: controller,
+                          scoreChecker: controller,
                           width: width,
                         );
                       } else {
                         return ScoreboardCardWithoutDate(
-                          controller: controller,
+                          scoreChecker: controller,
                           match: currentMatch,
                         );
                       }
@@ -155,12 +157,12 @@ class _GameListViewState extends ConsumerState<GameListView> {
 
 class ScoreboardCardWithDate extends StatelessWidget with FormatDateMixin {
   final GameModel match;
-  final ScoreboardController controller;
+  final ScoreChecker scoreChecker;
   final double width;
   const ScoreboardCardWithDate(
       {Key? key,
       required this.match,
-      required this.controller,
+      required this.scoreChecker,
       required this.width})
       : super(key: key);
 
@@ -209,11 +211,11 @@ class ScoreboardCardWithDate extends StatelessWidget with FormatDateMixin {
             context,
             route.matchDetailsPage,
             arguments:
-                MatchDetailsArguments(game: match, controller: controller),
+                MatchDetailsArguments(game: match, scoreChecker: scoreChecker),
           ),
           child: ScoreboardCard(
             match: match,
-            controller: controller,
+            controller: scoreChecker,
           ),
           //ScoreboardListItem(
           //match: matches[index],
@@ -226,9 +228,9 @@ class ScoreboardCardWithDate extends StatelessWidget with FormatDateMixin {
 
 class ScoreboardCardWithoutDate extends StatelessWidget {
   final GameModel match;
-  final ScoreboardController controller;
+  final ScoreChecker scoreChecker;
   const ScoreboardCardWithoutDate(
-      {Key? key, required this.match, required this.controller})
+      {Key? key, required this.match, required this.scoreChecker})
       : super(key: key);
 
   @override
@@ -236,19 +238,13 @@ class ScoreboardCardWithoutDate extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            route.matchDetailsPage,
-            arguments:
-                MatchDetailsArguments(game: match, controller: controller),
-          ),
+          onTap: () => Navigator.pushNamed(context, route.matchDetailsPage,
+              arguments: MatchDetailsArguments(
+                  game: match, scoreChecker: scoreChecker)),
           child: ScoreboardCard(
             match: match,
-            controller: controller,
+            controller: scoreChecker,
           ),
-          //ScoreboardListItem(
-          //match: matches[index],
-          //),
         ),
       ],
     );

@@ -1,13 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/games_providers.dart';
 
 import '../../../enums/score_type.dart';
 import '../../../enums/team.dart';
 import '../../../protos/base.pb.dart';
 import '../../../protos/game.pb.dart';
 import '../../../protos/google/protobuf/timestamp.pb.dart';
-import '../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../core/models/score_page_set.dart';
+import '../providers/games_providers.dart';
+import '../providers/selected_players_providers.dart';
 
 class ScoreController extends StateNotifier<List<ScorePageSet>> {
   final Reader read;

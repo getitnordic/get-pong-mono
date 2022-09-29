@@ -6,7 +6,7 @@ import '../../../../protos/game.pbgrpc.dart';
 import '../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../core/common/blank_player_model.dart';
 import '../../providers/players_providers.dart';
-import '../../controllers/scoreboard_controller.dart';
+import '../../../core/common/score_checker.dart';
 
 class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   const PlayerProfileListItem({Key? key, required this.match})
@@ -17,7 +17,7 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDouble = match.homeTeamIds.length == 2;
     final playersController = ref.watch(playersProvider.notifier);
-    final controller = ScoreboardController(
+    final controller = ScoreChecker(
       homeTeamOne: playersController.getPlayerById(match.homeTeamIds[0]),
       awayTeamOne: playersController.getPlayerById(match.awayTeamIds[0]),
       homeTeamTwo: isDouble

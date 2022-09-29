@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/constants.dart';
-import '../day.dart';
+import '../../../../core/common/day.dart';
 import 'indicator.dart';
 
 class DaysPlayedChart extends StatefulWidget {

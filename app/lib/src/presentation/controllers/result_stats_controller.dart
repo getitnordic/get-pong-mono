@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import '../../../protos/protos.dart';
-import '../widgets/stats_page/day.dart';
-import '../widgets/stats_page/player_stat.dart';
+import '../../core/common/day.dart';
+import '../../core/models/player_stat.dart';
 
 class ResultStatsController {
   final List<ResultModel> results;

@@ -14,7 +14,7 @@ class MatchDetailsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isDouble = arguments.game.homeTeamIds.length == 2;
     final results = ref.watch(resultByGameIdProvider(arguments.game.id));
-    final controller = arguments.controller;
+    final scoreChecker = arguments.scoreChecker;
 
     return Scaffold(
       appBar: AppBar(
@@ -25,14 +25,14 @@ class MatchDetailsPage extends ConsumerWidget {
           return isDouble
               ? MatchDetailsDouble(
                   results: results,
-                  homeTeamOne: controller.homeTeamOne,
-                  awayTeamOne: controller.awayTeamOne,
-                  homeTeamTwo: controller.homeTeamTwo,
-                  awayTeamTwo: controller.awayTeamTwo)
+                  homeTeamOne: scoreChecker.homeTeamOne,
+                  awayTeamOne: scoreChecker.awayTeamOne,
+                  homeTeamTwo: scoreChecker.homeTeamTwo,
+                  awayTeamTwo: scoreChecker.awayTeamTwo)
               : MatchDetailsSingle(
                   results: results,
-                  homeTeam: controller.homeTeamOne,
-                  awayTeam: controller.awayTeamOne,
+                  homeTeam: scoreChecker.homeTeamOne,
+                  awayTeam: scoreChecker.awayTeamOne,
                 );
         },
         error: (e, stack) => const Text('Error'),

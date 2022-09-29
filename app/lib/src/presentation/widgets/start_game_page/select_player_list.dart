@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/color_constants.dart';
 import '../../../../enums/player_select_choice.dart';
 import '../../../../protos/base.pb.dart';
-import '../../../Presentation/providers/selected_players/selected_players_controller.dart';
-import '../../../Presentation/providers/selected_players/selected_players_providers.dart';
+import '../../controllers/selected_players_controller.dart';
+import '../../providers/selected_players_providers.dart';
 import 'select_player_list_player.dart';
 
 class SelectPlayerList extends ConsumerStatefulWidget {

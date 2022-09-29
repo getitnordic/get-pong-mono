@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../enums/player_select_choice.dart';
-import '../../Presentation/providers/app_loading_provider.dart';
 import '../../Presentation/widgets/start_game_page/select_player_list.dart';
 import '../providers/players_providers.dart';
 
@@ -17,7 +16,7 @@ class PlayerListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final players = ref.read(playersProvider);
-    final isLoading = ref.watch(appLoadingProvider);
+    final isLoading = ref.watch(playersLoadingProvider);
     return Scaffold(
       appBar: AppBar(
         title: const Text(
