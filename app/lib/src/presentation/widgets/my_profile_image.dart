@@ -172,8 +172,7 @@ class _MyProfileImageState extends State<MyProfileImage>
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(80),
+    return ClipOval(
       child: Container(
         height: widget.size,
         width: widget.size,
