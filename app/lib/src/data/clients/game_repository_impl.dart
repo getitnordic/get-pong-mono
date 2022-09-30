@@ -5,7 +5,7 @@ import 'package:grpc/grpc.dart';
 import '../../../protos/game.pbgrpc.dart';
 import '../../core/common/data_state.dart';
 import '../../core/models/get_games_params.dart';
-import '../../domain/clients/game_repository.dart';
+import '../../domain/repositories/game_repository.dart';
 
 class GameRepositoryImpl implements GameRepository {
   final GameServiceClient client;

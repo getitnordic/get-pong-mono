@@ -4,7 +4,7 @@ import 'package:grpc/grpc.dart';
 
 import '../../../protos/protos.dart';
 import '../../core/common/data_state.dart';
-import '../../domain/clients/clients.dart';
+import '../../domain/repositories/repositories.dart';
 
 class PlayerRepositoryImpl implements PlayerRepository {
   final PlayerServiceClient client;

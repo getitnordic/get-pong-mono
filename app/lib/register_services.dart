@@ -1,15 +1,14 @@
 import 'package:get_it/get_it.dart';
-import 'package:get_pong/src/data/clients/result_repository_impl.dart';
-import 'package:get_pong/src/domain/clients/result_repository.dart';
-import 'package:get_pong/src/domain/use_cases/games/get_games_by_id_usecase.dart';
-import 'package:get_pong/src/domain/use_cases/games/get_win_probability_usecase.dart';
-import 'package:get_pong/src/domain/use_cases/results/get_latest_results_usecase.dart';
-import 'package:get_pong/src/domain/use_cases/results/get_result_by_game_id_usecase.dart';
-import 'package:get_pong/src/domain/use_cases/results/get_results_by_player_id_usecase.dart';
 
 import 'protos/protos.dart';
 import 'src/data/clients/clients.dart';
-import 'src/domain/clients/clients.dart';
+import 'src/data/clients/result_repository_impl.dart';
+import 'src/domain/repositories/repositories.dart';
+import 'src/domain/use_cases/games/get_games_by_id_usecase.dart';
+import 'src/domain/use_cases/games/get_win_probability_usecase.dart';
+import 'src/domain/use_cases/results/get_latest_results_usecase.dart';
+import 'src/domain/use_cases/results/get_result_by_game_id_usecase.dart';
+import 'src/domain/use_cases/results/get_results_by_player_id_usecase.dart';
 import 'src/domain/use_cases/use_cases.dart';
 
 final locator = GetIt.instance;

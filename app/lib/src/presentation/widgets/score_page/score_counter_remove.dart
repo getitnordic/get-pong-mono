@@ -1,52 +1,64 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/color_constants.dart';
+import '../../../../enums/score_type.dart';
+import '../../../../enums/team.dart';
 import '../../../Presentation/widgets/custom_small_container.dart';
 
-class ScoreCounterRemove extends StatefulWidget {
+class ScoreCounterRemove extends ConsumerStatefulWidget {
   final int setId;
-  final Function(double) setScore;
-  final Function(int) getSetId;
+  final Function(int, Team, ScoreType) setScore;
+
   final double score;
-  ScoreCounterRemove(
-      {Key? key,
-      required this.setId,
-      required this.setScore,
-      required this.getSetId,
-      required this.score})
-      : super(key: key);
+  final Team team;
+  const ScoreCounterRemove({
+    Key? key,
+    required this.setId,
+    required this.setScore,
+    required this.score,
+    required this.team,
+  }) : super(key: key);
 
   @override
-  State<ScoreCounterRemove> createState() => _ScoreCounterRemoveState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _ScoreCounterRemoveState();
 }
 
-class _ScoreCounterRemoveState extends State<ScoreCounterRemove> {
+class _ScoreCounterRemoveState extends ConsumerState<ScoreCounterRemove> {
+  late double counter;
+
+  @override
+  void initState() {
+    counter = widget.score;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool isPhone = MediaQuery.of(context).size.width < 500;
-    double counter = widget.score;
+    final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
+    final isPhone = MediaQuery.of(context).size.width < 550;
 
     return Row(
       children: [
-        CustomSmallContainer(
-          height: 60,
-          width: 70,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 5, 5),
-            child: IconButton(
-              onPressed: () {
-                if (counter > 0) {
-                  setState(() {
-                    counter--;
-                  });
-                  widget.getSetId(widget.setId);
-                  widget.setScore(counter);
-                }
-              },
-              icon: const Icon(
-                Icons.remove,
-                color: ColorConstants.primaryColor,
-                size: 38,
+        Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: CustomSmallContainer(
+            height: isPhoneOrVertical ? 60 : 90,
+            width: isPhoneOrVertical ? 70 : 100,
+            child: SizedBox(
+              height: isPhoneOrVertical ? 60 : 90,
+              width: isPhoneOrVertical ? 70 : 100,
+              child: IconButton(
+                iconSize: isPhoneOrVertical ? 38 : 58,
+                onPressed: () {
+                  counter--;
+                  widget.setScore(widget.setId, widget.team, ScoreType.remove);
+                },
+                icon: const Icon(
+                  Icons.remove,
+                  color: ColorConstants.primaryColor,
+                ),
               ),
             ),
           ),
@@ -57,19 +69,15 @@ class _ScoreCounterRemoveState extends State<ScoreCounterRemove> {
         if (!isPhone)
           TextButton(
             onPressed: () {
-              if (counter > 0) {
-                setState(() {
-                  counter = 0;
-                });
-                widget.getSetId(widget.setId);
-                widget.setScore(counter);
-              }
+              counter = 0;
+
+              widget.setScore(widget.setId, widget.team, ScoreType.min);
             },
-            child: const Text(
+            child: Text(
               '0',
               style: TextStyle(
                 color: ColorConstants.secondaryTextColor,
-                fontSize: 24,
+                fontSize: isPhoneOrVertical ? 24 : 48,
               ),
             ),
           ),

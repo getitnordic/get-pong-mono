@@ -5,8 +5,8 @@ import '../../../../constants/color_constants.dart';
 import '../../../../protos/game.pbgrpc.dart';
 import '../../../../utils/mixins/set_profile_image_mixin.dart';
 import '../../../core/common/blank_player_model.dart';
-import '../../providers/players/players_providers.dart';
-import 'updated_scorecard/scoreboard_controller.dart';
+import '../../providers/players_providers.dart';
+import '../../../core/common/score_checker.dart';
 
 class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   const PlayerProfileListItem({Key? key, required this.match})
@@ -16,22 +16,15 @@ class PlayerProfileListItem extends ConsumerWidget with SetProfileImageMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isDouble = match.homeTeamIds.length == 2;
-    final controller = ScoreboardController(
-      homeTeamOne: ref
-          .watch(playersProvider.notifier)
-          .getPlayerById(match.homeTeamIds[0]),
-      awayTeamOne: ref
-          .watch(playersProvider.notifier)
-          .getPlayerById(match.awayTeamIds[0]),
+    final playersController = ref.watch(playersProvider.notifier);
+    final controller = ScoreChecker(
+      homeTeamOne: playersController.getPlayerById(match.homeTeamIds[0]),
+      awayTeamOne: playersController.getPlayerById(match.awayTeamIds[0]),
       homeTeamTwo: isDouble
-          ? ref
-              .watch(playersProvider.notifier)
-              .getPlayerById(match.homeTeamIds[1])
+          ? playersController.getPlayerById(match.homeTeamIds[1])
           : BlankPlayerModel.player,
       awayTeamTwo: isDouble
-          ? ref
-              .watch(playersProvider.notifier)
-              .getPlayerById(match.awayTeamIds[1])
+          ? playersController.getPlayerById(match.awayTeamIds[1])
           : BlankPlayerModel.player,
       match: match,
     );

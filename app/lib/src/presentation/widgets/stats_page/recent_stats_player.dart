@@ -4,14 +4,12 @@ import '../../../../constants/color_constants.dart';
 import '../widgets.dart';
 import 'charts/elo_change_chart.dart';
 import 'charts/elo_chart_data.dart';
-import 'player_stats_controller.dart';
+import '../../controllers/player_stats_controller.dart';
 
 class RecentStatsPlayer extends StatelessWidget {
   final PlayerStatsController statsController;
   const RecentStatsPlayer({Key? key, required this.statsController})
       : super(key: key);
-
-  final fontSize = 14.0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,10 @@ class RecentStatsPlayer extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                _header(width),
+                StatsHeader(
+                  title: statsController.player.fullName,
+                  width: width,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Center(
@@ -40,7 +41,7 @@ class RecentStatsPlayer extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Total games played: ',
                               data:
                                   statsController.getAmountOfGames().toString(),
@@ -48,54 +49,54 @@ class RecentStatsPlayer extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Wins: ',
                               data:
                                   statsController.getAmountOfWins().toString(),
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Losses: ',
                               data: statsController
                                   .getAmountOfLosses()
                                   .toString(),
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Win rate: ',
                               data: statsController.getWinRate(),
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Singles: ',
                               data: statsController.getSingles().toString(),
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Doubles: ',
                               data: statsController.getDoubles().toString(),
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Total sets played: ',
                               data:
                                   statsController.getAmountOfSets().toString(),
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Average sets per game: ',
                               data: statsController.getAverageSets().toString(),
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Total points played: ',
                               data: statsController
                                   .getAmountOfPoints()
                                   .toString(),
                             ),
-                            _buildStatsRow(
+                            StatsRow(
                               title: 'Average points per game: ',
                               data:
                                   statsController.getAveragePoints().toString(),
@@ -104,7 +105,7 @@ class RecentStatsPlayer extends StatelessWidget {
                               height: 20,
                               child: Divider(),
                             ),
-                            _eloGains(),
+                            EloGains(statsController: statsController),
                           ],
                         ),
                       ),
@@ -115,8 +116,67 @@ class RecentStatsPlayer extends StatelessWidget {
             ),
           );
   }
+}
 
-  Row _header(double width) {
+class StatsRow extends StatelessWidget {
+  final String title;
+  final String data;
+  const StatsRow({Key? key, required this.title, required this.data})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            color: ColorConstants.textColor,
+            fontSize: 14,
+          ),
+        ),
+        Text(
+          data,
+          style: const TextStyle(
+            color: ColorConstants.secondaryTextColor,
+            fontSize: 14,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class EloGains extends StatelessWidget {
+  final PlayerStatsController statsController;
+  const EloGains({Key? key, required this.statsController}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Score change:',
+          style: TextStyle(
+            color: ColorConstants.textColor,
+            fontSize: 14,
+          ),
+        ),
+        EloChangeChart(data: EloChartData(statsController.getEloData())),
+      ],
+    );
+  }
+}
+
+class StatsHeader extends StatelessWidget {
+  final String title;
+  final double width;
+  const StatsHeader({Key? key, required this.width, required this.title})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -132,7 +192,7 @@ class RecentStatsPlayer extends StatelessWidget {
           width: 250,
           child: Center(
             child: Text(
-              statsController.player.fullName,
+              title,
               style: const TextStyle(
                 color: ColorConstants.textColor,
                 fontSize: 18,
@@ -147,43 +207,6 @@ class RecentStatsPlayer extends StatelessWidget {
             endIndent: 15,
           ),
         ),
-      ],
-    );
-  }
-
-  Row _buildStatsRow({required String title, required String data}) {
-    return Row(
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          data,
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Column _eloGains() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Score change:',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        EloChangeChart(data: EloChartData(statsController.getEloData())),
       ],
     );
   }

@@ -3,14 +3,14 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/color_constants.dart';
 
-class PlayerRankingListHeader extends StatelessWidget {
+class PlayerRankingHeader extends StatelessWidget {
   final VoidCallback onPressedPlayer;
   final VoidCallback onPressedWins;
   final VoidCallback onPressedLosses;
   final VoidCallback onPressedPlayed;
   final VoidCallback onPressedScore;
 
-  const PlayerRankingListHeader({
+  const PlayerRankingHeader({
     Key? key,
     required this.onPressedPlayer,
     required this.onPressedWins,

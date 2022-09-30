@@ -1,26 +1,32 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../protos/base.pb.dart';
-import '../../../../protos/game.pb.dart';
-import '../../../core/common/common.dart';
-import '../../../core/models/Scoreboard_match.dart';
-import '../../../core/models/update_profile_picture_params.dart';
+import '../../../protos/base.pb.dart';
+import '../../../protos/game.pb.dart';
+import '../../core/common/common.dart';
+import '../../core/models/Scoreboard_match.dart';
+import '../../core/models/update_profile_picture_params.dart';
+import '../providers/players_providers.dart';
 
-class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
+class PlayersController extends StateNotifier<List<PlayerModel>> {
   final UseCase getPlayersUseCase;
   final UseCase registerNewPlayerUseCase;
   final UseCase updatePlayerUseCase;
   final UseCase updateProfilePictureUseCase;
   final Reader read;
-  bool isLoading = false;
 
-  PlayersNotifier(
+  PlayersController(
     this.getPlayersUseCase,
     this.registerNewPlayerUseCase,
     this.updatePlayerUseCase,
     this.updateProfilePictureUseCase,
     this.read,
-  ) : super([]);
+  ) : super([]) {
+    fetchPlayers();
+  }
+
+  void _setLoading(bool value) {
+    read(playersLoadingProvider.notifier).update((state) => value);
+  }
 
   void addPlayer(PlayerModel player) async {
     // if (state.isEmpty) {
@@ -34,7 +40,8 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
         orElse: () => BlankPlayerModel.player);
   }
 
-  Future<bool> fetchPlayers() async {
+  Future<void> fetchPlayers() async {
+    _setLoading(true);
     await getPlayersUseCase(params: EmptyParams()).then((value) => {
           if (value is DataSuccess)
             {
@@ -46,13 +53,16 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
             }
         });
     _sortByLastActivity();
-
-    return true;
+    _setLoading(false);
   }
 
   void _sortByLastActivity() {
     state.sort((a, b) =>
         b.lastActivity.toDateTime().compareTo(a.lastActivity.toDateTime()));
+  }
+
+  void _sortByScore() {
+    state.sort((a, b) => b.totalScore.compareTo(a.totalScore));
   }
 
   Future<DataState<String>> createPlayer(PlayerModel player) async {
@@ -65,20 +75,11 @@ class PlayersNotifier extends StateNotifier<List<PlayerModel>> {
   }
 
   Future<List<PlayerModel>> getTopRanks() async {
-    List<PlayerModel> topRanked = [];
     const amountOfPlayersToGrab = 20;
 
-    await getPlayersUseCase(params: EmptyParams()).then((value) => {
-          if (value is DataSuccess)
-            {
-              topRanked = value.data!,
-            }
-          else
-            {}
-        });
-    topRanked.sort((a, b) => b.totalScore.compareTo(a.totalScore));
+    _sortByScore();
 
-    return topRanked
+    return state
         .where((p) => p.win + p.loss > 0)
         .take(amountOfPlayersToGrab)
         .toList();

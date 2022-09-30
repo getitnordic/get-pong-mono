@@ -1,6 +1,6 @@
 import '../../../../protos/base.pbgrpc.dart';
 import '../../../core/common/common.dart';
-import '../../clients/clients.dart';
+import '../../repositories/repositories.dart';
 
 class GetPlayersUseCase
     implements UseCase<DataState<List<PlayerModel>>, EmptyParams> {

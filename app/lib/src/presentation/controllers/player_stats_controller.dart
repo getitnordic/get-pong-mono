@@ -1,7 +1,7 @@
-import '../../../../protos/base.pb.dart';
-import '../../../../protos/game.pb.dart';
-import '../../../../protos/result.pb.dart';
-import '../../../../utils/extensions/compare_date.dart';
+import '../../../protos/base.pb.dart';
+import '../../../protos/game.pb.dart';
+import '../../../protos/result.pb.dart';
+import '../../../utils/extensions/compare_date.dart';
 
 class PlayerStatsController {
   final PlayerModel player;

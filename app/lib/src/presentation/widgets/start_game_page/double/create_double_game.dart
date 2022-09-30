@@ -8,9 +8,9 @@ import '../../../../../enums/match_type.dart';
 import '../../../../../enums/player_select_choice.dart';
 import '../../../../../utils/mixins/format_date_mixin.dart';
 import '../../../../../utils/mixins/set_profile_image_mixin.dart';
-import '../../../../Presentation/providers/selected_players/selected_players_providers.dart';
 import '../../../../core/models/score_page_arguments.dart';
-import '../../../providers/players/players_providers.dart';
+import '../../../providers/players_providers.dart';
+import '../../../providers/selected_players_providers.dart';
 import '../../my_profile_image.dart';
 import '../../widgets.dart';
 import '../vs_bar.dart';
@@ -23,25 +23,10 @@ class CreateDoubleGame extends ConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final playersNotifier = ref.watch(playersProvider.notifier);
-    final isAllSelected =
-        ref.watch(selectedPlayersProvider)[0].nickname.isNotEmpty &&
-            ref.watch(selectedPlayersProvider)[1].nickname.isNotEmpty &&
-            ref.watch(selectedPlayersProvider)[2].nickname.isNotEmpty &&
-            ref.watch(selectedPlayersProvider)[3].nickname.isNotEmpty;
-    bool duplicatesDoesNotExist() {
-      final players = ref.watch(selectedPlayersProvider);
-      final newPlayers = ref.watch(selectedPlayersProvider).toSet().toList();
-      if (players.length == newPlayers.length) {
-        return true;
-      }
-      return false;
-    }
+    final screenHeight = MediaQuery.of(context).size.height;
 
-    double height(BuildContext context) => MediaQuery.of(context).size.height;
     return OrientationBuilder(builder: (context, orientation) {
-      return orientation == Orientation.landscape &&
-              MediaQuery.of(context).size.height > 400
+      return orientation == Orientation.landscape && screenHeight > 400
           ?
           //Horizontal
           SingleChildScrollView(
@@ -52,78 +37,22 @@ class CreateDoubleGame extends ConsumerWidget
                   Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(top: height(context) * 0.1),
-                        child: SizedBox(
+                        padding: EdgeInsets.only(top: screenHeight * 0.1),
+                        child: const SizedBox(
                           width: 450,
-                          child: _selectPlayersDisplay(
-                            context: context,
-                            isAllSelected: isAllSelected,
-                            ref: ref,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 300,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              )),
-                              minimumSize: MaterialStateProperty.all<Size>(
-                                  const Size(300, 50)),
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color>(
-                                (Set<MaterialState> states) {
-                                  if (states.contains(MaterialState.pressed)) {
-                                    return ColorConstants.primaryColor;
-                                  } else if (states
-                                      .contains(MaterialState.disabled)) {
-                                    return ColorConstants.disabledButtonColor;
-                                  }
-                                  return ColorConstants.primaryColor;
-                                },
-                              ),
-                            ),
-                            onPressed: isAllSelected && duplicatesDoesNotExist()
-                                ? () {
-                                    final arguments = ScorePageArguments(
-                                      players:
-                                          ref.watch(selectedPlayersProvider),
-                                      matchType: MatchType.double,
-                                    );
-                                    Navigator.pushNamed(
-                                      context,
-                                      route.scorePage,
-                                      arguments: arguments,
-                                    );
-                                  }
-                                : null,
-                            child: Text(
-                              'Start Game',
-                              style: GoogleFonts.goldman(
-                                fontSize: 20,
-                                color: ColorConstants.textColor,
-                              ),
-                            ),
-                          ),
+                          child: SelectedPlayersDisplayDoubles(),
                         ),
                       ),
                     ],
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20),
-                        child: _buildHorizontalPlayerListContainer(
-                          context: context,
-                          ref: ref,
-                        ),
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: CustomSmallContainer(
+                      height: screenHeight * 0.65,
+                      width: 400,
+                      child: LatestPlayersListViewDoubles(
+                          orientation: orientation),
+                    ),
                   ),
                 ],
               ),
@@ -134,76 +63,52 @@ class CreateDoubleGame extends ConsumerWidget
               child: Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: height(context) * 0.1),
-                    child: _selectPlayersDisplay(
-                      ref: ref,
-                      context: context,
-                      isAllSelected: isAllSelected,
+                    padding: EdgeInsets.only(top: screenHeight * 0.1),
+                    child: const SelectedPlayersDisplayDoubles(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: CustomSmallContainer(
+                      height: 1600,
+                      width: 400,
+                      child: LatestPlayersListViewDoubles(
+                          orientation: orientation),
                     ),
                   ),
-                  SizedBox(
-                    width: 300,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          )),
-                          minimumSize: MaterialStateProperty.all<Size>(
-                              const Size(300, 50)),
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed)) {
-                                return ColorConstants.primaryColor;
-                              } else if (states
-                                  .contains(MaterialState.disabled)) {
-                                return ColorConstants.disabledButtonColor;
-                              }
-                              return ColorConstants.primaryColor;
-                            },
-                          ),
-                        ),
-                        onPressed: isAllSelected && duplicatesDoesNotExist()
-                            ? () {
-                                final arguments = ScorePageArguments(
-                                  players: ref.watch(selectedPlayersProvider),
-                                  matchType: MatchType.double,
-                                );
-                                Navigator.pushNamed(
-                                  context,
-                                  route.scorePage,
-                                  arguments: arguments,
-                                );
-                              }
-                            : null,
-                        child: Text(
-                          'Start Game',
-                          style: GoogleFonts.goldman(
-                            fontSize: 20,
-                            color: ColorConstants.textColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  _buildVerticalPlayerListContainer(ref: ref),
                 ],
               ),
             );
     });
   }
+}
 
-  Stack _selectPlayersDisplay({
-    required WidgetRef ref,
-    required BuildContext context,
-    required bool isAllSelected,
-  }) {
-    final playersNotifier = ref.watch(playersProvider.notifier);
-    final hasWidth = MediaQuery.of(context).size.width > 550;
+class SelectedPlayersDisplayDoubles extends ConsumerWidget {
+  const SelectedPlayersDisplayDoubles({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedPlayers = ref.watch(selectedPlayersProvider);
+    final playersController = ref.read(playersProvider.notifier);
+    final winProbability = ref.watch(winProbabilityProvider);
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isAllSelected = selectedPlayers[0].nickname.isNotEmpty &&
+        selectedPlayers[1].nickname.isNotEmpty &&
+        selectedPlayers[2].nickname.isNotEmpty &&
+        selectedPlayers[3].nickname.isNotEmpty;
+
+    final hasWidth = screenWidth > 550;
+    final isPhoneOrVertical = screenWidth < 1000;
+
+    bool duplicatesDoesNotExist() {
+      final players = ref.read(selectedPlayersProvider);
+      final newPlayers = ref.read(selectedPlayersProvider).toSet().toList();
+      if (players.length == newPlayers.length) {
+        return true;
+      }
+      return false;
+    }
+
     return Stack(
       children: [
         Column(
@@ -213,22 +118,17 @@ class CreateDoubleGame extends ConsumerWidget
               height: 50,
               child: TextButton(
                 onPressed: () {
-                  ref.watch(playersProvider.notifier).fetchPlayers();
-                  ref
-                      .watch(matchTypeProvider.notifier)
-                      .update((state) => state = MatchType.double);
                   Navigator.pushNamed(
                     context,
                     route.playerListPage,
                     arguments: PlayerSelectChoice.playerOne,
                   );
                 },
-                child: ref.watch(selectedPlayersProvider)[0].fullName.isEmpty
+                child: selectedPlayers[0].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 1')
                     : MyFadeTextSwitcher(
-                        text: playersNotifier
-                            .getPlayerById(
-                                ref.watch(selectedPlayersProvider)[0].id)
+                        text: playersController
+                            .getPlayerById(selectedPlayers[0].id)
                             .fullName,
                       ),
               ),
@@ -240,22 +140,17 @@ class CreateDoubleGame extends ConsumerWidget
                 height: 50,
                 child: TextButton(
                   onPressed: () {
-                    ref.watch(playersProvider.notifier).fetchPlayers();
-                    ref
-                        .watch(matchTypeProvider.notifier)
-                        .update((state) => state = MatchType.double);
                     Navigator.pushNamed(
                       context,
                       route.playerListPage,
                       arguments: PlayerSelectChoice.playerTwo,
                     );
                   },
-                  child: ref.watch(selectedPlayersProvider)[1].fullName.isEmpty
+                  child: selectedPlayers[1].fullName.isEmpty
                       ? const MyFadeTextSwitcher(text: 'Select player 2')
                       : MyFadeTextSwitcher(
-                          text: playersNotifier
-                              .getPlayerById(
-                                  ref.watch(selectedPlayersProvider)[1].id)
+                          text: playersController
+                              .getPlayerById(selectedPlayers[1].id)
                               .fullName,
                         ),
                 ),
@@ -273,22 +168,17 @@ class CreateDoubleGame extends ConsumerWidget
               height: 50,
               child: TextButton(
                 onPressed: () {
-                  ref.watch(playersProvider.notifier).fetchPlayers();
-                  ref
-                      .watch(matchTypeProvider.notifier)
-                      .update((state) => state = MatchType.double);
                   Navigator.pushNamed(
                     context,
                     route.playerListPage,
                     arguments: PlayerSelectChoice.playerThree,
                   );
                 },
-                child: ref.watch(selectedPlayersProvider)[2].fullName.isEmpty
+                child: selectedPlayers[2].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 3')
                     : MyFadeTextSwitcher(
-                        text: playersNotifier
-                            .getPlayerById(
-                                ref.watch(selectedPlayersProvider)[2].id)
+                        text: playersController
+                            .getPlayerById(selectedPlayers[2].id)
                             .fullName,
                       ),
               ),
@@ -300,24 +190,65 @@ class CreateDoubleGame extends ConsumerWidget
                 height: 50,
                 child: TextButton(
                   onPressed: () {
-                    ref.watch(playersProvider.notifier).fetchPlayers();
-                    ref
-                        .watch(matchTypeProvider.notifier)
-                        .update((state) => state = MatchType.double);
                     Navigator.pushNamed(
                       context,
                       route.playerListPage,
                       arguments: PlayerSelectChoice.playerFour,
                     );
                   },
-                  child: ref.watch(selectedPlayersProvider)[3].fullName.isEmpty
+                  child: selectedPlayers[3].fullName.isEmpty
                       ? const MyFadeTextSwitcher(text: 'Select player 4')
                       : MyFadeTextSwitcher(
-                          text: playersNotifier
-                              .getPlayerById(
-                                  ref.watch(selectedPlayersProvider)[3].id)
+                          text: playersController
+                              .getPlayerById(selectedPlayers[3].id)
                               .fullName,
                         ),
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 300,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    )),
+                    minimumSize:
+                        MaterialStateProperty.all<Size>(const Size(300, 50)),
+                    backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return ColorConstants.primaryColor;
+                        } else if (states.contains(MaterialState.disabled)) {
+                          return ColorConstants.disabledButtonColor;
+                        }
+                        return ColorConstants.primaryColor;
+                      },
+                    ),
+                  ),
+                  onPressed: isAllSelected && duplicatesDoesNotExist()
+                      ? () {
+                          final arguments = ScorePageArguments(
+                            players: selectedPlayers,
+                            matchType: MatchType.double,
+                          );
+                          Navigator.pushNamed(
+                            context,
+                            route.scorePage,
+                            arguments: arguments,
+                          );
+                        }
+                      : null,
+                  child: Text(
+                    'Start Game',
+                    style: GoogleFonts.goldman(
+                      fontSize: 20,
+                      color: ColorConstants.textColor,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -325,28 +256,27 @@ class CreateDoubleGame extends ConsumerWidget
         ),
         isAllSelected && hasWidth
             ? Positioned(
-                right: 0,
+                right: isPhoneOrVertical ? 35 : 0,
                 top: 32,
                 child: CustomSmallContainer(
                   height: 50,
                   width: 60,
                   child: MyFadeTextSwitcher(
-                    text:
-                        '${ref.watch(winProbabilityProvider).toStringAsFixed(2).split('.')[1]}%',
+                    text: '${winProbability.toStringAsFixed(2).split('.')[1]}%',
                   ),
                 ),
               )
             : const SizedBox.shrink(),
         isAllSelected && hasWidth
             ? Positioned(
-                right: 0,
+                right: isPhoneOrVertical ? 35 : 0,
                 top: 215,
                 child: CustomSmallContainer(
                   height: 50,
                   width: 60,
                   child: MyFadeTextSwitcher(
                     text:
-                        '${(1 - ref.watch(winProbabilityProvider)).toStringAsFixed(2).split('.')[1]}%',
+                        '${(1 - winProbability).toStringAsFixed(2).split('.')[1]}%',
                   ),
                 ),
               )
@@ -354,380 +284,157 @@ class CreateDoubleGame extends ConsumerWidget
       ],
     );
   }
+}
 
-  Padding _buildVerticalPlayerListContainer({required WidgetRef ref}) {
-    return ref.watch(fetchPlayersProvider).when(
-          data: (_) {
-            final players =
-                ref.watch(playersProvider.notifier).getLatestPlayers();
-            return Padding(
-              padding: const EdgeInsets.only(top: 40),
-              child: CustomSmallContainer(
-                height: 1600,
-                width: 400,
-                child: ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: players.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        route.profilePage,
-                        arguments: players[index],
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+class LatestPlayersListViewDoubles extends ConsumerWidget with FormatDateMixin {
+  final Orientation orientation;
+  const LatestPlayersListViewDoubles({Key? key, required this.orientation})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final playersController = ref.read(playersProvider.notifier);
+    final selectedPlayersController =
+        ref.read(selectedPlayersProvider.notifier);
+    final isLoading = ref.watch(playersLoadingProvider);
+
+    final players = playersController.getLatestPlayers();
+
+    return isLoading
+        ? const Center(child: CircularProgressIndicator())
+        : ListView.builder(
+            physics: orientation == Orientation.portrait
+                ? const NeverScrollableScrollPhysics()
+                : null,
+            itemCount: players.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  route.profilePage,
+                  arguments: players[index],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 220,
+                            child: Row(
                               children: [
-                                SizedBox(
-                                  width: 220,
-                                  child: Row(
-                                    children: [
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 10),
-                                        child: MyProfileImage(
-                                          playerId: players[index].id,
-                                          size: 30,
-                                        ),
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            players[index].fullName,
-                                            style: GoogleFonts.goldman(
-                                              fontSize: 14,
-                                              color: ColorConstants.textColor,
-                                            ),
-                                          ),
-                                          Text(
-                                            formatDate(
-                                              players[index]
-                                                  .lastActivity
-                                                  .toDateTime(),
-                                            ),
-                                            style: GoogleFonts.goldman(
-                                              fontSize: 11,
-                                              color: ColorConstants
-                                                  .secondaryTextColor,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: MyProfileImage(
+                                    playerId: playersController
+                                        .getLatestPlayers()[index]
+                                        .id,
+                                    size: 30,
                                   ),
                                 ),
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: CustomSmallContainer(
-                                            height: 30,
-                                            width: 50,
-                                            child: TextButton(
-                                              style: TextButton.styleFrom(
-                                                foregroundColor:
-                                                    ColorConstants.textColor,
-                                                textStyle: GoogleFonts.goldman(
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                ref
-                                                    .watch(matchTypeProvider
-                                                        .notifier)
-                                                    .update((state) => state =
-                                                        MatchType.double);
-                                                ref
-                                                    .watch(
-                                                        selectedPlayersProvider
-                                                            .notifier)
-                                                    .setPlayer(
-                                                      player: players[index],
-                                                      playerSelectChoice:
-                                                          PlayerSelectChoice
-                                                              .playerOne,
-                                                    );
-                                              },
-                                              child: Text(
-                                                '# 1',
-                                                style: GoogleFonts.goldman(
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        CustomSmallContainer(
-                                          height: 30,
-                                          width: 50,
-                                          child: TextButton(
-                                            style: TextButton.styleFrom(
-                                              foregroundColor:
-                                                  ColorConstants.textColor,
-                                              textStyle: GoogleFonts.goldman(
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              ref
-                                                  .watch(matchTypeProvider
-                                                      .notifier)
-                                                  .update((state) =>
-                                                      state = MatchType.double);
-                                              ref
-                                                  .watch(selectedPlayersProvider
-                                                      .notifier)
-                                                  .setPlayer(
-                                                    player: players[index],
-                                                    playerSelectChoice:
-                                                        PlayerSelectChoice
-                                                            .playerTwo,
-                                                  );
-                                            },
-                                            child: Text(
-                                              '# 2',
-                                              style: GoogleFonts.goldman(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    Text(
+                                      playersController
+                                          .getLatestPlayers()[index]
+                                          .fullName,
+                                      style: GoogleFonts.goldman(
+                                        fontSize: 14,
+                                        color: ColorConstants.textColor,
+                                      ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 8),
-                                      child: Row(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8),
-                                            child: CustomSmallContainer(
-                                              height: 30,
-                                              width: 50,
-                                              child: TextButton(
-                                                style: TextButton.styleFrom(
-                                                  foregroundColor:
-                                                      ColorConstants.textColor,
-                                                  textStyle:
-                                                      GoogleFonts.goldman(
-                                                    fontSize: 20,
-                                                  ),
-                                                ),
-                                                onPressed: () {
-                                                  ref
-                                                      .watch(matchTypeProvider
-                                                          .notifier)
-                                                      .update((state) => state =
-                                                          MatchType.double);
-                                                  ref
-                                                      .watch(
-                                                          selectedPlayersProvider
-                                                              .notifier)
-                                                      .setPlayer(
-                                                        player: players[index],
-                                                        playerSelectChoice:
-                                                            PlayerSelectChoice
-                                                                .playerThree,
-                                                      );
-                                                },
-                                                child: Text(
-                                                  '# 3',
-                                                  style: GoogleFonts.goldman(
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          CustomSmallContainer(
-                                            height: 30,
-                                            width: 50,
-                                            child: TextButton(
-                                              style: TextButton.styleFrom(
-                                                foregroundColor:
-                                                    ColorConstants.textColor,
-                                                textStyle: GoogleFonts.goldman(
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                ref
-                                                    .watch(matchTypeProvider
-                                                        .notifier)
-                                                    .update((state) => state =
-                                                        MatchType.double);
-                                                ref
-                                                    .watch(
-                                                        selectedPlayersProvider
-                                                            .notifier)
-                                                    .setPlayer(
-                                                      player: players[index],
-                                                      playerSelectChoice:
-                                                          PlayerSelectChoice
-                                                              .playerFour,
-                                                    );
-                                              },
-                                              child: Text(
-                                                '# 4',
-                                                style: GoogleFonts.goldman(
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                    Text(
+                                      formatDate(
+                                        playersController
+                                            .getLatestPlayers()[index]
+                                            .lastActivity
+                                            .toDateTime(),
+                                      ),
+                                      style: GoogleFonts.goldman(
+                                        fontSize: 11,
+                                        color:
+                                            ColorConstants.secondaryTextColor,
                                       ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                            if (index != players.length - 1)
-                              const Divider(
-                                height: 1,
-                                indent: 13,
-                                endIndent: 13,
-                              ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
-          },
-          error: ((error, stackTrace) => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Error: $error'),
-              )),
-          loading: () => const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        );
-  }
-
-  CustomSmallContainer _buildHorizontalPlayerListContainer({
-    required BuildContext context,
-    required WidgetRef ref,
-  }) {
-    double height(BuildContext context) => MediaQuery.of(context).size.height;
-    return CustomSmallContainer(
-      height: height(context) * 0.65,
-      width: 400,
-      child: ref.watch(fetchPlayersProvider).when(
-            data: (_) {
-              final players =
-                  ref.watch(playersProvider.notifier).getLatestPlayers();
-              return ListView.builder(
-                itemCount: players.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      route.profilePage,
-                      arguments: players[index],
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          ),
+                          Column(
                             children: [
-                              SizedBox(
-                                width: 220,
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: CustomSmallContainer(
+                                      height: 30,
+                                      width: 50,
+                                      child: TextButton(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor:
+                                              ColorConstants.textColor,
+                                          textStyle: GoogleFonts.goldman(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          selectedPlayersController.setPlayer(
+                                            player: playersController
+                                                .getLatestPlayers()[index],
+                                            playerSelectChoice:
+                                                PlayerSelectChoice.playerOne,
+                                          );
+                                        },
+                                        child: Text(
+                                          '# 1',
+                                          style: GoogleFonts.goldman(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  CustomSmallContainer(
+                                    height: 30,
+                                    width: 50,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor:
+                                            ColorConstants.textColor,
+                                        textStyle: GoogleFonts.goldman(
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        selectedPlayersController.setPlayer(
+                                          player: playersController
+                                              .getLatestPlayers()[index],
+                                          playerSelectChoice:
+                                              PlayerSelectChoice.playerTwo,
+                                        );
+                                      },
+                                      child: Text(
+                                        '# 2',
+                                        style: GoogleFonts.goldman(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 8),
                                 child: Row(
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: MyProfileImage(
-                                        playerId: players[index].id,
-                                        size: 30,
-                                      ),
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          players[index].fullName,
-                                          style: GoogleFonts.goldman(
-                                            fontSize: 14,
-                                            color: ColorConstants.textColor,
-                                          ),
-                                        ),
-                                        Text(
-                                          formatDate(
-                                            players[index]
-                                                .lastActivity
-                                                .toDateTime(),
-                                          ),
-                                          style: GoogleFonts.goldman(
-                                            fontSize: 11,
-                                            color: ColorConstants
-                                                .secondaryTextColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8),
-                                        child: CustomSmallContainer(
-                                          height: 30,
-                                          width: 50,
-                                          child: TextButton(
-                                            style: TextButton.styleFrom(
-                                              foregroundColor:
-                                                  ColorConstants.textColor,
-                                              textStyle: GoogleFonts.goldman(
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              ref
-                                                  .watch(matchTypeProvider
-                                                      .notifier)
-                                                  .update((state) =>
-                                                      state = MatchType.double);
-                                              ref
-                                                  .watch(selectedPlayersProvider
-                                                      .notifier)
-                                                  .setPlayer(
-                                                    player: players[index],
-                                                    playerSelectChoice:
-                                                        PlayerSelectChoice
-                                                            .playerOne,
-                                                  );
-                                            },
-                                            child: Text(
-                                              '# 1',
-                                              style: GoogleFonts.goldman(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      CustomSmallContainer(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: CustomSmallContainer(
                                         height: 30,
                                         width: 50,
                                         child: TextButton(
@@ -739,135 +446,68 @@ class CreateDoubleGame extends ConsumerWidget
                                             ),
                                           ),
                                           onPressed: () {
-                                            ref
-                                                .watch(
-                                                    matchTypeProvider.notifier)
-                                                .update((state) =>
-                                                    state = MatchType.double);
-                                            ref
-                                                .watch(selectedPlayersProvider
-                                                    .notifier)
-                                                .setPlayer(
-                                                  player: players[index],
-                                                  playerSelectChoice:
-                                                      PlayerSelectChoice
-                                                          .playerTwo,
-                                                );
+                                            selectedPlayersController.setPlayer(
+                                              player: playersController
+                                                  .getLatestPlayers()[index],
+                                              playerSelectChoice:
+                                                  PlayerSelectChoice
+                                                      .playerThree,
+                                            );
                                           },
                                           child: Text(
-                                            '# 2',
+                                            '# 3',
                                             style: GoogleFonts.goldman(
                                               fontSize: 14,
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(bottom: 8),
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 8),
-                                          child: CustomSmallContainer(
-                                            height: 30,
-                                            width: 50,
-                                            child: TextButton(
-                                              style: TextButton.styleFrom(
-                                                foregroundColor:
-                                                    ColorConstants.textColor,
-                                                textStyle: GoogleFonts.goldman(
-                                                  fontSize: 20,
-                                                ),
-                                              ),
-                                              onPressed: () {
-                                                ref
-                                                    .watch(matchTypeProvider
-                                                        .notifier)
-                                                    .update((state) => state =
-                                                        MatchType.double);
-                                                ref
-                                                    .watch(
-                                                        selectedPlayersProvider
-                                                            .notifier)
-                                                    .setPlayer(
-                                                      player: players[index],
-                                                      playerSelectChoice:
-                                                          PlayerSelectChoice
-                                                              .playerThree,
-                                                    );
-                                              },
-                                              child: Text(
-                                                '# 3',
-                                                style: GoogleFonts.goldman(
-                                                  fontSize: 14,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        CustomSmallContainer(
-                                          height: 30,
-                                          width: 50,
-                                          child: TextButton(
-                                            style: TextButton.styleFrom(
-                                              foregroundColor:
-                                                  ColorConstants.textColor,
-                                              textStyle: GoogleFonts.goldman(
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              ref
-                                                  .watch(matchTypeProvider
-                                                      .notifier)
-                                                  .update((state) =>
-                                                      state = MatchType.double);
-                                              ref
-                                                  .watch(selectedPlayersProvider
-                                                      .notifier)
-                                                  .setPlayer(
-                                                    player: players[index],
-                                                    playerSelectChoice:
-                                                        PlayerSelectChoice
-                                                            .playerFour,
-                                                  );
-                                            },
-                                            child: Text(
-                                              '# 4',
-                                              style: GoogleFonts.goldman(
-                                                fontSize: 14,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
                                     ),
-                                  ),
-                                ],
+                                    CustomSmallContainer(
+                                      height: 30,
+                                      width: 50,
+                                      child: TextButton(
+                                        style: TextButton.styleFrom(
+                                          foregroundColor:
+                                              ColorConstants.textColor,
+                                          textStyle: GoogleFonts.goldman(
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                        onPressed: () {
+                                          selectedPlayersController.setPlayer(
+                                            player: playersController
+                                                .getLatestPlayers()[index],
+                                            playerSelectChoice:
+                                                PlayerSelectChoice.playerFour,
+                                          );
+                                        },
+                                        child: Text(
+                                          '# 4',
+                                          style: GoogleFonts.goldman(
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                          if (index != players.length - 1)
-                            const Divider(
-                              height: 1,
-                              indent: 13,
-                              endIndent: 13,
-                            ),
                         ],
                       ),
-                    ),
-                  );
-                },
+                      if (index != players.length - 1)
+                        const Divider(
+                          height: 1,
+                          indent: 13,
+                          endIndent: 13,
+                        ),
+                    ],
+                  ),
+                ),
               );
             },
-            error: ((error, stackTrace) => Text('Error: $error')),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-    );
+          );
   }
 }

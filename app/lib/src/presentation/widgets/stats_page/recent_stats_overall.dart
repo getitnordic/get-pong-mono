@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants/color_constants.dart';
+import '../../../core/common/day.dart';
+import '../../../core/models/player_stat.dart';
+import '../../controllers/result_stats_controller.dart';
 import '../widgets.dart';
 import 'charts/days_played_chart.dart';
 import 'charts/my_bar_chart.dart';
-import 'result_stats_controller.dart';
+import 'recent_stats_player.dart';
 
 class RecentStatsOverall extends StatelessWidget {
   final ResultStatsController statsController;
   const RecentStatsOverall({Key? key, required this.statsController})
       : super(key: key);
 
-  final fontSize = 14.0;
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -24,7 +26,10 @@ class RecentStatsOverall extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                _header(width),
+                StatsHeader(
+                  title: 'Last 30 days',
+                  width: width,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 15),
                   child: Center(
@@ -39,43 +44,84 @@ class RecentStatsOverall extends StatelessWidget {
                             const SizedBox(
                               height: 5,
                             ),
-                            _gamesPlayedTotal(),
-                            _singlesPlayed(),
-                            _doublesPlayed(),
+                            StatsRow(
+                              title: 'Total games played: ',
+                              data:
+                                  statsController.getAmountOfGames().toString(),
+                            ),
+                            StatsRow(
+                              title: 'Singles ',
+                              data: statsController.getSingles().toString(),
+                            ),
+                            StatsRow(
+                              title: 'Doubles ',
+                              data: statsController.getDoubles().toString(),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _playersParticipating(),
+                            StatsRow(
+                              title: 'Number of players: ',
+                              data: statsController.getPlayerCount().toString(),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _setsPlayedTotal(),
-                            _averageSetsPerGame(),
+                            StatsRow(
+                              title: 'Total sets played: ',
+                              data:
+                                  statsController.getAmountOfSets().toString(),
+                            ),
+                            StatsRow(
+                              title: 'Average sets per game: ',
+                              data: statsController.getAverageSets().toString(),
+                            ),
                             const SizedBox(
                               height: 10,
                             ),
-                            _pointsPlayedTotal(),
-                            _averagePointsPerGame(),
+                            StatsRow(
+                              title: 'Total points played: ',
+                              data: statsController
+                                  .getAmountOfPoints()
+                                  .toString(),
+                            ),
+                            StatsRow(
+                              title: 'Average points per game: ',
+                              data:
+                                  statsController.getAveragePoints().toString(),
+                            ),
                             const SizedBox(
                               height: 20,
                               child: Divider(),
                             ),
-                            _playersWithMostEloGained(),
+                            BarChartColumn(
+                              title: 'Most score gained:',
+                              players:
+                                  statsController.playersWithMostEloGained(),
+                            ),
                             const SizedBox(
                               height: 20,
                               child: Divider(),
                             ),
-                            _playersWithMostGames(),
+                            BarChartColumn(
+                              title: 'Most games played:',
+                              players: statsController.playersWithMostGames(),
+                            ),
                             const SizedBox(
                               height: 20,
                               child: Divider(),
                             ),
-                            _playersWithMostWins(),
+                            BarChartColumn(
+                              title: 'Most wins:',
+                              players: statsController.playersWithMostWins(),
+                            ),
                             const SizedBox(
                               height: 20,
                               child: Divider(),
                             ),
-                            _gamesPlayedByDay(),
+                            DaysChartColumn(
+                                title: 'Games played per weekday:',
+                                days: statsController.getAmountOfGamesPerDay()),
                           ],
                         ),
                       ),
@@ -86,287 +132,56 @@ class RecentStatsOverall extends StatelessWidget {
             ),
           );
   }
+}
 
-  Row _header(double width) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          width: width < 500 ? 50 : 100,
-          child: const Divider(
-            indent: 15,
-            endIndent: 15,
-          ),
-        ),
-        const CustomSmallContainer(
-          height: 40,
-          width: 200,
-          child: Center(
-            child: Text(
-              'Last 30 days',
-              style: TextStyle(
-                color: ColorConstants.textColor,
-                fontSize: 24,
-              ),
-            ),
-          ),
-        ),
-        SizedBox(
-          width: width < 500 ? 50 : 100,
-          child: const Divider(
-            indent: 15,
-            endIndent: 15,
-          ),
-        ),
-      ],
-    );
-  }
+class BarChartColumn extends StatelessWidget {
+  final String title;
+  final List<PlayerStat> players;
+  const BarChartColumn({Key? key, required this.title, required this.players})
+      : super(key: key);
 
-  Row _gamesPlayedTotal() {
-    return Row(
-      children: [
-        Text(
-          'Total games played: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAmountOfGames().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _playersParticipating() {
-    return Row(
-      children: [
-        Text(
-          'Number of players: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getPlayerCount().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _singlesPlayed() {
-    return Row(
-      children: [
-        Text(
-          'Singles: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getSingles().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _doublesPlayed() {
-    return Row(
-      children: [
-        Text(
-          'Doubles: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getDoubles().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _setsPlayedTotal() {
-    return Row(
-      children: [
-        Text(
-          'Total sets played: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAmountOfSets().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _pointsPlayedTotal() {
-    return Row(
-      children: [
-        Text(
-          'Total points played: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAmountOfPoints().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _averageSetsPerGame() {
-    return Row(
-      children: [
-        Text(
-          'Average sets per game: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAverageSets().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row _averagePointsPerGame() {
-    return Row(
-      children: [
-        Text(
-          'Average points per game: ',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        Text(
-          statsController.getAveragePoints().toString(),
-          style: TextStyle(
-            color: ColorConstants.secondaryTextColor,
-            fontSize: fontSize,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Column _gamesPlayedByDay() {
-    final days = statsController.getAmountOfGamesPerDay();
-
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Games played per weekday:',
-          style: TextStyle(
+          title,
+          style: const TextStyle(
             color: ColorConstants.textColor,
-            fontSize: fontSize,
+            fontSize: 14,
+          ),
+        ),
+        const SizedBox(
+          height: 40,
+        ),
+        MyBarChart(players: players),
+      ],
+    );
+  }
+}
+
+class DaysChartColumn extends StatelessWidget {
+  final String title;
+  final List<Day> days;
+  const DaysChartColumn({Key? key, required this.title, required this.days})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+            color: ColorConstants.textColor,
+            fontSize: 14,
           ),
         ),
         DaysPlayedChart(
           days: days,
         ),
-      ],
-    );
-  }
-
-  Column _playersWithMostGames() {
-    final players = statsController.playersWithMostGames();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Most games played:',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        MyBarChart(players: players),
-      ],
-    );
-  }
-
-  Column _playersWithMostWins() {
-    final players = statsController.playersWithMostWins();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Most wins:',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        MyBarChart(players: players),
-      ],
-    );
-  }
-
-  Column _playersWithMostEloGained() {
-    final players = statsController.playersWithMostEloGained();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Most score gained:',
-          style: TextStyle(
-            color: ColorConstants.textColor,
-            fontSize: fontSize,
-          ),
-        ),
-        const SizedBox(
-          height: 40,
-        ),
-        MyBarChart(players: players),
       ],
     );
   }

@@ -15,7 +15,6 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   google_fonts: ^2.3.1
-  flutter_riverpod: ^2.0.0-dev.5
   glassmorphism: ^3.0.0
   protobuf: ^2.0.1
   grpc: ^3.0.2
@@ -25,6 +24,9 @@ dependencies:
   fl_chart: ^0.55.1
   firebase_messaging: ^13.0.3
   firebase_core: ^1.23.0
+  auto_size_text: ^3.0.0
+  flutter_riverpod: ^1.0.4
+  
   
 
 dev_dependencies:      

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../Presentation/widgets/scoreboard/game_list_view.dart';
-import '../../providers/games/games_providers.dart';
+import '../../providers/games_providers.dart';
 
 
 class Scoreboard extends ConsumerWidget {

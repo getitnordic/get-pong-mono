@@ -1,6 +1,6 @@
 import '../../../../protos/protos.dart';
 import '../../../core/common/common.dart';
-import '../../clients/result_repository.dart';
+import '../../repositories/result_repository.dart';
 
 class GetResultsByPlayerIdUseCase
     implements UseCase<DataState<List<ResultModel>>, String> {

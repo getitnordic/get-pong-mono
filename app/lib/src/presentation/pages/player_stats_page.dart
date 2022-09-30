@@ -4,7 +4,7 @@ import 'package:get_pong/src/presentation/providers/stats_data_providers.dart';
 
 import '../../../protos/protos.dart';
 
-import '../widgets/stats_page/player_stats_controller.dart';
+import '../controllers/player_stats_controller.dart';
 import '../widgets/stats_page/recent_stats_player.dart';
 
 class PlayerStatsPage extends ConsumerWidget {
@@ -13,11 +13,12 @@ class PlayerStatsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final fetchPlayerStats = ref.watch(playerStatsDataProvider(player.id));
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Last 30 days.')),
       ),
-      body: ref.watch(playerStatsDataProvider(player.id)).when(
+      body: fetchPlayerStats.when(
             data: (data) {
               return RecentStatsPlayer(
                 statsController: PlayerStatsController(

@@ -1,16 +1,18 @@
-import '../../../../../enums/team.dart';
-import '../../../../../protos/base.pb.dart';
-import '../../../../../protos/game.pb.dart';
-import '../../../../core/models/match_result.dart';
 
-class ScoreboardController {
+
+import '../../../enums/team.dart';
+import '../../../protos/base.pb.dart';
+import '../../../protos/game.pb.dart';
+import '../models/match_result.dart';
+
+class ScoreChecker {
   final PlayerModel homeTeamOne;
   final PlayerModel homeTeamTwo;
   final PlayerModel awayTeamOne;
   final PlayerModel awayTeamTwo;
   final GameModel match;
 
-  ScoreboardController({
+  ScoreChecker({
     required this.homeTeamOne,
     required this.homeTeamTwo,
     required this.awayTeamOne,

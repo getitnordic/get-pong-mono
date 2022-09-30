@@ -19,31 +19,33 @@ class SelectPlayerListPlayer extends ConsumerWidget with SetProfileImageMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: CustomSmallContainer(
-        width: double.infinity,
-        height: 50,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                  child: MyProfileImage(
-                    playerId: player.id,
-                    size: 25,
+      child: SizedBox(
+        child: CustomSmallContainer(
+          width: double.infinity,
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: MyProfileImage(
+                      playerId: player.id,
+                      size: 25,
+                    ),
                   ),
-                ),
-                Text(
-                  player.fullName,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: ColorConstants.textColor,
+                  Text(
+                    player.fullName,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: ColorConstants.textColor,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

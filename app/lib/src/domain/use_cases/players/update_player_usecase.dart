@@ -1,6 +1,6 @@
 import '../../../../protos/protos.dart';
 import '../../../core/common/common.dart';
-import '../../clients/clients.dart';
+import '../../repositories/repositories.dart';
 
 class UpdatePlayerUseCase
     implements UseCase<DataState<PlayerModel>, PlayerModel> {
