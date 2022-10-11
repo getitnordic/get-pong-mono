@@ -62,7 +62,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
     //TODO: If adding iOS functionality request permissions and check AuthorizationStatus == Authorized
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('MESSAGE NOTIFICATION: ${message.notification}');
+      print('MESSAGE NOTIFICATION: ${message.notification!.title}');
       print('MESSAGE DATA: ${message.data}');
       final scoreNotifier = ref.read(scoreProvider.notifier);
       final scoreNotification = ScoreNotification.fromMap(message.data);
