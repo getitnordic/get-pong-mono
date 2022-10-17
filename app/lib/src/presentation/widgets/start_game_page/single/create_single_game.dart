@@ -88,6 +88,8 @@ class SelectedPlayersDisplay extends ConsumerWidget {
     final hasWidth = screenWidth > 550;
     final isPhoneOrVertical = screenWidth < 1000;
 
+    print(selectedPlayers[0].fullName);
+
     return Stack(
       children: [
         Column(
@@ -105,10 +107,7 @@ class SelectedPlayersDisplay extends ConsumerWidget {
                 },
                 child: selectedPlayers[0].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 1')
-                    : MyFadeTextSwitcher(
-                        text: playersController
-                            .getPlayerById(selectedPlayers[0].id)
-                            .fullName),
+                    : MyFadeTextSwitcher(text: selectedPlayers[0].fullName),
               ),
             ),
             const SizedBox(
@@ -131,10 +130,7 @@ class SelectedPlayersDisplay extends ConsumerWidget {
                 },
                 child: selectedPlayers[1].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 2')
-                    : MyFadeTextSwitcher(
-                        text: playersController
-                            .getPlayerById(selectedPlayers[1].id)
-                            .fullName),
+                    : MyFadeTextSwitcher(text: selectedPlayers[1].fullName),
               ),
             ),
             SizedBox(

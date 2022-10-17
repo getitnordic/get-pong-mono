@@ -45,91 +45,100 @@ class _GameListViewState extends ConsumerState<GameListView> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final playersNotifier = ref.read(playersProvider.notifier);
+    final players = ref.watch(playerListProvider);
 
-    return Stack(
-      children: [
-        Center(
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Matches',
-                  style: TextStyle(
-                    color: ColorConstants.textColor,
-                    fontSize: 35,
+    return players.when(
+      data: (players) {
+        return Stack(
+          children: [
+            Center(
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Matches',
+                      style: TextStyle(
+                        color: ColorConstants.textColor,
+                        fontSize: 35,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Flexible(
-                child: NotificationListener(
-                  onNotification: (ScrollNotification scrollInfo) {
-                    if (scrollInfo is ScrollStartNotification) {
-                      if (scrollInfo.metrics.pixels == 0 &&
-                          scrollInfo.metrics.atEdge) {}
-                    }
-                    if (scrollInfo is ScrollEndNotification && !allIsLoaded) {
-                      if (scrollInfo.metrics.pixels > 0 &&
-                          scrollInfo.metrics.atEdge) {
-                        _loadMoreGames();
-                      }
-                    }
-                    return false;
-                  },
-                  child: ListView.builder(
-                    addAutomaticKeepAlives: true,
-                    shrinkWrap: true,
-                    itemCount: matches.length,
-                    itemBuilder: (context, index) {
-                      final isDouble = matches[index].homeTeamIds.length == 2;
-                      final controller = ScoreChecker(
-                        homeTeamOne: playersNotifier
-                            .getPlayerById(matches[index].homeTeamIds[0]),
-                        awayTeamOne: playersNotifier
-                            .getPlayerById(matches[index].awayTeamIds[0]),
-                        homeTeamTwo: isDouble
-                            ? playersNotifier
-                                .getPlayerById(matches[index].homeTeamIds[1])
-                            : BlankPlayerModel.player,
-                        awayTeamTwo: isDouble
-                            ? playersNotifier
-                                .getPlayerById(matches[index].awayTeamIds[1])
-                            : BlankPlayerModel.player,
-                        match: matches[index],
-                      );
+                  Flexible(
+                    child: NotificationListener(
+                      onNotification: (ScrollNotification scrollInfo) {
+                        if (scrollInfo is ScrollStartNotification) {
+                          if (scrollInfo.metrics.pixels == 0 &&
+                              scrollInfo.metrics.atEdge) {}
+                        }
+                        if (scrollInfo is ScrollEndNotification &&
+                            !allIsLoaded) {
+                          if (scrollInfo.metrics.pixels > 0 &&
+                              scrollInfo.metrics.atEdge) {
+                            _loadMoreGames();
+                          }
+                        }
+                        return false;
+                      },
+                      child: ListView.builder(
+                        addAutomaticKeepAlives: true,
+                        shrinkWrap: true,
+                        itemCount: matches.length,
+                        itemBuilder: (context, index) {
+                          final isDouble =
+                              matches[index].homeTeamIds.length == 2;
+                          final controller = ScoreChecker(
+                            homeTeamOne: players.firstWhere(
+                                (p) => p.id == matches[index].homeTeamIds[0]),
+                            awayTeamOne: players.firstWhere(
+                                (p) => p.id == matches[index].awayTeamIds[0]),
+                            homeTeamTwo: isDouble
+                                ? players.firstWhere((p) =>
+                                    p.id == matches[index].homeTeamIds[1])
+                                : BlankPlayerModel.player,
+                            awayTeamTwo: isDouble
+                                ? players.firstWhere((p) =>
+                                    p.id == matches[index].awayTeamIds[1])
+                                : BlankPlayerModel.player,
+                            match: matches[index],
+                          );
 
-                      bool isSameDate = true;
-                      final currentMatch = matches[index];
-                      if (index == 0) {
-                        isSameDate = false;
-                      } else {
-                        final previousDate =
-                            matches[index - 1].timeStamp.toDateTime();
-                        final currentDate =
-                            matches[index].timeStamp.toDateTime();
-                        isSameDate = currentDate.hasSameDate(previousDate);
-                      }
-                      if (index == 0 || !isSameDate) {
-                        return ScoreboardCardWithDate(
-                          match: currentMatch,
-                          scoreChecker: controller,
-                          width: width,
-                        );
-                      } else {
-                        return ScoreboardCardWithoutDate(
-                          scoreChecker: controller,
-                          match: currentMatch,
-                        );
-                      }
-                    },
+                          bool isSameDate = true;
+                          final currentMatch = matches[index];
+                          if (index == 0) {
+                            isSameDate = false;
+                          } else {
+                            final previousDate =
+                                matches[index - 1].timeStamp.toDateTime();
+                            final currentDate =
+                                matches[index].timeStamp.toDateTime();
+                            isSameDate = currentDate.hasSameDate(previousDate);
+                          }
+                          if (index == 0 || !isSameDate) {
+                            return ScoreboardCardWithDate(
+                              match: currentMatch,
+                              scoreChecker: controller,
+                              width: width,
+                            );
+                          } else {
+                            return ScoreboardCardWithoutDate(
+                              scoreChecker: controller,
+                              match: currentMatch,
+                            );
+                          }
+                        },
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
-      ],
+            ),
+          ],
+        );
+      },
+      error: ((error, stackTrace) =>
+          const Text('Something went wrong, try again.')),
+      loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 

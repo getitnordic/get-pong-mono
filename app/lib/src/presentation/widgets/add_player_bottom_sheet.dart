@@ -11,7 +11,7 @@ class AddPlayerBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 450,
+      height: 350,
       child: Column(
         children: const [
           Padding(

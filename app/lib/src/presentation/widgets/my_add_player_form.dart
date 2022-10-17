@@ -32,7 +32,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
             children: [
               buildFullName(),
               buildNickname(),
-              buildEmail(),
+              //buildEmail(),
               buildSubmitButton(),
             ],
           )),

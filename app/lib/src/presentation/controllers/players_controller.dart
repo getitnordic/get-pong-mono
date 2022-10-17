@@ -29,10 +29,7 @@ class PlayersController extends StateNotifier<List<PlayerModel>> {
   }
 
   void addPlayer(PlayerModel player) async {
-    // if (state.isEmpty) {
-    //   await fetchPlayers();
-    // }
-    // sortByLastActivity();
+    state = [...state, player];
   }
 
   PlayerModel getPlayerById(String id) {

@@ -127,9 +127,7 @@ class SelectedPlayersDisplayDoubles extends ConsumerWidget {
                 child: selectedPlayers[0].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 1')
                     : MyFadeTextSwitcher(
-                        text: playersController
-                            .getPlayerById(selectedPlayers[0].id)
-                            .fullName,
+                        text: selectedPlayers[0].fullName,
                       ),
               ),
             ),
@@ -149,9 +147,7 @@ class SelectedPlayersDisplayDoubles extends ConsumerWidget {
                   child: selectedPlayers[1].fullName.isEmpty
                       ? const MyFadeTextSwitcher(text: 'Select player 2')
                       : MyFadeTextSwitcher(
-                          text: playersController
-                              .getPlayerById(selectedPlayers[1].id)
-                              .fullName,
+                          text: selectedPlayers[1].fullName,
                         ),
                 ),
               ),
@@ -177,9 +173,7 @@ class SelectedPlayersDisplayDoubles extends ConsumerWidget {
                 child: selectedPlayers[2].fullName.isEmpty
                     ? const MyFadeTextSwitcher(text: 'Select player 3')
                     : MyFadeTextSwitcher(
-                        text: playersController
-                            .getPlayerById(selectedPlayers[2].id)
-                            .fullName,
+                        text: selectedPlayers[2].fullName,
                       ),
               ),
             ),
@@ -199,9 +193,7 @@ class SelectedPlayersDisplayDoubles extends ConsumerWidget {
                   child: selectedPlayers[3].fullName.isEmpty
                       ? const MyFadeTextSwitcher(text: 'Select player 4')
                       : MyFadeTextSwitcher(
-                          text: playersController
-                              .getPlayerById(selectedPlayers[3].id)
-                              .fullName,
+                          text: selectedPlayers[3].fullName,
                         ),
                 ),
               ),

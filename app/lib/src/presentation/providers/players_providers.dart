@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_pong/src/core/common/common.dart';
 
 import '../../../protos/base.pb.dart';
 import '../../../register_services.dart';
@@ -13,5 +14,11 @@ final playersProvider =
             locator<UpdatePlayerUseCase>(),
             locator<UpdateProfilePictureUseCase>(),
             ref.read));
+
+final playerListProvider = FutureProvider.autoDispose<List<PlayerModel>>((ref) async {
+  final players =
+      await locator<GetPlayersUseCase>().call(params: EmptyParams());
+  return players.data!;
+});
 
 final playersLoadingProvider = StateProvider.autoDispose<bool>((ref) => false);
