@@ -104,7 +104,7 @@ class _ScorePageState extends ConsumerState<ScorePage> {
       }
 
       scoreNotifier.setScore(
-        setId: int.parse(scoreNotification.setId!),
+        setId: currentSetId,
         team: scoreNotification.team == 'homeTeam'
             ? Team.homeTeam
             : Team.awayTeam,
@@ -160,10 +160,12 @@ class _ScorePageState extends ConsumerState<ScorePage> {
       setState(() {
         setCounter--;
       });
+      currentSetId--;
     }
   }
 
   void addSet(WidgetRef ref) {
+    currentSetId++;
     final scoreNotifier = ref.read(scoreProvider.notifier);
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
     if (scrollController.hasClients) {
