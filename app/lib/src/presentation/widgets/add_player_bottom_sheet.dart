@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../constants/color_constants.dart';
 import '../../presentation/widgets/my_add_player_form.dart';
 
 class AddPlayerBottomSheet extends StatelessWidget {
@@ -10,20 +9,9 @@ class AddPlayerBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: Column(
-        children: const [
-          Padding(
-            padding: EdgeInsets.only(top: 15),
-            child: Text(
-              'Add player',
-              style: TextStyle(color: ColorConstants.textColor, fontSize: 14),
-            ),
-          ),
-          AddPlayerFields(),
-        ],
-      ),
+    return const SizedBox(
+      height: 230,
+      child: AddPlayerFields(),
     );
   }
 }

@@ -31,6 +31,9 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
             mainAxisSize: MainAxisSize.min,
             children: [
               buildFullName(),
+              const SizedBox(
+                height: 5,
+              ),
               buildNickname(),
               //buildEmail(),
               buildSubmitButton(),
@@ -53,7 +56,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
       );
 
   Widget buildNickname() => SizedBox(
-        height: 70,
+        height: 60,
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Nickname',
@@ -67,7 +70,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
   Widget buildFullName() => Padding(
         padding: const EdgeInsets.only(top: 10),
         child: SizedBox(
-          height: 70,
+          height: 60,
           child: TextFormField(
             decoration: const InputDecoration(
               labelText: 'Name',
