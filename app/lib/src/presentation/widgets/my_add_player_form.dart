@@ -53,14 +53,13 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
       );
 
   Widget buildNickname() => SizedBox(
-        height: 90,
+        height: 70,
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Nickname',
             prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
           ),
           keyboardType: TextInputType.text,
-          validator: (value) => validateNickname(value!),
           onSaved: (value) => setState(() => userName = value!),
         ),
       );
@@ -68,14 +67,13 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
   Widget buildFullName() => Padding(
         padding: const EdgeInsets.only(top: 10),
         child: SizedBox(
-          height: 90,
+          height: 70,
           child: TextFormField(
             decoration: const InputDecoration(
               labelText: 'Name',
               prefixIcon: Icon(Icons.person, color: ColorConstants.formColor),
             ),
             keyboardType: TextInputType.text,
-            validator: (value) => validateFirstName(value!),
             onSaved: (value) => setState(() => fullName = value!),
           ),
         ),
@@ -123,7 +121,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             )),
-            minimumSize: MaterialStateProperty.all<Size>(const Size(300, 50)),
+            minimumSize: MaterialStateProperty.all<Size>(const Size(300, 40)),
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 if (states.contains(MaterialState.pressed)) {

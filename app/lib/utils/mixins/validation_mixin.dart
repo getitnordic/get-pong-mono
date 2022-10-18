@@ -12,8 +12,8 @@ abstract class ValidationMixin {
   }
 
   String? validateNickname(String value) {
-    if (value.length < 4 || value.length > 12) {
-      return 'Nickname must be between 4 and 12 characters long';
+    if (value.length > 20) {
+      return 'Nickname must be shorter than 20 characters.';
     } else {
       return null;
     }

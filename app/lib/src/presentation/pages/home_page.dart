@@ -32,13 +32,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (context) {
-                  return const AddPlayerBottomSheet();
-                },
-              );
+              _showAddPlayerDialog();
             },
             icon: const Icon(Icons.person_add),
             color: ColorConstants.primaryColor,
@@ -76,5 +70,16 @@ class _HomePageState extends ConsumerState<HomePage> {
     setState(() {
       _currentIndex = value;
     });
+  }
+
+  void _showAddPlayerDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const AlertDialog(
+          content: AddPlayerBottomSheet(),
+        );
+      },
+    );
   }
 }

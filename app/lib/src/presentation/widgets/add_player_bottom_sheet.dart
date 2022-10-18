@@ -11,14 +11,14 @@ class AddPlayerBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
+      height: 300,
       child: Column(
         children: const [
           Padding(
             padding: EdgeInsets.only(top: 15),
             child: Text(
               'Add player',
-              style: TextStyle(color: ColorConstants.textColor, fontSize: 20),
+              style: TextStyle(color: ColorConstants.textColor, fontSize: 14),
             ),
           ),
           AddPlayerFields(),
