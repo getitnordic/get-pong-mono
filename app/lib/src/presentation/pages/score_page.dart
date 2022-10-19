@@ -270,7 +270,9 @@ class _ScorePageState extends ConsumerState<ScorePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SetNumberText(setCounter: setCounter),
+                  const SizedBox(
+                    width: 150,
+                  ),
                   ElevatedButton(
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
