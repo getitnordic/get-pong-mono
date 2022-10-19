@@ -38,7 +38,7 @@ class SetContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isPhoneOrVertical = MediaQuery.of(context).size.width < 1000;
-    final horizontalHeight = MediaQuery.of(context).size.height * 0.38;
+    final horizontalHeight = MediaQuery.of(context).size.height * 0.32;
     final verticalHeight = MediaQuery.of(context).size.height * 0.16;
 
     return SlideTransition(
@@ -53,10 +53,30 @@ class SetContainer extends StatelessWidget {
       ),
       child: Column(
         children: [
-          if (isPhoneOrVertical)
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15,
-            ),
+          isPhoneOrVertical
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.15,
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: SizedBox(
+                    width: 180,
+                    child: CustomSmallContainer(
+                      height: 70,
+                      width: 180,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: AutoSizeText(
+                          'Set ${setId + 1}',
+                          minFontSize: 11,
+                          maxFontSize: 48,
+                          maxLines: 1,
+                          style: const TextStyle(fontSize: 48),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
           ResultCardContainer(
             height: isPhoneOrVertical ? verticalHeight : horizontalHeight,
             width: double.infinity,
