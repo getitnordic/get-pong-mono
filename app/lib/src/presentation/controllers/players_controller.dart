@@ -82,8 +82,9 @@ class PlayersController extends StateNotifier<List<PlayerModel>> {
         .toList();
   }
 
-  String getPlayerRank(String playerId) { 
+  String getPlayerRank(String playerId) {
     state.sort((a, b) => b.totalScore.compareTo(a.totalScore));
+
     final topRankedPlayers =
         state.where((p) => p.win + p.loss > 0).take(20).toList();
 

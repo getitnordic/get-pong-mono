@@ -44,6 +44,7 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
     final playersNotifier = ref.read(playersProvider.notifier);
     final fetchGames = ref.watch(fetchGamesProvider);
     final gamesNotifier = ref.watch(gamesProvider.notifier);
+    final playerRank = ref.watch(playerRankProvider(widget.player.id));
 
     return Scaffold(
       appBar: AppBar(
@@ -131,11 +132,27 @@ class _ProfilePageState extends ConsumerState<ProfilePage>
               ),
             ),
             const SizedBox(height: 12),
-            Text(
-              playersNotifier.getPlayerRank(widget.player.id),
-              style: const TextStyle(
-                color: ColorConstants.secondaryTextColor,
-              ),
+            playerRank.when(
+              data: (rank) {
+                return Text(
+                  rank,
+                  style: const TextStyle(
+                    color: ColorConstants.secondaryTextColor,
+                  ),
+                );
+              },
+              error: ((error, stackTrace) => const Text(
+                    'Rank error',
+                    style: TextStyle(
+                      color: ColorConstants.secondaryTextColor,
+                    ),
+                  )),
+              loading: (() => Text(
+                    playersNotifier.getPlayerRank(widget.player.id),
+                    style: const TextStyle(
+                      color: ColorConstants.secondaryTextColor,
+                    ),
+                  )),
             ),
             const SizedBox(height: 30),
             GameStats(
