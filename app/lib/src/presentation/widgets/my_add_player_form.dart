@@ -32,7 +32,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
             children: [
               buildFullName(),
               const SizedBox(
-                height: 5,
+                height: 10,
               ),
               buildNickname(),
               //buildEmail(),
@@ -56,7 +56,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
       );
 
   Widget buildNickname() => SizedBox(
-        height: 60,
+        height: 50,
         child: TextFormField(
           decoration: const InputDecoration(
             labelText: 'Nickname',
@@ -70,7 +70,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
   Widget buildFullName() => Padding(
         padding: const EdgeInsets.only(top: 10),
         child: SizedBox(
-          height: 60,
+          height: 50,
           child: TextFormField(
             decoration: const InputDecoration(
               labelText: 'Name',
@@ -124,7 +124,7 @@ class _AddPlayerFieldsState extends ConsumerState<AddPlayerFields>
                 RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
             )),
-            minimumSize: MaterialStateProperty.all<Size>(const Size(300, 40)),
+            minimumSize: MaterialStateProperty.all<Size>(const Size(300, 50)),
             backgroundColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 if (states.contains(MaterialState.pressed)) {
